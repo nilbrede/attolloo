@@ -20,12 +20,26 @@
     h2{margin:.4rem 0 0}
     a.button{display:inline-block;margin-top:14px;padding:12px 16px;border-radius:10px;border:1px solid var(--accent);color:#fff;background:var(--accent);text-decoration:none}
     footer{border-top:1px solid #eef2f6;color:var(--muted);text-align:center;padding:28px 20px}
+    header img.logo {
+  max-height: 180px;   /* Logoen blir aldri større enn 180px */
+  width: auto;         /* Holder proporsjoner */
+  height: auto;        /* Viktig for responsivitet */
+  margin-bottom: 10px;
+}
+
+/* For små skjermer (mobil) – gjør logoen litt mindre */
+@media (max-width: 600px) {
+  header img.logo {
+    max-height: 120px;
+  }
+}
+
   </style>
 </head>
 <body>
 
-  <header>
-  <img src="aab-logo.png" alt="Attolloo Advisory Brede" style="height:180px; margin-bottom:10px;">
+ <header>
+  <img src="aab-logo.png" alt="Attolloo Advisory Brede" style="height:80px; margin-bottom:10px;">
   <h1>Attolloo Group</h1>
   <p>Rådgivning som løfter mennesker, team og teknologi.</p>
 </header>
