@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Attolloo Group</title>
+  <meta name="description" content="Attolloo Group – rådgivning som løfter team, teknologi og strategi.">
+  <link rel="icon" href="favicon.png">
+  <style>
+    :root { --ink:#0A2540; --accent:#17B26A; --muted:#5B6B7A; }
+    body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#fff;}
+    header{padding:48px 20px;text-align:center;border-bottom:1px solid #eef2f6;}
+    header img{height:56px;vertical-align:middle}
+    header h1{margin:12px 0 0;font-size:28px}
+    header p{margin:6px 0 0;color:var(--muted)}
+    .wrap{max-width:920px;margin:0 auto;padding:32px 20px;}
+    .grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .card{border:1px solid #eef2f6;border-radius:14px;padding:18px}
+    .kicker{letter-spacing:.12em;text-transform:uppercase;font-size:12px;color:var(--muted)}
+    h2{margin:.4rem 0 0}
+    a.button{display:inline-block;margin-top:14px;padding:12px 16px;border-radius:10px;border:1px solid var(--accent);color:#fff;background:var(--accent);text-decoration:none}
+    footer{border-top:1px solid #eef2f6;color:var(--muted);text-align:center;padding:28px 20px}
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Attolloo Advisory Brede">
+    <h1>Attolloo Group</h1>
+    <p>Rådgivning som løfter mennesker, team og teknologi.</p>
+  </header>
+
+  <main class="wrap">
+    <section class="grid">
+      <div class="card">
+        <div class="kicker">Tjenester</div>
+        <h2>Strategi & styrearbeid</h2>
+        <p>Fra idé til gjennomføring – strukturer, prioriteringer og styringsmodeller som virker i praksis.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">Tjenester</div>
+        <h2>Organisasjon & ledelse</h2>
+        <p>Teamdesign, kapasitet, kultur og prestasjon. Praktiske grep som skaper varig bevegelse.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">Tjenester</div>
+        <h2>Teknologi & sikkerhet</h2>
+        <p>Trygge plattformer, god dataflyt og enkel arkitektur – med sikkerhet innebygd.</p>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:22px">
+      <div class="kicker">Kontakt</div>
+      <p><strong>Nils Johan Brede</strong><br>
+         <a href="mailto:nils.johan@attolloogroup.com">nils.johan@attolloogroup.com</a> ·
+         <a href="tel:+4748385622">+47 48 385 622</a></p>
+      <a class="button" href="mailto:nils.johan@attolloogroup.com">Ta kontakt</a>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="y"></span> Attolloo Group · Kolbotn · Org. kommer
+  </footer>
+  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body>
+</html>
