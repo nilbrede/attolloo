@@ -6,66 +6,100 @@
   <title>Attolloo Group</title>
   <meta name="description" content="Attolloo Group – rådgivning som løfter team, teknologi og strategi.">
   <link rel="icon" href="favicon.png">
-  <style>
-    :root { --ink:#0A2540; --accent:#17B26A; --muted:#5B6B7A; }
-    body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#fff;}
-    header{padding:0px 0px;text-align:center;border-bottom:0px solid #eef2f6;}
-    /* Ikke krymp alle header-bilder */
-header img { height:auto; vertical-align:middle; }
+<style>
+:root {
+    --ink:#0A2540;
+    --accent:#17826A;
+    --muted:#5B6B7A;
+}
 
-/* Kontroll på selve logoen */
-header img.logo {
-  max-height: 200px;   /* Øk/minsk tallet for større/mindre logo */
-  margin-bottom: 0;
+body {
+    margin:0;
+    font:16px/1.5 system-ui, apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:#fff;
 }
-    header h1{margin:0px 0 0;font-size:28px}
-    header p{margin:0px 0 0;color:var(--muted)}
-    .wrap{max-width:920px;margin:0 auto;padding:0px 15px;}
-    .grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .card{border:1px solid #eef2f6;border-radius:14px;padding:0px}
-    .kicker{letter-spacing:.12em;text-transform:uppercase;font-size:12px;color:var(--muted)}
-    h2{margin:.4rem 0 0}
-    a.button{display:inline-block;margin-top:14px;padding:12px 16px;border-radius:10px;border:1px solid var(--accent);color:#fff;background:var(--accent);text-decoration:none}
-    footer{border-top:1px solid #eef2f6;color:var(--muted);text-align:center;padding:28px 20px}
-    header img.logo {
-  max-height: 200px;   /* Logoen blir aldri større enn 180px */
-  width: auto;         /* Holder proporsjoner */
-  height: auto;        /* Viktig for responsivitet */
-  margin-bottom: 0px;
-}
-/* For små skjermer (mobil) – gjør logoen litt mindre */
-@media (max-width: 600px) {
- header img.logo {
-  max-height: 180px;   /* logo blir aldri større enn 180px */
-  width: auto;         /* holder proporsjoner */
-  height: auto;        /* viktig for responsivitet */
-  margin-bottom: 0px;  /* litt luft under logoen */
-}
-}
+
 header {
-    padding: 0 10px;          /* ingen ekstra luft over/under */
-    text-align: center;
-    border-bottom: 0px solid #eef2f6;
+    padding:0 10px;          /* Fjerner unødvendig luft over/under */
+    text-align:center;
+    border-bottom:0;         /* Ingen linje under header */
 }
 
 header img.logo {
-    max-height: 200px;        /* kontrollerer logo-størrelsen */
-    width: auto;
-    height: auto;
-    margin-bottom: 0;         /* null luft under logo */
+    max-height:200px;        /* Juster tallet for større/mindre logo */
+    width:auto;
+    height:auto;
+    margin-bottom:0;         /* Null luft under logoen */
 }
 
 header h1 {
-    margin-top: 0;            /* null luft over overskriften */
-    margin-bottom: 5px;       /* litt luft under, kan settes til 0 */
-    font-size: 28px;
+    margin-top:0;            /* Null luft over overskriften */
+    margin-bottom:5px;       /* Liten luft under overskriften */
+    font-size:28px;
 }
 
 header p {
-    margin: 0;                /* fjerner ekstra luft rundt underteksten */
+    margin:0;                /* Ingen ekstra luft rundt underteksten */
+    color:var(--muted);
 }
 
-  </style>
+.wrap {
+    max-width:920px;
+    margin:0 auto;
+    padding:15px;
+}
+
+.grid {
+    display:grid;
+    gap:20px;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+}
+
+.card {
+    border:1px solid #eef2f6;
+    border-radius:14px;
+    padding:18px;
+}
+
+.kicker {
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--muted);
+}
+
+h2 {
+    margin:.4rem 0 0;
+}
+
+a.button {
+    display:inline-block;
+    margin-top:14px;
+    padding:12px 16px;
+    border-radius:10px;
+    border:1px solid var(--accent);
+    color:#fff;
+    background:var(--accent);
+    text-decoration:none;
+}
+
+footer {
+    border-top:1px solid #eef2f6;
+    color:var(--muted);
+    text-align:center;
+    padding:28px 20px;
+}
+
+/* Responsiv justering */
+@media (max-width:600px) {
+    header img.logo {
+        max-height:150px;    /* Logoen blir litt mindre på mobil */
+    }
+}
+</style>
+
+  
 </head>
 <body>
 
