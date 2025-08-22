@@ -29,9 +29,12 @@
 
 /* For små skjermer (mobil) – gjør logoen litt mindre */
 @media (max-width: 600px) {
-  header img.logo {
-    max-height: 120px;
-  }
+ header img.logo {
+  max-height: 180px;   /* logo blir aldri større enn 180px */
+  width: auto;         /* holder proporsjoner */
+  height: auto;        /* viktig for responsivitet */
+  margin-bottom: 5px;  /* litt luft under logoen */
+}
 }
 
   </style>
@@ -39,7 +42,7 @@
 <body>
 
  <header>
-  <img src="aab-logo.png" alt="Attolloo Advisory Brede" style="height:80px; margin-bottom:10px;">
+  <img src="aab-logo.png" alt="Attolloo Advisory Brede" class="logo">
   <h1>Attolloo Group</h1>
   <p>Rådgivning som løfter mennesker, team og teknologi.</p>
 </header>
