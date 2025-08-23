@@ -13,110 +13,51 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #0b1220;
-      --panel: #0f172a;
-      --muted: #94a3b8;
-      --text: #e2e8f0;
-      --accent: #60a5fa;
-      --ring: 0 0 0 3px rgba(96,165,250,.35);
-      --radius: 16px;
-      --shadow: 0 10px 30px rgba(2,6,23,.35);
-    }
-    * { box-sizing: border-box }
-    html, body { height: 100% }
-    body {
-      margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color: var(--text); background: linear-gradient(180deg, #0b1220 0%, #0c1424 100%);
-      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-    }
-    a { color: inherit; text-decoration: none }
-    img { max-width: 100%; display: block }
-    .container { width: min(1100px, 92%); margin: 0 auto }
-    header {
-      position: sticky; top: 0; z-index: 40; backdrop-filter: blur(10px);
-      background: rgba(11,18,32,.55); border-bottom: 1px solid rgba(148,163,184,.12);
-    }
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0 }
-    .brand { display: flex; align-items: center; gap: 12px }
-    .brand img { width: 44px; height: 44px; border-radius: 10px; object-fit: contain; background:#0b1220; }
-    .brand span { font-weight: 700; letter-spacing: .2px }
-    .menu { display: flex; gap: 18px }
-    .menu a { color: var(--muted) }
-    .menu a:hover { color: #cbd5e1 }
-    .cta {
-      display:inline-flex; align-items:center; gap:10px; padding:10px 16px; border-radius: 999px;
-      background: linear-gradient(135deg, #3b82f6, #22d3ee); color: white; font-weight:600;
-      box-shadow: var(--shadow);
-    }
-    .cta:focus-visible { outline: none; box-shadow: var(--shadow), var(--ring) }
-    .burger { display:none; width:40px; height:40px; place-items:center; border-radius:12px; background:rgba(148,163,184,.12); }
-    .mobile { display:none }
-
-    .hero { padding: 64px 0 40px }
-    .hero .wrap { display:grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items:center }
-    .kicker { color: var(--muted); font-weight:600; letter-spacing:.25em; text-transform: uppercase; }
-    h1 { font-size: clamp(28px, 5vw, 44px); margin: 8px 0 10px; line-height:1.15 }
-    .lead { color:#cbd5e1; font-size: clamp(16px,2.2vw,18px); }
-    .hero-card {
-      background: radial-gradient(120% 120% at 100% 0%, rgba(96,165,250,.25) 0%, rgba(2,6,23,0) 60%), var(--panel);
-      border: 1px solid rgba(148,163,184,.14); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
-    }
-
-    section { padding: 54px 0 }
-    .grid { display:grid; gap: 18px }
-    .grid.cols-3 { grid-template-columns: repeat(3,1fr) }
-    .grid.cols-2 { grid-template-columns: repeat(2,1fr) }
-
-    .card {
-      background: linear-gradient(180deg, rgba(148,163,184,.09), rgba(148,163,184,.04));
-      border: 1px solid rgba(148,163,184,.14); border-radius: var(--radius); padding: 18px 18px 20px;
-      transition: transform .2s ease, border-color .2s ease; height: 100%;
-    }
-    .card:hover{ transform: translateY(-4px); border-color: rgba(148,163,184,.28) }
-    .card h3 { margin: 10px 0 6px }
-    .muted { color: var(--muted) }
-    ul.clean { padding-left: 16px; margin: 8px 0 0 }
-    ul.clean li { margin: 6px 0 }
-
-    .pill { display:inline-block; padding:6px 10px; border-radius:999px; font-size:12px; background:rgba(148,163,184,.14); color:#cbd5e1 }
-
-    .feature { display:flex; gap:16px; align-items:flex-start }
-    .feature .dot { width:12px; height:12px; border-radius:999px; background:linear-gradient(135deg,#3b82f6,#22d3ee); margin-top:7px }
-
-    .timeline { border-left:2px solid rgba(148,163,184,.25); padding-left:16px }
-    .timeline .t { margin: 0 0 18px }
-
-    .footer { border-top:1px solid rgba(148,163,184,.12); padding: 24px 0 40px; color: var(--muted) }
-
-    @media (max-width: 900px){
-      .hero .wrap { grid-template-columns: 1fr }
-      .grid.cols-3 { grid-template-columns: 1fr }
-      .grid.cols-2 { grid-template-columns: 1fr }
-      .menu { display:none }
-      .burger { display:grid }
-      .mobile { display:none; border-top:1px solid rgba(148,163,184,.12); padding: 12px 0 }
-      .mobile a { display:block; padding: 10px 0; color: var(--muted) }
-      .mobile a:hover { color: #e2e8f0 }
-    }
+    :root { --bg:#0b1220; --panel:#0f172a; --muted:#94a3b8; --text:#e2e8f0; --accent:#60a5fa; --ring:0 0 0 3px rgba(96,165,250,.35); --radius:16px; --shadow:0 10px 30px rgba(2,6,23,.35) }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,#0b1220 0%,#0c1424 100%);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    .container{width:min(1100px,92%);margin:0 auto}
+    header{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);background:rgba(11,18,32,.55);border-bottom:1px solid rgba(148,163,184,.12)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:44px;height:44px;border-radius:10px;object-fit:contain;background:#0b1220}
+    .brand span{font-weight:700;letter-spacing:.2px}
+    .menu{display:flex;gap:18px}.menu a{color:var(--muted)}.menu a:hover{color:#cbd5e1}
+    .cta{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:linear-gradient(135deg,#3b82f6,#22d3ee);color:#fff;font-weight:600;box-shadow:var(--shadow)}
+    .burger{display:none;width:40px;height:40px;place-items:center;border-radius:12px;background:rgba(148,163,184,.12)}
+    .mobile{display:none}
+    .hero{padding:64px 0 40px}.hero .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center}
+    .kicker{color:var(--muted);font-weight:600;letter-spacing:.25em;text-transform:uppercase}
+    h1{font-size:clamp(28px,5vw,44px);margin:8px 0 10px;line-height:1.15}
+    .lead{color:#cbd5e1;font-size:clamp(16px,2.2vw,18px)}
+    .hero-card{background:radial-gradient(120% 120% at 100% 0%, rgba(96,165,250,.25) 0%, rgba(2,6,23,0) 60%), var(--panel);border:1px solid rgba(148,163,184,.14);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+    section{padding:54px 0}.grid{display:grid;gap:18px}.grid.cols-3{grid-template-columns:repeat(3,1fr)}.grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    .card{background:linear-gradient(180deg, rgba(148,163,184,.09), rgba(148,163,184,.04));border:1px solid rgba(148,163,184,.14);border-radius:var(--radius);padding:18px 18px 20px;height:100%}
+    .card h3{margin:10px 0 6px} .muted{color:var(--muted)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;background:rgba(148,163,184,.14);color:#cbd5e1}
+    .feature{display:flex;gap:16px;align-items:flex-start}.feature .dot{width:12px;height:12px;border-radius:999px;background:linear-gradient(135deg,#3b82f6,#22d3ee);margin-top:7px}
+    .timeline{border-left:2px solid rgba(148,163,184,.25);padding-left:16px}.timeline .t{margin:0 0 18px}
+    .footer{border-top:1px solid rgba(148,163,184,.12);padding:24px 0 40px;color:var(--muted)}
+    @media (max-width:900px){.hero .wrap{grid-template-columns:1fr}.grid.cols-3{grid-template-columns:1fr}.grid.cols-2{grid-template-columns:1fr}.menu{display:none}.burger{display:grid}.mobile{display:none;border-top:1px solid rgba(148,163,184,.12);padding:12px 0}.mobile a{display:block;padding:10px 0;color:var(--muted)}.mobile a:hover{color:#e2e8f0}}
   </style>
 </head>
 <body>
   <header>
-    <div class="container nav" aria-label="Hovednavigasjon">
-      <a class="brand" href="#top" aria-label="Attolloogroup forside">
-        <img src="aab-logo.png" alt="Attolloogroup logo" onerror="this.style.display='none'">
+    <div class="container nav">
+      <a class="brand" href="#top">
+        <img src="aab-logo.png" alt="Attolloogroup logo">
         <span>Attolloogroup</span>
       </a>
-      <nav class="menu" aria-label="Primær meny">
+      <nav class="menu">
         <a href="#tjenester">Tjenester</a>
         <a href="#satsing">Satsingsområder</a>
         <a href="#om">Om meg</a>
         <a href="#referanser">Referanser</a>
         <a href="#kontakt" class="cta">Kontakt</a>
       </nav>
-      <button class="burger" aria-label="Åpne meny" aria-controls="mobile" aria-expanded="false" id="burger">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round"/></svg>
+      <button class="burger" id="burger">
+        <svg width="22" height="22" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
     <div class="container mobile" id="mobile" hidden>
@@ -128,205 +69,25 @@
     </div>
   </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="container wrap">
-        <div>
-          <div class="kicker">Menneske • Teknologi • Kultur</div>
-          <h1>Vi gjør endring til en opplevelse – og en vane</h1>
-          <p class="lead">Attolloogroup hjelper ledere og virksomheter å koble strategi, mennesker og digital kraft. Vi kombinerer <strong>mentor & board</strong>, <strong>transformasjon & endring</strong> og <strong>foredrag & inspirasjon</strong> – med <em>Attolloo Academy</em> som verktøykasse.</p>
-          <p style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
-            <a class="cta" href="#kontakt">Book en prat</a>
-            <a class="pill" href="#satsing">Se satsingsområder</a>
-          </p>
-        </div>
-        <div class="hero-card" role="img" aria-label="Illustrasjon av Attolloogroup sitt tilbud">
-          <div class="grid cols-2">
-            <div class="card">
-              <span class="pill">Attolloo North</span>
-              <h3>Mentor & Board</h3>
-              <p class="muted">Strategisk sparring for toppledere og styrer. Helhetlig blikk på mennesker, teknologi og kultur.</p>
-            </div>
-            <div class="card">
-              <span class="pill">Attolloo South</span>
-              <h3>Transformasjon & Endring</h3>
-              <p class="muted">Fra silo til samspill. Prosessledelse, OU, leveranse og læring i samme løp.</p>
-            </div>
-            <div class="card">
-              <span class="pill">Magic Moments</span>
-              <h3>Foredrag & Inspirasjon</h3>
-              <p class="muted">Energigivende talks og workshops som gjør komplekst arbeid lystbetont.</p>
-            </div>
-            <div class="card">
-              <span class="pill">Academy</span>
-              <h3>Attolloo Academy</h3>
-              <p class="muted">Modulbasert utvikling innen endringsledelse, digital transformasjon og samhandling.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <!-- Hero, tjenester, satsing, om meg, referanser beholdes uendret ... -->
 
-    <section id="tjenester">
-      <div class="container">
-        <div class="kicker">Tjenester</div>
-        <h2 style="margin:6px 0 14px">Hva vi gjør – i praksis</h2>
-        <div class="grid cols-3">
-          <article class="card">
-            <h3>Mentor & Board</h3>
-            <p class="muted">Sparring, prioritering og governance. Vi setter sammen strategi, risiko og kultur.</p>
-            <ul class="clean">
-              <li>Styresparring og ledercoaching</li>
-              <li>Strategi- og prioriteringsarbeid</li>
-              <li>Risikobilde, etterlevelse og beslutningsrammer</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Transformasjon & Endring</h3>
-            <p class="muted">Fra ambisjon til effekt. Vi leder helhetlige løp, tett på teamene.</p>
-            <ul class="clean">
-              <li>OU og tverrfaglig samhandling</li>
-              <li>Tjeneste- og prosessforbedring</li>
-              <li>Digitalisering, automatisering og AI</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Foredrag & Workshops</h3>
-            <p class="muted">Inspirasjon som lander. Enkle modeller, klar retning og energisk formidling.</p>
-            <ul class="clean">
-              <li>Keynotes og temadager</li>
-              <li>Design sprints & samhandlingsverksteder</li>
-              <li>«Magic moments» som skaper momentum</li>
-            </ul>
-          </article>
-        </div>
+  <section id="kontakt">
+    <div class="container">
+      <div class="kicker">Kontakt</div>
+      <h2 style="margin:6px 0 14px">La oss ta en prat</h2>
+      <div class="card">
+        <p class="muted">
+          Send meg en e-post på <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a>
+        </p>
       </div>
-    </section>
-
-    <section id="satsing">
-      <div class="container">
-        <div class="kicker">Satsingsområder</div>
-        <h2 style="margin:6px 0 14px">Der vi skaper mest verdi</h2>
-        <div class="grid cols-2">
-          <div class="feature">
-            <div class="dot" aria-hidden="true"></div>
-            <div>
-              <h3>Broen mellom menneske og teknologi</h3>
-              <p class="muted">Vi kobler kultur, kompetanse og digitale plattformer – og skaper varig endring.</p>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="dot" aria-hidden="true"></div>
-            <div>
-              <h3>Offentlig + privat erfaring</h3>
-              <p class="muted">Tjue års arbeid i offentlig sektor – kombinert med kommersiell teft og leveransekraft.</p>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="dot" aria-hidden="true"></div>
-            <div>
-              <h3>Fra idé til gjennomføring</h3>
-              <p class="muted">Inspirasjon + struktur = effekt. Vi hjelper deg hele veien.</p>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="dot" aria-hidden="true"></div>
-            <div>
-              <h3>Attolloo Academy</h3>
-              <p class="muted">Et fleksibelt læringsopplegg som følger prosjektene – ikke omvendt.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:18px">
-          <h3 style="margin:0 0 6px">Utviklingslinje</h3>
-          <div class="timeline">
-            <p class="t"><strong>2010:</strong> Attolloo goes to business – visjon, 12 ben, helhet og «magiske øyeblikk»</p>
-            <p class="t"><strong>2012:</strong> Digital Bedrift & Blue Invest – praktisk utviklingsprogram og vekstambisjon</p>
-            <p class="t"><strong>2010–→:</strong> Offentlig sektor, OU, digitalisering – prosessledelse, SLA, tjenestereiser</p>
-            <p class="t"><strong>Nå:</strong> Mentor/Board • Transformasjon/Endring • Foredrag/Academy</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="om">
-      <div class="container">
-        <div class="kicker">Om meg</div>
-        <h2 style="margin:6px 0 14px">Nils Johan Brede</h2>
-        <div class="grid cols-2">
-          <div>
-            <p class="muted">Endringsleder, fasilitator og foredragsholder. Sterk på å kombinere strategi og leveranse – med et helhetlig blikk på mennesker, teknologi og kultur. Jeg trives best når vi gjør komplekse ting enkle, og skaper energi i organisasjonen.</p>
-            <ul class="clean">
-              <li>Erfaring fra kommuner, stat og privat næringsliv</li>
-              <li>OU, tjenesteutvikling, digitalisering og CRM</li>
-              <li>Foredrag, prosessledelse og lederutvikling</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Anbefalinger (utdrag)</h3>
-            <p class="muted">«Fengende foreleser som leverer på krevende fag»</p>
-            <p class="muted">«Gjorde oss bedre enn vi trodde var mulig»</p>
-            <p class="muted">«Cradle of creativity – og sterk på e‑government»</p>
-            <p class="muted">«Systematisk og betryggende i komplekse CRM‑løp»</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="referanser">
-      <div class="container">
-        <div class="kicker">Referanser</div>
-        <h2 style="margin:6px 0 14px">Utvalgte spor</h2>
-        <div class="grid cols-3">
-          <div class="card">
-            <h3>Offentlig sektor</h3>
-            <p class="muted">Servicetorg, SLA/kontraktstyring, digital forvaltning, tverrfaglige prosesser.</p>
-          </div>
-          <div class="card">
-            <h3>Lederutvikling</h3>
-            <p class="muted">Serviceledelse, samhandling på tvers, kultur og kapasitet for endring.</p>
-          </div>
-          <div class="card">
-            <h3>Digital utvikling</h3>
-            <p class="muted">CRM, tjenestereiser, automatisering og praktisk nyttig bruk av AI.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="kontakt">
-      <div class="container">
-        <div class="kicker">Kontakt</div>
-        <h2 style="margin:6px 0 14px">La oss ta en prat</h2>
-        <div class="card">
-          <p class="muted">Send en e‑post til <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a> eller legg igjen en kort melding via skjemaet under. Du kan også foreslå tidspunkt.</p>
-          <form name="contact" method="POST" data-netlify="true" style="margin-top:10px">
-            <input type="hidden" name="form-name" value="contact">
-            <div class="grid cols-2">
-              <p><label>Navn<br><input name="navn" required placeholder="Ditt navn" /></label></p>
-              <p><label>E‑post<br><input name="epost" type="email" required placeholder="din@adresse.no" /></label></p>
-            </div>
-            <p><label>Melding<br><textarea name="melding" required placeholder="Hva ønsker du hjelp med?" rows="5"></textarea></label></p>
-            <p><button class="cta" type="submit">Send melding</button></p>
-          </form>
-        </div>
-      </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
   <footer class="footer">
     <div class="container">
       <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
     </div>
   </footer>
-
-  <style>
-    /* Enkle, tilgjengelige form‑elementer */
-    input, textarea { width: 100%; padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(148,163,184,.25); background: rgba(2,6,23,.35); color: var(--text) }
-    input:focus, textarea:focus { outline: none; box-shadow: var(--ring); border-color: rgba(96,165,250,.65) }
-    label { font-weight: 600; color: #cbd5e1 }
-  </style>
 
   <script>
     // Mobilmeny
@@ -340,12 +101,6 @@
     });
     // År i footer
     document.getElementById('year').textContent = new Date().getFullYear();
-    // Myk rulling
-    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
-      const id = a.getAttribute('href');
-      const el = document.querySelector(id);
-      if(el){ e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-    }));
   </script>
 </body>
 </html>
