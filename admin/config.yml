@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: NilsJohanBrede/attolloogroup.github.io   # <- brukernavn/repo-navn, bytt hvis repoet heter noe annet
+  repo: nilbrede/attolloo   # <- brukernavn/repo-navn, bytt hvis repoet heter noe annet
   branch: main
 
 media_folder: ""       # alle bilder ligger i rotmappen
