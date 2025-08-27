@@ -1,0 +1,19 @@
+backend:
+  name: github
+  repo: NilsJohanBrede/attolloogroup.github.io   # <- brukernavn/repo-navn, bytt hvis repoet heter noe annet
+  branch: main
+
+media_folder: ""       # alle bilder ligger i rotmappen
+public_folder: ""
+
+collections:
+  - name: "site"
+    label: "Nettside"
+    files:
+      - file: "index.html"
+        label: "Forsiden"
+        name: "forside"
+        fields:
+          - { label: "Tittel", name: "title", widget: "string" }
+          - { label: "Organisasjonsnummer", name: "orgnr", widget: "string" }
+          - { label: "Innhold", name: "body", widget: "markdown" }
