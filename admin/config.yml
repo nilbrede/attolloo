@@ -1,9 +1,10 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: nilbrede/attolloo
   branch: main
 
-media_folder: "images"
-public_folder: "/images"
+media_folder: ""   # alle bilder ligger i rotmappen
+public_folder: ""
 
 collections:
   - name: "site"
@@ -16,21 +17,24 @@ collections:
           - { label: "Tittel", name: "title", widget: "string" }
           - { label: "Organisasjonsnummer", name: "orgnr", widget: "string" }
           - { label: "Innhold", name: "body", widget: "markdown" }
-    - name: "footer"
-    label: "Footer & Kontakt"
+
+  - name: "about"
+    label: "Om Oss"
     files:
-      - file: "data/footer.json"
-        label: "Kontakt"
-        name: "contact"
+      - file: "about.html"
+        label: "Om oss"
+        name: "aboutpage"
         fields:
-          - { label: "Organisasjonsnummer", name: "orgnr", widget: "string", required: false }
-          - { label: "E-post", name: "email", widget: "string", required: false }
-          - { label: "Telefon", name: "phone", widget: "string", required: false }
-          - { label: "Adresse (valgfritt)", name: "address", widget: "string", required: false }
-          - label: "Sosiale lenker"
-            name: "social"
-            widget: "list"
-            required: false
-            fields:
-              - { label: "Navn", name: "name", widget: "string" }
-              - { label: "URL", name: "url", widget: "string" }
+          - { label: "Overskrift", name: "heading", widget: "string" }
+          - { label: "Ingress", name: "intro", widget: "text" }
+          - { label: "Innhold", name: "content", widget: "markdown" }
+
+  - name: "services"
+    label: "Tjenester"
+    files:
+      - file: "services.html"
+        label: "Tjenester"
+        name: "servicespage"
+        fields:
+          - { label: "Overskrift", name: "heading", widget: "string" }
+          - { label: "Beskrivelse", name: "description", widget: "markdown" }
