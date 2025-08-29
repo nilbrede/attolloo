@@ -3,42 +3,52 @@
   <head>
     <meta charset="utf-8">
     <title>Attolloogroup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Felles stil -->
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-   <header class="site-header">
-  <div class="inner">
-    <a class="site-logo" href="index.html">
-      <img id="site-logo" src="aab-logo.png" alt="Attolloogroup logo">
-      <span class="site-brand">Attolloogroup</span>
-    </a>
-    <nav class="main-nav">
-      <ul>
-        <li><a href="index.html">Forside</a></li>
-        <li><a href="about.html">Om oss</a></li>
-        <li><a href="services.html">Tjenester</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-<div class="page-top-space"></div>
+    <!-- HEADER: Logo + meny -->
+    <header class="site-header">
+      <div class="inner">
+        <a class="site-logo" href="index.html">
+          <img id="site-logo" src="aab-logo.png" alt="Attolloogroup logo">
+          <span class="site-brand">Attolloogroup</span>
+        </a>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="index.html">Forside</a></li>
+            <li><a href="about.html">Om oss</a></li>
+            <li><a href="services.html">Tjenester</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="page-top-space"></div>
 
+    <!-- HERO -->
+    <section class="hero">
+      <div class="inner">
+        <h1>Velkommen til Attolloogroup</h1>
+        <p>Vi gjør endring til en opplevelse – og en vane.</p>
+      </div>
+    </section>
 
-    <!-- Hovedinnhold -->
-    <div class="container">
-      <h1>Velkommen til Attolloogroup</h1>
+    <!-- HOVEDINNHOLD -->
+    <main class="container">
+      <h2>Hva vi gjør</h2>
       <p>
-        Vi hjelper ledere og virksomheter med å koble strategi, mennesker og digital kraft.
-        Våre satsinger inkluderer <strong>Attolloo North</strong> og <strong>Attolloo South</strong>,
-        som skaper opplevelser og inspirasjon gjennom ledelse, innovasjon og samspill.
+        Vi hjelper ledere og virksomheter å koble strategi, mennesker og digital kraft.
+        Satsinger som <strong>Attolloo North</strong> fungerer som levende laboratorier for samspill,
+        innovasjon og varig utvikling – i og utenfor møterommet.
       </p>
-      <p>
-        Les mer om oss på siden <a href="about.html">Om oss</a>, eller se våre
-        <a href="services.html">tjenester</a>.
-      </p>
-    </div>
 
-    <!-- Footer -->
+      <p>
+        Les mer <a href="about.html">om oss</a>, eller se våre <a href="services.html">tjenester</a>.
+      </p>
+    </main>
+
+    <!-- FOOTER -->
     <footer>
       <div class="container">
         <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
@@ -47,9 +57,12 @@
       </div>
     </footer>
 
-    <!-- Script for å oppdatere årstall automatisk -->
+    <!-- JS: årstall i footer -->
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
     </script>
+
+    <!-- (Valgfritt) Netlify Identity-widget – nyttig for passordreset osv. -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </body>
 </html>
