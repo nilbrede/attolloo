@@ -1,40 +1,15 @@
-/* --- Felles hero-stil --- */
-.hero {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-  min-height: 46vh;          /* høyden på hero – juster om ønskelig */
-  color: #fff;
-  background-size: cover;    /* fyll flaten */
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* Mørk overlay for bedre lesbarhet */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.45); /* juster 0.35–0.6 for mer/mindre mørk */
-}
-
-.hero .inner {
-  position: relative; /* legg innholdet over overlayen */
-  padding: 24px 28px;
-  border-radius: 10px;
-}
-
-/* Hero-variant for Om oss-siden */
-.about-hero {
-  /* Sett ditt fjellbilde her (kan byttes når som helst) */
-  background-image: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80");
-}
-
-/* Responsiv finpuss */
-@media (min-width: 768px) {
-  .hero { min-height: 56vh; }
-  .hero .inner { padding: 28px 40px; }
+{
+  "title": "Om Attolloogroup",
+  "subtitle": "Menneske • Teknologi • Kultur",
+  "hero_image": "/images/uploads/about-hero.jpg",
+  "sections": [
+    {
+      "heading": "Hvem vi er",
+      "body": "Attolloogroup bygger broer mellom strategi, mennesker og teknologi. Vi kombinerer lederutvikling, mentoring, workshop-format og opplevelsesbasert læring."
+    },
+    {
+      "heading": "Hvordan vi jobber",
+      "body": "Praktisk, menneskenær og målbar. Vi forener erfaring fra ledelse og sikkerhet med innsikt i kultur og digital endring – for å skape resultater som varer."
+    }
+  ]
 }
