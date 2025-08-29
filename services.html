@@ -6,35 +6,55 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-   <header class="site-header">
-  <div class="inner">
-    <a class="site-logo" href="index.html">
-      <img id="site-logo" src="aab-logo.png" alt="Attolloogroup logo">
-      <span class="site-brand">Attolloogroup</span>
-    </a>
-    <nav class="main-nav">
-      <ul>
-        <li><a href="index.html">Forside</a></li>
-        <li><a href="about.html">Om oss</a></li>
-        <li><a href="services.html">Tjenester</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-<div class="page-top-space"></div>
-    <header>
-      <h1>Tjenester</h1>
+    <!-- Felles header med logo + meny -->
+    <header class="site-header">
+      <div class="inner">
+        <a class="site-logo" href="index.html">
+          <img id="site-logo" src="aab-logo.png" alt="Attolloogroup logo">
+          <span class="site-brand">Attolloogroup</span>
+        </a>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="index.html">Forside</a></li>
+            <li><a href="about.html">Om oss</a></li>
+            <li><a href="services.html">Tjenester</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
-    <main>
-      <article>
-        <h2 id="title">Tjenester</h2>
-        <div id="body">
-          <p>Her beskriver du tjenestene til Attolloogroup. Teksten kan redigeres i Netlify CMS.</p>
-        </div>
-      </article>
-    </main>
+    <div class="page-top-space"></div>
+
+    <!-- Innhold -->
+    <div class="container">
+      <h1>Tjenester</h1>
+
+      <h2>Lederutvikling & mentoring</h2>
+      <p>
+        Skreddersydde utviklingsløp for ledere og team. Kombinerer refleksjon, verktøy og
+        praksisnære øvelser – ofte i uvanlige rammer som skaper energi og innsikt.
+      </p>
+
+      <h2>Rådgivning & styrearbeid</h2>
+      <p>
+        Strategisk sparring i krevende faser. Mennesker, kultur og teknologi i samme bilde.
+      </p>
+
+      <h2>Attolloo North (pilot)</h2>
+      <p>
+        En testarena for samhandling og læring i fjellmiljø. Workshops, nettverk og opplevelser
+        som gir varig effekt.
+      </p>
+    </div>
+
+    <!-- Footer -->
     <footer>
-      <a href="index.html">Tilbake til forsiden</a>
+      <div class="container">
+        <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
+        <p>Org.nr: 936 016 758</p>
+        <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
+      </div>
     </footer>
+
+    <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
   </body>
 </html>
