@@ -1,3 +1,11 @@
+function setHeroBackground(selector, imageUrl) {
+  const el = document.querySelector(selector);
+  if (!el) return;
+  if (imageUrl && imageUrl.trim() !== "") {
+    el.style.backgroundImage = `url("${imageUrl}")`;
+  }
+  // Hvis ingen imageUrl -> CSS fallback brukes
+}
 (async function () {
   // Les hvilket "page key" vi skal hente, satt på <body data-page="home|about|services">
   const page = document.body.dataset.page || "home";
