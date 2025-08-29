@@ -212,3 +212,40 @@ footer a:hover {
   .hero { min-height: 56vh; }
   .hero .inner { padding: 28px 40px; }
 }
+/* ===== Hero styling felles ===== */
+.hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 45vh;       /* fast høyde */
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Mørk overlay */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.45); /* juster 0.35–0.6 for lysere/mørkere */
+}
+
+.hero .inner {
+  position: relative;   /* over overlay */
+  padding: 24px 28px;
+  text-align: center;
+  max-width: 900px;
+}
+
+/* Responsiv */
+@media (min-width: 768px) {
+  .hero { min-height: 50vh; }
+  .hero .inner { padding: 28px 40px; }
+}
+
+/* Fallback-bilder dersom CMS-feltet er tomt */
+.home-hero     { background-image: url("/images/uploads/home-fallback.jpg"); }
+.about-hero    { background-image: url("/images/uploads/about-fallback.jpg"); }
+.services-hero { background-image: url("/images/uploads/services-fallback.jpg"); }
