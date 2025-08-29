@@ -2,38 +2,69 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "images"     # her kan bilder lagres
-public_folder: "/images"
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+local_backend: false
 
 collections:
   - name: "site"
-    label: "Nettside"
+    label: "Nettsted · Felles"
     files:
-      - file: "index.html"
-        label: "Forsiden"
-        name: "forside"
+      - name: "site"
+        label: "Fellesinnhold"
+        file: "data/site.json"
         fields:
-          - { label: "Tittel", name: "title", widget: "string" }
-          - { label: "Organisasjonsnummer", name: "orgnr", widget: "string" }
-          - { label: "Innhold", name: "body", widget: "markdown" }
+          - { name: orgnr, label: Organisasjonsnummer, widget: string }
+          - { name: footer, label: Footer-tekst, widget: string, default: "Attolloogroup. Alle rettigheter forbeholdt." }
 
-  # Klargjort, men filer må opprettes før bruk:
+  - name: "home"
+    label: "Forside"
+    files:
+      - name: "home"
+        label: "Forside"
+        file: "data/home.json"
+        fields:
+          - { name: title, label: Tittel (hero), widget: string }
+          - { name: subtitle, label: Ingress (hero), widget: text }
+          - { name: hero_image, label: Hero-bilde, widget: image, allow_multiple: false }
+          - label: "Kortbokser"
+            name: cards
+            widget: list
+            fields:
+              - { name: heading, label: Overskrift, widget: string }
+              - { name: body, label: Tekst, widget: text }
+
   - name: "about"
     label: "Om oss"
     files:
-      - file: "about.html"
-        label: "Om oss side"
-        name: "aboutpage"
+      - name: "about"
+        label: "Om oss"
+        file: "data/about.json"
         fields:
-          - { label: "Tittel", name: "title", widget: "string" }
-          - { label: "Innhold", name: "body", widget: "markdown" }
+          - { name: title, label: Tittel (hero), widget: string }
+          - { name: subtitle, label: Ingress (hero), widget: text }
+          - { name: hero_image, label: Hero-bilde, widget: image }
+          - label: "Avsnitt"
+            name: sections
+            widget: list
+            fields:
+              - { name: heading, label: Overskrift, widget: string }
+              - { name: body, label: Tekst, widget: markdown }
 
   - name: "services"
     label: "Tjenester"
     files:
-      - file: "services.html"
-        label: "Tjenesteside"
-        name: "servicespage"
+      - name: "services"
+        label: "Tjenester"
+        file: "data/services.json"
         fields:
-          - { label: "Tittel", name: "title", widget: "string" }
-          - { label: "Innhold", name: "body", widget: "markdown" }
+          - { name: title, label: Tittel (hero), widget: string, default: "Tjenester" }
+          - { name: subtitle, label: Ingress (hero), widget: text }
+          - { name: hero_image, label: Hero-bilde, widget: image }
+          - label: "Tjenesteliste"
+            name: items
+            widget: list
+            fields:
+              - { name: heading, label: Tjeneste, widget: string }
+              - { name: body, label: Beskrivelse, widget: markdown }
