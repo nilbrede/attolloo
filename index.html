@@ -7,7 +7,7 @@
     <!-- Felles stil -->
     <link rel="stylesheet" href="style.css">
   </head>
-  <body>
+  <body data-page="home">
     <!-- HEADER: Logo + meny -->
     <header class="site-header">
       <div class="inner">
@@ -27,12 +27,14 @@
     <div class="page-top-space"></div>
 
     <!-- HERO -->
-    <section class="hero home">
-      <div class="inner">
-        <h1>Velkommen til Attolloogroup</h1>
-        <p>Vi gjør endring til en opplevelse – og en vane.</p>
-      </div>
-    </section>
+    <section class="hero">
+  <img id="heroImage" alt="" class="hero-bg" />
+  <div class="inner">
+    <h1 id="heroTitle"></h1>
+    <p id="heroSubtitle"></p>
+  </div>
+</section>
+
 
     <!-- HOVEDINNHOLD -->
     <main class="container">
@@ -42,7 +44,7 @@
         Satsinger som <strong>Attolloo North</strong> fungerer som levende laboratorier for samspill,
         innovasjon og varig utvikling – i og utenfor møterommet.
       </p>
-
+       <div id="cards" class="cards"></div>
       <p>
         Les mer <a href="about.html">om oss</a>, eller se våre <a href="services.html">tjenester</a>.
       </p>
