@@ -169,6 +169,6 @@ footer a:hover {
 .hero p  { font-size: clamp(16px, 2.5vw, 20px); opacity: 0.95; }
 
 /* Eget bilde per side */
-.hero.home     { background-image: url("images/home-hero.jpg"); }
-.hero.about    { background-image: url("images/about-hero.jpg"); }
-.hero.services { background-image: url("images/services-hero.jpg"); }
+.hero.home     { background-image: url("images/home-hero.jpeg"); }
+.hero.about    { background-image: url("images/about-hero.jpeg"); }
+.hero.services { background-image: url("images/services-hero.jpeg"); }
