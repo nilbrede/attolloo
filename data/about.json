@@ -1,15 +1,5 @@
 {
-  "title": "Om Attolloogroup",
-  "subtitle": "Menneske • Teknologi • Kultur",
-  "hero_image": "/images/uploads/about-hero.jpg",
-  "sections": [
-    {
-      "heading": "Hvem vi er",
-      "body": "Attolloogroup bygger broer mellom strategi, mennesker og teknologi. Vi kombinerer lederutvikling, mentoring, workshop-format og opplevelsesbasert læring."
-    },
-    {
-      "heading": "Hvordan vi jobber",
-      "body": "Praktisk, menneskenær og målbar. Vi forener erfaring fra ledelse og sikkerhet med innsikt i kultur og digital endring – for å skape resultater som varer."
-    }
-  ]
+  "hero_image": "/images/uploads/services-hero.jpeg",
+  "title": "Godt samarbeid",
+  "subtitle": "samarbeid"
 }
