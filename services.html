@@ -3,10 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>Tjenester – Attolloogroup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <!-- Felles header med logo + meny -->
+    <!-- HEADER -->
     <header class="site-header">
       <div class="inner">
         <a class="site-logo" href="index.html">
@@ -24,29 +25,41 @@
     </header>
     <div class="page-top-space"></div>
 
-    <!-- Innhold -->
-    <div class="container">
-      <h1>Tjenester</h1>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="inner">
+        <h1>Tjenester</h1>
+        <p>Mentoring, lederutvikling og Attolloo North.</p>
+      </div>
+    </section>
 
-      <h2>Lederutvikling & mentoring</h2>
-      <p>
-        Skreddersydde utviklingsløp for ledere og team. Kombinerer refleksjon, verktøy og
-        praksisnære øvelser – ofte i uvanlige rammer som skaper energi og innsikt.
-      </p>
+    <!-- INNHOLD -->
+    <main class="container">
+      <section>
+        <h2>Lederutvikling & mentoring</h2>
+        <p>
+          Skreddersydde utviklingsløp for ledere og team. Kombinerer refleksjon, verktøy og
+          praksisnære øvelser – ofte i uvanlige rammer som skaper energi og innsikt.
+        </p>
+      </section>
 
-      <h2>Rådgivning & styrearbeid</h2>
-      <p>
-        Strategisk sparring i krevende faser. Mennesker, kultur og teknologi i samme bilde.
-      </p>
+      <section>
+        <h2>Rådgivning & styrearbeid</h2>
+        <p>
+          Strategisk sparring i krevende faser. Mennesker, kultur og teknologi i samme bilde.
+        </p>
+      </section>
 
-      <h2>Attolloo North (pilot)</h2>
-      <p>
-        En testarena for samhandling og læring i fjellmiljø. Workshops, nettverk og opplevelser
-        som gir varig effekt.
-      </p>
-    </div>
+      <section>
+        <h2>Attolloo North (pilot)</h2>
+        <p>
+          En testarena for samhandling og læring i fjellmiljø. Workshops, nettverk og opplevelser
+          som gir varig effekt.
+        </p>
+      </section>
+    </main>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer>
       <div class="container">
         <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
@@ -56,5 +69,6 @@
     </footer>
 
     <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </body>
 </html>
