@@ -1,10 +1,10 @@
 backend:
   name: github
-  repo: nilbrede/attolloo
+  repo: nilbrede/attolloo   # ditt repo
   branch: main
 
-media_folder: ""   # alle bilder ligger i rotmappen
-public_folder: ""
+media_folder: "uploads"     # her kan bilder lagres
+public_folder: "/uploads"
 
 collections:
   - name: "site"
@@ -18,23 +18,23 @@ collections:
           - { label: "Organisasjonsnummer", name: "orgnr", widget: "string" }
           - { label: "Innhold", name: "body", widget: "markdown" }
 
+  # Klargjort, men filer må opprettes før bruk:
   - name: "about"
-    label: "Om Oss"
+    label: "Om oss"
     files:
       - file: "about.html"
-        label: "Om oss"
+        label: "Om oss side"
         name: "aboutpage"
         fields:
-          - { label: "Overskrift", name: "heading", widget: "string" }
-          - { label: "Ingress", name: "intro", widget: "text" }
-          - { label: "Innhold", name: "content", widget: "markdown" }
+          - { label: "Tittel", name: "title", widget: "string" }
+          - { label: "Innhold", name: "body", widget: "markdown" }
 
   - name: "services"
     label: "Tjenester"
     files:
       - file: "services.html"
-        label: "Tjenester"
+        label: "Tjenesteside"
         name: "servicespage"
         fields:
-          - { label: "Overskrift", name: "heading", widget: "string" }
-          - { label: "Beskrivelse", name: "description", widget: "markdown" }
+          - { label: "Tittel", name: "title", widget: "string" }
+          - { label: "Innhold", name: "body", widget: "markdown" }
