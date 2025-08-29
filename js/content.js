@@ -1,74 +1,43 @@
+// js/content.js
+
+// Setter hero-bakgrunn (bruker CSS-fallback hvis bilde mangler)
 function setHeroBackground(selector, imageUrl) {
   const el = document.querySelector(selector);
   if (!el) return;
   if (imageUrl && imageUrl.trim() !== "") {
     el.style.backgroundImage = `url("${imageUrl}")`;
   }
-  // Hvis ingen imageUrl -> CSS fallback brukes
+  // Hvis imageUrl ikke er satt, brukes fallback fra CSS (.home-hero / .about-hero / .services-hero)
 }
-(async function () {
-  // Les hvilket "page key" vi skal hente, satt på <body data-page="home|about|services">
-  const page = document.body.dataset.page || "home";
 
-  // Hent felles site-data
-  const site = await fetch("/data/site.json").then(r => r.json()).catch(() => ({}));
+// Last inn riktig JSON basert på data-page på <body>
+document.addEventListener('DOMContentLoaded', async () => {
+  const page = document.body.dataset.page;           // "home", "about" eller "services"
+  const urlMap = {
+    home:     '/data/home.json',
+    about:    '/data/about.json',
+    services: '/data/services.json'
+  };
 
-  // Hent side-spesifikk data
-  const data = await fetch(`/data/${page}.json`).then(r => r.json());
+  const jsonUrl = urlMap[page];
+  if (!jsonUrl) return; // ingen side å laste
 
-  // Hero
-  const heroTitle = document.getElementById("heroTitle");
-  const heroSubtitle = document.getElementById("heroSubtitle");
-  const heroImg = document.getElementById("heroImage");
+  try {
+    const res = await fetch(jsonUrl, { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
 
-  if (heroTitle && data.title) heroTitle.textContent = data.title;
-  if (heroSubtitle && data.subtitle) heroSubtitle.textContent = data.subtitle;
-  if (heroImg && data.hero_image) heroImg.setAttribute("src", data.hero_image);
+    // Sett hero-tekst
+    if (data.title)    document.getElementById('heroTitle').textContent    = data.title;
+    if (data.subtitle) document.getElementById('heroSubtitle').textContent = data.subtitle;
 
-  // Footer orgnr + tekst
-  const yearSpan = document.getElementById("year");
-  if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+    // Sett hero-bilde
+    const heroSelector = `.${page}-hero`; // .home-hero / .about-hero / .services-hero
+    setHeroBackground(heroSelector, data.hero_image);
 
-  const orgnrSpan = document.getElementById("orgnr");
-  if (orgnrSpan && site.orgnr) orgnrSpan.textContent = site.orgnr;
-
-  const footerText = document.getElementById("footerText");
-  if (footerText && site.footer) footerText.textContent = site.footer;
-
-  // Side-spesifikk rendering
-  if (page === "home" && Array.isArray(data.cards)) {
-    const cardsEl = document.getElementById("cards");
-    if (cardsEl) {
-      cardsEl.innerHTML = data.cards.map(c => `
-        <div class="card">
-          <h3>${c.heading}</h3>
-          <p>${c.body ?? ""}</p>
-        </div>
-      `).join("");
-    }
+    // (Valgfritt) her kan du fylle inn øvrig innhold fra JSON hvis du vil
+    // f.eks. sections, cards osv. – men for hero holder dette.
+  } catch (err) {
+    console.error('Kunne ikke laste inn side-data:', err);
   }
-
-  if (page === "about" && Array.isArray(data.sections)) {
-    const secEl = document.getElementById("sections");
-    if (secEl) {
-      secEl.innerHTML = data.sections.map(s => `
-        <section class="section">
-          <h2>${s.heading}</h2>
-          <div class="markdown">${s.body ?? ""}</div>
-        </section>
-      `).join("");
-    }
-  }
-
-  if (page === "services" && Array.isArray(data.items)) {
-    const listEl = document.getElementById("serviceList");
-    if (listEl) {
-      listEl.innerHTML = data.items.map(it => `
-        <section class="service">
-          <h2>${it.heading}</h2>
-          <div class="markdown">${it.body ?? ""}</div>
-        </section>
-      `).join("");
-    }
-  }
-})();
+});
