@@ -1,10 +1,9 @@
 backend:
-  name: github
-  repo: nilbrede/attolloo   # ditt repo
+  name: git-gateway
   branch: main
 
-media_folder: "uploads"     # her kan bilder lagres
-public_folder: "/uploads"
+media_folder: "images"     # her kan bilder lagres
+public_folder: "/images"
 
 collections:
   - name: "site"
