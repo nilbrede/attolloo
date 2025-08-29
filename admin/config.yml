@@ -8,55 +8,67 @@ public_folder: "/images/uploads"
 publish_mode: editorial_workflow
 
 collections:
-  # Felles nettsted-data (beholder det du hadde)
+  # Felles nettsted-data
   - name: "site"
     label: "Nettsted – Felles"
-    file: "data/site.json"
-    fields:
-      - { name: orgnr,  label: "Organisasjonsnummer", widget: "string" }
-      - { name: footer, label: "Footer-tekst",        widget: "string", default: "Attolloogroup. Alle rettigheter forbeholdt." }
+    files:
+      - name: "site"
+        label: "Fellesinnhold"
+        file: "data/site.json"
+        fields:
+          - { name: orgnr,  label: "Organisasjonsnummer", widget: "string" }
+          - { name: footer, label: "Footer-tekst",        widget: "string", default: "Attolloogroup. Alle rettigheter forbeholdt." }
 
   # Forside
   - name: "home"
     label: "Forside"
-    file: "data/home.json"
-    fields:
-      - { name: "title",       label: "Tittel (hero)",   widget: "string" }
-      - { name: "subtitle",    label: "Ingress (hero)",  widget: "text" }
-      - { name: "hero_image",  label: "Hero-bilde",      widget: "image", choose_url: true, allow_multiple: false }
-      - name: "cards"
-        label: "Kortbokser"
-        widget: "list"
+    files:
+      - name: "home"
+        label: "Forside"
+        file: "data/home.json"
         fields:
-          - { name: "heading", label: "Overskrift", widget: "string" }
-          - { name: "body",    label: "Tekst",      widget: "text" }
+          - { name: "title",       label: "Tittel (hero)",   widget: "string" }
+          - { name: "subtitle",    label: "Ingress (hero)",  widget: "text" }
+          - { name: "hero_image",  label: "Hero-bilde",      widget: "image", choose_url: true, allow_multiple: false }
+          - name: "cards"
+            label: "Kortbokser"
+            widget: "list"
+            fields:
+              - { name: "heading", label: "Overskrift", widget: "string" }
+              - { name: "body",    label: "Tekst",      widget: "text" }
 
   # Om oss
   - name: "about"
     label: "Om oss"
-    file: "data/about.json"
-    fields:
-      - { name: "title",      label: "Tittel (hero)",  widget: "string" }
-      - { name: "subtitle",   label: "Ingress (hero)", widget: "string" }
-      - { name: "hero_image", label: "Hero-bilde",     widget: "image", choose_url: true }
-      - name: "sections"
-        label: "Avsnitt"
-        widget: "list"
+    files:
+      - name: "about"
+        label: "Om oss"
+        file: "data/about.json"
         fields:
-          - { name: "heading", label: "Overskrift", widget: "string" }
-          - { name: "body",    label: "Tekst",      widget: "text" }
+          - { name: "title",      label: "Tittel (hero)",  widget: "string" }
+          - { name: "subtitle",   label: "Ingress (hero)", widget: "string" }
+          - { name: "hero_image", label: "Hero-bilde",     widget: "image", choose_url: true }
+          - name: "sections"
+            label: "Avsnitt"
+            widget: "list"
+            fields:
+              - { name: "heading", label: "Overskrift", widget: "string" }
+              - { name: "body",    label: "Tekst",      widget: "text" }
 
   # Tjenester
   - name: "services"
     label: "Tjenester"
-    file: "data/services.json"
-    fields:
-      - { name: "title",      label: "Tittel (hero)",  widget: "string" }
-      - { name: "subtitle",   label: "Ingress (hero)", widget: "text" }
-      - { name: "hero_image", label: "Hero-bilde",     widget: "image", choose_url: true }
-      - name: "sections"
-        label: "Tjenester"
-        widget: "list"
+    files:
+      - name: "servicespage"
+        label: "Tjenestesiden"
+        file: "data/services.json"
         fields:
-          - { name: "heading", label: "Overskrift", widget: "string" }
-          - { name: "body",    label: "Brødtekst",  widget: "text" }
+          - { name: "title",      label: "Tittel (hero)",  widget: "string" }
+          - { name: "subtitle",   label: "Ingress (hero)", widget: "text" }
+          - { name: "hero_image", label: "Hero-bilde",     widget: "image", choose_url: true }
+          - name: "sections"
+            label: "Tjenester"
+            widget: "list"
+            fields:
+              - { name: "heading", label: "Overskrift", widget: "string" }
+              - { name: "body",    label: "Brødtekst",  widget: "text" }
