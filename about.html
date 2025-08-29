@@ -24,7 +24,8 @@
       </div>
     </header>
     <div class="page-top-space"></div>
-
+    <div id="sections"></div>
+    
     <!-- HERO -->
     <section class="hero">
   <img id="heroImage" alt="" class="hero-bg" />
@@ -55,15 +56,18 @@
     </main>
 
     <!-- FOOTER -->
-    <footer>
-      <div class="container">
-        <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
-        <p>Org.nr: 936 016 758</p>
-        <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
-      </div>
-    </footer>
+    <footer class="footer">
+  <div class="container">
+    <p>© <span id="year"></span> Attolloogroup.
+      <span id="footerText">Alle rettigheter forbeholdt.</span>
+      <br>Org.nr: <span id="orgnr"></span>
+    </p>
+  </div>
+</footer>
+
 
     <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="/js/content.js"></script>
   </body>
 </html>
