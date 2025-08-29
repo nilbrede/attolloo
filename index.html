@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <title>Attolloogroup</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!-- Navigasjon -->
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Forside</a></li>
+        <li><a href="about.html">Om oss</a></li>
+        <li><a href="services.html">Tjenester</a></li>
+      </ul>
+    </nav>
+
+    <!-- Hovedinnhold -->
+    <div class="container">
+      <h1>Velkommen til Attolloogroup</h1>
+      <p>
+        Vi hjelper ledere og virksomheter med å koble strategi, mennesker og digital kraft.
+        Våre satsinger inkluderer <strong>Attolloo North</strong> og <strong>Attolloo South</strong>,
+        som skaper opplevelser og inspirasjon gjennom ledelse, innovasjon og samspill.
+      </p>
+      <p>
+        Les mer om oss på siden <a href="about.html">Om oss</a>, eller se våre
+        <a href="services.html">tjenester</a>.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
+        <p>Org.nr: 936 016 758</p>
+        <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
+      </div>
+    </footer>
+
+    <!-- Script for å oppdatere årstall automatisk -->
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
