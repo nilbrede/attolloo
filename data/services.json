@@ -1,15 +1,19 @@
 {
-  "title": "Om Attolloogroup",
-  "subtitle": "Menneske • Teknologi • Kultur",
-  "hero_image": "/images/uploads/services-hero.jpeg",
+  "title": "Tjenester",
+  "subtitle": "Mentoring, lederutvikling og Attolloo North.",
+  "hero_image": "/images/uploads/services-hero.jpg",
   "sections": [
     {
-      "heading": "Hvem vi er",
-      "body": "Attolloogroup bygger broer mellom strategi, mennesker og teknologi. Vi kombinerer lederutvikling, mentoring, workshop-format og opplevelsesbasert læring."
+      "heading": "Lederutvikling & mentoring",
+      "body": "Skreddersydde utviklingsløp for ledere og team. Kombinerer refleksjon, verktøy og praksisnære øvelser – ofte i uvanlige rammer som skaper energi og innsikt."
     },
     {
-      "heading": "Hvordan vi jobber",
-      "body": "Praktisk, menneskenær og målbar. Vi forener erfaring fra ledelse og sikkerhet med innsikt i kultur og digital endring – for å skape resultater som varer."
+      "heading": "Rådgivning & styrearbeid",
+      "body": "Strategisk sparring i krevende faser – mennesker, kultur og teknologi i samme bilde."
+    },
+    {
+      "heading": "Attolloo North (pilot)",
+      "body": "En testarena for samhandling og læring i fjellmiljø. Workshops, nettverk og opplevelser som gir varig effekt."
     }
   ]
 }
