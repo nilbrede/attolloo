@@ -70,3 +70,50 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+/* Header med logo */
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+.site-header .inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.site-logo img {
+  height: 40px;              /* juster ved behov */
+  width: auto;
+  display: block;
+}
+.site-brand {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Flytt menyen inn i headeren */
+.site-header .main-nav {
+  margin-left: auto;          /* skyv menyen til høyre */
+  background: transparent;
+  padding: 0;
+}
+.site-header .main-nav a {
+  color: #222;
+}
+.site-header .main-nav a:hover {
+  color: #0a7cff;
+  text-decoration: none;
+}
+
+/* Litt luft under headeren */
+.page-top-space {
+  height: 16px;
+}
