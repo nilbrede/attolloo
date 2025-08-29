@@ -1,71 +1,43 @@
-backend:
-  name: git-gateway
-  branch: main
+// js/content.js
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+// Setter hero-bakgrunn (bruker CSS-fallback hvis bilde mangler)
+function setHeroBackground(selector, imageUrl) {
+  const el = document.querySelector(selector);
+  if (!el) return;
+  if (imageUrl && imageUrl.trim() !== "") {
+    el.style.backgroundImage = `url("${imageUrl}")`;
+  }
+  // Hvis imageUrl ikke er satt, brukes fallback fra CSS (.home-hero / .about-hero / .services-hero)
+}
 
-local_backend: false
+// Last inn riktig JSON basert på data-page på <body>
+document.addEventListener('DOMContentLoaded', async () => {
+  const page = document.body.dataset.page;           // "home", "about" eller "services"
+  const urlMap = {
+    home:     '/data/home.json',
+    about:    '/data/about.json',
+    services: '/data/services.json'
+  };
 
-collections:
-  - name: "site"
-    label: "Nettsted · Felles"
-    files:
-      - name: "site"
-        label: "Fellesinnhold"
-        file: "data/site.json"
-        fields:
-          - { name: orgnr, label: Organisasjonsnummer, widget: string }
-          - { name: footer, label: Footer-tekst, widget: string, default: "Attolloogroup. Alle rettigheter forbeholdt." }
+  const jsonUrl = urlMap[page];
+  if (!jsonUrl) return; // ingen side å laste
 
-  - name: "home"
-    label: "Forside"
-    files:
-      - name: "home"
-        label: "Forside"
-        file: "data/home.json"
-        fields:
-          - { name: title, label: Tittel (hero), widget: string }
-          - { name: subtitle, label: Ingress (hero), widget: text }
-          - { name: hero_image, label: Hero-bilde, widget: image, allow_multiple: false }
-          - label: "Kortbokser"
-            name: cards
-            widget: list
-            fields:
-              - { name: heading, label: Overskrift, widget: string }
-              - { name: body, label: Tekst, widget: text }
+  try {
+    const res = await fetch(jsonUrl, { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
 
-  - name: "about"
-    label: "Om oss"
-    files:
-      - name: "about"
-        label: "Om oss"
-        file: "data/about.json"
-        fields:
-          - { name: title, label: Tittel (hero), widget: string }
-          - { name: subtitle, label: Ingress (hero), widget: text }
-          - { name: hero_image, label: Hero-bilde, widget: image }
-          - label: "Avsnitt"
-            name: sections
-            widget: list
-            fields:
-              - { name: heading, label: Overskrift, widget: string }
-              - { name: body, label: Tekst, widget: markdown }
+    // Sett hero-tekst
+    if (data.title)    document.getElementById('heroTitle').textContent    = data.title;
+    if (data.subtitle) document.getElementById('heroSubtitle').textContent = data.subtitle;
 
-  - name: "services"
-  label: "Tjenester"
-  files:
-    - label: "Tjenestesiden"
-      name: "servicespage"
-      file: "data/services.json"
-      fields:
-        - { label: "Tittel (hero)", name: "title", widget: "string" }
-        - { label: "Ingress (hero)", name: "subtitle", widget: "text" }
-        - { label: "Hero-bilde", name: "hero_image", widget: "image", choose_url: true }
-        - label: "Avsnitt"
-          name: "sections"
-          widget: "list"
-          summary: "{{fields.heading}}"
-          fields:
-            - { label: "Overskrift", name: "heading", widget: "string" }
-            - { label: "Brødtekst", name: "body", widget: "text" }
+    // Sett hero-bilde
+    const heroSelector = `.${page}-hero`; // .home-hero / .about-hero / .services-hero
+    setHeroBackground(heroSelector, data.hero_image);
+
+    // (Valgfritt) her kan du fylle inn øvrig innhold fra JSON hvis du vil
+    // f.eks. sections, cards osv. – men for hero holder dette.
+  } catch (err) {
+    console.error('Kunne ikke laste inn side-data:', err);
+  }
+});
