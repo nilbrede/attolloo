@@ -53,18 +53,19 @@ collections:
               - { name: body, label: Tekst, widget: markdown }
 
   - name: "services"
-    label: "Tjenester"
-    files:
-      - name: "services"
-        label: "Tjenester"
-        file: "data/services.json"
-        fields:
-          - { name: title, label: Tittel (hero), widget: string, default: "Tjenester" }
-          - { name: subtitle, label: Ingress (hero), widget: text }
-          - { name: hero_image, label: Hero-bilde, widget: image }
-          - label: "Tjenesteliste"
-            name: items
-            widget: list
-            fields:
-              - { name: heading, label: Tjeneste, widget: string }
-              - { name: body, label: Beskrivelse, widget: markdown }
+  label: "Tjenester"
+  files:
+    - label: "Tjenestesiden"
+      name: "servicespage"
+      file: "data/services.json"
+      fields:
+        - { label: "Tittel (hero)", name: "title", widget: "string" }
+        - { label: "Ingress (hero)", name: "subtitle", widget: "text" }
+        - { label: "Hero-bilde", name: "hero_image", widget: "image", choose_url: true }
+        - label: "Avsnitt"
+          name: "sections"
+          widget: "list"
+          summary: "{{fields.heading}}"
+          fields:
+            - { label: "Overskrift", name: "heading", widget: "string" }
+            - { label: "Brødtekst", name: "body", widget: "text" }
