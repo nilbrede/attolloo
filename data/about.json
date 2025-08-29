@@ -1,0 +1,9 @@
+{
+  "title": "Om Attolloogroup",
+  "subtitle": "Menneske • Teknologi • Kultur",
+  "hero_image": "/images/uploads/about-hero.jpg",
+  "sections": [
+    { "heading": "Hvem vi er", "body": "Kort tekst om bakgrunn og filosofi." },
+    { "heading": "Hvordan vi jobber", "body": "Metodikk, prinsipper og samarbeid." }
+  ]
+}
