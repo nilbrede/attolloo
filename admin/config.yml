@@ -16,3 +16,21 @@ collections:
           - { label: "Tittel", name: "title", widget: "string" }
           - { label: "Organisasjonsnummer", name: "orgnr", widget: "string" }
           - { label: "Innhold", name: "body", widget: "markdown" }
+    - name: "footer"
+    label: "Footer & Kontakt"
+    files:
+      - file: "data/footer.json"
+        label: "Kontakt"
+        name: "contact"
+        fields:
+          - { label: "Organisasjonsnummer", name: "orgnr", widget: "string", required: false }
+          - { label: "E-post", name: "email", widget: "string", required: false }
+          - { label: "Telefon", name: "phone", widget: "string", required: false }
+          - { label: "Adresse (valgfritt)", name: "address", widget: "string", required: false }
+          - label: "Sosiale lenker"
+            name: "social"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Navn", name: "name", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
