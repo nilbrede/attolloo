@@ -143,3 +143,32 @@ footer a:hover {
 .hero p {
   font-size: 1.3em;
 }
+/* HERO – felles */
+.hero {
+  position: relative;
+  min-height: 320px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 80px 20px;
+  color: #fff;
+  background: #0f172a; /* fallback */
+  background-size: cover;
+  background-position: center;
+}
+
+/* Mørk overlay for lesbar tekst */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5); /* juster 0.4–0.65 ved behov */
+}
+.hero .inner { position: relative; z-index: 1; max-width: 900px; }
+.hero h1 { font-size: clamp(28px, 5vw, 48px); margin-bottom: 12px; line-height: 1.1; }
+.hero p  { font-size: clamp(16px, 2.5vw, 20px); opacity: 0.95; }
+
+/* Eget bilde per side */
+.hero.home     { background-image: url("images/home-hero.jpg"); }
+.hero.about    { background-image: url("images/about-hero.jpg"); }
+.hero.services { background-image: url("images/services-hero.jpg"); }
