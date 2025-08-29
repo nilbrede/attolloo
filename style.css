@@ -117,3 +117,29 @@ footer a:hover {
 .page-top-space {
   height: 16px;
 }
+/* Hero-seksjon */
+.hero {
+  background: url('images/hero-bg.jpg') no-repeat center center/cover;
+  padding: 100px 20px;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5); /* mørk overlay */
+}
+.hero .inner {
+  position: relative; /* slik at teksten ligger over overlay */
+  max-width: 800px;
+  margin: 0 auto;
+}
+.hero h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+.hero p {
+  font-size: 1.3em;
+}
