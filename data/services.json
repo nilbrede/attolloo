@@ -1,0 +1,19 @@
+{
+  "title": "Tjenester",
+  "subtitle": "Mentoring, lederutvikling og Attolloo North.",
+  "hero_image": "/images/uploads/services-hero.jpg",
+  "items": [
+    {
+      "heading": "Lederutvikling & mentoring",
+      "body": "Skreddersydde utviklingsløp for ledere og team."
+    },
+    {
+      "heading": "Rådgivning & styrearbeid",
+      "body": "Strategisk sparring i krevende faser – mennesker, kultur og teknologi i samme bilde."
+    },
+    {
+      "heading": "Attolloo North (pilot)",
+      "body": "En testarena for samhandling og læring i fjellmiljø."
+    }
+  ]
+}
