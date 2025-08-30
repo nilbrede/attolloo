@@ -75,6 +75,7 @@ a:hover { text-decoration: underline; }
 /* =========================
    Hero-seksjon
    ========================= */
+/* ===== Hero – bedre lesbarhet ===== */
 .hero {
   position: relative;
   min-height: 45vh;
@@ -86,23 +87,49 @@ a:hover { text-decoration: underline; }
   background-repeat: no-repeat;
 }
 
-/* Mørk overlay for bedre lesbarhet */
+/* Mørkere overlay (fra .45 -> .58) */
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.45); /* juster 0.35–0.6 ved behov */
+  background: rgba(0,0,0,.58);
 }
 
+/* Legg en lett transparent plate bak teksten + subtil blur */
 .hero .inner {
-  position: relative; /* over overlay */
+  position: relative;              /* over overlay */
   text-align: center;
-  padding: 28px 20px;
+  padding: 28px 22px;
   max-width: 900px;
+  background: rgba(0,0,0,.26);     /* “glass”-plate */
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  border-radius: 12px;
 }
 
-#heroTitle { font-size: clamp(28px, 5vw, 44px); margin: 0 0 10px; }
-#heroSubtitle { font-size: clamp(16px, 2.3vw, 22px); opacity: .95; }
+/* Tydeligere typografi og skygge */
+#heroTitle {
+  font-size: clamp(28px, 5vw, 44px);
+  margin: 0 0 10px;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,.75);
+}
+
+#heroSubtitle {
+  font-size: clamp(16px, 2.3vw, 22px);
+  color: #f0f0f0;
+  opacity: .95;
+  text-shadow: 0 1px 6px rgba(0,0,0,.7);
+}
+
+/* (Valgfritt) myk topp-til-bunn gradient i hero som hjelper lesbarhet uansett bilde */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.10) 0%, rgba(0,0,0,.35) 60%, rgba(0,0,0,.55) 100%);
+  pointer-events: none;
+}
 
 /* Fallback-bilder hvis CMS-feltet ikke setter hero-bilde */
 .home-hero     { background-image: url("/images/uploads/home-fallback.jpg"); }
