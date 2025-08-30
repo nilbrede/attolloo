@@ -149,3 +149,15 @@ hr{ border:0; height:1px; background:#eee; margin:24px 0; }
   footer{ background:linear-gradient(180deg, #0c0c0c 0%, #000000 100%); color:#e6e6e6; }
   footer a{ color:#9bd9ff; }
 }
+/* Respekter linjeskift fra CMS-tekst */
+.service p,
+.page-content p,
+.cms-content p {
+  white-space: pre-line;     /* gjør \n til visuelle linjeskift */
+  margin: 0 0 14px;          /* litt luft mellom "avsnitt" */
+}
+
+/* Litt bedre typografisk rytme i tjenester */
+.service h2 { margin: 8px 0 10px; }
+.service ul, .service ol { margin: 0 0 14px 20px; }
+.service li { margin: 6px 0; }
