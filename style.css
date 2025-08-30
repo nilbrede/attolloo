@@ -1,5 +1,5 @@
 /* =====================================
-   Attolloo – komplett style.css (2025)
+   Attolloo – komplett style.css (2025-08)
    Ren, lesbar og responsiv
    ===================================== */
 
@@ -73,7 +73,7 @@ a:hover { text-decoration: underline; }
 }
 .hero .inner{
   position:relative; max-width:960px; padding:34px 24px;
-  background:rgba(0,0,0,.38);               /* litt mørkere glass-plate */
+  background:rgba(0,0,0,.30);               /* litt lysere glass-plate */
   -webkit-backdrop-filter:blur(3px);
   backdrop-filter:blur(3px);
   border-radius:12px;
@@ -84,9 +84,10 @@ a:hover { text-decoration: underline; }
 }
 #heroSubtitle{
   font-size:clamp(16px,2.3vw,22px);
-  color:#f5f5f5;            /* lysere */
-  opacity:1;                /* full kontrast */
-  text-shadow:0 4px 8px rgba(0,0,0,.7);
+  color:#ffffff;               /* helhvit for maks lesbarhet */
+  opacity:1;                   /* full kontrast */
+  font-weight:400;
+  text-shadow:0 2px 6px rgba(0,0,0,.8); /* litt kraftigere skygge */
 }
 
 /* =========================
@@ -111,7 +112,7 @@ footer{
   padding:22px 12px; border-top:1px solid #2c3e50;
   margin-top:auto; position:relative; z-index:5;
 }
-/* Sikrer at absolutt all tekst i footeren er hvit og synlig */
+/* Sørg for at absolutt all tekst i footer er hvit og synlig */
 footer, footer p, footer span, footer small, #footerText, #year, #orgnr{
   color:#ffffff !important; opacity:1 !important;
 }
