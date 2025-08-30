@@ -1,7 +1,7 @@
 {
   "title": "Attolloogroup – utvikling gjennom mennesker, natur og ledelse",
   "subtitle": "Vi bygger broer mellom strategi, kultur og teknologi. Våre arenaer skaper refleksjon, energi og konkrete resultater",
-  "hero_image": "/images/uploads/img_20231201_161514.jpg",
+  "hero_image": "/images/uploads/pexels-michael-block-1691617-3225517.jpg",
   "cards": [
     {
       "heading": "Mentor & Board",
@@ -19,15 +19,18 @@
   "sections": [
     {
       "heading": "Mennesker i sentrum",
-      "body": "Vi tror på lederskap som vokser gjennom samspill. Attolloogroup kombinerer erfaring fra privat og offentlig sektor med unike læringsarenaer i nord og sør"
+      "body": "Vi tror på lederskap som vokser gjennom samspill. Attolloogroup kombinerer erfaring fra privat og offentlig sektor med unike læringsarenaer i nord og sør",
+      "image": "/images/uploads/lizrwvberuuzqoowjuen_photoaday_csd-1-of-1-5.avif"
     },
     {
       "heading": "Mentoring, styrearbeid og lederutvikling",
-      "body": "Vi tilbyr mentoring, rådgivning og lederutvikling – alltid med et blikk for helhet: mennesker, kultur og teknologi. Våre arenaer Attolloo North (Sälen) og Attolloo South (Italia) gir inspirasjon og rom for utvikling"
+      "body": "Vi tilbyr mentoring, rådgivning og lederutvikling – alltid med et blikk for helhet: mennesker, kultur og teknologi. Våre arenaer Attolloo North (Sälen) og Attolloo South (Italia) gir inspirasjon og rom for utvikling",
+      "image": "/images/uploads/business-team-of-diverse-colleagues-meeting-in-boardroom-with-mentor-2pkncd4.jpg"
     },
     {
       "heading": "Et annerledes rom for refleksjon og vekst",
-      "body": "Hos oss handler utvikling om mer enn møterom og PowerPoints. Vi skaper opplevelser som gir energi, innsikt og varige resultater – sammen med deg"
+      "body": "Hos oss handler utvikling om mer enn møterom og PowerPoints. Vi skaper opplevelser som gir energi, innsikt og varige resultater – sammen med deg",
+      "image": "/images/uploads/photo-1429962714451-bb934ecdc4ec.avif"
     }
   ]
 }
