@@ -36,29 +36,43 @@
 
     <!-- INNHOLD -->
     <main class="container">
-      <section>
-        <h2>Lederutvikling & mentoring</h2>
-        <p>
-          Skreddersydde utviklingsløp for ledere og team. Kombinerer refleksjon, verktøy og
-          praksisnære øvelser – ofte i uvanlige rammer som skaper energi og innsikt.
-        </p>
-      </section>
+  <div id="services-list" class="services"></div>
+</main>
 
-      <section>
-        <h2>Rådgivning & styrearbeid</h2>
-        <p>
-          Strategisk sparring i krevende faser. Mennesker, kultur og teknologi i samme bilde.
-        </p>
-      </section>
+<script>
+  // Hent innhold fra site.json
+  fetch('/data/site.json')
+    .then(r => r.json())
+    .then(data => {
+      // Prøv først CMS-strukturen fra "servicespage" → "tjenester"
+      const items =
+        (data.servicespage && data.servicespage.tjenester) ||
+        data.services || // fallback om du heller har en "services"-liste
+        [];
 
-      <section>
-        <h2>Attolloo North (pilot)</h2>
-        <p>
-          En testarena for samhandling og læring i fjellmiljø. Workshops, nettverk og opplevelser
-          som gir varig effekt.
-        </p>
-      </section>
-    </main>
+      const el = document.getElementById('services-list');
+
+      if (!items.length) {
+        el.innerHTML = '<p>Ingen tjenester publisert ennå.</p>';
+        return;
+      }
+
+      // Render hver tjeneste
+      el.innerHTML = items.map(it => `
+        <section class="service">
+          ${it.image ? `<img src="${it.image}" alt="">` : ''}
+          <h2>${it.title || it.tittel || it.overskrift || ''}</h2>
+          <p>${it.body || it.tekst || it.brodtekst || ''}</p>
+        </section>
+      `).join('');
+    })
+    .catch(err => {
+      document.getElementById('services-list').innerHTML =
+        '<p>Klarte ikke å laste tjenester nå.</p>';
+      console.error(err);
+    });
+</script>
+
 
     <!-- FOOTER -->
     <footer class="footer">
