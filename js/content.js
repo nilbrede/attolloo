@@ -39,6 +39,43 @@ document.addEventListener('DOMContentLoaded', async () => {
       setHeroBackground(heroSelector, data.hero_image);
 
       // (Valgfritt) Her kan du lese mer fra JSON (cards, sections osv.)
+// --- RENDER TJENESTER/SEKSJONER ---
+(function renderServices() {
+  const container = document.querySelector('.container');
+  if (!container) return;
+
+  // Støtt begge formater: sections[] og services[]
+  const list =
+    (data.sections && Array.isArray(data.sections) && data.sections) ||
+    (data.services && Array.isArray(data.services) && data.services) ||
+    [];
+
+  if (!list.length) {
+    const p = document.createElement('p');
+    p.textContent = 'Ingen tjenester publisert ennå.';
+    container.appendChild(p);
+    return;
+  }
+
+  list.forEach(item => {
+    const h = item.heading || item.title || item.tittel || '';
+    const b = item.body || item.text || item.brodtekst || '';
+    const img = item.image || item.bilde || null;
+
+    const section = document.createElement('section');
+    section.className = 'service';
+
+    section.innerHTML = `
+      ${img ? `<img src="${img}" alt="">` : ''}
+      ${h ? `<h2>${h}</h2>` : ''}
+      ${b ? `<p>${b}</p>` : ''}
+    `;
+
+    container.appendChild(section);
+  });
+})();
+
+      
     } catch (err) {
       console.error('Kunne ikke laste inn side-data:', err);
     }
