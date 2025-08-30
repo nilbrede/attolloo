@@ -46,9 +46,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Støtt begge formater: sections[] og services[]
   const list =
-    (data.sections && Array.isArray(data.sections) && data.sections) ||
-    (data.services && Array.isArray(data.services) && data.services) ||
-    [];
+  (Array.isArray(data.sections) && data.sections) ||
+  (Array.isArray(data.services) && data.services) ||
+  [];
 
   if (!list.length) {
     const p = document.createElement('p');
