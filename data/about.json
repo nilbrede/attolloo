@@ -1,5 +1,19 @@
 {
   "hero_image": "/images/uploads/img_20231201_161412.jpg",
-  "title": "Om oss",
-  "subtitle": "Bygger bro mellom mennesker, strategi og teknologi"
+  "title": "Om Attolloogroup",
+  "subtitle": "Vi bygger broer mellom mennesker, strategi og teknologi – med natur og kultur som ramme",
+  "sections": [
+    {
+      "heading": "Fra idé til fellesskap",
+      "body": "Attolloogroup startet med en idé: å skape arenaer hvor ledere kan utvikle seg utenfor tradisjonelle rammer. Med bakgrunn fra både offentlig og privat sektor, kombinert med erfaring fra sikkerhet og HR, ble grunnlaget lagt for å forene ledelse, refleksjon og opplevelser"
+    },
+    {
+      "heading": "Vi tror på …",
+      "body": "• Samspill – vi vokser når vi spiller hverandre gode.\n• Refleksjon – vi skaper rom for å tenke nytt og annerledes.\n• Mot – vi utfordrer både oss selv og andre til å gå nye veier.\n• Helhet – vi ser mennesker, kultur og teknologi i sammenheng"
+    },
+    {
+      "heading": "North & South – to arenaer, én idé",
+      "body": "Gjennom Attolloo North i Sälen og Attolloo South i Italia tilbyr vi to ulike, men komplementære arenaer for læring og utvikling. Fellesnevneren er ledelse, refleksjon og inspirasjon i omgivelser som setter mennesker i sentrum"
+    }
+  ]
 }
