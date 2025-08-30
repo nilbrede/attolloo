@@ -1,14 +1,15 @@
-/* ================================
-   Attolloo – komplett style.css
-   ================================ */
+/* =====================================
+   Attolloo – komplett style.css (2025)
+   Ren, lesbar og responsiv
+   ===================================== */
 
-/* Reset & grunnoppsett */
+/* Reset & base */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; height: 100%; }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
 
-/* Grunn-typografi */
+/* Typografi */
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
@@ -26,212 +27,124 @@ h1, h2, h3 {
   font-weight: 700;
   color: #111;
 }
-
 p { margin: 0 0 12px; color: #333; }
-
 a:hover { text-decoration: underline; }
 
 /* Container */
-.container {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+.container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
 
 /* =========================
    Header / toppmeny
    ========================= */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: #fff;
-  border-bottom: 1px solid #eee;
+  position: sticky; top: 0; z-index: 50;
+  background: #fff; border-bottom: 1px solid #eee;
 }
-
-.site-header .inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.site-header .inner{
+  max-width:1100px; margin:0 auto; padding:14px 20px;
+  display:flex; align-items:center; gap:16px;
 }
-
-.site-logo img { height: 44px; width: auto; }
-
-.site-brand { 
-  font-size: 18px; 
-  font-weight: 600; 
-  color: #2a2a2a; 
-}
+.site-logo img{ height:44px; width:auto; }
+.site-brand{ font-size:18px; font-weight:600; color:#2a2a2a; }
 
 /* Navigasjon */
-.main-nav { margin-left: auto; }
-.main-nav ul { list-style: none; display: flex; gap: 12px; margin: 0; padding: 0; }
-.main-nav a {
-  color: #333;
-  font-weight: 600;
-  padding: 8px 10px;
-  border-bottom: 2px solid transparent;
-  transition: color .2s ease, border-color .2s ease;
+.main-nav{ margin-left:auto; }
+.main-nav ul{ list-style:none; display:flex; gap:12px; margin:0; padding:0; }
+.main-nav a{
+  color:#333; font-weight:600; padding:8px 10px;
+  border-bottom:2px solid transparent; transition:color .2s, border-color .2s;
 }
-.main-nav a:hover { color: #0aa1c8; border-color: #0aa1c8; }
+.main-nav a:hover{ color:#0aa1c8; border-color:#0aa1c8; }
 
 /* =========================
-   Hero-seksjon
+   Hero
    ========================= */
-.hero {
-  position: relative;
-  min-height: 50vh;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.hero{
+  position:relative; min-height:50vh; display:grid; place-items:center;
+  color:#fff; background-size:cover; background-position:center;
 }
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,.55);
+.hero::after{
+  content:""; position:absolute; inset:0; background:rgba(0,0,0,.58);
 }
-
-.hero .inner {
-  position: relative;
-  padding: 32px 24px;
-  max-width: 960px;
-  background: rgba(0,0,0,.28);
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
-  border-radius: 12px;
+.hero::before{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,.10) 0%, rgba(0,0,0,.35) 60%, rgba(0,0,0,.58) 100%);
+  pointer-events:none;
 }
-
-#heroTitle {
-  font-size: clamp(28px, 5vw, 44px);
-  margin: 0 0 16px;
-  color: #fff;
-  text-shadow: 0 2px 8px rgba(0,0,0,.75);
+.hero .inner{
+  position:relative; max-width:960px; padding:34px 24px;
+  background:rgba(0,0,0,.38);               /* litt mørkere glass-plate */
+  -webkit-backdrop-filter:blur(3px);
+  backdrop-filter:blur(3px);
+  border-radius:12px;
 }
-
-#heroSubtitle {
-  font-size: clamp(16px, 2.3vw, 22px);
-  color: #f0f0f0;
-  opacity: .96;
-  text-shadow: 0 4px 8px rgba(0,0,0,.7);
+#heroTitle{
+  font-size:clamp(28px,5vw,44px); margin:0 0 16px; color:#fff;
+  text-shadow:0 2px 8px rgba(0,0,0,.75);
 }
-
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,.10) 0%, rgba(0,0,0,.35) 60%, rgba(0,0,0,.55) 100%);
-  pointer-events: none;
+#heroSubtitle{
+  font-size:clamp(16px,2.3vw,22px);
+  color:#f5f5f5;            /* lysere */
+  opacity:1;                /* full kontrast */
+  text-shadow:0 4px 8px rgba(0,0,0,.7);
 }
 
 /* =========================
    Tjenester / kort
    ========================= */
-.service {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 14px rgba(0,0,0,.08);
-  padding: 16px;
-  margin: 20px 0;
+.service{
+  background:#fff; border-radius:12px; padding:16px; margin:20px 0;
+  box-shadow:0 4px 14px rgba(0,0,0,.08);
 }
-
-.service h2 {
-  font-size: 1.55rem;
-  margin: 6px 0 8px;
-  color: #111;
-}
-
-.service p {
-  color: #444;
-  line-height: 1.65;
-}
-
-.service-img {
-  width: 100%;
-  max-height: 340px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 12px;
+.service h2{ font-size:1.55rem; margin:6px 0 8px; color:#111; }
+.service p{ color:#444; line-height:1.65; }
+.service-img{
+  width:100%; max-height:340px; object-fit:cover; border-radius:10px; margin-bottom:12px;
 }
 
 /* =========================
-   Footer
+   Footer – gradient + full kontrast
    ========================= */
-footer {
-  background: linear-gradient(180deg, #1a1a1a 0%, #000000 100%);
-  color: #ffffff;
-  font-size: 15px;
-  padding: 22px 12px;
-  text-align: center;
-  margin-top: auto; /* skyver footer til bunn */
-  border-top: 1px solid #2c3e50;
-  position: relative;
-  z-index: 5;
+footer{
+  background:linear-gradient(180deg, #1a1a1a 0%, #000000 100%);
+  color:#ffffff; font-size:15px; text-align:center;
+  padding:22px 12px; border-top:1px solid #2c3e50;
+  margin-top:auto; position:relative; z-index:5;
 }
-
-footer a {
-  color: #8bd1ff;
-  text-decoration: none;
-  transition: color .2s ease;
+/* Sikrer at absolutt all tekst i footeren er hvit og synlig */
+footer, footer p, footer span, footer small, #footerText, #year, #orgnr{
+  color:#ffffff !important; opacity:1 !important;
 }
-footer a:hover,
-footer a:focus-visible {
-  text-decoration: underline;
-  color: #b2e5ff;
-}
-
-footer .container {
-  padding: 20px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-#year, #orgnr, #footerText {
-  opacity: 1 !important;
-  color: #ffffff !important;
-}
+footer a{ color:#8bd1ff; text-decoration:none; transition:color .2s; }
+footer a:hover, footer a:focus-visible{ text-decoration:underline; color:#b2e5ff; }
+footer .container{ padding:20px; max-width:1100px; margin:0 auto; }
 
 /* =========================
    Diverse
    ========================= */
-hr {
-  border: 0;
-  height: 1px;
-  background: #eee;
-  margin: 24px 0;
+hr{ border:0; height:1px; background:#eee; margin:24px 0; }
+
+/* Responsiv */
+@media (min-width:768px){
+  .hero{ min-height:60vh; }
+  .hero .inner{ padding:40px 48px; }
 }
 
-/* =========================
-   Responsiv tilpasning
-   ========================= */
-@media (min-width: 768px) {
-  .hero { min-height: 60vh; }
-  .hero .inner { padding: 40px 48px; }
+/* Redusert bevegelse */
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; animation:none !important; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; animation: none !important; }
-}
-
-/* =========================
-   Dark mode
-   ========================= */
-@media (prefers-color-scheme: dark) {
-  body { background: #121212; color: #eaeaea; }
-  a { color: #cfe9ff; }
-  .site-header { background: #1a1a1a; border-bottom-color: #222; }
-  .main-nav a { color: #eaeaea; }
-  .main-nav a:hover { color: #8be1ff; border-color: #8be1ff; }
-  .service { background: #1b1b1b; box-shadow: 0 4px 14px rgba(0,0,0,.5); }
-  .service h2 { color: #fff; }
-  .service p { color: #ddd; }
-  footer { background: linear-gradient(180deg, #0c0c0c 0%, #000000 100%); color: #e6e6e6; }
-  footer a { color: #9bd9ff; }
+/* Dark mode */
+@media (prefers-color-scheme: dark){
+  body{ background:#121212; color:#eaeaea; }
+  a{ color:#cfe9ff; }
+  .site-header{ background:#1a1a1a; border-bottom-color:#222; }
+  .main-nav a{ color:#eaeaea; }
+  .main-nav a:hover{ color:#8be1ff; border-color:#8be1ff; }
+  .service{ background:#1b1b1b; box-shadow:0 4px 14px rgba(0,0,0,.5); }
+  .service h2{ color:#fff; }
+  .service p{ color:#ddd; }
+  footer{ background:linear-gradient(180deg, #0c0c0c 0%, #000000 100%); color:#e6e6e6; }
+  footer a{ color:#9bd9ff; }
 }
