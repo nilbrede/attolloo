@@ -1,188 +1,87 @@
-/* Reset og grunnoppsett */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* =========================
+   Reset & grunnoppsett
+   ========================= */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
 
+/* Grunn-typografi */
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.6;
-  color: #333;
+  color: #222;
   background: #f9f9f9;
 }
 
-/* Container gir maks bredde på innhold */
+h1, h2, h3 {
+  margin: 0 0 12px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #111;
+}
+
+p { margin: 0 0 12px; color: #333; }
+
+/* Lenker */
+a:hover { text-decoration: underline; }
+
+/* Enhetlig container */
 .container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px;
 }
 
-/* Navigasjonsmeny */
-.main-nav {
-  background: #222;
-  padding: 15px;
-  text-align: center;
-}
-.main-nav ul {
-  list-style: none;
-}
-.main-nav li {
-  display: inline-block;
-  margin: 0 20px;
-}
-.main-nav a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.2s ease;
-}
-.main-nav a:hover {
-  color: #ffcc00;
-  text-decoration: underline;
-}
+/* Litt luft mellom header og innhold når vi bruker sticky header */
+.page-top-space { height: 18px; }
 
-/* Overskrifter */
-h1, h2, h3 {
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-/* Avsnitt */
-p {
-  margin-bottom: 15px;
-}
-
-/* Footer */
-footer {
-  background: #222;
-  color: #ddd;
-  text-align: center;
-  padding: 20px;
-  margin-top: 40px;
-}
-footer a {
-  color: #ffcc00;
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
-}
-/* Header med logo */
+/* =========================
+   Header / toppmeny
+   ========================= */
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   background: #fff;
   border-bottom: 1px solid #eee;
 }
+
 .site-header .inner {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 14px 20px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
-.site-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.site-logo img {
-  height: 40px;              /* juster ved behov */
-  width: auto;
-  display: block;
-}
-.site-brand {
-  font-size: 18px;
+
+.site-logo img { height: 44px; width: auto; }
+.site-brand { font-size: 18px; font-weight: 600; color: #2a2a2a; }
+
+/* Navigasjon */
+.main-nav { margin-left: auto; background: transparent; }
+.main-nav ul { list-style: none; display: flex; gap: 18px; margin: 0; padding: 0; }
+.main-nav a {
+  color: #333;
   font-weight: 600;
-  color: #222;
+  padding: 8px 4px;
+  border-bottom: 2px solid transparent;
+  transition: color .2s ease, border-color .2s ease;
 }
+.main-nav a:hover { color: #0aa1c8; border-color: #0aa1c8; }
 
-/* Flytt menyen inn i headeren */
-.site-header .main-nav {
-  margin-left: auto;          /* skyv menyen til høyre */
-  background: transparent;
-  padding: 0;
-}
-.site-header .main-nav a {
-  color: #222;
-}
-.site-header .main-nav a:hover {
-  color: #0a7cff;
-  text-decoration: none;
-}
-
-/* Litt luft under headeren */
-.page-top-space {
-  height: 16px;
-}
-/* Hero-seksjon */
-.hero {
-  background: url('images/hero-bg.jpg') no-repeat center center/cover;
-  padding: 100px 20px;
-  color: white;
-  text-align: center;
-  position: relative;
-}
-.hero::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5); /* mørk overlay */
-}
-.hero .inner {
-  position: relative; /* slik at teksten ligger over overlay */
-  max-width: 800px;
-  margin: 0 auto;
-}
-.hero h1 {
-  font-size: 3em;
-  margin-bottom: 20px;
-}
-.hero p {
-  font-size: 1.3em;
-}
-/* HERO – felles */
+/* =========================
+   Hero-seksjon
+   ========================= */
 .hero {
   position: relative;
-  min-height: 320px;
+  min-height: 45vh;
   display: grid;
   place-items: center;
-  text-align: center;
-  padding: 80px 20px;
   color: #fff;
-  background: #0f172a; /* fallback */
   background-size: cover;
-  background-position: center;
-}
-
-/* Mørk overlay for lesbar tekst */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.5); /* juster 0.4–0.65 ved behov */
-}
-.hero .inner { position: relative; z-index: 1; max-width: 900px; }
-.hero h1 { font-size: clamp(28px, 5vw, 48px); margin-bottom: 12px; line-height: 1.1; }
-.hero p  { font-size: clamp(16px, 2.5vw, 20px); opacity: 0.95; }
-
-/* Eget bilde per side */
-.hero.home     { background-image: url("images/home-hero.jpeg"); }
-.hero.about    { background-image: url("images/about-hero.jpeg"); }
-.hero.services { background-image: url("images/services-hero.jpeg"); }
-/* --- Felles hero-stil --- */
-.hero {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-  min-height: 46vh;          /* høyden på hero – juster om ønskelig */
-  color: #fff;
-  background-size: cover;    /* fyll flaten */
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -192,130 +91,113 @@ footer a:hover {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.45); /* juster 0.35–0.6 for mer/mindre mørk */
+  background: rgba(0,0,0,.45); /* juster 0.35–0.6 ved behov */
 }
 
 .hero .inner {
-  position: relative; /* legg innholdet over overlayen */
-  padding: 24px 28px;
-  border-radius: 10px;
-}
-
-/* Hero-variant for Om oss-siden */
-.about-hero {
-  /* Sett ditt fjellbilde her (kan byttes når som helst) */
-  background-image: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80");
-}
-
-/* Responsiv finpuss */
-@media (min-width: 768px) {
-  .hero { min-height: 56vh; }
-  .hero .inner { padding: 28px 40px; }
-}
-/* ===== Hero styling felles ===== */
-.hero {
-  position: relative;
-  display: grid;
-  place-items: center;
-  min-height: 45vh;       /* fast høyde */
-  color: #fff;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* Mørk overlay */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,.45); /* juster 0.35–0.6 for lysere/mørkere */
-}
-
-.hero .inner {
-  position: relative;   /* over overlay */
-  padding: 24px 28px;
+  position: relative; /* over overlay */
   text-align: center;
+  padding: 28px 20px;
   max-width: 900px;
 }
 
-/* Responsiv */
-@media (min-width: 768px) {
-  .hero { min-height: 50vh; }
-  .hero .inner { padding: 28px 40px; }
-}
+#heroTitle { font-size: clamp(28px, 5vw, 44px); margin: 0 0 10px; }
+#heroSubtitle { font-size: clamp(16px, 2.3vw, 22px); opacity: .95; }
 
-/* Fallback-bilder dersom CMS-feltet er tomt */
+/* Fallback-bilder hvis CMS-feltet ikke setter hero-bilde */
 .home-hero     { background-image: url("/images/uploads/home-fallback.jpg"); }
 .about-hero    { background-image: url("/images/uploads/about-fallback.jpg"); }
 .services-hero { background-image: url("/images/uploads/services-fallback.jpg"); }
-/* Generelt oppsett for hver tjeneste */
+
+/* =========================
+   Tjenester – kortvisning
+   ========================= */
+
+/* NB: Sikre at container ikke blir grid et annet sted */
+#servicesRoot, .services, .services-grid { display: block; }
+
+/* Kort under hverandre, med skygge og avrunding */
 .service {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  padding: 1.5rem;
-  margin: 2rem auto;
-  max-width: 900px;
-}
-
-/* Bilder inni tjenestene */
-.service-img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  display: block;
-}
-
-/* Tekststil */
-.service h2 {
-  margin: 0.5rem 0;
-  font-size: 1.6rem;
-  color: #222;
-}
-
-.service p {
-  line-height: 1.6;
-  color: #444;
-  margin: 0.5rem 0 0;
-}
-
-/* Grid-layout på desktop */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-}
-
-/* Legg denne klassen på <main class="container"> i services.html */
-/* --- Service-seksjoner som kort under hverandre --- */
-.service {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 14px rgba(0,0,0,.08);
+  padding: 16px;
+  max-width: 820px;
+  margin: 28px auto;
 }
 
 .service h2 {
-  margin-top: 0;
-  font-size: 1.5rem;
-  color: #222;
+  font-size: 1.55rem;
+  margin: 6px 0 8px;
+  color: #111;
 }
 
 .service p {
-  line-height: 1.6;
   color: #444;
+  line-height: 1.65;
 }
 
+/* Bilde på toppen av kortet når definert i JSON */
 .service-img {
-  display: block;
   width: 100%;
-  max-height: 320px;
+  max-height: 340px;
   object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 1rem;
+  margin-bottom: 12px;
 }
 
+/* Valgfri “fullwidth”-variant hvis du senere markerer en seksjon slik */
+.service.fullwidth {
+  max-width: 1000px;
+}
+
+/* =========================
+   Footer
+   ========================= */
+footer {
+  background: #111;
+  color: #ddd;
+  margin-top: 48px;
+}
+
+footer .container {
+  padding: 24px 20px;
+  text-align: center;
+  max-width: 1100px;
+}
+
+footer a { color: #8ee1ff; }
+footer a:hover { color: #bff0ff; }
+
+#year, #orgnr, #footerText { opacity: .9; }
+
+/* =========================
+   Diverse
+   ========================= */
+hr {
+  border: 0;
+  height: 1px;
+  background: #eee;
+  margin: 24px 0;
+}
+
+/* =========================
+   Responsiv tilpasning
+   ========================= */
+@media (min-width: 768px) {
+  .hero { min-height: 56vh; }
+  .hero .inner { padding: 36px 40px; }
+  .page-top-space { height: 24px; }
+}
+
+@media (prefers-color-scheme: dark) {
+  body { background: #121212; color: #eaeaea; }
+  p { color: #cfcfcf; }
+  .site-header { background: #1a1a1a; border-bottom-color: #222; }
+  .main-nav a { color: #eaeaea; }
+  .main-nav a:hover { color: #8ee1ff; border-color: #8ee1ff; }
+  .service { background: #1b1b1b; box-shadow: 0 4px 14px rgba(0,0,0,.5); }
+  .service h2 { color: #fff; }
+  .service p { color: #ddd; }
+  footer { background: #0c0c0c; color: #cfcfcf; }
+}
