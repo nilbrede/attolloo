@@ -2,13 +2,15 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_folder: "images/uploads"   # hvor filer lagres i repo
+public_folder: "/images/uploads" # hvordan filene refereres på nettsiden
 
 publish_mode: editorial_workflow
 
 collections:
+  # =========================
   # Felles nettsted-data
+  # =========================
   - name: "site"
     label: "Nettsted – Felles"
     files:
@@ -19,7 +21,9 @@ collections:
           - { name: orgnr,  label: "Organisasjonsnummer", widget: "string" }
           - { name: footer, label: "Footer-tekst",        widget: "string", default: "Attolloogroup. Alle rettigheter forbeholdt." }
 
+  # =========================
   # Forside
+  # =========================
   - name: "home"
     label: "Forside"
     files:
@@ -27,17 +31,21 @@ collections:
         label: "Forside"
         file: "data/home.json"
         fields:
-          - { name: "title",       label: "Tittel (hero)",   widget: "string" }
-          - { name: "subtitle",    label: "Ingress (hero)",  widget: "text" }
-          - { name: "hero_image",  label: "Hero-bilde",      widget: "image", choose_url: true, allow_multiple: false }
-          - name: "cards"
-            label: "Kortbokser"
+          - { name: title,       label: "Tittel (hero)",   widget: "string" }
+          - { name: subtitle,    label: "Ingress (hero)",  widget: "text", required: false }
+          - { name: hero_image,  label: "Hero-bilde",      widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - label: "Kortbokser"
+            name: "cards"
             widget: "list"
+            collapsed: true
             fields:
-              - { name: "heading", label: "Overskrift", widget: "string" }
-              - { name: "body",    label: "Tekst",      widget: "text" }
+              - { name: heading, label: "Overskrift", widget: "string" }
+              - { name: body,    label: "Tekst",      widget: "text" }
+              - { name: image,   label: "Bilde",      widget: "image", choose_url: true, required: false }
 
+  # =========================
   # Om oss
+  # =========================
   - name: "about"
     label: "Om oss"
     files:
@@ -45,17 +53,21 @@ collections:
         label: "Om oss"
         file: "data/about.json"
         fields:
-          - { name: "title",      label: "Tittel (hero)",  widget: "string" }
-          - { name: "subtitle",   label: "Ingress (hero)", widget: "string" }
-          - { name: "hero_image", label: "Hero-bilde",     widget: "image", choose_url: true }
-          - name: "sections"
-            label: "Avsnitt"
+          - { name: title,      label: "Tittel (hero)",  widget: "string" }
+          - { name: subtitle,   label: "Ingress (hero)", widget: "text", required: false }
+          - { name: hero_image, label: "Hero-bilde",     widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - label: "Avsnitt"
+            name: "sections"
             widget: "list"
+            collapsed: true
             fields:
-              - { name: "heading", label: "Overskrift", widget: "string" }
-              - { name: "body",    label: "Tekst",      widget: "text" }
+              - { name: heading, label: "Overskrift", widget: "string" }
+              - { name: body,    label: "Tekst",      widget: "text" }
+              - { name: image,   label: "Bilde",      widget: "image", choose_url: true, required: false }
 
+  # =========================
   # Tjenester
+  # =========================
   - name: "services"
     label: "Tjenester"
     files:
@@ -63,12 +75,16 @@ collections:
         label: "Tjenestesiden"
         file: "data/services.json"
         fields:
-          - { name: "title",      label: "Tittel (hero)",  widget: "string" }
-          - { name: "subtitle",   label: "Ingress (hero)", widget: "text" }
-          - { name: "hero_image", label: "Hero-bilde",     widget: "image", choose_url: true }
-          - name: "sections"
-            label: "Tjenester"
+          - { name: title,      label: "Tittel (hero)",  widget: "string" }
+          - { name: subtitle,   label: "Ingress (hero)", widget: "text", required: false }
+          - { name: hero_image, label: "Hero-bilde",     widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - label: "Tjenester"
+            name: "sections"
             widget: "list"
+            collapsed: false
             fields:
-              - { name: "heading", label: "Overskrift", widget: "string" }
-              - { name: "body",    label: "Brødtekst",  widget: "text" }
+              - { name: heading,   label: "Overskrift",              widget: "string" }
+              - { name: body,      label: "Brødtekst",               widget: "text" }
+              - { name: image,     label: "Bilde",                   widget: "image", choose_url: true, required: false }
+              - { name: imageTall, label: "Større bilde (valgfritt)", widget: "boolean", required: false, default: false }
+
