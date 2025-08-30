@@ -3,7 +3,7 @@ backend:
   branch: main
 
 media_folder: "images/uploads"   # hvor filer lagres i repo
-public_folder: "/images/uploads" # hvordan filene refereres på nettsiden
+public_folder: "/images/uploads" # slik de refereres på nettstedet
 
 publish_mode: editorial_workflow
 
@@ -34,8 +34,8 @@ collections:
           - { name: title,       label: "Tittel (hero)",   widget: "string" }
           - { name: subtitle,    label: "Ingress (hero)",  widget: "text", required: false }
           - { name: hero_image,  label: "Hero-bilde",      widget: "image", choose_url: true, allow_multiple: false, required: false }
-          - label: "Kortbokser"
-            name: "cards"
+          - label: "Forside-seksjoner"
+            name: "sections"
             widget: "list"
             collapsed: true
             fields:
@@ -56,7 +56,7 @@ collections:
           - { name: title,      label: "Tittel (hero)",  widget: "string" }
           - { name: subtitle,   label: "Ingress (hero)", widget: "text", required: false }
           - { name: hero_image, label: "Hero-bilde",     widget: "image", choose_url: true, allow_multiple: false, required: false }
-          - label: "Avsnitt"
+          - label: "Om oss-seksjoner"
             name: "sections"
             widget: "list"
             collapsed: true
@@ -83,8 +83,7 @@ collections:
             widget: "list"
             collapsed: false
             fields:
-              - { name: heading,   label: "Overskrift",              widget: "string" }
-              - { name: body,      label: "Brødtekst",               widget: "text" }
-              - { name: image,     label: "Bilde",                   widget: "image", choose_url: true, required: false }
-              - { name: imageTall, label: "Større bilde (valgfritt)", widget: "boolean", required: false, default: false }
-
+              - { name: heading,   label: "Overskrift",  widget: "string" }
+              - { name: body,      label: "Brødtekst",   widget: "text" }
+              - { name: image,     label: "Bilde",       widget: "image", choose_url: true, required: false }
+              - { name: imageTall, label: "Større bilde", widget: "boolean", required: false, default: false }
