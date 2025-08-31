@@ -1,93 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="no">
-  <head>
-    <meta charset="utf-8">
-    <title>Tjenester – Attolloogroup</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body data-page="services">
-    <!-- HEADER -->
-    <header class="site-header">
-      <div class="inner">
-        <a class="site-logo" href="index.html">
-          <img id="site-logo" src="aab-logo.png" alt="Attolloogroup logo">
-          <span class="site-brand">Attolloogroup</span>
-        </a>
-        <nav class="main-nav">
-          <ul>
-            <li><a href="index.html">Forside</a></li>
-            <li><a href="about.html">Om oss</a></li>
-            <li><a href="services.html">Tjenester</a></li>
-            <li><a href="/blog/index.html">Blogg</a></li>
-          </ul>
-        </nav>
+<head>
+  <meta charset="utf-8">
+  <title>Tjenester – Attolloo Group</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/style.css?v=3">
+</head>
+<body data-page="services">
+
+  <!-- HEADER (samme på alle sider) -->
+  <header class="site-header">
+    <div class="site-brand">
+      <a class="site-logo" href="/index.html" aria-label="Til forsiden">
+        <img src="/aab-logo.png" alt="Attolloo logo">
+        <span class="site-brand_text">Attolloo Group</span>
+      </a>
+      <nav class="main-nav" aria-label="Hovedmeny">
+        <ul>
+          <li><a href="/index.html">Forside</a></li>
+          <li><a href="/about.html">Om oss</a></li>
+          <li><a href="/services.html">Tjenester</a></li>
+          <li><a href="/blog/">Blogg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="page-top-space"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="inner">
+      <h1 id="herotitle">Tjenester</h1>
+      <p id="herosubtitle">Utvikling av mennesker, team og virksomheter – med tydelige rammer og praktiske verktøy.</p>
+    </div>
+  </section>
+
+  <!-- INNHOLD -->
+  <main class="container">
+    <section class="section">
+      <div class="cards">
+        <article class="card">
+          <div class="card__media">
+            <img src="/images/uploads/service-1.jpg" alt="">
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">Lederskap & team</h3>
+            <p class="card__text">Workshops og program for ledergrupper og team.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__media">
+            <img src="/images/uploads/service-2.jpg" alt="">
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">Strategi i praksis</h3>
+            <p class="card__text">Fra prioriteringer til gjennomføring og læring.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__media">
+            <img src="/images/uploads/service-3.jpg" alt="">
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">Teknologi & prosess</h3>
+            <p class="card__text">Smidige rammeverk, data og gode arbeidsflyter.</p>
+          </div>
+        </article>
       </div>
-    </header>
-    <div class="page-top-space"></div>
-    <div id="serviceList"></div>
+    </section>
 
-    <!-- HERO -->
-<section class="hero services-hero">
-  <div class="inner">
-    <h1 id="heroTitle"></h1>
-    <p id="heroSubtitle"></p>
-  </div>
-</section>
+    <section class="section">
+      <div class="section-card">
+        <img src="/images/uploads/service-extra.jpg" alt="">
+        <div class="card__body">
+          <h2 class="card__title">Skreddersøm</h2>
+          <p class="card__text">Kombiner modulene etter behov. Bildestørrelse begrenses automatisk.</p>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <!-- INNHOLD -->
-    <main class="container services-grid">
-  <div class="services-grid" id="servicesGrid"></div>
-</main>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p><span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
+      <p>Org.nr: 936 016 758</p>
+      <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
+    </div>
+  </footer>
 
-<script>
-  // Hent innhold fra site.json
-  fetch('/data/site.json')
-    .then(r => r.json())
-    .then(data => {
-      // Prøv først CMS-strukturen fra "servicespage" → "tjenester"
-      const items =
-        (data.servicespage && data.servicespage.tjenester) ||
-        data.services || // fallback om du heller har en "services"-liste
-        [];
-
-      const el = document.getElementById('services-list');
-
-      if (!items.length) {
-        el.innerHTML = '<p>Ingen tjenester publisert ennå.</p>';
-        return;
-      }
-
-      // Render hver tjeneste
-      el.innerHTML = items.map(it => `
-        <section class="service">
-          ${it.image ? `<img src="${it.image}" alt="">` : ''}
-          <h2>${it.title || it.tittel || it.overskrift || ''}</h2>
-          <p>${it.body || it.tekst || it.brodtekst || ''}</p>
-        </section>
-      `).join('');
-    })
-    .catch(err => {
-      document.getElementById('services-list').innerHTML =
-        '<p>Klarte ikke å laste tjenester nå.</p>';
-      console.error(err);
-    });
-</script>
-
-
-    <!-- FOOTER -->
-    <footer class="footer">
-  <div class="container">
-    <p>© <span id="year"></span> Attolloogroup.
-      <span id="footerText">Alle rettigheter forbeholdt.</span>
-      <br>Org.nr: <span id="orgnr"></span>
-    </p>
-  </div>
-</footer>
-
-
-    <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script src="/js/content.js"></script>
-  </body>
+  <!-- JS: årstall i footer -->
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
 </html>
