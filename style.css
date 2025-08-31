@@ -1,120 +1,88 @@
 /* ====== Basis ====== */
-:root{
-  --brand:#1f2937;      /* mørk grå til tekst/rammer */
-  --accent:#0ea5e9;     /* blå aksent (lenker/chips) */
-  --bg:#f5f7fb;         /* lys bakgrunn */
-  --card:#ffffff;       /* kortbakgrunn */
-  --shadow:0 2px 8px rgba(0,0,0,.06);
-}
+:root{ --container:1100px; --radius:12px; --gap:1rem; --shadow:0 2px 8px rgba(0,0,0,.06); }
 
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
 body{
-  font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-  color:#111;
-  background:var(--bg);
-  line-height:1.6;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height:1.5; color:#222; background:#f6f7f8;
 }
 
-/* ====== Ramme (maksbredde) ====== */
-.container{
-  max-width:1180px;
-  margin:0 auto;
-  padding:0 1rem;
-}
+/* Links */
+a{ color:#1f2937; text-decoration:none; }
+a:hover{ text-decoration:underline; }
 
-/* ====== Header / toppnav ====== */
-.site-header .site-brand{
-  max-width:1180px;
-  margin:0 auto;
-  padding:.75rem 1rem;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.site-logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:inherit}
-.site-logo img{height:48px;width:auto;margin-right:10px}
-.site-brand_text{font-weight:600;font-size:1.2rem;color:#1f2937}
-.main-nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0}
-.main-nav a{text-decoration:none;color:inherit}
-.main-nav a[aria-current="page"]{color:var(--accent);font-weight:600}
+/* Container */
+.container{ max-width:var(--container); margin:0 auto; padding:0 1rem; }
 
-/* ====== HERO (likt på alle sider) ====== */
+/* ====== Header / Brand ====== */
+.site-header{ background:#fff; border-bottom:1px solid #e5e7eb; }
+.site-brand{ max-width:var(--container); margin:0 auto; padding:.75rem 1rem;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.site-logo{ display:flex; align-items:center; gap:.5rem; }
+.site-logo img{ height:48px; width:auto; margin-right:10px; }
+.site-brand_text{ font-weight:600; font-size:1.05rem; color:#1f2937; }
+
+.main-nav ul{ display:flex; gap:1rem; list-style:none; margin:0; padding:0; }
+.main-nav a{ color:inherit; }
+.main-nav a[aria-current="page"]{ font-weight:600; text-decoration:underline; }
+
+/* ====== Hero ====== */
 .hero{
-  position:relative;
-  min-height:320px;             /* juster global hero-høyde her */
-  display:flex;
-  align-items:center;           /* vertikal sentrering */
-  justify-content:center;       /* horisontal sentrering */
-  text-align:center;
-  color:#fff;
-  background:#111;              /* fall-back om ingen hero-bilde */
+  position:relative; min-height:320px; display:flex; align-items:center; justify-content:center;
+  text-align:center; color:#fff; background:#111;
+  padding:3rem 1rem;
 }
 .hero.has-image{
-  background-size:cover;
-  background-position:center;
+  background-image: var(--hero-image);
+  background-size: cover; background-position:center;
 }
-.hero_overlay{
-  background:rgba(0,0,0,.45);   /* kontrast over bilde */
-  padding:3rem 1rem;
-  border-radius:8px;
-  max-width:940px;
+.hero::before{ /* overlay */
+  content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.55));
 }
-.hero h1{margin:0 0 .5rem;font-size:2rem;font-weight:800}
-.hero p{margin:0;font-size:1.1rem}
+.hero .inner{ position:relative; z-index:1; max-width:800px; }
+.hero h1{ margin:0 0 .5rem; font-size: clamp(1.75rem, 2.3vw + 1rem, 2.25rem); }
+.hero p{ margin:0; opacity:.95; line-height:1.6; }
 
-/* ====== Seksjonskort / CMS-seksjoner ====== */
-.section{padding:2rem 0}
+/* ====== Seksjonsrammer ====== */
+.section{ margin:1.25rem 0; }
+.section .section-card{
+  background:#fff; border:1px solid #e5e7eb; border-radius:var(--radius); box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+/* ====== Kort / grid ====== */
 .cards{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-  gap:20px;
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:var(--gap);
 }
 .card{
-  background:var(--card);
-  border:1px solid #e5e7eb;
-  border-radius:12px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  display:flex;flex-direction:column;
+  background:#fff; border:1px solid #e5e7eb; border-radius:var(--radius); box-shadow:var(--shadow);
+  overflow:hidden; display:flex; flex-direction:column;
 }
-.card_media{aspect-ratio:16/9;overflow:hidden}
-.card_media img{width:100%;height:100%;object-fit:cover;display:block}
-.card_body{padding:1rem}
-.card_title{font-size:1.05rem;margin:.2rem 0 .4rem}
-.card_text{margin:0;color:#4b5563}
+.card_media{ aspect-ratio: 4 / 3; max-height: 220px; overflow:hidden; background:#e9eef2; }
+.card_media img{ width:100%; height:100%; object-fit:cover; display:block; }
+.card_body{ padding:1rem; display:flex; flex-direction:column; gap:.35rem; }
+.card_title{ font-size:1.05rem; color:#1f2937; margin:0; }
+.card_text{ margin:.25rem 0 0; color:#667085; }
+@media (min-width: 900px){ .card_media{ max-height:200px; } }
 
-/* ====== Blogg – listekort på forsiden og /blog ====== */
-.att-card{
-  background:var(--card);
-  border:1px solid #e5e7eb;
-  border-radius:12px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-.att-card_thumb{aspect-ratio:16/9;display:block;overflow:hidden}
-.att-card_thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.att-card_body{padding:1rem}
-.att-card_date{font-size:.9rem;color:#6b7280;margin-bottom:.15rem}
-.att-card_title a{text-decoration:none;color:inherit;}
-.att-card_title a:hover{text-decoration:underline}
-.att-card_excerpt{color:#4b5563;margin:.35rem 0 0}
+/* ====== Blogg-kort på forsiden ====== */
+.att-home_blog{ padding:2.5rem 1rem; }
+.att-home_head{ display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
+.att-section-title{ font-size: clamp(1.2rem, 2vw, 1.4rem); margin:0; }
+.att-chip{ display:inline-block; font-size:.9rem; text-decoration:none; padding:.45rem .75rem; border:1px solid #e5e7eb; border-radius:999px; color:inherit; }
+.att-card{ background:#fff; border:1px solid #e5e7eb; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column; }
+.att-card_thumb{ aspect-ratio:16/9; background:#eef3f7; overflow:hidden; }
+.att-card_thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+.att-card_body{ padding:1rem; display:flex; flex-direction:column; gap:.35rem; }
+.att-card_date{ font-size:.9rem; color:#6b7280; }
+.att-card_title a{ color:inherit; text-decoration:none; }
+.att-card_title a:hover{ text-decoration:underline; }
+.att-card_excerpt{ color:#667085; opacity:.95; line-height:1.6; }
+.att-home_blog_grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px; }
 
-/* Blogg-grid på forside */
-.att-home-blog{padding:2.5rem 0}
-.att-home_head{
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem
-}
-.att-home-title{font-size: clamp(1.2rem, 2vw, 2rem); margin:0}
-.att-chip{display:inline-block;font-size:.9rem;text-decoration:none;padding:.45rem .75rem;border:1px solid #e5e7eb;border-radius:9999px;color:inherit}
-.att-home-blog_grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-
-/* ====== Småting ====== */
-.page-top-space{height:.5rem}
-footer{padding:2rem 0;color:#6b7280}
-a{color:var(--accent)}
-
-/* ====== Responsivt ====== */
-@media (min-width:900px){
-  .hero{min-height:360px}
-  .hero h1{font-size:2.3rem}
-  .hero p{font-size:1.2rem}
-}
+/* ====== Footer ====== */
+footer{ margin:2rem 0; }
+footer .container{ color:#6b7280; font-size:.95rem; }
