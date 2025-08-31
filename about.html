@@ -4,84 +4,97 @@
   <meta charset="utf-8" />
   <title>Om oss – Attolloo Group</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/style.css?v=8" />
+  <!-- style (samme fil som forsiden) -->
+  <link rel="stylesheet" href="/style.css?v=5" />
 </head>
 <body data-page="about">
+  <!-- HEADER (identisk med forsiden) -->
   <header class="site-header">
-    <div class="site-brand">
+    <div class="container header-row">
       <a class="site-logo" href="/index.html" aria-label="Til forsiden">
         <img src="/aab-logo.png" alt="Attolloo logo" />
         <span class="site-brand_text">Attolloo Group</span>
       </a>
+
       <nav class="main-nav" aria-label="Hovedmeny">
         <ul>
           <li><a href="/index.html">Forside</a></li>
           <li><a href="/about.html" aria-current="page">Om oss</a></li>
           <li><a href="/services.html">Tjenester</a></li>
-          <li><a href="/blog/">Blogg</a></li>
+          <li><a href="/blog/index.html">Blogg</a></li>
         </ul>
       </nav>
     </div>
   </header>
+  <div class="page-top-space"></div>
 
-  <!-- HERO -->
-  <section class="hero" id="about-hero" aria-labelledby="herotitle">
-    <div class="inner">
-      <h1 id="herotitle">Om Attolloogroup</h1>
-      <p id="herosubtitle"></p>
+  <!-- HERO (tekst fra CMS, bakgrunn fra CMS) -->
+  <section class="hero" id="about-hero" aria-labelledby="heroTitle">
+    <div class="hero__overlay">
+      <h1 id="heroTitle">Om Attolloogroup</h1>
+      <p id="heroSubtitle"></p>
     </div>
   </section>
 
-  <!-- HOVEDINNHOLD -->
   <main class="container">
+    <!-- Kortseksjon fra CMS -->
     <section class="section">
-      <div class="cards" id="about-cards" aria-live="polite"></div>
+      <div id="about-cards" class="cards"></div>
     </section>
   </main>
 
   <footer>
     <div class="container">
-      <p><span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
+      <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
       <p>Org.nr: 936 616 758</p>
       <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
     </div>
   </footer>
 
   <script>
+    // ©-år
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Last hero + seksjoner fra about.json
+    // Last CMS-data for OM OSS
     (async function loadAbout(){
-      try{
-        const res  = await fetch('/data/about.json', { cache:'no-store' });
+      try {
+        const res  = await fetch('/data/about.json', { cache: 'no-store' });
         const data = await res.json();
 
-        // Hero
+        // Hero-tekst
+        document.getElementById('heroTitle').textContent    = data.title || 'Om Attolloogroup';
+        document.getElementById('heroSubtitle').textContent = data.subtitle || '';
+
+        // Hero-bilde (bruker CSS-variabel + klasse for å aktivere overlay)
         const hero = document.getElementById('about-hero');
-        if (data.hero_image){
+        if (data.hero_image) {
           hero.style.setProperty('--hero-image', `url(${data.hero_image})`);
           hero.classList.add('has-image');
+        } else {
+          hero.classList.remove('has-image');
         }
-        document.getElementById('herotitle').textContent    = data.title || 'Om Attolloogroup';
-        document.getElementById('herosubtitle').textContent = data.subtitle || '';
 
-        // Seksjoner -> kort
+        // Kortseksjoner
         const wrap = document.getElementById('about-cards');
         const sections = Array.isArray(data.sections) ? data.sections : [];
-        wrap.innerHTML = sections.length
-          ? sections.map(s => `
-              <article class="card">
-                ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ''}
-                <div class="card_body">
-                  ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ''}
-                  ${s.body ? `<p class="card_text">${s.body}</p>` : ''}
-                </div>
-              </article>
-            `).join('')
-          : '<p>Ingen innholdsseksjoner er lagt til ennå.</p>';
-      }catch(e){
-        console.error('Kunne ikke laste about.json', e);
-        document.getElementById('about-cards').innerHTML = '<p>Kunne ikke laste innhold akkurat nå.</p>';
+        if (!sections.length){
+          wrap.innerHTML = '<p>Ingen innholdseksjoner er lagt til ennå.</p>';
+          return;
+        }
+
+        wrap.innerHTML = sections.map(s => `
+          <article class="card">
+            ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ''}
+            <div class="card_body">
+              ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ''}
+              ${s.body ? `<p class="card_text">${s.body}</p>` : ''}
+            </div>
+          </article>
+        `).join('');
+      } catch (e) {
+        console.error(e);
+        document.getElementById('about-cards').innerHTML =
+          '<p>Kunne ikke laste innhold akkurat nå.</p>';
       }
     })();
   </script>
