@@ -230,4 +230,24 @@ body[data-page="services"]  main > img:first-of-type{
   object-fit: cover;
   border-radius: 8px;
 }
+/* --- Hero-tekst alltid lesbar --- */
+.hero {
+  position: relative;
+  color: #fff; /* gjør teksten hvit */
+}
+
+.hero h1,
+.hero p {
+  position: relative;
+  z-index: 2; /* sørger for at teksten ligger over overlay */
+}
+
+/* Legg på mørk overlay bak teksten */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45); /* juster 0.45 for mer/mindre mørkhet */
+  z-index: 1;
+}
 
