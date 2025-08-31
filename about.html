@@ -27,12 +27,13 @@
   <div class="page-top-space"></div>
 
   <!-- HERO (fylles av CMS-data) -->
-  <section class="hero">
-    <div class="inner">
-      <h1 id="herotitle">Om Attolloo Group</h1>
-      <p id="herosubtitle"></p>
-    </div>
-  </section>
+  <!-- HERO (CMS) -->
+<section class="hero" id="about-hero" aria-labelledby="herotitle">
+  <div class="hero__overlay">
+    <h1 id="herotitle"></h1>
+    <p id="herosubtitle"></p>
+  </div>
+</section>
 
   <main class="container">
     <!-- “Hel-kort” under hero (valgfritt bilde/tekst) -->
@@ -115,5 +116,29 @@
       }
     })();
   </script>
+  <script>
+(async function loadAboutHero(){
+  try {
+    const res  = await fetch('/data/about.json', { cache: 'no-store' });
+    const data = await res.json();
+
+    // Tekst fra CMS
+    document.getElementById('herotitle').textContent   = data.title || 'Om Attoloogroup';
+    document.getElementById('herosubtitle').textContent = data.subtitle || '';
+
+    // Bakgrunnsbilde fra CMS (felt: hero_image)
+    const hero = document.getElementById('about-hero');
+    if (data.hero_image) {
+      hero.style.setProperty('--hero-image', `url(${data.hero_image})`);
+      hero.classList.add('has-image');
+    } else {
+      hero.classList.remove('has-image');
+    }
+  } catch (e) {
+    console.error('Kunne ikke laste about.json', e);
+  }
+})();
+</script>
+
 </body>
 </html>
