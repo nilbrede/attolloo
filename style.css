@@ -250,4 +250,53 @@ body[data-page="services"]  main > img:first-of-type{
   background: rgba(0,0,0,0.45); /* juster 0.45 for mer/mindre mørkhet */
   z-index: 1;
 }
+/* === HERO (CMS-styrt) === */
+.hero {
+  --hero-image: none;                 /* settes fra JS */
+  --hero-overlay: rgba(0,0,0,.45);    /* hvor mørk overlay skal være */
+
+  position: relative;
+  min-height: 280px;
+  padding: 3.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  /* fallback hvis ikke bilde er valgt i CMS */
+  background: #4a7eb8;
+  color: #fff;
+}
+
+.hero.has-image {
+  background-image:
+    linear-gradient(to bottom, var(--hero-overlay), var(--hero-overlay)),
+    var(--hero-image);
+  background-size: cover;
+  background-position: center;
+}
+
+.hero__overlay {
+  max-width: 980px;
+}
+
+.hero h1 {
+  margin: 0 0 .5rem 0;
+  font-size: 2rem;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.hero p {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: #f5f5f5;
+}
+
+@media (min-width: 900px) {
+  .hero { min-height: 320px; padding: 4rem 1rem; }
+  .hero h1 { font-size: 2.4rem; }
+  .hero p  { font-size: 1.2rem; }
+}
 
