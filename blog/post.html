@@ -4,42 +4,81 @@
   <meta charset="utf-8" />
   <title>Blogginnlegg – Attolloo Group</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="../style.css?v=6" />
+  <!-- Bruk absolutt sti så CSS funker både i / og /blog/ -->
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>
+    /* Lokale justeringer for blogginnlegg */
+
+    .post-wrap{
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .back-link{
+      display:inline-block;
+      margin: .25rem 0 1rem;
+      text-decoration:none;
+    }
+    .post-title{ margin: .25rem 0 .25rem; }
+    .post-date{
+      color:#6b7280; 
+      font-size:.95rem; 
+      margin: 0 0 1rem;
+    }
+
+    /* Bilde begrenses i høyde og kuttes pent */
+    #post-cover{
+      width:100%;
+      max-height:400px;
+      object-fit:cover;
+      border-radius:12px;
+      display:block;
+      margin: .5rem 0 1rem;
+    }
+
+    /* Sørg for at brødteksten får god line-height */
+    .post-body{
+      line-height: 1.7;
+    }
+    .post-body img{
+      max-width:100%;
+      height:auto;
+      border-radius:8px;
+    }
+  </style>
 </head>
 <body>
-  <!-- HEADER -->
+
+  <!-- HEADER (samme markup som øvrige sider) -->
   <header class="site-header">
-    <div class="container header-row">
+    <div class="site-brand">
       <a class="site-logo" href="/index.html" aria-label="Til forsiden">
         <img src="/aab-logo.png" alt="Attolloo logo" />
-        <span class="site-brand_text">Attolloo Group</span>
       </a>
-      <nav class="main-nav" aria-label="Hovedmeny">
-        <ul>
-          <li><a href="/index.html">Forside</a></li>
-          <li><a href="/about.html">Om oss</a></li>
-          <li><a href="/services.html">Tjenester</a></li>
-          <li><a href="/blog/index.html" aria-current="page">Blogg</a></li>
-        </ul>
-      </nav>
+      <span class="site-brand_text">Attolloo Group</span>
     </div>
+
+    <nav class="main-nav" aria-label="Hovedmeny">
+      <ul>
+        <li><a href="/index.html">Forside</a></li>
+        <li><a href="/about.html">Om oss</a></li>
+        <li><a href="/services.html">Tjenester</a></li>
+        <li><a href="/blog/">Blogg</a></li>
+      </ul>
+    </nav>
   </header>
+
   <div class="page-top-space"></div>
 
-  <!-- HOVEDINNHOLD -->
+  <!-- INNHOLD -->
   <main class="container">
-    <a href="index.html" class="back-link">← Tilbake til bloggen</a>
-
-    <article class="card blog-post">
-      <div class="card_body">
-        <h1 id="post-title" class="card_title"></h1>
-        <p id="post-date" class="post-date"></p>
-        <div id="post-cover-wrap" class="post-cover-wrap">
-          <img id="post-cover" alt="" />
-        </div>
-        <div id="post-body" class="post-body"></div>
-      </div>
-    </article>
+    <div class="post-wrap">
+      <a class="back-link" href="/blog/index.html">← Tilbake til bloggen</a>
+      <h1 id="post-title" class="post-title"></h1>
+      <p id="post-date" class="post-date"></p>
+      <img id="post-cover" class="post-cover" alt="" />
+      <div id="post-body" class="post-body"></div>
+    </div>
   </main>
 
   <!-- FOOTER -->
@@ -50,34 +89,42 @@
   </footer>
 
   <script>
-    // ©-år
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Årstall i footer
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Last spesifikt blogginnlegg
+    // Hent og vis ett innlegg basert på ?p=<slug>
     (async function loadPost(){
       const params = new URLSearchParams(window.location.search);
       const slug = params.get("p");
-      if (!slug) return;
-      try {
-        const res = await fetch('posts.json', { cache: 'no-store' });
-        const posts = await res.json();
-        const post = posts.find(p => p.slug === slug);
-        if (!post) return;
+      if(!slug) return;
 
-        document.getElementById('post-title').textContent = post.title;
+      try{
+        const res   = await fetch('/data/posts.json', { cache: 'no-store' });
+        const posts = await res.json();
+        const post  = posts.find(p => p.slug === slug);
+        if(!post) return;
+
+        // Tittel + dato
+        document.getElementById('post-title').textContent = post.title || '';
         document.getElementById('post-date').textContent =
-          new Date(post.date).toLocaleDateString('no-NO');
-        if (post.cover) {
-          document.getElementById('post-cover').src = post.cover;
-          document.getElementById('post-cover-wrap').style.display = "block";
-        } else {
-          document.getElementById('post-cover-wrap').style.display = "none";
+          post.date ? new Date(post.date).toLocaleDateString('no-NO') : '';
+
+        // Cover-bilde (valgfritt)
+        const coverEl = document.getElementById('post-cover');
+        if (post.cover){
+          coverEl.src = post.cover;
+          coverEl.alt = post.title || '';
+          coverEl.style.display = '';
+        }else{
+          coverEl.style.display = 'none';
         }
-        document.getElementById('post-body').innerHTML = post.body;
-      } catch (e) {
-        console.error(e);
-        document.getElementById('post-body').innerHTML =
-          '<p>Klarte ikke laste blogginnlegg akkurat nå.</p>';
+
+        // Innhold: støtt body | content | html
+        const html = post.body ?? post.content ?? post.html ?? '';
+        document.getElementById('post-body').innerHTML = html;
+
+      }catch(e){
+        console.error('Kunne ikke laste blogginnlegg:', e);
       }
     })();
   </script>
