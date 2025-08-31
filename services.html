@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <title>Tjenester – Attolloo Group</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/style.css?v=7" />
+  <link rel="stylesheet" href="style.css?v=7" />
 </head>
 <body data-page="services">
-  <!-- HEADER (identisk med forsiden) -->
- <header class="site-header">
-  <div class="container">
-    <a class="site-logo" href="index.html" aria-label="Til forsiden">
-      <img src="aab-logo.png" alt="Attolloo logo">
-    </a>
-    <span class="site-brand-text">Attolloo Group</span>
-    <nav class="main-nav" aria-label="Hovedmeny">
-      <ul>
-        <li><a href="index.html" aria-current="page">Forside</a></li>
-        <li><a href="about.html">Om oss</a></li>
-        <li><a href="services.html">Tjenester</a></li>
-        <li><a href="blog/index.html">Blogg</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container">
+      <a class="site-logo" href="index.html" aria-label="Til forsiden">
+        <img src="aab-logo.png" alt="Attolloo logo" />
+      </a>
+      <span class="site-brand-text">Attolloo Group</span>
+      <nav class="main-nav" aria-label="Hovedmeny">
+        <ul>
+          <li><a href="index.html">Forside</a></li>
+          <li><a href="about.html">Om oss</a></li>
+          <li><a href="services.html" aria-current="page">Tjenester</a></li>
+          <li><a href="blog/index.html">Blogg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
   <div class="page-top-space"></div>
 
-  <!-- HERO -->
-  <section class="hero" id="services-hero" aria-labelledby="about-hero-title">
-  <div class="inner">
-    <h1 class="hero-title" id="services-hero-title"></h1>
-    <p class="hero-subtitle"></p>
-  </div>
-</section>
+  <!-- HERO (tekst + bakgrunn fra CMS) -->
+  <section class="hero" id="services-hero" aria-labelledby="services-hero-title">
+    <div class="inner">
+      <h1 class="hero-title" id="services-hero-title"></h1>
+      <p class="hero-subtitle"></p>
+    </div>
+  </section>
 
+  <!-- Kortseksjoner fra CMS -->
   <main class="container">
     <section class="section">
       <div id="services-cards" class="cards"></div>
@@ -50,69 +52,47 @@
   </footer>
 
   <script>
-    // ©-år
-    document.getElementById('year').textContent = new Date().getFullYear();
+  // årstall i footer
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Last CMS-data for TJENESTER
-    (async function loadServices(){
-      try {
-        const res  = await fetch('/data/services.json', { cache: 'no-store' });
-        const data = await res.json();
+  // Last CMS-data for TJENESTER
+  (async function () {
+    try {
+      const res  = await fetch('data/services.json?' + Date.now(), { cache: 'no-store' });
+      const data = await res.json();
 
-        // Hero-tekst
-        document.getElementById('heroTitle').textContent    = data.title || 'Våre tjenester';
-        document.getElementById('heroSubtitle').textContent = data.subtitle || '';
+      // HERO-tekst
+      const hero = document.getElementById('services-hero');
+      hero.querySelector('.hero-title').textContent    = data.title    || 'Våre tjenester';
+      hero.querySelector('.hero-subtitle').textContent = data.subtitle || '';
 
-        // Hero-bilde
-        const hero = document.getElementById('services-hero');
-        if (data.hero_image) {
-          hero.style.setProperty('--hero-image', `url(${data.hero_image})`);
-          hero.classList.add('has-image');
-        } else {
-          hero.classList.remove('has-image');
-        }
+      // HERO-bilde (CSS-variabel, støtter både hero_image og image)
+      const img = data.hero_image || data.image;
+      if (img) hero.style.setProperty('--hero-img', `url(${img})`);
 
-        // Kortseksjoner
-        const wrap = document.getElementById('services-cards');
-        const sections = Array.isArray(data.sections) ? data.sections : [];
-        if (!sections.length){
-          wrap.innerHTML = '<p>Ingen tjenester er lagt til ennå.</p>';
-          return;
-        }
-
-        wrap.innerHTML = sections.map(s => `
-          <article class="card">
-            ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ''}
-            <div class="card_body">
-              ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ''}
-              ${s.body ? `<p class="card_text">${s.body}</p>` : ''}
-            </div>
-          </article>
-        `).join('');
-      } catch (e) {
-        console.error(e);
-        document.getElementById('services-cards').innerHTML =
-          '<p>Kunne ikke laste tjenester akkurat nå.</p>';
+      // Seksjoner
+      const wrap = document.getElementById('services-cards');
+      const sections = Array.isArray(data.sections) ? data.sections : [];
+      if (!sections.length) {
+        wrap.innerHTML = '<p style="color:#69646C">Ingen tjenester er lagt til ennå.</p>';
+        return;
       }
-    })();
+
+      wrap.innerHTML = sections.map(s => `
+        <article class="card">
+          ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ''}
+          <div class="card_body">
+            ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ''}
+            ${s.body ? `<p class="card_text">${s.body}</p>` : ''}
+          </div>
+        </article>
+      `).join('');
+    } catch (e) {
+      console.error(e);
+      document.getElementById('services-cards').innerHTML =
+        '<p style="color:#69646C">Kunne ikke laste tjenester akkurat nå.</p>';
+    }
+  })();
   </script>
-  <script>
-(async function(){
-  try{
-    const res  = await fetch('data/services.json?' + Date.now(), { cache:'no-store' });
-    const data = await res.json();
-
-    const hero = document.getElementById('services-hero');
-    if(!hero) return;
-
-    hero.querySelector('.hero-title').textContent    = data.title    || '';
-    hero.querySelector('.hero-subtitle').textContent = data.subtitle || '';
-
-    const img = data.hero_image || data.image;
-    if (img) hero.style.setProperty('--hero-img', `url(${img})`);
-  }catch(e){ console.error('Kunne ikke laste services.json', e); }
-})();
-</script>
-
 </body>
 </html>
