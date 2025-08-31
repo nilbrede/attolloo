@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>Om oss – Attolloo Group</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/style.css?v=3">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/style.css?v=4" />
 </head>
 <body data-page="about">
-
-  <!-- HEADER (samme på alle sider) -->
+  <!-- HEADER (lik forsiden) -->
   <header class="site-header">
     <div class="site-brand">
       <a class="site-logo" href="/index.html" aria-label="Til forsiden">
-        <img src="/aab-logo.png" alt="Attolloo logo">
+        <img src="/aab-logo.png" alt="Attolloo logo" />
         <span class="site-brand_text">Attolloo Group</span>
       </a>
       <nav class="main-nav" aria-label="Hovedmeny">
         <ul>
           <li><a href="/index.html">Forside</a></li>
-          <li><a href="/about.html">Om oss</a></li>
+          <li><a href="/about.html" aria-current="page">Om oss</a></li>
           <li><a href="/services.html">Tjenester</a></li>
           <li><a href="/blog/">Blogg</a></li>
         </ul>
@@ -27,61 +26,29 @@
   </header>
   <div class="page-top-space"></div>
 
-  <!-- HERO -->
+  <!-- HERO (fylles av CMS-data) -->
   <section class="hero">
     <div class="inner">
       <h1 id="herotitle">Om Attolloo Group</h1>
-      <p id="herosubtitle">Vi bygger broer mellom mennesker, strategi og teknologi – med natur og kultur som ramme.</p>
+      <p id="herosubtitle"></p>
     </div>
   </section>
 
-  <!-- INNHOLD -->
   <main class="container">
-    <section class="section">
+    <!-- “Hel-kort” under hero (valgfritt bilde/tekst) -->
+    <section class="section" id="about-intro-wrap" style="display:none;">
       <div class="section-card">
-        <img src="/images/uploads/about-hero.jpg" alt="">
+        <img id="about-heroimg" alt="" />
         <div class="card__body">
-          <h2 class="card__title">Hvem er vi?</h2>
-          <p class="card__text">
-            Kort beskrivelse av selskapet. Denne teksten kan du endre i Netlify CMS
-            (samme oppsett som før). Bildet over skaleres automatisk til fornuftig høyde.
-          </p>
+          <h2 class="card__title" id="about-intro-title"></h2>
+          <p class="card__text" id="about-intro-text"></p>
         </div>
       </div>
     </section>
 
+    <!-- Seksjoner fra CMS -->
     <section class="section">
-      <div class="cards">
-        <article class="card">
-          <div class="card__media">
-            <img src="/images/uploads/about-1.jpg" alt="">
-          </div>
-          <div class="card__body">
-            <h3 class="card__title">Verdier</h3>
-            <p class="card__text">Kort tekst om retning og verdiarbeid.</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card__media">
-            <img src="/images/uploads/about-2.jpg" alt="">
-          </div>
-          <div class="card__body">
-            <h3 class="card__title">Tilnærming</h3>
-            <p class="card__text">Slik jobber vi i praksis – mennesker, prosess og teknologi.</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card__media">
-            <img src="/images/uploads/about-3.jpg" alt="">
-          </div>
-          <div class="card__body">
-            <h3 class="card__title">Historier</h3>
-            <p class="card__text">Små glimt fra arbeid med team og ledelse.</p>
-          </div>
-        </article>
-      </div>
+      <div class="cards" id="about-cards"></div>
     </section>
   </main>
 
@@ -94,7 +61,59 @@
     </div>
   </footer>
 
-  <!-- JS: årstall i footer -->
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    // Årstall i footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Last CMS-data for Om oss
+    (async function loadAbout(){
+      try{
+        const res = await fetch('/data/about.json', {cache:'no-store'});
+        const data = await res.json();
+
+        // Hero-tekst
+        if (data.title) document.getElementById('herotitle').textContent = data.title;
+        if (data.subtitle) document.getElementById('herosubtitle').textContent = data.subtitle;
+
+        // Intro-kort (bruker hero_image om satt)
+        const hasIntro = (data.hero_image || data.subtitle);
+        if (hasIntro){
+          document.getElementById('about-intro-wrap').style.display = '';
+          if (data.hero_image){
+            const img = document.getElementById('about-heroimg');
+            img.src = data.hero_image;
+            img.alt = data.title || 'Om oss';
+          } else {
+            document.getElementById('about-heroimg').style.display = 'none';
+          }
+          document.getElementById('about-intro-title').textContent = data.title || 'Om oss';
+          if (data.subtitle) document.getElementById('about-intro-text').textContent = data.subtitle;
+        }
+
+        // Seksjoner (list fra CMS)
+        const wrap = document.getElementById('about-cards');
+        const sections = Array.isArray(data.sections) ? data.sections : [];
+        if (!sections.length){
+          wrap.innerHTML = '<p>Ingen innholdseksjoner er lagt til ennå.</p>';
+          return;
+        }
+        wrap.innerHTML = sections.map(s => `
+          <article class="card">
+            <div class="card__media">
+              ${s.image ? `<img src="${s.image}" alt="">` : ''}
+            </div>
+            <div class="card__body">
+              ${s.heading ? `<h3 class="card__title">${s.heading}</h3>` : ''}
+              ${s.body ? `<p class="card__text">${s.body}</p>` : ''}
+            </div>
+          </article>
+        `).join('');
+      }catch(e){
+        console.error(e);
+        document.getElementById('about-cards').innerHTML =
+          '<p>Kunne ikke laste innhold akkurat nå.</p>';
+      }
+    })();
+  </script>
 </body>
 </html>
