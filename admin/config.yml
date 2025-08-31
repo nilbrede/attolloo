@@ -2,9 +2,8 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "images/uploads"   # hvor filer lagres i repo
-public_folder: "/images/uploads" # slik de refereres på nettstedet
-
+media_folder: "images/uploads"      # hvor filer lagres i repo
+public_folder: "/images/uploads"    # slik de refereres på nettstedet
 publish_mode: editorial_workflow
 
 collections:
@@ -31,9 +30,9 @@ collections:
         label: "Forside"
         file: "data/home.json"
         fields:
-          - { name: title,       label: "Tittel (hero)",   widget: "string" }
-          - { name: subtitle,    label: "Ingress (hero)",  widget: "text", required: false }
-          - { name: hero_image,  label: "Hero-bilde",      widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - { name: title,      label: "Tittel (hero)",  widget: "string" }
+          - { name: subtitle,   label: "Ingress (hero)", widget: "text", required: false }
+          - { name: hero_image, label: "Hero-bilde",     widget: "image", choose_url: true, allow_multiple: false, required: false }
           - label: "Forside-seksjoner"
             name: "sections"
             widget: "list"
@@ -83,23 +82,26 @@ collections:
             widget: "list"
             collapsed: false
             fields:
-              - { name: heading,   label: "Overskrift",  widget: "string" }
-              - { name: body,      label: "Brødtekst",   widget: "text" }
-              - { name: image,     label: "Bilde",       widget: "image", choose_url: true, required: false }
-              - { name: imageTall, label: "Større bilde", widget: "boolean", required: false, default: false }
-    - name: "posts"
+              - { name: heading,   label: "Overskrift",    widget: "string" }
+              - { name: body,      label: "Brødtekst",     widget: "text" }
+              - { name: image,     label: "Bilde",         widget: "image", choose_url: true, required: false }
+              - { name: imageTall, label: "Større bilde",  widget: "boolean", required: false, default: false }
+
+  # =========================
+  # Blogg (EGEN collection)
+  # =========================
+  - name: "posts"
     label: "Blogginnlegg"
     label_singular: "Innlegg"
-    folder: "blog/posts"
+    folder: "blog/posts"                    # .md-filer havner her
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     preview_path: "blog/post.html?p={{slug}}"
     editor:
       preview: false
     fields:
-      - { label: "Tittel", name: "title", widget: "string" }
-      - { label: "Dato", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
-      - { label: "Ingress (kort)", name: "excerpt", widget: "text", required: false }
-      - { label: "Forsidebilde (cover)", name: "cover", widget: "image", required: false }
-      - { label: "Innhold", name: "body", widget: "markdown" }
-
+      - { label: "Tittel",              name: "title",   widget: "string" }
+      - { label: "Dato",                name: "date",    widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+      - { label: "Ingress (kort)",      name: "excerpt", widget: "text", required: false }
+      - { label: "Forsidebilde (cover)",name: "cover",   widget: "image", required: false }
+      - { label: "Innhold",             name: "body",    widget: "markdown" }
