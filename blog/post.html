@@ -5,6 +5,13 @@
   <title>Blogginnlegg – Attolloo Group</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="../style.css?v=7" />
+  <style>
+    /* litt trygg styling for innholdet */
+    #post-content img{max-width:100%;height:auto;border-radius:.25rem}
+    #post-content p{margin:0 0 1rem 0;line-height:1.6}
+    #post-content h2,#post-content h3{margin:1.25rem 0 .5rem}
+    #post-cover{max-width:100%;height:auto;margin:1rem 0;border-radius:.5rem;display:none}
+  </style>
 </head>
 <body data-page="post">
 
@@ -33,7 +40,7 @@
     <article id="post-article" class="card">
       <h1 id="post-title"></h1>
       <p id="post-date" class="card_date"></p>
-      <img id="post-cover" src="" alt="" style="max-width:100%; margin:1rem 0; display:none;" />
+      <img id="post-cover" alt="">
       <div id="post-content"></div>
     </article>
   </main>
@@ -46,49 +53,76 @@
   </footer>
 
   <script>
-    // Sett årstall
+    // Årstall i footer
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Hent slug fra URL
-    const params = new URLSearchParams(window.location.search);
-    const slug = params.get("p");
+    // Hjelper: veldig enkel tekst/markdown -> HTML (avsnitt og linjeskift)
+    function simpleTextToHTML(txt){
+      if(!txt) return "";
+      // beskytt < og > litt
+      txt = txt.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      // tom linje -> nytt avsnitt
+      return txt
+        .trim()
+        .split(/\n{2,}/).map(par =>
+          '<p>' + par.replace(/\n/g,'<br>') + '</p>'
+        ).join('');
+    }
+
+    // Slug fra URL
+    const slug = new URLSearchParams(location.search).get('p');
 
     (async function loadPost(){
       const titleEl = document.getElementById("post-title");
-      const dateEl = document.getElementById("post-date");
+      const dateEl  = document.getElementById("post-date");
       const coverEl = document.getElementById("post-cover");
-      const contentEl = document.getElementById("post-content");
+      const bodyEl  = document.getElementById("post-content");
 
       if(!slug){
         titleEl.textContent = "Fant ikke innlegget";
         return;
       }
 
-      try {
-        const res = await fetch("./posts.json?v=" + Date.now(), { cache: "no-store" });
+      try{
+        const res = await fetch("./posts.json?v="+Date.now(), {cache:"no-store"});
         const posts = await res.json();
 
-        const post = posts.find(p => p.slug === slug);
+        const post = Array.isArray(posts) ? posts.find(p => p.slug === slug) : null;
         if(!post){
           titleEl.textContent = "Innlegget finnes ikke";
           return;
         }
 
-        // Sett inn data
+        // Tittel og dato
         titleEl.textContent = post.title || "Uten tittel";
         if(post.date){
           const d = new Date(post.date);
           dateEl.textContent = d.toLocaleDateString("no-NO");
+        }else{
+          dateEl.textContent = "";
         }
+
+        // Cover
         if(post.cover){
           coverEl.src = post.cover;
           coverEl.style.display = "block";
         }
-        contentEl.innerHTML = post.content || "<p>(Ingen innhold)</p>";
 
-      } catch(e){
+        // INNHOLD – prøv flere mulige feltnavn fra CMS
+        const htmlField = post.html || post.content || post.body || post.markdown || post.text;
+        if(typeof htmlField === "string" && htmlField.trim()){
+          // Hvis det ser ut som HTML (har <tag>), bruk direkte – ellers konverter tekst
+          if(/[<>]/.test(htmlField)) {
+            bodyEl.innerHTML = htmlField;
+          } else {
+            bodyEl.innerHTML = simpleTextToHTML(htmlField);
+          }
+        } else {
+          bodyEl.innerHTML = "<p>(Ingen innhold)</p>";
+        }
+      }catch(e){
         console.error(e);
-        titleEl.textContent = "Feil: kunne ikke laste blogginnlegg.";
+        document.getElementById("post-title").textContent = "Feil: kunne ikke laste blogginnlegg.";
       }
     })();
   </script>
