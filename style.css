@@ -285,3 +285,12 @@ footer {
   border-radius: 8px;
   margin: 1rem 0;
 }
+/* Bloggpost-bilde */
+.post-cover-wrap img {
+  width: 100%;
+  max-height: 400px;   /* <- begrens høyden */
+  object-fit: cover;   /* fyll uten å forvrenge */
+  border-radius: 8px;
+  margin: 1rem 0;
+  display: block;
+}
