@@ -6,8 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="/style.css?v=4" />
 </head>
+
 <body data-page="about">
-  <!-- HEADER (lik forsiden) -->
+  <!-- HEADER (samme som forsiden) -->
   <header class="site-header">
     <div class="site-brand">
       <a class="site-logo" href="/index.html" aria-label="Til forsiden">
@@ -24,31 +25,22 @@
       </nav>
     </div>
   </header>
+
   <div class="page-top-space"></div>
 
-  <!-- HERO (fylles av CMS-data) -->
-  <!-- HERO (CMS) -->
-<section class="hero" id="about-hero" aria-labelledby="herotitle">
-  <div class="hero__overlay">
-    <h1 id="herotitle"></h1>
-    <p id="herosubtitle"></p>
-  </div>
-</section>
+  <!-- HERO: Tekst alltid inne i hero. Bakgrunn (bilde) styres av CMS -->
+  <section class="hero has-image" id="about-hero" aria-labelledby="herotitle">
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <h1 id="herotitle">Om Attoloogroup</h1>
+      <p id="herosubtitle">Vi bygger broer mellom mennesker, strategi og teknologi – med natur og kultur som ramme</p>
+    </div>
+  </section>
 
+  <!-- HOVEDINNHOLD: kort/seksjoner fra CMS -->
   <main class="container">
-    <!-- “Hel-kort” under hero (valgfritt bilde/tekst) -->
-    <section class="section" id="about-intro-wrap" style="display:none;">
-      <div class="section-card">
-        <img id="about-heroimg" alt="" />
-        <div class="card__body">
-          <h2 class="card__title" id="about-intro-title"></h2>
-          <p class="card__text" id="about-intro-text"></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Seksjoner fra CMS -->
     <section class="section">
+      <h2 class="visually-hidden">Om oss – innhold</h2>
       <div class="cards" id="about-cards"></div>
     </section>
   </main>
@@ -67,78 +59,47 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Last CMS-data for Om oss
-    (async function loadAbout(){
-      try{
-        const res = await fetch('/data/about.json', {cache:'no-store'});
+    (async function loadAboutPage(){
+      try {
+        const res  = await fetch('/data/about.json', { cache: 'no-store' });
         const data = await res.json();
 
-        // Hero-tekst
-        if (data.title) document.getElementById('herotitle').textContent = data.title;
-        if (data.subtitle) document.getElementById('herosubtitle').textContent = data.subtitle;
+        // --- HERO: tekst fra CMS ---
+        document.getElementById('herotitle').textContent    = data.title || 'Om Attoloogroup';
+        document.getElementById('herosubtitle').textContent = data.subtitle || '';
 
-        // Intro-kort (bruker hero_image om satt)
-        const hasIntro = (data.hero_image || data.subtitle);
-        if (hasIntro){
-          document.getElementById('about-intro-wrap').style.display = '';
-          if (data.hero_image){
-            const img = document.getElementById('about-heroimg');
-            img.src = data.hero_image;
-            img.alt = data.title || 'Om oss';
-          } else {
-            document.getElementById('about-heroimg').style.display = 'none';
-          }
-          document.getElementById('about-intro-title').textContent = data.title || 'Om oss';
-          if (data.subtitle) document.getElementById('about-intro-text').textContent = data.subtitle;
+        // --- HERO: bakgrunnsbilde fra CMS (felt: hero_image) ---
+        const hero = document.getElementById('about-hero');
+        if (data.hero_image) {
+          hero.style.setProperty('--hero-image', `url(${data.hero_image})`);
+          hero.classList.add('has-image');
+        } else {
+          hero.classList.remove('has-image');
         }
 
-        // Seksjoner (list fra CMS)
-        const wrap = document.getElementById('about-cards');
+        // --- SEKSJONER (kort) ---
+        const wrap     = document.getElementById('about-cards');
         const sections = Array.isArray(data.sections) ? data.sections : [];
-        if (!sections.length){
-          wrap.innerHTML = '<p>Ingen innholdseksjoner er lagt til ennå.</p>';
+        if (!sections.length) {
+          wrap.innerHTML = '<p>Ingen innholdsseksjoner er lagt til ennå.</p>';
           return;
         }
+
         wrap.innerHTML = sections.map(s => `
           <article class="card">
-            <div class="card__media">
-              ${s.image ? `<img src="${s.image}" alt="">` : ''}
-            </div>
+            ${s.image ? `<div class="card__media"><img src="${s.image}" alt=""></div>` : ''}
             <div class="card__body">
               ${s.heading ? `<h3 class="card__title">${s.heading}</h3>` : ''}
-              ${s.body ? `<p class="card__text">${s.body}</p>` : ''}
+              ${s.body    ? `<p class="card__text">${s.body}</p>` : ''}
             </div>
           </article>
         `).join('');
-      }catch(e){
+      } catch (e) {
         console.error(e);
         document.getElementById('about-cards').innerHTML =
           '<p>Kunne ikke laste innhold akkurat nå.</p>';
       }
     })();
   </script>
-  <script>
-(async function loadAboutHero(){
-  try {
-    const res  = await fetch('/data/about.json', { cache: 'no-store' });
-    const data = await res.json();
-
-    // Tekst fra CMS
-    document.getElementById('herotitle').textContent   = data.title || 'Om Attoloogroup';
-    document.getElementById('herosubtitle').textContent = data.subtitle || '';
-
-    // Bakgrunnsbilde fra CMS (felt: hero_image)
-    const hero = document.getElementById('about-hero');
-    if (data.hero_image) {
-      hero.style.setProperty('--hero-image', `url(${data.hero_image})`);
-      hero.classList.add('has-image');
-    } else {
-      hero.classList.remove('has-image');
-    }
-  } catch (e) {
-    console.error('Kunne ikke laste about.json', e);
-  }
-})();
-</script>
-
 </body>
 </html>
