@@ -24,7 +24,7 @@
     <div class="att-blog-head">
       <h1 class="att-section-title">Blogg</h1>
     </div>
-    <div id="blog-grid" class="att-blog-grid"></div>
+    <div id="blog-grid" class="att-blog-grid" aria-live="polite"></div>
   </main>
 
   <script>
@@ -49,6 +49,7 @@
         `).join('');
       } catch (e) {
         grid.innerHTML = `<p>Klarte ikke å laste blogginnlegg akkurat nå.</p>`;
+        console.error(e);
       }
     })();
   </script>
