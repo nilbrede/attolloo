@@ -1,137 +1,89 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="utf-8" />
-  <title>Blogginnlegg – Attolloo Group</title>
+  <meta charset="UTF-8" />
+  <title>Blogg – Attolloo Group</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/style.css?v=7" />
-  <style>
-    .site-header { max-width:1100px; margin:0 auto; padding:.75rem 1rem;
-      display:flex; align-items:center; justify-content:space-between; }
-    .site-logo img{ height:40px; width:auto; margin-right:10px; }
-    .site-brand{ display:flex; align-items:center; gap:.5rem; }
-    .site-brand_text{ font-weight:600; font-size:1.1rem; color:#1f2937; }
-    .main-nav ul{ display:flex; gap:1rem; list-style:none; margin:0; padding:0; }
-    .main-nav a{ text-decoration:none; color:inherit; }
-
-    .post-wrap{ max-width:900px; margin:0 auto; padding:0 1rem 2rem; }
-    .post-wrap a.back{ display:inline-block; margin:.75rem 0 1rem; text-decoration:none; }
-    #post-title{ font-size:2rem; margin:.25rem 0 .25rem; }
-    #post-date{ color:#9ca3af; margin:0 0 .75rem; }
-    #post-cover{ width:100%; height:auto; display:block; border-radius:12px;
-      max-height:420px; object-fit:cover; }
-    #post-body{ margin-top:1rem; line-height:1.7; color:#374151; }
-    #post-body h2{ margin-top:1.25rem; }
-    #post-body img{ max-width:100%; height:auto; border-radius:10px; }
-    footer .container{ max-width:1100px; margin:0 auto; padding:1rem; color:#6b7280; border-top:1px solid #eee; }
-  </style>
+  <link rel="stylesheet" href="../style.css?v=7" />
 </head>
-<body>
-  <header class="site-header">
-  <div class="container">
-    <a class="site-logo" href="index.html" aria-label="Til forsiden">
-      <img src="aab-logo.png" alt="Attolloo logo">
-    </a>
-    <span class="site-brand-text">Attolloo Group</span>
-    <nav class="main-nav" aria-label="Hovedmeny">
-      <ul>
-        <li><a href="index.html" aria-current="page">Forside</a></li>
-        <li><a href="about.html">Om oss</a></li>
-        <li><a href="services.html">Tjenester</a></li>
-        <li><a href="blog/index.html">Blogg</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+<body data-page="blog">
 
-  <main class="post-wrap">
-    <a class="back" href="/blog/">&larr; Tilbake til bloggen</a>
-    <h1 id="post-title" class="post-title"></h1>
-    <p id="post-date" class="post-date"></p>
-    <img id="post-cover" class="post-cover" alt="" />
-    <div id="post-body" class="post-body"></div>
+  <!-- HEADER (samme som de andre sidene) -->
+  <header class="site-header">
+    <div class="container">
+      <a class="site-logo" href="../index.html" aria-label="Til forsiden">
+        <img src="../aab-logo.png" alt="Attolloo logo" />
+      </a>
+      <span class="site-brand-text">Attolloo Group</span>
+      <nav class="main-nav" aria-label="Hovedmeny">
+        <ul>
+          <li><a href="../index.html">Forside</a></li>
+          <li><a href="../about.html">Om oss</a></li>
+          <li><a href="../services.html">Tjenester</a></li>
+          <li><a href="index.html" aria-current="page">Blogg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-top-space"></div>
+
+  <!-- INNHOLD -->
+  <main class="container">
+    <section class="section">
+      <h1 class="section-title">Blogg</h1>
+      <div id="blog-list" class="cards"></div>
+    </section>
   </main>
 
+  <!-- FOOTER -->
   <footer>
     <div class="container">
-      <p>&copy; <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
+      <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
+      <p>Org.nr: 936 616 758</p>
+      <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
     </div>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-
   <script>
-  (async function loadPost(){
-    const params = new URLSearchParams(window.location.search);
-    const slug   = params.get('p');
-    if (!slug) return;
+  // årstall i footer
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Hjelper: fjern ev. YAML-front matter fra Markdown
-    const stripFrontMatter = (txt) => txt.replace(/^---[\s\S]*?---\s*/,'').trim();
-
+  // Hent og vis blogginnlegg som kort i grid
+  (async function loadBlog(){
+    const wrap = document.getElementById('blog-list');
     try {
-      const res   = await fetch('/blog/posts.json', { cache:'no-store' });
-      if (!res.ok) throw new Error('HTTP '+res.status);
+      const res   = await fetch('posts.json?v=' + Date.now(), { cache: 'no-store' });
       const posts = await res.json();
-      const post  = (Array.isArray(posts) ? posts : []).find(p => p.slug === slug);
 
-      if (!post) {
-        document.getElementById('post-title').textContent = 'Innlegg ikke funnet';
-        return;
-      }
+      // nyeste først (sorterer på ISO-dato "YYYY-MM-DD")
+      posts.sort((a,b) => (b.date || '').localeCompare(a.date || ''));
 
-      // Tittel/dato
-      document.getElementById('post-title').textContent = post.title || '(uten tittel)';
-      document.getElementById('post-date').textContent =
-        post.date ? new Date(post.date).toLocaleDateString('no-NO') : '';
+      const fmt = (dStr) => {
+        const d = new Date(String(dStr).slice(0,10) + 'T00:00:00');
+        return isNaN(d) ? '' : d.toLocaleDateString('no-NO');
+      };
 
-      // Cover
-      const coverEl = document.getElementById('post-cover');
-      if (post.cover) {
-        coverEl.src = post.cover; coverEl.alt = post.title || '';
-        coverEl.style.display = '';
-      } else {
-        coverEl.style.display = 'none';
-      }
-
-      // Kropp: prøv body/content/html fra JSON først
-      let html = post.body || post.content || post.html || '';
-
-      // Fallback til ferdig HTML-fil
-      if (!html) {
-        try {
-          const rHtml = await fetch(`/blog/posts/${slug}.html`, { cache:'no-store' });
-          if (rHtml.ok) html = await rHtml.text();
-        } catch(_) {}
-      }
-
-      // Fallback til Markdown
-      if (!html) {
-        try {
-          const rMd = await fetch(`/blog/posts/${slug}.md`, { cache:'no-store' });
-          if (rMd.ok) {
-            let md = await rMd.text();
-            md = stripFrontMatter(md);
-            // veldig enkel MD→HTML
-            html = md
-              .replace(/^### (.*)$/gm,'<h3>$1</h3>')
-              .replace(/^## (.*)$/gm,'<h2>$1</h2>')
-              .replace(/^# (.*)$/gm,'<h1>$1</h1>')
-              .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-              .replace(/\*(.*?)\*/g,'<em>$1</em>')
-              .replace(/\n{2,}/g,'</p><p>')
-              .replace(/\n/g,'<br>');
-            html = '<p>' + html + '</p>';
-          }
-        } catch(_) {}
-      }
-
-      document.getElementById('post-body').innerHTML =
-        html || '<p>(Ingen tekst i innlegget ennå.)</p>';
-
+      wrap.innerHTML = posts.map(p => `
+        <article class="card">
+          <a class="card_media" href="post.html?p=${encodeURIComponent(p.slug)}" aria-label="${p.title || 'Les innlegg'}">
+            <img src="${p.cover || ''}" alt="">
+          </a>
+          <div class="card_body">
+            <div class="card_date">${fmt(p.date)}</div>
+            <h3 class="card_title">
+              <a href="post.html?p=${encodeURIComponent(p.slug)}">${p.title || 'Uten tittel'}</a>
+            </h3>
+            ${p.excerpt ? `<p class="card_text">${p.excerpt}</p>` : ''}
+          </div>
+        </article>
+      `).join('');
     } catch(e){
       console.error(e);
-      document.getElementById('post-title').textContent = 'Kunne ikke laste innlegget';
+      wrap.innerHTML =
+        `<article class="card"><div class="card_body">
+           <p class="card_text">Klarte ikke å laste bloggen akkurat nå.</p>
+         </div></article>`;
     }
   })();
   </script>
