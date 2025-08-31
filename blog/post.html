@@ -1,67 +1,85 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>Blogginnlegg – Attolloo Group</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../style.css?v=6" />
 </head>
 <body>
+  <!-- HEADER -->
   <header class="site-header">
-    <div class="site-brand">
-      <a href="../index.html" class="site-logo">
-        <img src="../att-logo.png" alt="Attolloo logo">
-        <span class="site-brand-text">Attolloo Group</span>
+    <div class="container header-row">
+      <a class="site-logo" href="/index.html" aria-label="Til forsiden">
+        <img src="/aab-logo.png" alt="Attolloo logo" />
+        <span class="site-brand_text">Attolloo Group</span>
       </a>
-      <nav class="main-nav">
+      <nav class="main-nav" aria-label="Hovedmeny">
         <ul>
-          <li><a href="../index.html">Forside</a></li>
-          <li><a href="../about.html">Om oss</a></li>
-          <li><a href="../services.html">Tjenester</a></li>
-          <li><a href="index.html">Blogg</a></li>
+          <li><a href="/index.html">Forside</a></li>
+          <li><a href="/about.html">Om oss</a></li>
+          <li><a href="/services.html">Tjenester</a></li>
+          <li><a href="/blog/index.html" aria-current="page">Blogg</a></li>
         </ul>
       </nav>
     </div>
   </header>
+  <div class="page-top-space"></div>
 
-  <main class="post-wrap">
-    <a href="index.html">&larr; Tilbake til bloggen</a>
-    <h1 id="post-title" class="post-title"></h1>
-    <p id="post-date" class="post-date"></p>
-    <img id="post-cover" class="post-cover" alt="">
-    <div id="post-body" class="post-body"></div>
+  <!-- HOVEDINNHOLD -->
+  <main class="container">
+    <a href="index.html" class="back-link">← Tilbake til bloggen</a>
+
+    <article class="card blog-post">
+      <div class="card_body">
+        <h1 id="post-title" class="card_title"></h1>
+        <p id="post-date" class="post-date"></p>
+        <div id="post-cover-wrap" class="post-cover-wrap">
+          <img id="post-cover" alt="" />
+        </div>
+        <div id="post-body" class="post-body"></div>
+      </div>
+    </article>
   </main>
 
+  <!-- FOOTER -->
   <footer>
     <div class="container">
-      <p>&copy; <span id="year"></span> Attolloogroup</p>
+      <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
     </div>
   </footer>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-  <script>
-  (async function loadPost(){
-    const params = new URLSearchParams(window.location.search);
-    const slug = params.get("p");
-    if(!slug) return;
-    try {
-      const res = await fetch('posts.json', { cache: 'no-store' });
-      const posts = await res.json();
-      const post = posts.find(p => p.slug === slug);
-      if (!post) return;
+    // ©-år
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-      document.getElementById("post-title").textContent = post.title;
-      document.getElementById("post-date").textContent = new Date(post.date).toLocaleDateString('no-NO');
-      if(post.cover) {
-        document.getElementById("post-cover").src = post.cover;
+    // Last spesifikt blogginnlegg
+    (async function loadPost(){
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get("p");
+      if (!slug) return;
+      try {
+        const res = await fetch('posts.json', { cache: 'no-store' });
+        const posts = await res.json();
+        const post = posts.find(p => p.slug === slug);
+        if (!post) return;
+
+        document.getElementById('post-title').textContent = post.title;
+        document.getElementById('post-date').textContent =
+          new Date(post.date).toLocaleDateString('no-NO');
+        if (post.cover) {
+          document.getElementById('post-cover').src = post.cover;
+          document.getElementById('post-cover-wrap').style.display = "block";
+        } else {
+          document.getElementById('post-cover-wrap').style.display = "none";
+        }
+        document.getElementById('post-body').innerHTML = post.body;
+      } catch (e) {
+        console.error(e);
+        document.getElementById('post-body').innerHTML =
+          '<p>Klarte ikke laste blogginnlegg akkurat nå.</p>';
       }
-      document.getElementById("post-body").innerHTML = post.body;
-    } catch (e) {
-      console.error(e);
-    }
-  })();
+    })();
   </script>
 </body>
 </html>
