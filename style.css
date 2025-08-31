@@ -122,3 +122,56 @@ a{color:#0a7d57} a:hover{text-decoration:underline}
    ========================================================= */
 footer{margin:28px 0 32px;color:#6b7280}
 footer .container p{margin:.25rem 0}
+/* ===== Header layout: logo venstre, Attolloo Group midt, meny høyre ===== */
+.site-header{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  position:relative;
+}
+.site-logo img{ height:44px; width:auto; display:block; }   /* logo-størrelse */
+
+/* Gjør nav helt til høyre */
+.main-nav{ margin-left:auto; }
+.main-nav ul{ display:flex; gap:1rem; list-style:none; margin:0; padding:0; }
+.main-nav a{ text-decoration:none; }
+
+/* Midtstill bare teksten "Attolloo Group" på tvers av header-bredden */
+.site-brand{ position:relative; display:flex; align-items:center; gap:.5rem; }
+.site-brand-text{
+  position:absolute;           /* trekk den ut av normal flyt */
+  left:50%;
+  transform:translateX(-50%);  /* perfekt horisontal sentrering */
+  white-space:nowrap;
+  font-weight:600;
+}
+
+/* ===== Hero – samme oppførsel på alle sider, tekst alltid midtstilt ===== */
+.hero{
+  min-height:320px;
+  position:relative;
+  color:#fff;
+  background-size:cover;
+  background-position:center;
+}
+@media (min-width:768px){ .hero{ min-height:420px; } }
+
+.hero::before{ content:none !important; } /* fjern gammelt lag som kunne skjule bildet */
+.hero::after{                                 /* lett gradient for lesbarhet */
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.25));
+  pointer-events:none;
+}
+
+/* Selve hero-teksten midtstilt og med lik padding */
+.hero .inner{
+  position:relative; z-index:1;
+  max-width:1100px;
+  margin:0 auto;
+  padding:72px 16px 56px;
+  text-align:center;
+}
+.hero h1{ margin:0 0 10px; font-size:clamp(1.8rem,2.6vw,2.25rem); font-weight:800; }
+.hero p{ margin:0 auto; max-width:860px; opacity:.95; }
+
