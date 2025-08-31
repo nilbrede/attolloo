@@ -1,106 +1,67 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="post-title">Blogginnlegg – Attolloo</title>
-  <link rel="stylesheet" href="/style.css">
-  <style>
-    .att-topbar{padding:.75rem 1rem;border-bottom:1px solid #eee}
-    .att-topbar .container{max-width:1100px;margin:0 auto}
-    .att-topbar img{height:40px}
-
-    .post-wrap{max-width:800px;margin:2rem auto;padding:0 1rem}
-    .back-link{display:inline-block;margin-bottom:1rem;text-decoration:none}
-    .post-title{font-size:2rem;margin:.25rem 0}
-    .post-date{color:#666;font-size:.95rem;margin-bottom:.75rem}
-    .post-cover{width:100%;height:auto;border-radius:12px;margin:1rem 0}
-    .post-body{line-height:1.7;font-size:1.1rem}
-    .post-body img{max-width:100%;height:auto;border-radius:12px}
-    .post-body pre{overflow:auto;background:#0f172a;color:#e2e8f0;padding:1rem;border-radius:12px}
-    .post-body code{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
-  </style>
+  <meta charset="utf-8">
+  <title>Blogginnlegg – Attolloo Group</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-  <header class="att-topbar">
-    <div class="container">
-      <a href="/index.html" aria-label="Til forsiden">
-        <img src="/aab-logo.png" alt="Attolloo">
+  <header class="site-header">
+    <div class="site-brand">
+      <a href="../index.html" class="site-logo">
+        <img src="../att-logo.png" alt="Attolloo logo">
+        <span class="site-brand-text">Attolloo Group</span>
       </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="../index.html">Forside</a></li>
+          <li><a href="../about.html">Om oss</a></li>
+          <li><a href="../services.html">Tjenester</a></li>
+          <li><a href="index.html">Blogg</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
   <main class="post-wrap">
-    <a href="/blog/index.html" class="back-link">← Tilbake til bloggen</a>
-    <h1 id="post-title-text" class="post-title"></h1>
-    <div id="post-date" class="post-date"></div>
-    <img id="post-cover" class="post-cover" alt="" style="display:none">
+    <a href="index.html">&larr; Tilbake til bloggen</a>
+    <h1 id="post-title" class="post-title"></h1>
+    <p id="post-date" class="post-date"></p>
+    <img id="post-cover" class="post-cover" alt="">
     <div id="post-body" class="post-body"></div>
   </main>
 
   <footer>
-    <div class="container" style="max-width:1100px;margin:2rem auto;padding:0 1rem;">
-      <p><span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Attolloogroup</p>
     </div>
   </footer>
 
-  <!-- Markdown-parser (CDN) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
   <script>
-    // Footer-år
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Hent slug fra URL (?p=slug)
+  </script>
+  <script>
+  (async function loadPost(){
     const params = new URLSearchParams(window.location.search);
     const slug = params.get("p");
+    if(!slug) return;
+    try {
+      const res = await fetch('posts.json', { cache: 'no-store' });
+      const posts = await res.json();
+      const post = posts.find(p => p.slug === slug);
+      if (!post) return;
 
-    // Dato-funksjon som unngår 2001/1970-feil
-    function formatDate(d) {
-      if (!d) return "";
-      const dt = new Date(String(d).slice(0,10) + "T00:00:00");
-      return isNaN(dt) ? "" : dt.toLocaleDateString("no-NO");
-    }
-
-    // Fjern YAML front matter (--- ... --- øverst)
-    function stripFrontMatter(md) {
-      return md.replace(/^---[\s\S]*?---\s*/, "");
-    }
-
-    async function loadPost() {
-      try {
-        // Cache-buster for fersk posts.json
-        const posts = await fetch("/blog/posts.json?v=" + Date.now(), { cache: "no-store" })
-          .then(r => r.json());
-
-        const post = posts.find(p => p.slug === slug);
-        if (!post) throw new Error("Fant ikke innlegget");
-
-        // Sett tittel + dato + cover
-        document.title = `${post.title} – Attolloo Blogg`;
-        document.getElementById("post-title-text").textContent = post.title || "";
-        document.getElementById("post-date").textContent = formatDate(post.date);
-
-        if (post.cover) {
-          const img = document.getElementById("post-cover");
-          img.src = post.cover;
-          img.alt = post.title || "";
-          img.style.display = "block";
-        }
-
-        // Hent og render Markdown-innholdet (uten front matter)
-        const mdRaw = await fetch(`/blog/posts/${slug}.md?v=` + Date.now(), { cache: "no-store" })
-          .then(r => r.text());
-        const md = stripFrontMatter(mdRaw);
-
-        document.getElementById("post-body").innerHTML = marked.parse(md);
-      } catch (e) {
-        console.error(e);
-        document.getElementById("post-body").innerHTML =
-          "<p>Klarte ikke å laste innlegget. Prøv igjen senere.</p>";
+      document.getElementById("post-title").textContent = post.title;
+      document.getElementById("post-date").textContent = new Date(post.date).toLocaleDateString('no-NO');
+      if(post.cover) {
+        document.getElementById("post-cover").src = post.cover;
       }
+      document.getElementById("post-body").innerHTML = post.body;
+    } catch (e) {
+      console.error(e);
     }
-
-    loadPost();
+  })();
   </script>
 </body>
 </html>
