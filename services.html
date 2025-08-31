@@ -26,13 +26,13 @@
   </header>
   <div class="page-top-space"></div>
 
-  <!-- HERO (fra CMS) -->
-  <section class="hero">
-    <div class="inner">
-      <h1 id="herotitle">Tjenester</h1>
-      <p id="herosubtitle"></p>
-    </div>
-  </section>
+<!-- HERO (CMS) -->
+<section class="hero" id="services-hero" aria-labelledby="herotitle">
+  <div class="hero__overlay">
+    <h1 id="herotitle"></h1>
+    <p id="herosubtitle"></p>
+  </div>
+</section>
 
   <main class="container">
     <!-- Seksjoner fra CMS -->
@@ -118,5 +118,28 @@
       }
     })();
   </script>
+<script>
+(async function loadServicesHero(){
+  try {
+    const res  = await fetch('/data/services.json', { cache: 'no-store' });
+    const data = await res.json();
+
+    document.getElementById('herotitle').textContent   = data.title || 'Tjenester';
+    document.getElementById('herosubtitle').textContent = data.subtitle || '';
+
+    const hero = document.getElementById('services-hero');
+    if (data.hero_image) {
+      hero.style.setProperty('--hero-image', `url(${data.hero_image})`);
+      hero.classList.add('has-image');
+    } else {
+      hero.classList.remove('has-image');
+    }
+  } catch (e) {
+    console.error('Kunne ikke laste services.json', e);
+  }
+})();
+</script>
+
+  
 </body>
 </html>
