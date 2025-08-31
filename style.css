@@ -1,162 +1,147 @@
-/* ========== Reset / base ========== */
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-body {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  color: #1f2937; /* slate-800 */
-  background: #0d0f12; /* mørk bak hero for pen overgang */
-  line-height: 1.5;
-}
-img { max-width: 100%; height: auto; display: block; }
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attolloo Group</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="home">
 
-:root{
-  --container: 1100px;
-  --gap: 20px;
-  --radius: 16px;
-  --shadow: 0 2px 8px rgba(0,0,0,.06);
-  --brand: #0b5eb8;
-}
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="site-brand">
+      <a class="site-logo" href="index.html" aria-label="Til forsiden">
+        <img src="aab-logo.png" alt="Attolloo logo" />
+      </a>
+      <span class="site-brand-text">Attolloo Group</span>
+    </div>
+    <nav class="main-nav" aria-label="Hovedmeny">
+      <ul>
+        <li><a href="index.html" aria-current="page">Forside</a></li>
+        <li><a href="about.html">Om oss</a></li>
+        <li><a href="services.html">Tjenester</a></li>
+        <li><a href="blog/index.html">Blogg</a></li>
+      </ul>
+    </nav>
+  </header>
 
-/* ========== Container ========== */
-.container { max-width: var(--container); margin: 0 auto; padding: 0 16px; }
+  <div class="page-top-space"></div>
 
-/* ========== Header ========== */
-.site-header{
-  background:#fff;
-  border-bottom:1px solid #e5e7eb;
-}
-.site-header .container{
-  position: relative;           /* referanse for midtstilt tittel */
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  padding: 10px 0;
-}
+  <!-- HERO (fylles fra CMS: data/home.json) -->
+  <section class="hero" id="home-hero" aria-labelledby="heroTitle">
+    <div class="inner">
+      <h1 id="heroTitle"></h1>
+      <p id="heroSubtitle"></p>
+    </div>
+  </section>
 
-/* Venstre: logo */
-.site-logo img{
-  height: 42px;
-  width: auto;
-}
-@media (max-width: 420px){
-  .site-logo img{ height: 36px; }
-}
+  <!-- INNHOLD -->
+  <main class="container">
 
-/* Midten: “Attolloo Group” – midtstilt uansett */
-.site-brand-text{
-  position:absolute;            /* for å kunne midtstille over hele header-bredden */
-  left:50%;
-  top:50%;
-  transform:translate(-50%, -50%);
-  margin:0;
-  font-weight:600;
-  color:#374151;                /* slate-700 */
-  white-space:nowrap;
-  pointer-events:none;          /* blokkerer ikke klikk på menyen */
-}
+    <!-- Forside-seksjoner fra CMS -->
+    <section class="section">
+      <div class="cards" id="home-cards"></div>
+    </section>
 
-/* Høyre: meny */
-.main-nav ul{
-  display:flex;
-  gap:18px;
-  list-style:none;
-  margin:0;
-  padding:0;
-}
-.main-nav a{
-  color:#374151;
-  text-decoration:none;
-  padding:6px 0;
-  border-bottom:2px solid transparent;
-}
-.main-nav a:hover,
-.main-nav a[aria-current="page"]{
-  color:var(--brand);
-  border-bottom-color:var(--brand);
-}
+    <!-- Bloggseksjon -->
+    <section class="section home-blog">
+      <article class="card">
+        <div class="card_head">
+          <h2>Siste fra bloggen</h2>
+          <a class="btn-link" href="blog/index.html">Se alle innlegg</a>
+        </div>
+        <div class="card_body">
+          <div class="cards" id="home-blog-list"></div>
+          <p id="home-blog-fallback" style="display:none; margin:.5rem 0 0; color:#60646c">
+            Klarte ikke å laste blogginnlegg akkurat nå.
+          </p>
+        </div>
+      </article>
+    </section>
 
-/* ========== Hero – identisk på alle sider ========== */
-.hero{
-  position: relative;
-  min-height: 320px;            /* mobil */
-  color: #fff;
-}
-@media (min-width:768px){
-  .hero{ min-height: 420px; }   /* større skjermer */
-}
+  </main>
 
-/* Bakgrunnsbilde fra CMS: JS setter --hero-img: url(...) på .hero */
-.hero::before{
-  content:"";
-  position:absolute; inset:0;
-  background-image: var(--hero-img, none);
-  background-size: cover;
-  background-position: center;
-  filter: none;
-}
-/* Mørk gradient for lesbar tekst */
-.hero::after{
-  content:"";
-  position:absolute; inset:0;
-  background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35));
-}
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
+      <p>Org.nr: 936 616 758</p>
+      <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
+    </div>
+  </footer>
 
-.hero .inner{
-  position: relative;           /* over bakgrunn/gradient */
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 72px 16px;           /* topp/bunn-polstring */
-  text-align: center;
-}
-.hero h1{
-  margin: 0 0 12px 0;
-  font-size: clamp(28px, 3.2vw, 40px);
-  line-height: 1.2;
-}
-.hero p{
-  margin: 0 auto;
-  max-width: 900px;
-  font-size: 15.5px;
-  opacity: .95;
-}
+  <!-- SCRIPTS -->
+  <script>
+    // årstall i footer
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-/* ========== Seksjoner / kort ========== */
-.section{ padding: 24px 0; background: #f6f7f8; }
-.cards{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(286px, 1fr));
-  gap: var(--gap);
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0 16px;
-}
-.card{
-  background:#fff;
-  border:1px solid #e5e7eb;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow:hidden;
-  display:flex;
-  flex-direction: column;
-}
-.card_media{ width:100%; aspect-ratio:16/9; overflow:hidden; }
-.card_media img{ width:100%; height:100%; object-fit:cover; display:block; }
-.card_body{ padding:14px; }
-.card_title{ margin:0 0 6px; font-size:1.06rem; }
-.card_text{ margin:0; color:#4b5563; font-size:.96rem; line-height:1.55; }
-.card_date{ margin:0 0 6px; color:#6b7280; font-size:.9rem; }
+    // last forsiden fra CMS (hero + seksjoner)
+    (async function loadHome(){
+      try {
+        const res = await fetch('data/home.json?' + Date.now(), { cache: 'no-store' });
+        const data = await res.json();
 
-/* ========== “Siste fra bloggen” på forsiden ========== */
-.home-blog{ padding: 16px 0 40px; background:#f6f7f8; }
-.home-blog .card{ padding: 10px 12px; }
-.btn-link{
-  font-size:.95rem;
-  text-decoration:none;
-  color:var(--brand);
-}
-.btn-link:hover{ text-decoration:underline; }
+        // hero-tekst
+        document.getElementById('heroTitle').textContent    = data.title || '';
+        document.getElementById('heroSubtitle').textContent = data.subtitle || '';
 
-/* ========== Footer ========== */
-footer{ background:#fff; border-top:1px solid #e5e7eb; }
-footer .container{ padding: 20px 16px; color:#6b7280; font-size:.95rem; }
+        // hero-bilde
+        const hero = document.getElementById('home-hero');
+        const img  = data.hero_image || data.image || '';
+        if (img) {
+          hero.style.setProperty('--hero-img', `url(${img})`);
+          hero.style.backgroundImage = `url(${img})`; // fallback
+        }
+
+        // seksjoner
+        const wrap = document.getElementById('home-cards');
+        const sections = Array.isArray(data.sections) ? data.sections : [];
+        wrap.innerHTML = sections.map(s => `
+          <article class="card">
+            ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ''}
+            <div class="card_body">
+              <h3 class="card_title">${s.heading || ''}</h3>
+              <p class="card_text">${s.body || ''}</p>
+            </div>
+          </article>
+        `).join('');
+      } catch(e) {
+        console.error('Klarte ikke laste data/home.json', e);
+      }
+    })();
+
+    // blogg: hent 3 siste innlegg
+    (async function loadBlog(){
+      const list = document.getElementById('home-blog-list');
+      const fallback = document.getElementById('home-blog-fallback');
+      try {
+        const res   = await fetch('data/posts.json?' + Date.now(), { cache: 'no-store' });
+        const posts = await res.json();
+
+        if(!Array.isArray(posts) || !posts.length){
+          fallback.style.display = 'block'; return;
+        }
+
+        posts.sort((a,b) => new Date(b.date) - new Date(a.date));
+        const latest = posts.slice(0,3);
+
+        list.innerHTML = latest.map(p => `
+          <article class="card">
+            ${p.cover ? `<div class="card_media"><img src="${p.cover}" alt=""></div>` : ''}
+            <div class="card_body">
+              <div class="card_date">${new Date(p.date).toLocaleDateString('no-NO')}</div>
+              <h3 class="card_title"><a href="blog/post.html?p=${encodeURIComponent(p.slug)}">${p.title || 'Uten tittel'}</a></h3>
+              ${p.excerpt ? `<p class="card_text">${p.excerpt}</p>` : ''}
+            </div>
+          </article>
+        `).join('');
+      } catch(e){
+        console.error('Klarte ikke laste blogginnlegg', e);
+        fallback.style.display = 'block';
+      }
+    })();
+  </script>
+
+</body>
+</html>
