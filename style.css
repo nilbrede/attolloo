@@ -1,24 +1,18 @@
 /* =========================================================
-   Attolloo Group – felles stilark
-   - Header/meny og brand
-   - Containers og seksjoner
-   - Kort (cards) + grid
-   - Blogg (forside, arkiv, post)
-   - Responsivt
+   Attolloo Group – felles stilark (stram versjon)
    ========================================================= */
 
 /* ---------- Basis ---------- */
 :root{
-  --brand:#1f2937;         /* mørk grå for tekst */
-  --muted:#6b7280;         /* sekundær tekst */
-  --bg:#f7f7f8;            /* lys bakgrunn */
-  --card:#ffffff;          /* kort-bakgrunn */
-  --border:#e5e7eb;        /* kort-ramme */
-  --chip:#0ea5e9;          /* link-chip */
-  --shadow:0 2px 10px rgba(0,0,0,.06);
+  --brand:#1f2937;
+  --muted:#6b7280;
+  --bg:#f7f7f8;
+  --card:#ffffff;
+  --border:#e5e7eb;
+  --chip:#0ea5e9;
+  --shadow:0 2px 12px rgba(0,0,0,.06);
   --radius:12px;
 }
-
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
@@ -27,159 +21,100 @@ body{
   background:var(--bg);
   line-height:1.6;
 }
-
-/* ---------- Lenker ---------- */
 a{color:inherit;text-decoration:none}
 a:hover{text-decoration:underline}
 
-/* =========================================================
-   HEADER / MENY
-   Bruk samme på alle sider (index.html, about.html, services.html, blog/*.html)
-   ========================================================= */
-.site-header{
-  background:#fff;
-  border-bottom:1px solid var(--border);
-}
+/* ---------- Header / Meny (lik overalt) ---------- */
+.site-header{background:#fff;border-bottom:1px solid var(--border)}
 .site-brand{
-  max-width:1100px;
-  margin:0 auto;
-  padding:.75rem 1rem;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:1rem;
+  max-width:1100px;margin:0 auto;padding:.75rem 1rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
 }
-.site-logo{
-  display:flex;
-  align-items:center;
-  gap:.5rem;
-}
+.site-logo{display:flex;align-items:center;gap:.5rem}
 .site-logo img{max-height:40px;width:auto;display:block}
-.site-brand_text{
-  font-size:1.125rem;      /* 18px */
-  font-weight:600;
-  color:#1f2937;
-  margin-left:8px;         /* litt luft fra logoen */
-}
+.site-brand_text{font-size:1.125rem;font-weight:600;color:#1f2937;margin-left:8px}
+.main-nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.main-nav a{display:inline-block;padding:.4rem .6rem;border-radius:8px}
+.main-nav a:hover{background:#f3f4f6;text-decoration:none}
 
-.main-nav ul{
-  display:flex;
-  gap:1rem;
-  list-style:none;
-  margin:0;
-  padding:0;
-}
-.main-nav a{
-  display:inline-block;
-  padding:.4rem .6rem;
-  border-radius:8px;
-}
-.main-nav a:hover{
-  background:#f3f4f6;
-  text-decoration:none;
-}
+.page-top-space{height:.5rem}
+
+/* ---------- Containere ---------- */
+.att-container{max-width:1100px;margin:0 auto;padding:0 1rem}
+
+/* ---------- Hero (forside-toppen) ---------- */
+.hero.home-hero{background:#111;color:#fff}
+.hero .inner{max-width:1100px;margin:0 auto;padding:3.25rem 1rem 2rem}
+#herotitle{font-size:2rem;line-height:1.2;margin:0 0 .5rem}
+#herosubtitle{max-width:60ch;color:#e5e7eb;margin:0}
 
 /* =========================================================
-   GENERELLE LAYOUT-VERKTØY
+   KORT + GRID (fungrer både for CMS-seksjoner og blogg)
    ========================================================= */
-.att-container{
-  max-width:1100px;
-  margin:0 auto;
-  padding:0 1rem;
-}
-.page-top-space{height:.5rem} /* liten buffer under header */
 
-/* Hero (overlegg-tekst oppå stort bilde) */
-.hero.home-hero{
-  background:#111;
-  color:#fff;
-}
-.hero .inner{
-  max-width:1100px;
-  margin:0 auto;
-  padding:3.25rem 1rem 2rem;
-}
-#herotitle{
-  font-size:2rem;
-  line-height:1.2;
-  margin:0 0 .5rem;
-}
-#herosubtitle{
-  max-width:60ch;
-  color:#e5e7eb;
-  margin:0;
-}
-
-/* =========================================================
-   KORT (CARDS) + GRID – brukes både på forsiden og i CMS-seksjoner
-   ========================================================= */
-.att-card{
+/* FANG ALT som kan være et kort – også hvis CMS-et ikke
+   la på .att-card: alle direkte barn i .cards, .grid, .sections */
+.att-card,
+.cards > *,
+.grid > *,
+.sections > *{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:var(--radius);
   box-shadow:var(--shadow);
   padding:1rem;
 }
-.att-card_title{
-  font-size:1rem;
-  margin:.25rem 0 .5rem;
-  line-height:1.3;
-}
-.att-card_meta{
-  font-size:.85rem;
-  color:var(--muted);
-  margin:.25rem 0 .25rem;
-}
-.att-card_excerpt{color:var(--muted);font-size:.95rem}
 
-/* Standard grid (CMS seksjoner: Om oss/Tjenester + forsiden) */
+/* Standard grid */
 .grid,
 .att-home-blog_grid,
-.att-blog.grid{
+.att-blog.grid,
+.cards{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:1.25rem;
   align-items:start;
 }
 
-/* Bilder i cards – konsistente og små nok */
+/* KORT: titler/meta/tekst */
+.att-card_title{font-size:1rem;margin:.25rem 0 .5rem;line-height:1.3}
+.att-card_meta{font-size:.85rem;color:var(--muted);margin:.25rem 0}
+.att-card_excerpt{color:var(--muted);font-size:.95rem}
+
+/* Bilder i kort – tvungen høyde og pen beskjæring */
 .att-card img,
-.att-card_thumb img{
+.att-card_thumb img,
+.cards > * img,
+.grid > * img,
+.sections > * img,
+.att-home-blog_grid img,
+.att-blog.grid img{
   width:100%;
-  height:200px;             /* << lik høyde i seksjoner og bloggkort */
+  height:180px !important;         /* << Moderat høyde på ALLE kortbilder */
   object-fit:cover;
   border-radius:10px;
   display:block;
 }
 
 /* =========================================================
-   FORSIDEN – seksjonen "Siste fra bloggen"
+   FORSIDE – “Siste fra bloggen”
    ========================================================= */
 .att-home-blog{padding:1rem 0 2rem}
 .att-home-blog_head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin:.25rem 0 .75rem;
+  display:flex;align-items:center;justify-content:space-between;
+  margin:.25rem 0 .75rem
 }
-.att-section-title{
-  margin:0;
-  font-size:1.25rem;
-}
-.att-chip{
-  display:inline-block;
-  font-size:.9rem;
-  color:var(--chip);
-}
+.att-section-title{margin:0;font-size:1.25rem}
+.att-chip{display:inline-block;font-size:.9rem;color:var(--chip)}
 
-/* Bloggkort på forsiden – litt lavere bilde enn seksjoner */
-.att-home-blog .att-card_thumb img{height:170px}
+/* litt lavere for bloggkort på forsiden */
+.att-home-blog .att-card_thumb img{height:170px !important}
 
 /* =========================================================
-   BLOGG – arkivside (blog/index.html)
+   BLOGG – arkiv (blog/index.html)
    ========================================================= */
 .att-blog-head{margin:.5rem 0 1rem}
-.att-blog.grid .att-card img{height:180px}
+.att-blog.grid img{height:170px !important}
 
 /* =========================================================
    BLOGG – enkeltinnlegg (blog/post.html)
@@ -188,36 +123,19 @@ a:hover{text-decoration:underline}
 #post-title-text{margin:0 0 .5rem}
 #post-date{color:var(--muted);font-size:.9rem}
 
-/* hovedbilde i innlegg – kontroller høyde */
+/* hovedbilde i innlegg: begrens høyde */
 #post-cover{
-  max-width:100%;
-  width:100%;
-  max-height:420px;        /* ikke bli for stort */
-  object-fit:cover;
-  border-radius:12px;
-  margin:0 auto 1rem;
-  display:block;
+  max-width:100%;width:100%;
+  max-height:420px !important;    /* << ikke bli gigantisk */
+  object-fit:cover;border-radius:12px;margin:0 auto 1rem;display:block;
 }
-
-/* bilder inne i brødtekst */
-.post-body img{
-  max-width:100%;
-  height:auto !important;
-  display:block;
-  border-radius:8px;
-  margin:1rem auto;
-}
+/* bilder i brødtekst */
+.post-body img{max-width:100%;height:auto !important;display:block;border-radius:8px;margin:1rem auto}
 
 /* =========================================================
    FOOTER
    ========================================================= */
-footer{
-  margin-top:2rem;
-  padding:1.25rem 0 2rem;
-  background:#fff;
-  border-top:1px solid var(--border);
-  color:var(--muted);
-}
+footer{margin-top:2rem;padding:1.25rem 0 2rem;background:#fff;border-top:1px solid var(--border);color:var(--muted)}
 footer .container{max-width:1100px;margin:0 auto;padding:0 1rem}
 
 /* =========================================================
@@ -226,13 +144,22 @@ footer .container{max-width:1100px;margin:0 auto;padding:0 1rem}
 @media (max-width: 900px){
   #herotitle{font-size:1.8rem}
   .att-card img,
-  .att-card_thumb img{height:180px}
+  .att-card_thumb img,
+  .cards > * img,
+  .grid > * img,
+  .sections > * img{height:165px !important}
 }
 @media (max-width: 640px){
   .site-brand{flex-wrap:wrap;gap:.5rem}
-  .main-nav ul{gap:.5rem;flex-wrap:wrap}
-  .att-card{padding:.85rem}
+  .main-nav ul{gap:.5rem}
+  .att-card,
+  .cards > *,
+  .grid > *,
+  .sections > *{padding:.85rem}
   .att-card img,
-  .att-card_thumb img{height:150px}
-  #post-cover{max-height:360px}
+  .att-card_thumb img,
+  .cards > * img,
+  .grid > * img,
+  .sections > * img{height:150px !important}
+  #post-cover{max-height:360px !important}
 }
