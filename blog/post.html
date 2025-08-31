@@ -2,32 +2,27 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
-  <title>Blogginnlegg – Attolloo Group</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blogginnlegg – Attolloo Group</title>
   <link rel="stylesheet" href="../style.css?v=7" />
-  <style>
-    /* litt trygg styling for innholdet */
-    #post-content img{max-width:100%;height:auto;border-radius:.25rem}
-    #post-content p{margin:0 0 1rem 0;line-height:1.6}
-    #post-content h2,#post-content h3{margin:1.25rem 0 .5rem}
-    #post-cover{max-width:100%;height:auto;margin:1rem 0;border-radius:.5rem;display:none}
-  </style>
 </head>
-<body data-page="post">
+<body data-page="blog-post">
 
-  <!-- HEADER -->
+  <!-- HEADER (samme som de andre sidene) -->
   <header class="site-header">
     <div class="container">
       <a class="site-logo" href="../index.html" aria-label="Til forsiden">
         <img src="../aab-logo.png" alt="Attolloo logo" />
       </a>
+
       <span class="site-brand-text">Attolloo Group</span>
+
       <nav class="main-nav" aria-label="Hovedmeny">
         <ul>
           <li><a href="../index.html">Forside</a></li>
           <li><a href="../about.html">Om oss</a></li>
           <li><a href="../services.html">Tjenester</a></li>
-          <li><a href="index.html">Blogg</a></li>
+          <li><a href="index.html" aria-current="page">Blogg</a></li>
         </ul>
       </nav>
     </div>
@@ -35,20 +30,33 @@
 
   <div class="page-top-space"></div>
 
-  <!-- BLOGGINNLEGG -->
+  <!-- INNHOLD -->
   <main class="container">
-    <article id="post-article" class="card">
-      <h1 id="post-title"></h1>
-      <p id="post-date" class="card_date"></p>
-      <img id="post-cover" alt="">
-      <div id="post-content"></div>
-    </article>
+    <section class="section">
+      <h1 id="post-title" class="page-title">Laster …</h1>
+      <p id="post-date" class="muted"></p>
+
+      <div class="card" style="overflow:hidden">
+        <div class="card_media" style="display:none">
+          <img id="post-cover" src="" alt="">
+        </div>
+        <div class="card_body">
+          <div id="post-content" class="card_text">(Ingen innhold)</div>
+        </div>
+      </div>
+
+      <p style="margin-top:1.25rem">
+        <a class="btn-link" href="index.html">← Tilbake til bloggen</a>
+      </p>
+    </section>
   </main>
 
   <!-- FOOTER -->
   <footer>
     <div class="container">
-      <p>&copy; <span id="year"></span> Attolloogroup.</p>
+      <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
+      <p>Org.nr: 936 616 758</p>
+      <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
     </div>
   </footer>
 
@@ -56,26 +64,73 @@
     // Årstall i footer
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Hjelper: veldig enkel tekst/markdown -> HTML (avsnitt og linjeskift)
+    // Hjelpere for innhold
     function simpleTextToHTML(txt){
       if(!txt) return "";
-      // beskytt < og > litt
-      txt = txt.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-      // tom linje -> nytt avsnitt
-      return txt
-        .trim()
-        .split(/\n{2,}/).map(par =>
-          '<p>' + par.replace(/\n/g,'<br>') + '</p>'
-        ).join('');
+      txt = String(txt);
+      return txt.trim()
+        .split(/\n{2,}/).map(p => '<p>' + p.replace(/\n/g,'<br>') + '</p>')
+        .join('');
     }
 
-    // Slug fra URL
+    // Finn innhold uansett felt/struktur
+    function extractContent(post){
+      if(!post || typeof post !== 'object') return "";
+
+      // Vanlige feltnavn
+      const direct = post.html || post.content_html || post.content || post.body || post.markdown || post.text;
+      if(typeof direct === 'string' && direct.trim()) return direct;
+
+      // Rich-text / blokk-strukturer
+      const pullArrayTexts = (arr) => Array.isArray(arr)
+        ? arr.map(b => (b && (b.html || b.text || b.body)) || (typeof b === 'string' ? b : ''))
+             .filter(Boolean)
+        : [];
+
+      let parts = pullArrayTexts(post.blocks);
+      if(parts.length) return parts.join('\n\n');
+
+      parts = pullArrayTexts(post.paragraphs);
+      if(parts.length) return parts.join('\n\n');
+
+      parts = pullArrayTexts(post.sections);
+      if(parts.length) return parts.join('\n\n');
+
+      // Rekursiv fallback – plukk lange tekststrenger
+      const seen = new Set();
+      function scan(obj){
+        if(!obj || typeof obj !== 'object' || seen.has(obj)) return [];
+        seen.add(obj);
+        let out = [];
+        for(const k of Object.keys(obj)){
+          const v = obj[k];
+          if(typeof v === 'string' && v.trim().length > 40){
+            out.push(v);
+          } else if(Array.isArray(v)){
+            v.forEach(it => {
+              if(typeof it === 'string' && it.trim().length > 40) out.push(it);
+              else if(it && typeof it === 'object') out = out.concat(scan(it));
+            });
+          } else if(v && typeof v === 'object'){
+            out = out.concat(scan(v));
+          }
+        }
+        return out;
+      }
+      const found = scan(post).slice(0, 10);
+      if(found.length) return found.join('\n\n');
+
+      return "";
+    }
+
+    // Hent slug fra URL (?p=slug)
     const slug = new URLSearchParams(location.search).get('p');
 
     (async function loadPost(){
       const titleEl = document.getElementById("post-title");
       const dateEl  = document.getElementById("post-date");
       const coverEl = document.getElementById("post-cover");
+      const coverWrap = coverEl.parentElement;
       const bodyEl  = document.getElementById("post-content");
 
       if(!slug){
@@ -84,7 +139,7 @@
       }
 
       try{
-        const res = await fetch("./posts.json?v="+Date.now(), {cache:"no-store"});
+        const res = await fetch("posts.json?v="+Date.now(), { cache: "no-store" });
         const posts = await res.json();
 
         const post = Array.isArray(posts) ? posts.find(p => p.slug === slug) : null;
@@ -97,32 +152,31 @@
         titleEl.textContent = post.title || "Uten tittel";
         if(post.date){
           const d = new Date(post.date);
-          dateEl.textContent = d.toLocaleDateString("no-NO");
-        }else{
+          dateEl.textContent = isNaN(d) ? post.date : d.toLocaleDateString("no-NO");
+        } else {
           dateEl.textContent = "";
         }
 
-        // Cover
+        // Cover-bilde
         if(post.cover){
           coverEl.src = post.cover;
-          coverEl.style.display = "block";
+          coverWrap.style.display = "block";
+          coverEl.alt = post.title ? ("Cover: " + post.title) : "";
         }
 
-        // INNHOLD – prøv flere mulige feltnavn fra CMS
-        const htmlField = post.html || post.content || post.body || post.markdown || post.text;
-        if(typeof htmlField === "string" && htmlField.trim()){
-          // Hvis det ser ut som HTML (har <tag>), bruk direkte – ellers konverter tekst
-          if(/[<>]/.test(htmlField)) {
-            bodyEl.innerHTML = htmlField;
-          } else {
-            bodyEl.innerHTML = simpleTextToHTML(htmlField);
-          }
+        // Innhold
+        const raw = extractContent(post);
+        if(raw && /<[a-z][\s\S]*>/i.test(raw)){
+          bodyEl.innerHTML = raw;       // HTML
+        } else if(raw){
+          bodyEl.innerHTML = simpleTextToHTML(raw); // ren tekst -> avsnitt
         } else {
           bodyEl.innerHTML = "<p>(Ingen innhold)</p>";
         }
-      }catch(e){
+
+      } catch(e){
         console.error(e);
-        document.getElementById("post-title").textContent = "Feil: kunne ikke laste blogginnlegg.";
+        titleEl.textContent = "Feil: kunne ikke laste blogginnlegg.";
       }
     })();
   </script>
