@@ -61,6 +61,11 @@
       return isNaN(dt) ? "" : dt.toLocaleDateString("no-NO");
     }
 
+    // Fjern YAML front matter (--- ... --- øverst)
+    function stripFrontMatter(md) {
+      return md.replace(/^---[\s\S]*?---\s*/, "");
+    }
+
     async function loadPost() {
       try {
         // Cache-buster for fersk posts.json
@@ -82,9 +87,10 @@
           img.style.display = "block";
         }
 
-        // Hent og render Markdown-innholdet
-        const md = await fetch(`/blog/posts/${slug}.md?v=` + Date.now(), { cache: "no-store" })
+        // Hent og render Markdown-innholdet (uten front matter)
+        const mdRaw = await fetch(`/blog/posts/${slug}.md?v=` + Date.now(), { cache: "no-store" })
           .then(r => r.text());
+        const md = stripFrontMatter(mdRaw);
 
         document.getElementById("post-body").innerHTML = marked.parse(md);
       } catch (e) {
