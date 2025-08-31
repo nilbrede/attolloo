@@ -73,3 +73,20 @@ html,body{margin:0;padding:0}
 
 /* ---- Små justeringer ---- */
 .page-top-space{height:0} /* placeholder hvis du trenger spacing senere */
+/* Header fix: logo-størrelse, meny høyre, ingen linjebrudd */
+.site-header .container{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; padding:12px 12px; flex-wrap:nowrap;
+}
+.site-logo{display:flex; align-items:center; flex:0 0 auto;}
+.site-logo img{height:44px; width:auto; display:block;}
+.site-brand-text{margin-left:8px; font-weight:600; color:#555; white-space:nowrap;}
+.main-nav{margin-left:auto; flex:0 0 auto;}
+.main-nav ul{display:flex; gap:22px; list-style:none; margin:0; padding:0; flex-wrap:nowrap; white-space:nowrap;}
+.main-nav a{color:#2b2b2b; text-decoration:none;}
+.main-nav a[aria-current="page"]{font-weight:700;}
+
+/* Hero: midtstilt tekst og lik høyde (beholdt) */
+.hero{display:flex; align-items:center; justify-content:center; text-align:center;}
+.hero .inner{width:100%; max-width:var(--container); padding:48px 12px;}
+
