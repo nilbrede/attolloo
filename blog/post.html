@@ -2,13 +2,13 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
-  <title>Blogg – Attolloo Group</title>
+  <title>Blogginnlegg – Attolloo Group</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="../style.css?v=7" />
 </head>
-<body data-page="blog">
+<body data-page="post">
 
-  <!-- HEADER (samme som de andre sidene) -->
+  <!-- HEADER -->
   <header class="site-header">
     <div class="container">
       <a class="site-logo" href="../index.html" aria-label="Til forsiden">
@@ -20,7 +20,7 @@
           <li><a href="../index.html">Forside</a></li>
           <li><a href="../about.html">Om oss</a></li>
           <li><a href="../services.html">Tjenester</a></li>
-          <li><a href="index.html" aria-current="page">Blogg</a></li>
+          <li><a href="index.html">Blogg</a></li>
         </ul>
       </nav>
     </div>
@@ -28,64 +28,69 @@
 
   <div class="page-top-space"></div>
 
-  <!-- INNHOLD -->
+  <!-- BLOGGINNLEGG -->
   <main class="container">
-    <section class="section">
-      <h1 class="section-title">Blogg</h1>
-      <div id="blog-list" class="cards"></div>
-    </section>
+    <article id="post-article" class="card">
+      <h1 id="post-title"></h1>
+      <p id="post-date" class="card_date"></p>
+      <img id="post-cover" src="" alt="" style="max-width:100%; margin:1rem 0; display:none;" />
+      <div id="post-content"></div>
+    </article>
   </main>
 
   <!-- FOOTER -->
   <footer>
     <div class="container">
-      <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
-      <p>Org.nr: 936 616 758</p>
-      <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
+      <p>&copy; <span id="year"></span> Attolloogroup.</p>
     </div>
   </footer>
 
   <script>
-  // årstall i footer
-  document.getElementById('year').textContent = new Date().getFullYear();
+    // Sett årstall
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Hent og vis blogginnlegg som kort i grid
-  (async function loadBlog(){
-    const wrap = document.getElementById('blog-list');
-    try {
-      const res   = await fetch('posts.json?v=' + Date.now(), { cache: 'no-store' });
-      const posts = await res.json();
+    // Hent slug fra URL
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("p");
 
-      // nyeste først (sorterer på ISO-dato "YYYY-MM-DD")
-      posts.sort((a,b) => (b.date || '').localeCompare(a.date || ''));
+    (async function loadPost(){
+      const titleEl = document.getElementById("post-title");
+      const dateEl = document.getElementById("post-date");
+      const coverEl = document.getElementById("post-cover");
+      const contentEl = document.getElementById("post-content");
 
-      const fmt = (dStr) => {
-        const d = new Date(String(dStr).slice(0,10) + 'T00:00:00');
-        return isNaN(d) ? '' : d.toLocaleDateString('no-NO');
-      };
+      if(!slug){
+        titleEl.textContent = "Fant ikke innlegget";
+        return;
+      }
 
-      wrap.innerHTML = posts.map(p => `
-        <article class="card">
-          <a class="card_media" href="post.html?p=${encodeURIComponent(p.slug)}" aria-label="${p.title || 'Les innlegg'}">
-            <img src="${p.cover || ''}" alt="">
-          </a>
-          <div class="card_body">
-            <div class="card_date">${fmt(p.date)}</div>
-            <h3 class="card_title">
-              <a href="post.html?p=${encodeURIComponent(p.slug)}">${p.title || 'Uten tittel'}</a>
-            </h3>
-            ${p.excerpt ? `<p class="card_text">${p.excerpt}</p>` : ''}
-          </div>
-        </article>
-      `).join('');
-    } catch(e){
-      console.error(e);
-      wrap.innerHTML =
-        `<article class="card"><div class="card_body">
-           <p class="card_text">Klarte ikke å laste bloggen akkurat nå.</p>
-         </div></article>`;
-    }
-  })();
+      try {
+        const res = await fetch("./posts.json?v=" + Date.now(), { cache: "no-store" });
+        const posts = await res.json();
+
+        const post = posts.find(p => p.slug === slug);
+        if(!post){
+          titleEl.textContent = "Innlegget finnes ikke";
+          return;
+        }
+
+        // Sett inn data
+        titleEl.textContent = post.title || "Uten tittel";
+        if(post.date){
+          const d = new Date(post.date);
+          dateEl.textContent = d.toLocaleDateString("no-NO");
+        }
+        if(post.cover){
+          coverEl.src = post.cover;
+          coverEl.style.display = "block";
+        }
+        contentEl.innerHTML = post.content || "<p>(Ingen innhold)</p>";
+
+      } catch(e){
+        console.error(e);
+        titleEl.textContent = "Feil: kunne ikke laste blogginnlegg.";
+      }
+    })();
   </script>
 </body>
 </html>
