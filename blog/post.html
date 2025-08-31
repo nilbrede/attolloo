@@ -99,7 +99,7 @@
       if(!slug) return;
 
       try{
-        const res   = await fetch('/data/posts.json', { cache: 'no-store' });
+        const res   = await fetch('/blog/posts.json', { cache: 'no-store' });
         const posts = await res.json();
         const post  = posts.find(p => p.slug === slug);
         if(!post) return;
