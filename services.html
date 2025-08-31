@@ -4,10 +4,9 @@
   <meta charset="utf-8" />
   <title>Tjenester – Attolloo Group</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/style.css?v=7" />
+  <link rel="stylesheet" href="/style.css?v=8" />
 </head>
 <body data-page="services">
-  <!-- HEADER (lik forsiden) -->
   <header class="site-header">
     <div class="site-brand">
       <a class="site-logo" href="/index.html" aria-label="Til forsiden">
@@ -24,121 +23,67 @@
       </nav>
     </div>
   </header>
-  <div class="page-top-space"></div>
 
-<section class="hero" id="services-hero" aria-labelledby="herotitle">
-  <div class="hero_overlay">
-    <h1 id="herotitle"></h1>
-    <p id="herosubtitle"></p>
-  </div>
-</section>
+  <!-- HERO -->
+  <section class="hero" id="services-hero" aria-labelledby="herotitle">
+    <div class="inner">
+      <h1 id="herotitle">Våre tjenester</h1>
+      <p id="herosubtitle"></p>
+    </div>
+  </section>
 
+  <!-- HOVEDINNHOLD -->
   <main class="container">
-    <!-- Seksjoner fra CMS -->
     <section class="section">
-      <div class="cards" id="svc-cards"></div>
-    </section>
-
-    <!-- Ekstra “hel-kort” (når imageTall=true i CMS) -->
-    <section class="section" id="svc-extra" style="display:none;">
-      <div class="section-card">
-        <img id="svc-extra-img" alt="">
-        <div class="card__body">
-          <h2 class="card__title" id="svc-extra-title"></h2>
-          <p class="card__text" id="svc-extra-text"></p>
-        </div>
-      </div>
+      <div class="cards" id="services-cards" aria-live="polite"></div>
     </section>
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container">
       <p><span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
-      <p>Org.nr: 936 016 758</p>
+      <p>Org.nr: 936 616 758</p>
       <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
     </div>
   </footer>
 
   <script>
-    // Årstall i footer
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Last CMS-data for Tjenester
+    // Last hero + seksjoner fra services.json
     (async function loadServices(){
       try{
-        const res = await fetch('/data/services.json', {cache:'no-store'});
+        const res  = await fetch('/data/services.json', { cache:'no-store' });
         const data = await res.json();
 
-        // Hero-tekst
-        if (data.title) document.getElementById('herotitle').textContent = data.title;
-        if (data.subtitle) document.getElementById('herosubtitle').textContent = data.subtitle;
+        // Hero
+        const hero = document.getElementById('services-hero');
+        if (data.hero_image){
+          hero.style.setProperty('--hero-image', `url(${data.hero_image})`);
+          hero.classList.add('has-image');
+        }
+        document.getElementById('herotitle').textContent    = data.title || 'Våre tjenester';
+        document.getElementById('herosubtitle').textContent = data.subtitle || '';
 
-        const wrap = document.getElementById('svc-cards');
+        // Seksjoner -> kort
+        const wrap = document.getElementById('services-cards');
         const sections = Array.isArray(data.sections) ? data.sections : [];
-        if (!sections.length){
-          wrap.innerHTML = '<p>Ingen tjenester er publisert ennå.</p>';
-          return;
-        }
-
-        // Vis vanlige kort (imageTall=false eller mangler)
-        const normal = sections.filter(s => !s.imageTall);
-        wrap.innerHTML = normal.map(s => `
-          <article class="card">
-            <div class="card__media">
-              ${s.image ? `<img src="${s.image}" alt="">` : ''}
-            </div>
-            <div class="card__body">
-              ${s.heading ? `<h3 class="card__title">${s.heading}</h3>` : ''}
-              ${s.body ? `<p class="card__text">${s.body}</p>` : ''}
-            </div>
-          </article>
-        `).join('');
-
-        // Eventuelt én ekstra “stor” seksjon (første med imageTall=true)
-        const extra = sections.find(s => s.imageTall);
-        if (extra){
-          const sec = document.getElementById('svc-extra');
-          sec.style.display = '';
-          if (extra.image){
-            const img = document.getElementById('svc-extra-img');
-            img.src = extra.image;
-            img.alt = extra.heading || 'Tjeneste';
-          } else {
-            document.getElementById('svc-extra-img').style.display = 'none';
-          }
-          document.getElementById('svc-extra-title').textContent = extra.heading || '';
-          document.getElementById('svc-extra-text').textContent = extra.body || '';
-        }
+        wrap.innerHTML = sections.length
+          ? sections.map(s => `
+              <article class="card">
+                ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ''}
+                <div class="card_body">
+                  ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ''}
+                  ${s.body ? `<p class="card_text">${s.body}</p>` : ''}
+                </div>
+              </article>
+            `).join('')
+          : '<p>Ingen innholdsseksjoner er lagt til ennå.</p>';
       }catch(e){
-        console.error(e);
-        document.getElementById('svc-cards').innerHTML =
-          '<p>Kunne ikke laste tjenester akkurat nå.</p>';
+        console.error('Kunne ikke laste services.json', e);
+        document.getElementById('services-cards').innerHTML = '<p>Kunne ikke laste innhold akkurat nå.</p>';
       }
     })();
   </script>
-<script>
-(async function loadServicesHero(){
-  try {
-    const res  = await fetch('/data/services.json', { cache: 'no-store' });
-    const data = await res.json();
-
-    document.getElementById('herotitle').textContent   = data.title || 'Tjenester';
-    document.getElementById('herosubtitle').textContent = data.subtitle || '';
-
-    const hero = document.getElementById('services-hero');
-    if (data.hero_image) {
-      hero.style.setProperty('--hero-image', `url(${data.hero_image})`);
-      hero.classList.add('has-image');
-    } else {
-      hero.classList.remove('has-image');
-    }
-  } catch (e) {
-    console.error('Kunne ikke laste services.json', e);
-  }
-})();
-</script>
-
-  
 </body>
 </html>
