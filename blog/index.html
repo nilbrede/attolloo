@@ -1,65 +1,90 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="utf-8">
-  <title>Blogg – Attolloo Group</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../style.css">
+  <meta charset="utf-8" />
+  <title>Blogg — Attolloo Group</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../style.css?v=6" />
 </head>
-<body>
+<body data-page="blog">
+
+  <!-- HEADER (samme som de andre sidene) -->
   <header class="site-header">
-    <div class="site-brand">
-      <a href="../index.html" class="site-logo">
-        <img src="../att-logo.png" alt="Attolloo logo">
-        <span class="site-brand-text">Attolloo Group</span>
+    <div class="container header-row">
+      <a class="site-logo" href="../index.html" aria-label="Til forsiden">
+        <img src="../aab-logo.png" alt="Attolloo logo" />
+        <span class="site-brand_text">Attolloo Group</span>
       </a>
-      <nav class="main-nav">
+
+      <nav class="main-nav" aria-label="Hovedmeny">
         <ul>
           <li><a href="../index.html">Forside</a></li>
           <li><a href="../about.html">Om oss</a></li>
           <li><a href="../services.html">Tjenester</a></li>
-          <li><a href="index.html">Blogg</a></li>
+          <li><a href="index.html" aria-current="page">Blogg</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
+  <div class="page-top-space"></div>
+
+  <!-- INNHOLD -->
   <main class="container">
-    <h1>Blogg</h1>
-    <div id="blog-list" class="cards"></div>
+    <section class="section">
+      <h1 class="att-section-title">Blogg</h1>
+      <div id="blog-list" class="cards"></div>
+    </section>
   </main>
 
+  <!-- FOOTER -->
   <footer>
     <div class="container">
-      <p>&copy; <span id="year"></span> Attolloogroup</p>
+      <p>&copy; <span id="year"></span> Attolloogroup.</p>
     </div>
   </footer>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-  <script>
-  (async function loadBlog(){
-    const wrap = document.getElementById('blog-list');
-    try {
-      const res = await fetch('posts.json', { cache: 'no-store' });
-      const posts = await res.json();
-      posts.sort((a,b)=> new Date(b.date)-new Date(a.date));
-      wrap.innerHTML = posts.map(p => `
-        <article class="att-card">
-          ${p.cover ? `<a class="att-card_thumb" href="post.html?p=${encodeURIComponent(p.slug)}"><img src="${p.cover}" alt=""></a>` : ""}
-          <div class="att-card_body">
-            <h2 class="att-card_title"><a href="post.html?p=${encodeURIComponent(p.slug)}">${p.title}</a></h2>
-            <div class="att-card_meta">${new Date(p.date).toLocaleDateString('no-NO')}</div>
-            ${p.excerpt ? `<p class="att-card_excerpt">${p.excerpt}</p>` : ""}
-          </div>
-        </article>
-      `).join('');
-    } catch (e) {
-      wrap.innerHTML = "<p>Klarte ikke å laste bloggen.</p>";
-      console.error(e);
-    }
-  })();
+    // Årstall i footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Hent og vis blogginnlegg som kort i grid
+    (async function loadBlog(){
+      const wrap = document.getElementById('blog-list');
+      try {
+        const res = await fetch('posts.json?v=' + Date.now(), { cache: 'no-store' });
+        const posts = await res.json();
+
+        // nyeste først
+        posts.sort((a,b) => (b.date || '').localeCompare(a.date || ''));
+
+        const fmt = (dStr) => {
+          const d = new Date(String(dStr).slice(0,10) + 'T00:00:00');
+          return isNaN(d) ? '' : d.toLocaleDateString('no-NO');
+        };
+
+        wrap.innerHTML = posts.map(p => `
+          <article class="card">
+            <a class="card_media" href="post.html?p=${encodeURIComponent(p.slug)}" aria-label="${p.title || 'Les innlegget'}">
+              <img src="${p.cover || ''}" alt="">
+            </a>
+            <div class="card_body">
+              <div class="card_date">${fmt(p.date)}</div>
+              <h3 class="card_title">
+                <a href="post.html?p=${encodeURIComponent(p.slug)}">${p.title || 'Uten tittel'}</a>
+              </h3>
+              ${p.excerpt ? `<p class="card_text">${p.excerpt}</p>` : ``}
+            </div>
+          </article>
+        `).join('');
+
+      } catch (e) {
+        console.error(e);
+        wrap.innerHTML = `<article class="card"><div class="card_body">
+          <p class="card_text">Klarte ikke å laste bloggen akkurat nå.</p>
+        </div></article>`;
+      }
+    })();
   </script>
 </body>
 </html>
