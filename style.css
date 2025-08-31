@@ -1,88 +1,227 @@
-/* ====== Basis ====== */
-:root{ --container:1100px; --radius:12px; --gap:1rem; --shadow:0 2px 8px rgba(0,0,0,.06); }
+/* =========================
+   Attolloo – felles stil
+   Versjon v6
+   ========================= */
 
-*{ box-sizing:border-box; }
-html,body{ margin:0; padding:0; }
-body{
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  line-height:1.5; color:#222; background:#f6f7f8;
+/* Basestil */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans",
+               "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  color: #1f2937;            /* grå-900 */
+  background: #f3f4f6;       /* grå-100 */
+  line-height: 1.6;
 }
 
-/* Links */
-a{ color:#1f2937; text-decoration:none; }
-a:hover{ text-decoration:underline; }
+/* Lenker */
+a { color: #2563eb; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-/* Container */
-.container{ max-width:var(--container); margin:0 auto; padding:0 1rem; }
-
-/* ====== Header / Brand ====== */
-.site-header{ background:#fff; border-bottom:1px solid #e5e7eb; }
-.site-brand{ max-width:var(--container); margin:0 auto; padding:.75rem 1rem;
-  display:flex; align-items:center; justify-content:space-between;
+/* Container – maks bredde + sidepadding */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
-.site-logo{ display:flex; align-items:center; gap:.5rem; }
-.site-logo img{ height:48px; width:auto; margin-right:10px; }
-.site-brand_text{ font-weight:600; font-size:1.05rem; color:#1f2937; }
 
-.main-nav ul{ display:flex; gap:1rem; list-style:none; margin:0; padding:0; }
-.main-nav a{ color:inherit; }
-.main-nav a[aria-current="page"]{ font-weight:600; text-decoration:underline; }
-
-/* ====== Hero ====== */
-.hero{
-  position:relative; min-height:320px; display:flex; align-items:center; justify-content:center;
-  text-align:center; color:#fff; background:#111;
-  padding:3rem 1rem;
+/* =========================
+   Header / toppmeny
+   ========================= */
+.site-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
-.hero.has-image{
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: .75rem;
+}
+.site-logo { display: flex; align-items: center; gap: .5rem; }
+.site-logo img { height: 32px; width: auto; display: block; }
+.site-brand_text { font-weight: 600; font-size: 1rem; color: #111827; }
+
+/* Meny */
+.main-nav ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.main-nav a {
+  color: #374151;
+  padding: .5rem .25rem;
+  border-radius: .375rem;
+}
+.main-nav a[aria-current="page"],
+.main-nav a:hover {
+  color: #111827;
+  background: #f3f4f6;
+}
+
+/* Liten spacer under sticky header, just in case */
+.page-top-space { height: 0; }
+
+/* =========================
+   Hero – delt mellom sider
+   ========================= */
+.hero {
+  position: relative;
+  min-height: 240px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: #111827;           /* fallback */
+  overflow: hidden;
+}
+.hero.has-image {
   background-image: var(--hero-image);
-  background-size: cover; background-position:center;
+  background-size: cover;
+  background-position: center;
 }
-.hero::before{ /* overlay */
-  content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.55));
+.hero_overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.55));
 }
-.hero .inner{ position:relative; z-index:1; max-width:800px; }
-.hero h1{ margin:0 0 .5rem; font-size: clamp(1.75rem, 2.3vw + 1rem, 2.25rem); }
-.hero p{ margin:0; opacity:.95; line-height:1.6; }
+.hero .inner {
+  position: relative;
+  width: 100%;
+  padding: 3rem 0;
+  text-align: center;
+}
+.hero .inner .container { max-width: 900px; }
+.hero h1 {
+  margin: 0 0 .75rem 0;
+  font-size: clamp(1.75rem, 2.4vw + 1rem, 2.25rem);
+  font-weight: 800;
+}
+.hero p {
+  margin: 0;
+  font-size: clamp(.95rem, .5vw + .75rem, 1.05rem);
+  line-height: 1.6;
+  opacity: .95;
+}
 
-/* ====== Seksjonsrammer ====== */
-.section{ margin:1.25rem 0; }
-.section .section-card{
-  background:#fff; border:1px solid #e5e7eb; border-radius:var(--radius); box-shadow:var(--shadow);
-  overflow:hidden;
+/* =========================
+   Seksjoner, kort og grid
+   ========================= */
+.section { margin: 2rem 0; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
 }
 
-/* ====== Kort / grid ====== */
-.cards{
-  display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-  gap:var(--gap);
+/* Vanlig kort */
+.card {
+  grid-column: span 12;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
 }
-.card{
-  background:#fff; border:1px solid #e5e7eb; border-radius:var(--radius); box-shadow:var(--shadow);
-  overflow:hidden; display:flex; flex-direction:column;
+.card_media img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
 }
-.card_media{ aspect-ratio: 4 / 3; max-height: 220px; overflow:hidden; background:#e9eef2; }
-.card_media img{ width:100%; height:100%; object-fit:cover; display:block; }
-.card_body{ padding:1rem; display:flex; flex-direction:column; gap:.35rem; }
-.card_title{ font-size:1.05rem; color:#1f2937; margin:0; }
-.card_text{ margin:.25rem 0 0; color:#667085; }
-@media (min-width: 900px){ .card_media{ max-height:200px; } }
+.card_body { padding: 1rem 1.25rem; }
+.card_title {
+  margin: 0 0 .25rem 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111827;
+}
+.card_text { margin: 0; color: #4b5563; }
 
-/* ====== Blogg-kort på forsiden ====== */
-.att-home_blog{ padding:2.5rem 1rem; }
-.att-home_head{ display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
-.att-section-title{ font-size: clamp(1.2rem, 2vw, 1.4rem); margin:0; }
-.att-chip{ display:inline-block; font-size:.9rem; text-decoration:none; padding:.45rem .75rem; border:1px solid #e5e7eb; border-radius:999px; color:inherit; }
-.att-card{ background:#fff; border:1px solid #e5e7eb; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column; }
-.att-card_thumb{ aspect-ratio:16/9; background:#eef3f7; overflow:hidden; }
-.att-card_thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-.att-card_body{ padding:1rem; display:flex; flex-direction:column; gap:.35rem; }
-.att-card_date{ font-size:.9rem; color:#6b7280; }
-.att-card_title a{ color:inherit; text-decoration:none; }
-.att-card_title a:hover{ text-decoration:underline; }
-.att-card_excerpt{ color:#667085; opacity:.95; line-height:1.6; }
-.att-home_blog_grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px; }
+/* “Siste fra bloggen” kort (samme stil som card) */
+.card_link { display: inline-block; margin: .25rem 0 1rem 0; }
 
-/* ====== Footer ====== */
-footer{ margin:2rem 0; }
-footer .container{ color:#6b7280; font-size:.95rem; }
+/* Grid-responsivitet */
+@media (min-width: 640px) { /* sm */
+  .card { grid-column: span 6; }
+}
+@media (min-width: 1024px) { /* lg */
+  .card { grid-column: span 4; }
+}
+
+/* =========================
+   Bloggkort på forsiden
+   ========================= */
+.att-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+.att-card + .att-card { margin-top: 1rem; }
+.att-card_thumb img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+.att-card_body { padding: 1rem 1.25rem; }
+.att-card_date { font-size: .85rem; color: #6b7280; margin-bottom: .25rem; }
+.att-card_title { margin: 0 0 .4rem 0; font-size: 1rem; font-weight: 700; }
+.att-card_excerpt { margin: 0; color: #4b5563; }
+
+/* =========================
+   Footer
+   ========================= */
+footer {
+  margin-top: 2rem;
+  padding: 1.5rem 0 2.25rem;
+  color: #6b7280;
+}
+
+/* =========================
+   Småjusteringer for sider
+   ========================= */
+
+/* Om oss / Tjenester – hoder på seksjoner */
+.att-section-title {
+  margin: 0 0 .75rem 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+/* Knapper / chips (brukes noen steder) */
+.att-chip {
+  display: inline-block;
+  padding: .45rem .75rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  font-size: .9rem;
+  color: inherit;
+}
+
+/* Bilder i CMS-seksjonskort (om/services) */
+.card_media img.att-fixed {
+  height: 200px;           /* lås høyde for ren grid */
+  object-fit: cover;
+}
+
+/* =========================
+   Mobile finpuss
+   ========================= */
+@media (max-width: 480px){
+  .site-brand_text { display: none; } /* spar plass på veldig små skjermer */
+  .hero .inner { padding: 2.25rem 0; }
+  .att-card_thumb img { height: 150px; }
+}
