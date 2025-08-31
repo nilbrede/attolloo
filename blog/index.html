@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Attolloo Blog</title>
+<meta name="description" content="Innlegg fra Attolloo – ledelse, læring, Attolloo North/South og reiser." />
+<link rel="stylesheet" href="/style.css" />
+<style>
+.blog-wrap{max-width:900px;margin:0 auto;padding:2rem}
+.post-card{padding:1.25rem;border:1px solid #e5e7eb;border-radius:16px;margin-bottom:1rem;display:flex;gap:1rem;align-items:flex-start}
+.post-card img{width:160px;aspect-ratio:16/10;object-fit:cover;border-radius:12px}
+.post-meta{font-size:.9rem;opacity:.7;margin:.25rem 0}
+.tag{display:inline-block;font-size:.75rem;border:1px solid #e5e7eb;border-radius:999px;padding:.1rem .5rem;margin-right:.4rem}
+@media (max-width:700px){.post-card{flex-direction:column}.post-card img{width:100%}}
+</style>
+</head>
+<body>
+<div class="blog-wrap">
+<h1>Attolloo Blog</h1>
+<p>Refleksjoner om ledelse, læring, Attolloo North/South, reiser og prosjekter.</p>
+<div id="posts"></div>
+</div>
+
+
+<script>
+async function loadPosts(){
+const listEl = document.getElementById('posts');
+try {
+const res = await fetch('./posts.json', {cache:'no-store'});
+const posts = await res.json();
+// sorter nyeste først
+posts.sort((a,b)=> (a.date<b.date?1:-1));
+// render
+posts.forEach(p=>{
+const a = document.createElement('a');
+a.href = `./post.html?p=${encodeURIComponent(p.slug)}`;
+a.style.textDecoration = 'none';
+a.innerHTML = `
+<article class="post-card">
+${p.cover ? `<img src="${p.cover}" alt="">` : ''}
+<div>
+<h2 style="margin:0">${p.title}</h2>
+<div class="post-meta">${new Date(p.date).toLocaleDateString('no-NO')} – ${p.read || ''}</div>
+<p style="margin:.4rem 0 0 0;opacity:.9">${p.excerpt||''}</p>
+<div style="margin-top:.6rem">${(p.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+</div>
+</article>`;
+listEl.appendChild(a);
+})
+} catch(e){
+listEl.innerHTML = '<p>Klarte ikke å laste blogginnlegg.</p>';
+console.error(e);
+}
+}
+loadPosts();
+</script>
+</body>
+</html>
