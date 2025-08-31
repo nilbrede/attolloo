@@ -2,25 +2,25 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
-  <title>Tjenester – Attolloo Group</title>
+  <title>Blogg – Attolloo Group</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="../style.css?v=7" />
 </head>
-<body data-page="services">
+<body data-page="blog">
 
   <!-- HEADER -->
   <header class="site-header">
     <div class="container">
-      <a class="site-logo" href="index.html" aria-label="Til forsiden">
-        <img src="aab-logo.png" alt="Attolloo logo" />
+      <a class="site-logo" href="../index.html" aria-label="Til forsiden">
+        <img src="../aab-logo.png" alt="Attolloo logo" />
       </a>
       <span class="site-brand-text">Attolloo Group</span>
       <nav class="main-nav" aria-label="Hovedmeny">
         <ul>
-          <li><a href="index.html">Forside</a></li>
-          <li><a href="about.html">Om oss</a></li>
-          <li><a href="services.html" aria-current="page">Tjenester</a></li>
-          <li><a href="blog/index.html">Blogg</a></li>
+          <li><a href="../index.html">Forside</a></li>
+          <li><a href="../about.html">Om oss</a></li>
+          <li><a href="../services.html">Tjenester</a></li>
+          <li><a href="index.html" aria-current="page">Blogg</a></li>
         </ul>
       </nav>
     </div>
@@ -28,71 +28,58 @@
 
   <div class="page-top-space"></div>
 
-  <!-- HERO (tekst + bakgrunn fra CMS) -->
-  <section class="hero" id="services-hero" aria-labelledby="services-hero-title">
-    <div class="inner">
-      <h1 class="hero-title" id="services-hero-title"></h1>
-      <p class="hero-subtitle"></p>
-    </div>
-  </section>
-
-  <!-- Kortseksjoner fra CMS -->
+  <!-- BLOGGINNHOLD -->
   <main class="container">
     <section class="section">
-      <div id="services-cards" class="cards"></div>
+      <h1 class="att-section-title">Blogg</h1>
+      <div id="blog-list" class="cards"></div>
     </section>
   </main>
 
+  <!-- FOOTER -->
   <footer>
     <div class="container">
-      <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
-      <p>Org.nr: 936 616 758</p>
-      <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
+      <p>&copy; <span id="year"></span> Attolloogroup.</p>
     </div>
   </footer>
 
   <script>
-  // årstall i footer
-  document.getElementById('year').textContent = new Date().getFullYear();
+    // Sett årstall
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Last CMS-data for TJENESTER
-  (async function () {
-    try {
-      const res  = await fetch('data/services.json?' + Date.now(), { cache: 'no-store' });
-      const data = await res.json();
+    // Hent blogginnlegg
+    (async function loadBlog(){
+      const wrap = document.getElementById('blog-list');
+      try {
+        const res = await fetch('./posts.json?v=' + Date.now(), { cache: 'no-store' });
+        const posts = await res.json();
 
-      // HERO-tekst
-      const hero = document.getElementById('services-hero');
-      hero.querySelector('.hero-title').textContent    = data.title    || 'Våre tjenester';
-      hero.querySelector('.hero-subtitle').textContent = data.subtitle || '';
+        posts.sort((a,b) => (b.date || '').localeCompare(a.date || ''));
 
-      // HERO-bilde (CSS-variabel, støtter både hero_image og image)
-      const img = data.hero_image || data.image;
-      if (img) hero.style.setProperty('--hero-img', `url(${img})`);
+        const fmt = d => {
+          const date = new Date(String(d).slice(0,10) + 'T00:00:00');
+          return isNaN(date) ? '' : date.toLocaleDateString('no-NO');
+        };
 
-      // Seksjoner
-      const wrap = document.getElementById('services-cards');
-      const sections = Array.isArray(data.sections) ? data.sections : [];
-      if (!sections.length) {
-        wrap.innerHTML = '<p style="color:#69646C">Ingen tjenester er lagt til ennå.</p>';
-        return;
+        wrap.innerHTML = posts.map(p => `
+          <article class="card">
+            <a class="card_media" href="post.html?p=${encodeURIComponent(p.slug)}">
+              <img src="${p.cover || ''}" alt="">
+            </a>
+            <div class="card_body">
+              <div class="card_date">${fmt(p.date)}</div>
+              <h3 class="card_title">
+                <a href="post.html?p=${encodeURIComponent(p.slug)}">${p.title || 'Uten tittel'}</a>
+              </h3>
+              ${p.excerpt ? `<p class="card_text">${p.excerpt}</p>` : ''}
+            </div>
+          </article>
+        `).join('');
+      } catch(e) {
+        console.error(e);
+        wrap.innerHTML = `<article class="card"><div class="card_body"><p class="card_text">Klarte ikke å laste bloggen akkurat nå.</p></div></article>`;
       }
-
-      wrap.innerHTML = sections.map(s => `
-        <article class="card">
-          ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ''}
-          <div class="card_body">
-            ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ''}
-            ${s.body ? `<p class="card_text">${s.body}</p>` : ''}
-          </div>
-        </article>
-      `).join('');
-    } catch (e) {
-      console.error(e);
-      document.getElementById('services-cards').innerHTML =
-        '<p style="color:#69646C">Kunne ikke laste tjenester akkurat nå.</p>';
-    }
-  })();
+    })();
   </script>
 </body>
 </html>
