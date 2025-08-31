@@ -38,7 +38,56 @@
     <main class="container">
       
        <div id="cards" class="cards"></div>
-     
+     <section class="att-home-blog" aria-labelledby="att-home-blog-title">
+  <div class="att-container">
+    <div class="att-home-blog__head">
+      <h2 id="att-home-blog-title" class="att-section-title">Siste fra bloggen</h2>
+      <a class="att-chip" href="/blog/" aria-label="Gå til hele bloggen">Se alle innlegg →</a>
+    </div>
+
+    <div id="att-home-blog-list" class="att-home-blog__grid" aria-live="polite"></div>
+  </div>
+</section>
+
+<script>
+(async function attLoadHomeBlog(){
+  const wrap = document.getElementById('att-home-blog-list');
+  try {
+    const res = await fetch('/blog/posts.json', { cache: 'no-store' });
+    const posts = await res.json();
+    posts.sort((a,b)=> a.date < b.date ? 1 : -1);
+    const latest = posts.slice(0,3);
+
+    if (!latest.length) {
+      wrap.innerHTML = '<p>Ingen innlegg publisert ennå.</p>';
+      return;
+    }
+
+    wrap.innerHTML = latest.map(p => `
+      <article class="att-card">
+        ${p.cover ? `
+          <a class="att-card__thumb" href="/blog/post.html?p=${p.slug}">
+            <img src="${p.cover}" alt="" loading="lazy" decoding="async">
+          </a>` : ``}
+        <div class="att-card__body">
+          <h3 class="att-card__title">
+            <a href="/blog/post.html?p=${p.slug}">${p.title}</a>
+          </h3>
+          <div class="att-card__meta">
+            ${new Date(p.date).toLocaleDateString('no-NO')}${p.read ? ` · ${p.read}` : ``}
+          </div>
+          ${p.excerpt ? `<p class="att-card__excerpt">${p.excerpt}</p>` : ``}
+          <a class="att-link" href="/blog/post.html?p=${p.slug}" aria-label="Les: ${p.title}">Les mer</a>
+        </div>
+      </article>
+    `).join('');
+  } catch (e) {
+    console.error(e);
+    wrap.innerHTML = '<p>Klarte ikke å laste blogginnlegg akkurat nå.</p>';
+  }
+})();
+</script>
+
     </main>
 
     <!-- FOOTER -->
