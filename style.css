@@ -135,3 +135,27 @@ footer p{margin:.35rem 0}
   .att-card_thumb img,
   .card_media img{height:140px}
 }
+/* --- FIKS: hero midtstilt tekst --- */
+.hero .inner{
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+/* --- FIKS: kort/seksjoner – pene, lave bilder ---
+   Gjelder både Om oss og Tjenester (cards som genereres av JS) */
+.cards .card{height:100%}
+.cards .card_media img{
+  width:100%;
+  height:180px !important;   /* tvang lav høyde */
+  object-fit:cover;          /* pene utsnitt */
+  display:block;
+}
+
+/* Litt strammere layout i grid */
+.cards{
+  grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+  gap:20px;
+}
