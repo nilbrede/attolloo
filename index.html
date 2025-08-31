@@ -4,55 +4,52 @@
   <meta charset="utf-8" />
   <title>Attolloogroup</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- cache-buster v3 -->
- <link rel="stylesheet" href="/style.css?v=7" />
+  <!-- cache-buster -->
+  <link rel="stylesheet" href="/style.css?v=8" />
 </head>
-
 <body data-page="home">
+
   <!-- HEADER -->
   <header class="site-header">
     <div class="site-brand">
       <a class="site-logo" href="/index.html" aria-label="Til forsiden">
-        <img src="/aab-logo.png" alt="Attolloogroup logo">
-        <span class="site-brand_text">Attolloogroup</span>
+        <img src="/aab-logo.png" alt="Attolloo logo" />
+        <span class="site-brand_text">Attolloo Group</span>
       </a>
       <nav class="main-nav" aria-label="Hovedmeny">
         <ul>
           <li><a href="/index.html" aria-current="page">Forside</a></li>
           <li><a href="/about.html">Om oss</a></li>
           <li><a href="/services.html">Tjenester</a></li>
-          <li><a href="/blog/index.html">Blogg</a></li>
+          <li><a href="/blog/">Blogg</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <div class="page-top-space"></div>
-
-<section class="hero" id="home-hero" aria-labelledby="heroTitle">
-  <div class="hero_overlay">
-    <h1 id="heroTitle"></h1>
-    <p id="heroSubtitle"></p>
-  </div>
-</section>
+  <!-- HERO (fra CMS) -->
+  <section class="hero" id="home-hero" aria-labelledby="heroTitle">
+    <div class="inner">
+      <h1 id="heroTitle"></h1>
+      <p id="heroSubtitle"></p>
+    </div>
+  </section>
 
   <!-- HOVEDINNHOLD -->
   <main class="container">
 
-    <!-- Tjenestekort (fylles av /js/content.js hvis du bruker det) -->
+    <!-- Tjenestekort (hvis du fyller via content.js – beholder hook) -->
     <section class="section">
-      <div id="cards" class="cards"></div>
+      <div class="cards" id="cards"></div>
     </section>
 
-    <!-- Bloggseksjon (ALLTID nederst) -->
-    <section class="att-home-blog" aria-labelledby="att-home-blog-title">
-      <div class="att-container">
-        <div class="att-home_head">
-          <h2 class="att-section-title" id="att-home-blog-title">Siste fra bloggen</h2>
-          <a class="att-chip" href="/blog/" aria-label="Gå til hele bloggen">Se alle innlegg</a>
-        </div>
-        <div id="att-home-blog-list" class="att-home-blog_grid" aria-live="polite"></div>
+    <!-- Blogg: siste innlegg -->
+    <section class="att-home_blog" aria-labelledby="att-home-title">
+      <div class="att-home_head">
+        <h2 class="att-section-title" id="att-home-title">Siste fra bloggen</h2>
+        <a class="att-chip" href="/blog/" aria-label="Gå til hele bloggen">Se alle innlegg</a>
       </div>
+      <div id="att-home-blog-list" class="att-home_blog_grid" aria-live="polite"></div>
     </section>
 
   </main>
@@ -66,90 +63,63 @@
     </div>
   </footer>
 
-  <!-- JS: årstall i footer -->
   <script>
+    // Årstall i footer
     document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 
-  <!-- Netlify Identity (valgfritt) -->
-  <!-- <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> -->
-
-  <!-- Ditt script som fyller hero/kort fra CMS-data (hvis brukt tidligere) -->
-  <script src="/js/content.js"></script>
-
-  <!-- Flytt bloggseksjonen ALLTID nederst – uansett hva content.js gjør -->
-  <script>
-    (function () {
-      const main = document.querySelector('main.container');
-      const blog = document.querySelector('.att-home-blog');
-      function move(){
-        if (main.lastElementChild !== blog) main.appendChild(blog);
-      }
-      document.addEventListener('DOMContentLoaded', move);
-      new MutationObserver(move).observe(main, { childList: true });
+    // HERO fra CMS (home.json)
+    (async function loadHomeHero(){
+      try{
+        const res  = await fetch('/data/home.json', { cache:'no-store' });
+        const data = await res.json();
+        const hero = document.getElementById('home-hero');
+        if (data.hero_image){
+          hero.style.setProperty('--hero-image', `url(${data.hero_image})`);
+          hero.classList.add('has-image');
+        }
+        const h1 = document.getElementById('heroTitle') || document.getElementById('herotitle');
+        const p  = document.getElementById('heroSubtitle') || document.getElementById('herosubtitle');
+        if (h1) h1.textContent = data.title || '';
+        if (p)  p.textContent  = data.subtitle || '';
+      }catch(e){ console.error('Kunne ikke laste home.json', e); }
     })();
-  </script>
 
-  <!-- Hent og vis 3 siste blogginnlegg -->
-  <script>
+    // Hent og vis 3 siste blogginnlegg (posts.json)
     (async function attLoadHomeBlog(){
       const wrap = document.getElementById('att-home-blog-list');
       if (!wrap) return;
-      try {
-        const res = await fetch('/blog/posts.json?v=' + Date.now(), { cache: 'no-store' });
+      try{
+        const res = await fetch('/data/posts.json?v=' + Date.now(), { cache: 'no-store' });
         const posts = await res.json();
-
-        // Nyest først – og unngå gale datoer (f.eks. 2001/1970)
-        posts.sort((a,b)=> (b.date || '').localeCompare(a.date || ''));
+        posts.sort((a,b)=> (b.date||'').localeCompare(a.date||'') );
         const latest = posts.slice(0,3);
 
-        const fmt = (d) => {
-          if (!d) return '';
-          const dt = new Date(String(d).slice(0,10) + 'T00:00:00');
-          return isNaN(dt) ? '' : dt.toLocaleDateString('no-NO');
+        const fmt = s => {
+          if(!s) return '';
+          const d = new Date(String(s).slice(0,10)+'T00:00:00');
+          return isNaN(d) ? '' : d.toLocaleDateString('no-NO');
         };
 
         wrap.innerHTML = latest.length
           ? latest.map(p => `
               <article class="att-card">
-                <a class="att-card_thumb" href="/blog/post.html?p=${encodeURIComponent(p.slug)}">
-                  <img src="${p.cover}" alt="" loading="lazy" decoding="async">
+                <a class="att-card_thumb" href="/blog/post.html?p=${encodeURIComponent(p.slug||'')}">
+                  <img src="${p.cover||''}" alt="">
                 </a>
                 <div class="att-card_body">
                   <div class="att-card_date">${fmt(p.date)}</div>
                   <h3 class="att-card_title">
-                    <a href="/blog/post.html?p=${encodeURIComponent(p.slug)}">${p.title || 'Uten tittel'}</a>
+                    <a href="/blog/post.html?p=${encodeURIComponent(p.slug||'')}">${p.title||'Uten tittel'}</a>
                   </h3>
                   ${p.excerpt ? `<p class="att-card_excerpt">${p.excerpt}</p>` : ''}
                 </div>
               </article>
             `).join('')
-          : '<p>Ingen innlegg publisert ennå.</p>';
-      } catch (e) {
+          : `<p>Ingen innlegg publisert ennå.</p>`;
+      } catch(e){
         console.error(e);
-        wrap.innerHTML = '<p>Klarte ikke å laste blogginnlegg akkurat nå.</p>';
+        wrap.innerHTML = `<p>Klarte ikke å laste blogginnlegg akkurat nå.</p>`;
       }
-    })();
-  </script>
-
-  <!-- Liten helper: last hero fra /data/home.json (bevarer CMS-oppsettet ditt) -->
-  <script>
-    (async function loadHomeHero(){
-      try{
-        const res = await fetch('/data/home.json', { cache:'no-store' });
-        if (!res.ok) return;
-        const data = await res.json();
-        if (data.title) document.getElementById('heroTitle').textContent = data.title;
-        if (data.subtitle) document.getElementById('heroSubtitle').textContent = data.subtitle;
-
-        const hero = document.getElementById('home-hero');
-        if (data.hero_image){
-          hero.style.setProperty('--hero-image', `url(${data.hero_image})`);
-          hero.classList.add('has-image');
-        } else {
-          hero.classList.remove('has-image');
-        }
-      }catch(e){ console.warn('Ingen home.json – bruker default hero'); }
     })();
   </script>
 </body>
