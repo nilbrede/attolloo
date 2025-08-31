@@ -4,99 +4,159 @@
   <meta charset="utf-8">
   <title>Attolloogroup</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+  <!-- cache-buster v=3 -->
+  <link rel="stylesheet" href="/style.css?v=3">
+  <style>
+    /* --- Header layout --- */
+    .site-header .site-brand{
+      max-width:1100px;margin:0 auto;padding:.75rem 1rem;
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .site-logo{display:flex;align-items:center;text-decoration:none;color:inherit}
+    .site-logo img{height:40px;width:auto;margin-right:10px}
+    .site-brand-text{font-weight:600;font-size:1.2rem;color:#1f2937}
+    .main-nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0}
+    .main-nav a{text-decoration:none;color:inherit}
+
+    /* --- Bloggseksjon (grid + kort) --- */
+    .att-home-blog{padding:2.5rem 0 1rem}
+    .att-container{max-width:1100px;margin:0 auto;padding:0 1rem}
+    .att-home-blog_head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem}
+    .att-section-title{font-size:clamp(1.4rem,2.2vw,2rem);margin:0}
+    .att-chip{display:inline-block;font-size:.95rem;text-decoration:none;padding:.45rem .75rem;border:1px solid #e5e7eb;border-radius:9999px;color:inherit}
+    .att-home-blog_grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+    .att-card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+    .att-card_thumb img{display:block;width:100%;height:auto}
+    .att-card_body{padding:12px 14px;display:grid;gap:.45rem}
+    .att-card_date{font-size:.9rem;color:#6b7280}
+    .att-card_title{font-size:1.1rem;margin:0}
+    .att-card_title a{text-decoration:none;color:inherit}
+    .att-card_title a:hover{text-decoration:underline}
+    .att-card_excerpt{color:#1f2937;opacity:.95;line-height:1.5;margin:0}
+  </style>
 </head>
 <body data-page="home">
 
   <!-- HEADER -->
   <header class="site-header">
     <div class="site-brand">
-      <a href="index.html" class="site-logo">
-        <img src="att-logo.png" alt="Attolloo logo">
-        <span class="site-brand-text">Attolloo Group</span>
+      <a class="site-logo" href="/index.html">
+        <img src="/aab-logo.png" alt="Attolloogroup logo">
+        <span class="site-brand-text">Attolloogroup</span>
       </a>
       <nav class="main-nav">
         <ul>
-          <li><a href="index.html">Forside</a></li>
-          <li><a href="about.html">Om oss</a></li>
-          <li><a href="services.html">Tjenester</a></li>
-          <li><a href="blog/">Blogg</a></li>
+          <li><a href="/index.html">Forside</a></li>
+          <li><a href="/about.html">Om oss</a></li>
+          <li><a href="/services.html">Tjenester</a></li>
+          <li><a href="/blog/index.html">Blogg</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
+  <div class="page-top-space"></div>
+
   <!-- HERO -->
   <section class="hero home-hero">
     <div class="inner">
-      <h1 id="heroTitle">Attolloo Group – grunnlagt av Nils Johan Brede</h1>
-      <p id="heroSubtitle">
-        Med lang ledererfaring fra både offentlig og privat sektor bygger jeg Attolloo Group som en arena for læring, utvikling og inspirasjon. 
-        Jeg brenner for å koble mennesker, teknologi og strategi på en måte som skaper varig verdi.
-      </p>
+      <h1 id="heroTitle"></h1>
+      <p id="heroSubtitle"></p>
     </div>
   </section>
 
-  <!-- INNHOLD -->
+  <!-- HOVEDINNHOLD -->
   <main class="container">
-    <div id="cards" class="cards">
-      <!-- Tjenestekort legges her via CMS -->
-    </div>
 
-    <!-- BLOGG seksjon -->
+    <!-- Tjenestekort fylles av content.js -->
+    <div id="cards" class="cards"></div>
+
+    <!-- Bloggseksjon (flyttes nederst av JS) -->
     <section class="att-home-blog" aria-labelledby="att-home-blog-title">
       <div class="att-container">
         <div class="att-home-blog_head">
           <h2 id="att-home-blog-title" class="att-section-title">Siste fra bloggen</h2>
-          <a class="att-chip" href="blog/" aria-label="Gå til hele bloggen">Se alle innlegg</a>
+          <a class="att-chip" href="/blog/" aria-label="Gå til hele bloggen">Se alle innlegg</a>
         </div>
         <div id="att-home-blog-list" class="att-home-blog_grid" aria-live="polite"></div>
       </div>
     </section>
+
   </main>
 
   <!-- FOOTER -->
   <footer>
     <div class="container">
-      <p>&copy; <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
+      <p><span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
       <p>Org.nr: 936 616 758</p>
       <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
     </div>
   </footer>
 
+  <!-- JS: årstall i footer -->
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
+  <!-- Netlify Identity (valgfritt) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <!-- Ditt script som fyller hero/kort fra CMS-data -->
+  <script src="/js/content.js?v=3"></script>
+
+  <!-- Flytt bloggseksjonen ALLTID nederst, uansett hva content.js gjør -->
+  <script>
+    (function () {
+      const main = document.querySelector('main.container');
+      const blog = document.querySelector('.att-home-blog');
+      if (!main || !blog) return;
+      function move(){ if (main.lastElementChild !== blog) main.appendChild(blog); }
+      move(); document.addEventListener('DOMContentLoaded', move); window.addEventListener('load', move);
+      new MutationObserver(move).observe(main, { childList: true });
+    })();
+  </script>
+
+  <!-- Hent og vis 3 siste blogginnlegg (dato-fix) -->
   <script>
   (async function attLoadHomeBlog(){
     const wrap = document.getElementById('att-home-blog-list');
     if (!wrap) return;
     try {
-      const res = await fetch('/blog/posts.json', { cache: 'no-store' });
+      const res = await fetch('/blog/posts.json?v=' + Date.now(), { cache: 'no-store' });
       const posts = await res.json();
-      posts.sort((a,b)=> new Date(b.date)-new Date(a.date));
+      posts.sort((a,b)=> (b.date||'').localeCompare(a.date||''));
       const latest = posts.slice(0,3);
 
-      wrap.innerHTML = latest.map(p => `
-        <article class="att-card">
-          ${p.cover ? `
-          <a class="att-card_thumb" href="/blog/post.html?p=${encodeURIComponent(p.slug)}">
-            <img src="${p.cover}" alt="" loading="lazy" decoding="async">
-          </a>` : ""}
-          <div class="att-card_body">
-            <h3 class="att-card_title">
-              <a href="/blog/post.html?p=${encodeURIComponent(p.slug)}">${p.title}</a>
-            </h3>
-            <div class="att-card_meta">${new Date(p.date).toLocaleDateString('no-NO')}</div>
-            ${p.excerpt ? `<p class="att-card_excerpt">${p.excerpt}</p>` : ""}
-          </div>
-        </article>
-      `).join('');
+      const fmt = d => {
+        if (!d) return '';
+        // Tving ISO-dato til “sikker” dato (unngå 2001/1970)
+        const dt = new Date(String(d).slice(0,10) + "T00:00:00");
+        return isNaN(dt) ? '' : dt.toLocaleDateString('no-NO');
+      };
+
+      wrap.innerHTML = latest.length
+        ? latest.map(p => `
+          <article class="att-card">
+            ${p.cover ? `
+            <a class="att-card_thumb" href="/blog/post.html?p=${encodeURIComponent(p.slug)}">
+              <img src="${p.cover}" alt="" loading="lazy" decoding="async">
+            </a>` : ``}
+            <div class="att-card_body">
+              <div class="att-card_date">${fmt(p.date)}</div>
+              <h3 class="att-card_title">
+                <a href="/blog/post.html?p=${encodeURIComponent(p.slug)}">${p.title || 'Uten tittel'}</a>
+              </h3>
+              ${p.excerpt ? `<p class="att-card_excerpt">${p.excerpt}</p>` : ``}
+            </div>
+          </article>
+        `).join('')
+        : "<p>Ingen innlegg publisert ennå.</p>";
     } catch (e) {
-      wrap.innerHTML = "<p>Klarte ikke å laste blogginnlegg akkurat nå.</p>";
       console.error(e);
+      wrap.innerHTML = "<p>Klarte ikke å laste blogginnlegg akkurat nå.</p>";
     }
   })();
   </script>
+
 </body>
 </html>
