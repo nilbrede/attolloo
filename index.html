@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8">
   <title>Attolloogroup</title>
-  <link rel="stylesheet" href="/style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="home">
 
-  <!-- HEADER -->
+  <!-- HEADER: Logo + meny -->
   <header class="site-header">
     <div class="site-brand">
       <a class="site-logo" href="/index.html">
         <img src="/aab-logo.png" alt="Attolloogroup logo" />
-        <span class="site-brand">Attolloogroup</span>
+        <span class="site-brand-text">Attolloogroup</span>
       </a>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="/index.html">Forside</a></li>
-          <li><a href="/about.html">Om oss</a></li>
-          <li><a href="/services.html">Tjenester</a></li>
-          <li><a href="/blog/index.html">Blogg</a></li>
-        </ul>
-      </nav>
     </div>
+
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Forside</a></li>
+        <li><a href="about.html">Om oss</a></li>
+        <li><a href="services.html">Tjenester</a></li>
+        <li><a href="blog/">Blogg</a></li>
+      </ul>
+    </nav>
   </header>
 
   <div class="page-top-space"></div>
@@ -39,12 +40,10 @@
   <!-- HOVEDINNHOLD -->
   <main class="container">
 
-    <!-- Tjenestekort fylles av content.js -->
+    <!-- Tjenestekort -->
     <div id="cards" class="cards"></div>
 
-    <!-- (her kan andre seksjoner komme fra CMS/content.js) -->
-
-    <!-- Siste fra bloggen (ALLTID nederst på forsiden) -->
+    <!-- Bloggseksjon nederst -->
     <section class="att-home-blog" aria-labelledby="att-home-blog-title">
       <div class="att-container">
         <div class="att-home-blog_head">
@@ -61,7 +60,7 @@
   <footer>
     <div class="container">
       <p><span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
-      <p>Org.nr: 936 616 758</p>
+      <p>Org.nr: 936 016 758</p>
       <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
     </div>
   </footer>
@@ -71,15 +70,14 @@
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 
-  <!-- (Valgfritt) Netlify Identity-widget -->
+  <!-- Netlify Identity (valgfritt, for CMS-login) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-  <!-- JS: hent og vis de 3 siste blogginnleggene -->
+  <!-- JS: hent blogginnlegg -->
   <script>
   (async function attLoadHomeBlog(){
     const wrap = document.getElementById('att-home-blog-list');
-    if (!wrap) return; // gjør ingenting hvis seksjonen ikke finnes
-
+    if (!wrap) return;
     try {
       const res = await fetch('/blog/posts.json', { cache: 'no-store' });
       const posts = await res.json();
@@ -96,21 +94,20 @@
             <div class="att-card_body">
               <div class="att-card_date">${p.date ? new Date(p.date).toLocaleDateString('no-NO') : ''}</div>
               <h3 class="att-card_title">
-                <a href="/blog/post.html?p=${encodeURIComponent(p.slug)}">${p.title || 'Uten tittel'}</a>
+                <a href="/blog/post.html?p=${encodeURIComponent(p.slug)}">${p.title}</a>
               </h3>
               ${p.excerpt ? `<p class="att-card_excerpt">${p.excerpt}</p>` : ``}
             </div>
-          </article>
-        `).join('')
+          </article>`).join('')
         : "<p>Ingen innlegg publisert ennå.</p>";
-    } catch (e) {
-      console.error(e);
+    } catch(e){
       wrap.innerHTML = "<p>Klarte ikke å laste blogginnlegg akkurat nå.</p>";
+      console.error(e);
     }
   })();
   </script>
 
-  <!-- Ditt øvrige skript (fyller hero, kort osv.) -->
+  <!-- Ditt øvrige innhold -->
   <script src="/js/content.js"></script>
 </body>
 </html>
