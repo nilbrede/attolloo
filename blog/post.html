@@ -1,0 +1,83 @@
+<!doctype html>
+.content img{max-width:100%;height:auto;border-radius:12px}
+.content pre{overflow:auto;background:#0f172a;color:#e2e8f0;padding:1rem;border-radius:12px}
+.tag{display:inline-block;font-size:.75rem;border:1px solid #e5e7eb;border-radius:999px;padding:.1rem .5rem;margin-right:.4rem}
+</style>
+<!-- Marked.js for å rendere Markdown i nettleseren -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+</head>
+<body>
+<div class="blog-wrap">
+<a href="./" style="text-decoration:none">← Tilbake til bloggen</a>
+<article id="post">
+<header>
+<h1 id="title">Laster…</h1>
+<div class="post-meta" id="meta"></div>
+<img id="cover" class="cover" alt="" style="display:none" />
+<div id="tags" style="margin-bottom:1rem"></div>
+</header>
+<div id="content" class="content"></div>
+</article>
+
+
+<!-- Kommentarfelt (valgfritt): Giscus. Fjern kommentarer og fyll inn repo etter at GitHub Discussions er aktivert. -->
+<!--
+<script src="https://giscus.app/client.js"
+data-repo="BRUKERNAVN/REPO"
+data-repo-id="REPO_ID"
+data-category="Announcements"
+data-category-id="CAT_ID"
+data-mapping="pathname"
+data-reactions-enabled="1"
+data-emit-metadata="0"
+data-input-position="bottom"
+data-theme="light"
+data-lang="no"
+crossorigin="anonymous"
+async>
+</script>
+<noscript>Aktiver JavaScript for å se kommentarer drevet av Giscus.</noscript>
+-->
+</div>
+
+
+<script>
+const params = new URLSearchParams(location.search);
+const slug = params.get('p');
+async function load(){
+if(!slug){
+document.getElementById('content').innerHTML = '<p>Mangler slug (?p=...). </p>';
+return;
+}
+const res = await fetch('./posts.json', {cache:'no-store'});
+const posts = await res.json();
+const post = posts.find(x=>x.slug===slug);
+if(!post){
+document.getElementById('content').innerHTML = '<p>Fant ikke innlegget.</p>';
+return;
+}
+// header
+document.title = post.title + ' – Attolloo';
+document.getElementById('title').textContent = post.title;
+document.getElementById('meta').textContent = new Date(post.date).toLocaleDateString('no-NO') + (post.read?(' – '+post.read):'');
+if(post.cover){
+const cov = document.getElementById('cover');
+cov.src = post.cover; cov.style.display = 'block';
+}
+document.getElementById('tags').innerHTML = (post.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
+
+
+// content
+const mdRes = await fetch(`./posts/${slug}.md`, {cache:'no-store'});
+const md = await mdRes.text();
+// marked lastes via CDN (defer)
+const waitMarked = () => new Promise(r=>{
+if(window.marked){r()} else {setTimeout(()=>waitMarked().then(r),50)}
+});
+await waitMarked();
+document.getElementById('content').innerHTML = marked.parse(md);
+}
+load();
+</script>
+</body>
+</html>
