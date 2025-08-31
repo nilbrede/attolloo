@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>Attolloogroup</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/style.css?v=5" />
+  <link rel="stylesheet" href="/style.css?v=6" />
 </head>
 <body data-page="home">
 
@@ -14,7 +14,7 @@
       <a class="site-logo" href="/index.html" aria-label="Til forsiden">
         <img src="/aab-logo.png" alt="Attolloo logo" />
       </a>
-      <a class="site-brand_text" href="/index.html">Attolloo Group</a>
+      <span class="site-brand_text">Attolloo Group</span>
 
       <nav class="main-nav" aria-label="Hovedmeny">
         <ul>
@@ -28,7 +28,7 @@
   </header>
   <div class="page-top-space"></div>
 
-  <!-- HERO (CMS fyller inn bilde og tekst) -->
+  <!-- HERO -->
   <section class="hero" id="home-hero" aria-labelledby="heroTitle">
     <div class="hero_overlay"></div>
     <div class="inner">
@@ -48,12 +48,14 @@
     </section>
 
     <!-- Bloggseksjon -->
-    <section class="att-home-blog" aria-labelledby="att-home-blog-title">
-      <div class="att-container">
-        <h2 class="att-section-title" id="att-home-blog-title">Siste fra bloggen</h2>
-        <a class="att-section-link" href="/blog/" aria-label="Gå til hele bloggen">Se alle innlegg</a>
-      </div>
-      <div id="att-home-blog-list" class="att-home-blog_grid" aria-live="polite"></div>
+    <section class="section">
+      <article class="card">
+        <div class="card_body">
+          <h2 class="card_title">Siste fra bloggen</h2>
+          <a href="/blog/" class="card_link">Se alle innlegg</a>
+          <div id="att-home-blog-list"></div>
+        </div>
+      </article>
     </section>
 
   </main>
