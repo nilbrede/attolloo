@@ -4,34 +4,32 @@
   <meta charset="utf-8" />
   <title>Attolloogroup</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- cache-buster -->
   <link rel="stylesheet" href="/style.css?v=5" />
 </head>
-
 <body data-page="home">
-  <!-- HEADER (samme som på de andre sidene) -->
+
+  <!-- HEADER -->
   <header class="site-header">
-    <div class="site-brand">
+    <div class="container header-row">
       <a class="site-logo" href="/index.html" aria-label="Til forsiden">
         <img src="/aab-logo.png" alt="Attolloo logo" />
       </a>
-      <span class="site-brand_text">Attolloo Group</span>
+      <a class="site-brand_text" href="/index.html">Attolloo Group</a>
+
+      <nav class="main-nav" aria-label="Hovedmeny">
+        <ul>
+          <li><a href="/index.html" aria-current="page">Forside</a></li>
+          <li><a href="/about.html">Om oss</a></li>
+          <li><a href="/services.html">Tjenester</a></li>
+          <li><a href="/blog/">Blogg</a></li>
+        </ul>
+      </nav>
     </div>
-
-    <nav class="main-nav" aria-label="Hovedmeny">
-      <ul>
-        <li><a href="/index.html" aria-current="page">Forside</a></li>
-        <li><a href="/about.html">Om oss</a></li>
-        <li><a href="/services.html">Tjenester</a></li>
-        <li><a href="/blog/">Blogg</a></li>
-      </ul>
-    </nav>
   </header>
-
   <div class="page-top-space"></div>
 
-  <!-- HERO (fylles av CMS-data fra data/home.json) -->
-  <section class="hero home-hero" id="home-hero" aria-labelledby="heroTitle">
+  <!-- HERO (CMS fyller inn bilde og tekst) -->
+  <section class="hero" id="home-hero" aria-labelledby="heroTitle">
     <div class="hero_overlay"></div>
     <div class="inner">
       <div class="container">
@@ -41,21 +39,21 @@
     </div>
   </section>
 
-  <!-- INNHOLD -->
+  <!-- HOVEDINNHOLD -->
   <main class="container">
 
-    <!-- Seksjoner/kort fra CMS -->
+    <!-- Kortseksjoner (CMS) -->
     <section class="section">
-      <div id="home-cards" class="cards"></div>
+      <div class="cards" id="home-cards"></div>
     </section>
 
-    <!-- Bloggseksjon (3 siste) -->
+    <!-- Bloggseksjon -->
     <section class="att-home-blog" aria-labelledby="att-home-blog-title">
-      <div class="att-home_head">
+      <div class="att-container">
         <h2 class="att-section-title" id="att-home-blog-title">Siste fra bloggen</h2>
-        <a class="att-chip" href="/blog/" aria-label="Gå til hele bloggen">Se alle innlegg</a>
+        <a class="att-section-link" href="/blog/" aria-label="Gå til hele bloggen">Se alle innlegg</a>
       </div>
-      <div id="att-home-blog-list" class="att-home_blog_grid" aria-live="polite"></div>
+      <div id="att-home-blog-list" class="att-home-blog_grid" aria-live="polite"></div>
     </section>
 
   </main>
@@ -69,98 +67,72 @@
     </div>
   </footer>
 
-  <!-- JS: årstall i footer -->
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+    // Årstall i footer
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-  <!-- Hent HERO + seksjoner fra CMS: data/home.json -->
-  <script>
-    (async function loadHomeFromCMS(){
+    // Hent CMS-data for forsiden
+    (async function loadHome(){
       try {
-        const res  = await fetch('/data/home.json?v=' + Date.now(), { cache: 'no-store' });
+        const res = await fetch('/data/home.json', {cache:'no-store'});
         const data = await res.json();
 
-        // — Hero-tekst
-        document.getElementById('heroTitle').textContent    = data.title    || '';
+        // Hero-tekst
+        document.getElementById('heroTitle').textContent = data.title || '';
         document.getElementById('heroSubtitle').textContent = data.subtitle || '';
 
-        // — Hero-bilde (bakgrunn via CSS-var + overlay)
+        // Hero-bilde
         const hero = document.getElementById('home-hero');
-        if (data.hero_image) {
+        if (data.hero_image){
           hero.style.setProperty('--hero-image', `url(${data.hero_image})`);
           hero.classList.add('has-image');
-        } else {
-          hero.classList.remove('has-image');
         }
 
-        // — Kort/seksjoner (små pene bilder)
+        // Kortseksjoner
         const wrap = document.getElementById('home-cards');
-        const sections = Array.isArray(data.sections) ? data.sections : [];
-        if (!sections.length){
-          wrap.innerHTML = '<p>Ingen seksjoner er lagt til ennå.</p>';
-          return;
+        if (data.sections && data.sections.length){
+          wrap.innerHTML = data.sections.map(s => `
+            <article class="card">
+              ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ''}
+              <div class="card_body">
+                <h3 class="card_title">${s.heading || ''}</h3>
+                <p class="card_text">${s.body || ''}</p>
+              </div>
+            </article>
+          `).join('');
         }
-        wrap.innerHTML = sections.map(s => `
-          <article class="card">
-            <div class="card_media">
-              ${s.image ? `<img src="${s.image}" alt="">` : ''}
-            </div>
-            <div class="card_body">
-              ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ''}
-              ${s.body ? `<p class="card_text">${s.body}</p>` : ''}
+
+      } catch(e){
+        console.error(e);
+      }
+    })();
+
+    // Bloggseksjon (viser siste 3 innlegg)
+    (async function loadHomeBlog(){
+      const wrap = document.getElementById('att-home-blog-list');
+      if (!wrap) return;
+      try {
+        const res = await fetch('/data/blog/posts.json?'+Date.now(), {cache:'no-store'});
+        const posts = await res.json();
+        posts.sort((a,b) => b.date.localeCompare(a.date));
+        const latest = posts.slice(0,3);
+
+        wrap.innerHTML = latest.map(p => `
+          <article class="att-card">
+            ${p.cover ? `<a class="att-card_thumb" href="/blog/post.html?p=${encodeURIComponent(p.slug)}">
+              <img src="${p.cover}" alt="" loading="lazy"></a>` : ''}
+            <div class="att-card_body">
+              <div class="att-card_date">${new Date(p.date).toLocaleDateString('no-NO')}</div>
+              <h3 class="att-card_title"><a href="/blog/post.html?p=${encodeURIComponent(p.slug)}">${p.title}</a></h3>
+              ${p.excerpt ? `<p class="att-card_excerpt">${p.excerpt}</p>` : ''}
             </div>
           </article>
         `).join('');
-      } catch (e) {
-        console.error('Kunne ikke laste data/home.json', e);
-        const wrap = document.getElementById('home-cards');
-        if (wrap) wrap.innerHTML = '<p>Klarte ikke å laste seksjoner akkurat nå.</p>';
+      } catch(e){
+        wrap.innerHTML = "<p>Klarte ikke å laste blogginnlegg akkurat nå.</p>";
       }
     })();
   </script>
 
-  <!-- Hent 3 siste blogginnlegg -->
-  <script>
-    (async function attLoadHomeBlog(){
-      try {
-        const wrap = document.getElementById('att-home-blog-list');
-        if (!wrap) return;
-
-        const res   = await fetch('/blog/posts.json?v=' + Date.now(), { cache:'no-store' });
-        const posts = await res.json();
-
-        posts.sort((a,b) => (b.date || '').localeCompare(a.date || ''));
-        const latest = posts.slice(0,3);
-
-        const fmt = d => {
-          if (!d) return '';
-          const dt = new Date(String(d).slice(0,10) + 'T00:00:00');
-          return isNaN(dt) ? '' : dt.toLocaleDateString('no-NO');
-        };
-
-        wrap.innerHTML = latest.length
-          ? latest.map(p => `
-              <article class="att-card">
-                <a class="att-card_thumb" href="/blog/post.html?p=${encodeURIComponent(p.slug)}">
-                  <img src="${p.cover}" alt="" loading="lazy" decoding="async">
-                </a>
-                <div class="att-card_body">
-                  <div class="att-card_date">${fmt(p.date)}</div>
-                  <div class="att-card_title">
-                    <a href="/blog/post.html?p=${encodeURIComponent(p.slug)}">${p.title || 'Uten tittel'}</a>
-                  </div>
-                  ${p.excerpt ? `<p class="att-card_excerpt">${p.excerpt}</p>` : ''}
-                </div>
-              </article>
-            `).join('')
-          : '<p>Ingen innlegg publisert ennå.</p>';
-      } catch (e) {
-        console.error(e);
-        const wrap = document.getElementById('att-home-blog-list');
-        if (wrap) wrap.innerHTML = '<p>Klarte ikke å laste blogginnlegg akkurat nå.</p>';
-      }
-    })();
-  </script>
 </body>
 </html>
