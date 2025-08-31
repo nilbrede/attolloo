@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Attolloo Group</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="home">
 
@@ -28,16 +28,11 @@
 
   <div class="page-top-space"></div>
 
-  <!-- HERO -->
+  <!-- HERO (fylles fra CMS: data/home.json) -->
   <section class="hero" id="home-hero" aria-labelledby="heroTitle">
-    <div class="hero_overlay"></div>
-    <div class="hero_inner">
-      <h1 id="heroTitle">Attolloo Group – grunnlagt av Nils Johan Brede</h1>
-      <p id="heroSubtitle">
-        Med lang ledererfaring fra både offentlig og privat sektor bygger jeg Attolloo Group
-        som en arena for læring, utvikling og inspirasjon. Jeg brenner for å koble mennesker,
-        teknologi og strategi på en måte som skaper varig verdi.
-      </p>
+    <div class="inner">
+      <h1 id="heroTitle"></h1>
+      <p id="heroSubtitle"></p>
     </div>
   </section>
 
@@ -58,7 +53,7 @@
         </div>
         <div class="card_body">
           <div class="cards" id="home-blog-list"></div>
-          <p id="home-blog-fallback" style="display:none; margin:.5rem 0 0; color:#6D646C">
+          <p id="home-blog-fallback" style="display:none; margin:.5rem 0 0; color:#60646c">
             Klarte ikke å laste blogginnlegg akkurat nå.
           </p>
         </div>
@@ -76,56 +71,77 @@
     </div>
   </footer>
 
+  <!-- SCRIPTS -->
   <script>
-    // Sett årstall i footer
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // årstall i footer
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Last seksjoner fra CMS
+    // last forsiden fra CMS (hero + seksjoner)
     (async function loadHome(){
       try {
-        const res = await fetch("data/home.json?"+Date.now(), { cache:"no-store" });
+        const res = await fetch('data/home.json?' + Date.now(), { cache: 'no-store' });
         const data = await res.json();
 
-        // Seksjoner
-        const wrap = document.getElementById("home-cards");
+        // hero-tekst
+        document.getElementById('heroTitle').textContent    = data.title || '';
+        document.getElementById('heroSubtitle').textContent = data.subtitle || '';
+
+        // hero-bilde
+        const hero = document.getElementById('home-hero');
+        const img  = data.hero_image || data.image || '';
+        if (img) {
+          hero.style.setProperty('--hero-img', `url(${img})`);
+          hero.style.backgroundImage = `url(${img})`; // fallback
+        }
+
+        // seksjoner
+        const wrap = document.getElementById('home-cards');
         const sections = Array.isArray(data.sections) ? data.sections : [];
         wrap.innerHTML = sections.map(s => `
           <article class="card">
-            ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ""}
+            ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ''}
             <div class="card_body">
-              <h3 class="card_title">${s.heading}</h3>
-              <p class="card_text">${s.body}</p>
+              <h3 class="card_title">${s.heading || ''}</h3>
+              <p class="card_text">${s.body || ''}</p>
             </div>
           </article>
-        `).join("");
-
-      } catch(e){ console.error("Kunne ikke laste data/home.json", e); }
+        `).join('');
+      } catch(e) {
+        console.error('Klarte ikke laste data/home.json', e);
+      }
     })();
 
-    // Last 3 siste blogginnlegg
+    // blogg: hent 3 siste innlegg
     (async function loadBlog(){
-      const list = document.getElementById("home-blog-list");
-      const fallback = document.getElementById("home-blog-fallback");
+      const list = document.getElementById('home-blog-list');
+      const fallback = document.getElementById('home-blog-fallback');
       try {
-        const res = await fetch("blog/posts.json?"+Date.now(), { cache:"no-store" });
+        const res   = await fetch('data/posts.json?' + Date.now(), { cache: 'no-store' });
         const posts = await res.json();
+
         if(!Array.isArray(posts) || !posts.length){
-          fallback.style.display="block"; return;
+          fallback.style.display = 'block'; return;
         }
-        posts.sort((a,b)=> new Date(b.date) - new Date(a.date));
+
+        posts.sort((a,b) => new Date(b.date) - new Date(a.date));
         const latest = posts.slice(0,3);
+
         list.innerHTML = latest.map(p => `
           <article class="card">
-            ${p.cover ? `<div class="card_media"><img src="${p.cover}" alt=""></div>` : ""}
+            ${p.cover ? `<div class="card_media"><img src="${p.cover}" alt=""></div>` : ''}
             <div class="card_body">
-              <div class="card_date">${new Date(p.date).toLocaleDateString("no-NO")}</div>
-              <h3 class="card_title"><a href="blog/post.html?p=${encodeURIComponent(p.slug)}">${p.title || "Uten tittel"}</a></h3>
-              ${p.excerpt ? `<p class="card_text">${p.excerpt}</p>` : ""}
+              <div class="card_date">${new Date(p.date).toLocaleDateString('no-NO')}</div>
+              <h3 class="card_title"><a href="blog/post.html?p=${encodeURIComponent(p.slug)}">${p.title || 'Uten tittel'}</a></h3>
+              ${p.excerpt ? `<p class="card_text">${p.excerpt}</p>` : ''}
             </div>
           </article>
-        `).join("");
-      } catch(e){ console.error(e); fallback.style.display="block"; }
+        `).join('');
+      } catch(e){
+        console.error('Klarte ikke laste blogginnlegg', e);
+        fallback.style.display = 'block';
+      }
     })();
   </script>
+
 </body>
 </html>
