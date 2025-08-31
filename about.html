@@ -100,5 +100,23 @@
       }
     })();
   </script>
+  <script>
+(async function(){
+  try{
+    const res  = await fetch('data/about.json?' + Date.now(), { cache:'no-store' });
+    const data = await res.json();
+
+    const hero = document.getElementById('about-hero');
+    if(!hero) return;
+
+    hero.querySelector('.hero-title').textContent    = data.title    || '';
+    hero.querySelector('.hero-subtitle').textContent = data.subtitle || '';
+
+    const img = data.hero_image || data.image; // begge nøkler støttes
+    if (img) hero.style.setProperty('--hero-img', `url(${img})`);
+  }catch(e){ console.error('Kunne ikke laste about.json', e); }
+})();
+</script>
+
 </body>
 </html>
