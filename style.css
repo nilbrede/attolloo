@@ -1,161 +1,120 @@
-/* ========== Base ==========
-   (likt på alle sider)
--------------------------------- */
+/* ====== Basis ====== */
 :root{
-  --maxw: 1100px;
-  --gap: 1rem;
-  --radius: 12px;
-  --shadow: 0 2px 8px rgba(0,0,0,.06);
-  --chip: #e5e7eb;
-  --muted: #6b7280;
-  --link: #1f2937;
+  --brand:#1f2937;      /* mørk grå til tekst/rammer */
+  --accent:#0ea5e9;     /* blå aksent (lenker/chips) */
+  --bg:#f5f7fb;         /* lys bakgrunn */
+  --card:#ffffff;       /* kortbakgrunn */
+  --shadow:0 2px 8px rgba(0,0,0,.06);
 }
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";
-  color:#111827;
-  background:#f7f7f8;
-  line-height:1.55;
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+  color:#111;
+  background:var(--bg);
+  line-height:1.6;
 }
-a{color:var(--link);text-decoration:none}
-a:hover{text-decoration:underline}
 
+/* ====== Ramme (maksbredde) ====== */
 .container{
-  max-width:var(--maxw);
+  max-width:1180px;
   margin:0 auto;
   padding:0 1rem;
 }
 
-/* ========== Header ==========
--------------------------------- */
-.site-header{
-  background:#fff;
-  border-bottom:1px solid #e5e7eb;
-}
-.site-brand{
-  max-width:var(--maxw);
+/* ====== Header / toppnav ====== */
+.site-header .site-brand{
+  max-width:1180px;
   margin:0 auto;
   padding:.75rem 1rem;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  display:flex;align-items:center;justify-content:space-between;
 }
-.site-logo{display:flex;align-items:center;text-decoration:none;color:inherit}
+.site-logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:inherit}
 .site-logo img{height:48px;width:auto;margin-right:10px}
-.site-brand_text{font-weight:600;font-size:1.1rem;color:#1f2937}
+.site-brand_text{font-weight:600;font-size:1.2rem;color:#1f2937}
 .main-nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0}
-.main-nav a{color:inherit}
-.main-nav a[aria-current="page"]{font-weight:700}
+.main-nav a{text-decoration:none;color:inherit}
+.main-nav a[aria-current="page"]{color:var(--accent);font-weight:600}
 
-.page-top-space{height:.5rem}
-
-/* ========== HERO (felles) ==========
--------------------------------- */
+/* ====== HERO (likt på alle sider) ====== */
 .hero{
   position:relative;
-  background:#111827; /* fallback */
+  min-height:320px;             /* juster global hero-høyde her */
+  display:flex;
+  align-items:center;           /* vertikal sentrering */
+  justify-content:center;       /* horisontal sentrering */
+  text-align:center;
   color:#fff;
-  min-height:260px;
-  display:flex;align-items:center;
-  overflow:hidden;
+  background:#111;              /* fall-back om ingen hero-bilde */
 }
 .hero.has-image{
-  --hero-image: none; /* settes i JS */
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.55)),
-    var(--hero-image);
-  background-size:cover;background-position:center;
+  background-size:cover;
+  background-position:center;
 }
-.hero .inner{width:100%}
-.hero h1{
-  margin:0 0 .5rem 0;
-  font-size:clamp(1.6rem, 2.4vw + 1rem, 2.2rem);
+.hero_overlay{
+  background:rgba(0,0,0,.45);   /* kontrast over bilde */
+  padding:3rem 1rem;
+  border-radius:8px;
+  max-width:940px;
 }
-.hero p{margin:.25rem 0 0 0;max-width:65ch;opacity:.95}
+.hero h1{margin:0 0 .5rem;font-size:2rem;font-weight:800}
+.hero p{margin:0;font-size:1.1rem}
 
-/* ========== Cards / seksjoner ==========
--------------------------------- */
-.section{padding:1.5rem 0}
+/* ====== Seksjonskort / CMS-seksjoner ====== */
+.section{padding:2rem 0}
 .cards{
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
   gap:20px;
 }
 .card{
-  background:#fff;border:1px solid #e5e7eb;border-radius:var(--radius);
-  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column
+  background:var(--card);
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  display:flex;flex-direction:column;
 }
-.card_media{width:100%}
-.card_media img{display:block;width:100%;height:160px;object-fit:cover}
-.card_body{padding:.9rem}
-.card_title{font-size:1.05rem;margin:.1rem 0 .3rem 0}
-.card_text{margin:0;color:var(--muted)}
+.card_media{aspect-ratio:16/9;overflow:hidden}
+.card_media img{width:100%;height:100%;object-fit:cover;display:block}
+.card_body{padding:1rem}
+.card_title{font-size:1.05rem;margin:.2rem 0 .4rem}
+.card_text{margin:0;color:#4b5563}
 
-/* ========== Blogg på forsiden ==========
--------------------------------- */
-.att-home-blog{padding:2.5rem 0}
-.att-container{
-  max-width:var(--maxw);margin:0 auto;padding:0 1rem
+/* ====== Blogg – listekort på forsiden og /blog ====== */
+.att-card{
+  background:var(--card);
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
 }
+.att-card_thumb{aspect-ratio:16/9;display:block;overflow:hidden}
+.att-card_thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.att-card_body{padding:1rem}
+.att-card_date{font-size:.9rem;color:#6b7280;margin-bottom:.15rem}
+.att-card_title a{text-decoration:none;color:inherit;}
+.att-card_title a:hover{text-decoration:underline}
+.att-card_excerpt{color:#4b5563;margin:.35rem 0 0}
+
+/* Blogg-grid på forside */
+.att-home-blog{padding:2.5rem 0}
 .att-home_head{
   display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem
 }
-.att-section-title{font-size:clamp(1.2rem,2vw,1.4rem);margin:0}
+.att-home-title{font-size: clamp(1.2rem, 2vw, 2rem); margin:0}
 .att-chip{display:inline-block;font-size:.9rem;text-decoration:none;padding:.45rem .75rem;border:1px solid #e5e7eb;border-radius:9999px;color:inherit}
-.att-home-blog_grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px
-}
-.att-card{background:#fff;border:1px solid #e5e7eb;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-.att-card_thumb img{display:block;width:100%;height:160px;object-fit:cover}
-.att-card_body{padding:.9rem}
-.att-card_date{font-size:.92rem;color:#6b7280}
-.att-card_title a{color:inherit;text-decoration:none}
-.att-card_title a:hover{text-decoration:underline}
-.att-card_excerpt{color:#6b7280;opacity:.95;line-height:1.6;margin:0}
+.att-home-blog_grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
 
-/* ========== Footer ==========
--------------------------------- */
-footer{background:#fff;border-top:1px solid #e5e7eb;margin-top:2rem}
-footer .container{padding:1rem}
-footer p{margin:.35rem 0}
+/* ====== Småting ====== */
+.page-top-space{height:.5rem}
+footer{padding:2rem 0;color:#6b7280}
+a{color:var(--accent)}
 
-/* ========== Utility ==========
--------------------------------- */
-.visually-hidden{
-  position:absolute !important;height:1px;width:1px;overflow:hidden;
-  clip:rect(1px,1px,1px,1px);white-space:nowrap
-}
-
-/* ========== Responsive ==========
--------------------------------- */
-@media (max-width:720px){
-  .site-logo img{height:40px}
-  .att-card_thumb img,
-  .card_media img{height:140px}
-}
-/* --- FIKS: hero midtstilt tekst --- */
-.hero .inner{
-  text-align:center;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-}
-
-/* --- FIKS: kort/seksjoner – pene, lave bilder ---
-   Gjelder både Om oss og Tjenester (cards som genereres av JS) */
-.cards .card{height:100%}
-.cards .card_media img{
-  width:100%;
-  height:180px !important;   /* tvang lav høyde */
-  object-fit:cover;          /* pene utsnitt */
-  display:block;
-}
-
-/* Litt strammere layout i grid */
-.cards{
-  grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
-  gap:20px;
+/* ====== Responsivt ====== */
+@media (min-width:900px){
+  .hero{min-height:360px}
+  .hero h1{font-size:2.3rem}
+  .hero p{font-size:1.2rem}
 }
