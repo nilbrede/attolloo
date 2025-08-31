@@ -2,7 +2,7 @@
 title: Velkommen til Attolloo bloggen!
 date: 2025-08-31
 excerpt: ""
-cover: /images/uploads/a084e0a8-b80a-49ae-8800-a77c574c7d45~1.jpg
+cover: /images/uploads/img_20231201_161514.jpg
 ---
 Attolloo handler om å løfte mennesker og miljøer – med praksisnær læring, gode opplevelser og samspill mellom fag, teknologi og ledelse.
 
