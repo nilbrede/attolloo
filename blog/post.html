@@ -4,142 +4,136 @@
   <meta charset="utf-8" />
   <title>Blogginnlegg – Attolloo Group</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Felles stilark (en katalog opp) -->
-  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="/style.css?v=5" />
   <style>
-    /* Post-spesifikk styling */
-    .post-wrap{max-width:900px;margin:1rem auto 2rem;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1rem 1.25rem;box-shadow:0 2px 10px rgba(0,0,0,.04);}
-    .post-title{font-size:2rem;margin:.25rem 0 .5rem;}
-    .post-date{color:#6b7280;margin:0 0 1rem;}
-    .post-cover{width:100%;height:auto;max-height:360px;object-fit:cover;border-radius:10px;display:block;}
-    .post-body p{line-height:1.65;margin:.75rem 0;}
-    .post-body img{max-width:100%;height:auto;border-radius:8px;}
-    .post-back{display:inline-block;margin:.25rem 0 1rem;color:#2563eb;text-decoration:none}
-    .post-back:hover{text-decoration:underline}
-    /* Matcher høyremeny som på forsiden */
-    .site-header{background:#fff}
-    .site-brand{max-width:1100px;margin:0 auto;padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between}
-    .site-logo{display:flex;gap:.5rem;align-items:center;text-decoration:none;color:inherit}
-    .site-logo img{height:40px;width:auto;margin-right:8px}
-    .site-brand_text{font-weight:600;font-size:1.2rem;color:#1f2937}
-    .main-nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0}
-    .main-nav a{text-decoration:none;color:inherit}
-    .main-nav a:hover{text-decoration:underline}
-    .container{max-width:1100px;margin:0 auto;padding:0 1rem}
-    footer .container{padding:1rem 1rem 2rem}
+    .site-header { max-width:1100px; margin:0 auto; padding:.75rem 1rem;
+      display:flex; align-items:center; justify-content:space-between; }
+    .site-logo img{ height:40px; width:auto; margin-right:10px; }
+    .site-brand{ display:flex; align-items:center; gap:.5rem; }
+    .site-brand_text{ font-weight:600; font-size:1.1rem; color:#1f2937; }
+    .main-nav ul{ display:flex; gap:1rem; list-style:none; margin:0; padding:0; }
+    .main-nav a{ text-decoration:none; color:inherit; }
+
+    .post-wrap{ max-width:900px; margin:0 auto; padding:0 1rem 2rem; }
+    .post-wrap a.back{ display:inline-block; margin:.75rem 0 1rem; text-decoration:none; }
+    #post-title{ font-size:2rem; margin:.25rem 0 .25rem; }
+    #post-date{ color:#9ca3af; margin:0 0 .75rem; }
+    #post-cover{ width:100%; height:auto; display:block; border-radius:12px;
+      max-height:420px; object-fit:cover; }
+    #post-body{ margin-top:1rem; line-height:1.7; color:#374151; }
+    #post-body h2{ margin-top:1.25rem; }
+    #post-body img{ max-width:100%; height:auto; border-radius:10px; }
+    footer .container{ max-width:1100px; margin:0 auto; padding:1rem; color:#6b7280; border-top:1px solid #eee; }
   </style>
 </head>
 <body>
-
-  <!-- HEADER som på forsiden (logo venstre, lenker høyre) -->
   <header class="site-header">
     <div class="site-brand">
-      <a class="site-logo" href="../index.html" aria-label="Til forsiden">
-        <img src="../aab-logo.png" alt="Attolloo logo" />
-        <span class="site-brand_text">Attolloo Group</span>
+      <a class="site-logo" href="/index.html" aria-label="Til forsiden">
+        <img src="/aab-logo.png" alt="Attolloo logo">
       </a>
-      <nav class="main-nav" aria-label="Hovedmeny">
-        <ul>
-          <li><a href="../index.html">Forside</a></li>
-          <li><a href="../about.html">Om oss</a></li>
-          <li><a href="../services.html">Tjenester</a></li>
-          <li><a href="index.html" aria-current="page">Blogg</a></li>
-        </ul>
-      </nav>
+      <span class="site-brand_text">Attolloo Group</span>
     </div>
+    <nav class="main-nav" aria-label="Hovedmeny">
+      <ul>
+        <li><a href="/index.html">Forside</a></li>
+        <li><a href="/about.html">Om oss</a></li>
+        <li><a href="/services.html">Tjenester</a></li>
+        <li><a href="/blog/">Blogg</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main class="post-wrap container">
-    <a href="index.html" class="post-back">← Tilbake til bloggen</a>
+  <main class="post-wrap">
+    <a class="back" href="/blog/">&larr; Tilbake til bloggen</a>
     <h1 id="post-title" class="post-title"></h1>
     <p id="post-date" class="post-date"></p>
     <img id="post-cover" class="post-cover" alt="" />
     <div id="post-body" class="post-body"></div>
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container">
-      <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
+      <p>&copy; <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
     </div>
   </footer>
 
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
   <script>
-    // ©årstall
-    document.getElementById('year').textContent = new Date().getFullYear();
+  (async function loadPost(){
+    const params = new URLSearchParams(window.location.search);
+    const slug   = params.get('p');
+    if (!slug) return;
 
-    (async function loadPost(){
-      // Slug fra URL: ?p=<slug>
-      const params = new URLSearchParams(window.location.search);
-      const slug   = params.get('p');
-      if (!slug) return;
+    // Hjelper: fjern ev. YAML-front matter fra Markdown
+    const stripFrontMatter = (txt) => txt.replace(/^---[\s\S]*?---\s*/,'').trim();
 
-      try {
-        // Hent liste med innlegg
-        const res   = await fetch('/blog/posts.json', { cache: 'no-store' });
-        const posts = await res.json();
-        const post  = posts.find(p => p.slug === slug);
+    try {
+      const res   = await fetch('/blog/posts.json', { cache:'no-store' });
+      if (!res.ok) throw new Error('HTTP '+res.status);
+      const posts = await res.json();
+      const post  = (Array.isArray(posts) ? posts : []).find(p => p.slug === slug);
 
-        if (!post) {
-          document.getElementById('post-title').textContent = 'Innlegg ikke funnet';
-          return;
-        }
-
-        // Tittel + dato
-        document.getElementById('post-title').textContent = post.title || '(uten tittel)';
-        if (post.date) {
-          document.getElementById('post-date').textContent =
-            new Date(post.date).toLocaleDateString('no-NO');
-        }
-
-        // Cover-bilde (valgfritt)
-        const coverEl = document.getElementById('post-cover');
-        if (post.cover) {
-          coverEl.src = post.cover;
-          coverEl.alt = post.title || '';
-          coverEl.style.display = '';
-        } else {
-          coverEl.style.display = 'none';
-        }
-
-        // Kroppstekst – prøv flere feltnavn
-        let html = post.body || post.content || post.html || '';
-
-        // Fallback 1: ferdig HTML-fil
-        if (!html) {
-          try {
-            const rHtml = await fetch(`/blog/posts/${slug}.html`, { cache: 'no-store' });
-            if (rHtml.ok) html = await rHtml.text();
-          } catch (_) {}
-        }
-
-        // Fallback 2: Markdown → enkel HTML
-        if (!html) {
-          try {
-            const rMd = await fetch(`/blog/posts/${slug}.md`, { cache: 'no-store' });
-            if (rMd.ok) {
-              const md = await rMd.text();
-              html = md
-                .replace(/^### (.*)$/gm,'<h3>$1</h3>')
-                .replace(/^## (.*)$/gm,'<h2>$1</h2>')
-                .replace(/^# (.*)$/gm,'<h1>$1</h1>')
-                .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g,'<em>$1</em>')
-                .replace(/\n{2,}/g,'</p><p>')
-                .replace(/\n/g,'<br>');
-              html = '<p>' + html + '</p>';
-            }
-          } catch (_) {}
-        }
-
-        document.getElementById('post-body').innerHTML =
-          html || '<p>(Ingen tekst i innlegget ennå.)</p>';
-
-      } catch (e) {
-        console.error(e);
-        document.getElementById('post-title').textContent = 'Kunne ikke laste innlegget';
+      if (!post) {
+        document.getElementById('post-title').textContent = 'Innlegg ikke funnet';
+        return;
       }
-    })();
+
+      // Tittel/dato
+      document.getElementById('post-title').textContent = post.title || '(uten tittel)';
+      document.getElementById('post-date').textContent =
+        post.date ? new Date(post.date).toLocaleDateString('no-NO') : '';
+
+      // Cover
+      const coverEl = document.getElementById('post-cover');
+      if (post.cover) {
+        coverEl.src = post.cover; coverEl.alt = post.title || '';
+        coverEl.style.display = '';
+      } else {
+        coverEl.style.display = 'none';
+      }
+
+      // Kropp: prøv body/content/html fra JSON først
+      let html = post.body || post.content || post.html || '';
+
+      // Fallback til ferdig HTML-fil
+      if (!html) {
+        try {
+          const rHtml = await fetch(`/blog/posts/${slug}.html`, { cache:'no-store' });
+          if (rHtml.ok) html = await rHtml.text();
+        } catch(_) {}
+      }
+
+      // Fallback til Markdown
+      if (!html) {
+        try {
+          const rMd = await fetch(`/blog/posts/${slug}.md`, { cache:'no-store' });
+          if (rMd.ok) {
+            let md = await rMd.text();
+            md = stripFrontMatter(md);
+            // veldig enkel MD→HTML
+            html = md
+              .replace(/^### (.*)$/gm,'<h3>$1</h3>')
+              .replace(/^## (.*)$/gm,'<h2>$1</h2>')
+              .replace(/^# (.*)$/gm,'<h1>$1</h1>')
+              .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+              .replace(/\*(.*?)\*/g,'<em>$1</em>')
+              .replace(/\n{2,}/g,'</p><p>')
+              .replace(/\n/g,'<br>');
+            html = '<p>' + html + '</p>';
+          }
+        } catch(_) {}
+      }
+
+      document.getElementById('post-body').innerHTML =
+        html || '<p>(Ingen tekst i innlegget ennå.)</p>';
+
+    } catch(e){
+      console.error(e);
+      document.getElementById('post-title').textContent = 'Kunne ikke laste innlegget';
+    }
+  })();
   </script>
 </body>
 </html>
