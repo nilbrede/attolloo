@@ -4,42 +4,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Blogg – Attolloo</title>
-  <link rel="stylesheet" href="/style.css"/>
+  <link rel="stylesheet" href="/style.css">
   <style>
-    .att-container{max-width:1100px;margin:0 auto;padding:2rem 1rem;}
-    .att-blog-head{margin-bottom:1.5rem}
-    .att-section-title{font-size:2rem;margin:0}
-    .att-blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
-    .att-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-    .att-card_thumb img{display:block;width:100%;height:auto}
-    .att-card_body{padding:1rem 1rem 1.25rem}
-    .att-card_title{font-size:1.15rem;margin:.25rem 0 .35rem}
-    .att-card_date{font-size:.9rem;color:#667}
-    .att-card_excerpt{color:#222;opacity:.9;margin-top:.25rem;line-height:1.5}
+    .att-topbar{padding:.75rem 1rem;border-bottom:1px solid #eee}
+    .att-topbar .container{max-width:1100px;margin:0 auto}
+    .att-topbar img{height:40px}
+
+    .att-container{max-width:1100px;margin:0 auto;padding:2rem 1rem}
+    .att-blog-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.25rem}
+    .att-section-title{font-size:clamp(1.4rem,2.2vw,2rem);margin:0}
+    .att-home-blog_grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+
+    .att-card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
     .att-card a{text-decoration:none;color:inherit}
+    .att-card_thumb img{display:block;width:100%;height:auto}
+    .att-card_body{padding:12px 14px;display:grid;gap:.5rem}
+    .att-card_date{font-size:.9rem;color:#6b7280}
+    .att-card_title{font-size:1.1rem;margin:0}
+    .att-card_title a:hover{text-decoration:underline}
+    .att-card_excerpt{color:#1f2937;opacity:.95;line-height:1.5;margin:0}
   </style>
 </head>
 <body>
+
+  <header class="att-topbar">
+    <div class="container">
+      <a href="/index.html" aria-label="Til forsiden">
+        <img src="/aab-logo.png" alt="Attolloo">
+      </a>
+    </div>
+  </header>
+
   <main class="att-container">
     <div class="att-blog-head">
       <h1 class="att-section-title">Blogg</h1>
+      <a href="/index.html" aria-label="Til forsiden">← Til forsiden</a>
     </div>
-    <div id="blog-grid" class="att-blog-grid" aria-live="polite"></div>
+
+    <div id="blog-grid" class="att-home-blog_grid" aria-live="polite"></div>
   </main>
 
+  <footer>
+    <div class="container" style="max-width:1100px;margin:2rem auto;padding:0 1rem;">
+      <p><span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
+    </div>
+  </footer>
+
   <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Dato-funksjon (samme som på forsiden/post)
+    function formatDate(d) {
+      if (!d) return "";
+      const dt = new Date(String(d).slice(0,10) + "T00:00:00");
+      return isNaN(dt) ? "" : dt.toLocaleDateString("no-NO");
+    }
+
     (async function loadAllPosts(){
       const grid = document.getElementById('blog-grid');
       try {
-        const posts = await fetch('/blog/posts.json', { cache: 'no-store' }).then(r => r.json());
+        // cache-buster for fersk JSON
+        const posts = await fetch('/blog/posts.json?v=' + Date.now(), { cache: 'no-store' })
+          .then(r => r.json());
+
         posts.sort((a,b) => (b.date||'').localeCompare(a.date||''));
+
         grid.innerHTML = posts.map(p => `
           <article class="att-card">
+            ${p.cover ? `
             <a class="att-card_thumb" href="/blog/post.html?p=${encodeURIComponent(p.slug)}">
-              ${p.cover ? `<img src="${p.cover}" alt="">` : ``}
-            </a>
+              <img src="${p.cover}" alt="">
+            </a>` : ``}
             <div class="att-card_body">
-              <div class="att-card_date">${p.date ? new Date(p.date).toLocaleDateString('no-NO') : ''}</div>
+              <div class="att-card_date">${formatDate(p.date)}</div>
               <h2 class="att-card_title">
                 <a href="/blog/post.html?p=${encodeURIComponent(p.slug)}">${p.title || 'Uten tittel'}</a>
               </h2>
@@ -48,8 +85,8 @@
           </article>
         `).join('');
       } catch (e) {
-        grid.innerHTML = `<p>Klarte ikke å laste blogginnlegg akkurat nå.</p>`;
         console.error(e);
+        grid.innerHTML = `<p>Klarte ikke å laste blogginnlegg akkurat nå.</p>`;
       }
     })();
   </script>
