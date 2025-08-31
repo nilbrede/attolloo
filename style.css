@@ -198,4 +198,22 @@ hr{ border:0; height:1px; background:#eee; margin:24px 0; }
 /* Tekst-lenke i kortet */
 .att-link { text-decoration: none; display: inline-block; margin-top: .25rem; }
 .att-link:hover { text-decoration: underline; text-underline-offset: 2px; }
+/* HEADER LOGO + TEKST */
+.site-logo {
+  display: flex;             /* logo + tekst på linje */
+  align-items: center;       /* sentrer vertikalt */
+  text-decoration: none;
+}
+
+.site-logo img {
+  height: 40px;
+  width: auto;
+  margin-right: 10px;        /* mellomrom mellom logo og teksten */
+}
+
+.site-brand-text {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #1f2937;
+}
 
