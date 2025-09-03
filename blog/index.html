@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blogg – Attolloo Group</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../style.css?v=7" />
+  <style>
+    /* Små, rene kort for blogg-lista */
+    .blog-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:1rem; }
+    .card_media{ border-radius:.6rem; overflow:hidden; }
+    .card_media img{ width:100%; height:auto; display:block; object-fit:cover; aspect-ratio:4/3; }
+    .card_title a{ text-decoration:none; }
+    .card_text{ margin-top:.25rem; }
+  </style>
+</head>
+<body data-page="blog">
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container">
+      <a class="site-logo" href="../index.html" aria-label="Til forsiden">
+        <img src="../aab-logo.png" alt="Attolloo logo" />
+      </a>
+      <span class="site-brand-text">Attolloo Group</span>
+      <nav class="main-nav" aria-label="Hovedmeny">
+        <ul>
+          <li><a href="../index.html">Forside</a></li>
+          <li><a href="../about.html">Om oss</a></li>
+          <li><a href="../services.html">Tjenester</a></li>
+          <li><a href="index.html" aria-current="page">Blogg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-top-space"></div>
+
+  <!-- INNHOLD -->
+  <main class="container">
+    <section class="section">
+      <h1 class="att-section-title">Blogg</h1>
+      <div id="blog-list" class="blog-grid"></div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Attolloogroup.</p>
+    </div>
+  </footer>
+
+  <script>
+  // Sett årstall
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Hent og vis blogginnlegg i grid
+  (async function loadBlog(){
+    const wrap = document.getElementById('blog-list');
+    try{
+      const res = await fetch('posts.json?v=' + Date.now(), { cache: 'no-store' });
+      const posts = await res.json();
+
+      // nyeste først
+      posts.sort((a,b) => (b.date || '').localeCompare(a.date || ''));
+
+      wrap.innerHTML = posts.map(p => `
+        <article class="card">
+          <a class="card_media" href="post.html?p=${encodeURIComponent(p.slug)}" aria-label="${p.title || 'Les innlegget'}">
+            <img src="${p.cover || ''}" alt="">
+          </a>
+          <div class="card_body">
+            <div class="card_date">${(function(){
+              const d = new Date(String(p.date).slice(0,10) + 'T00:00:00');
+              return isNaN(d) ? (p.date || '') : d.toLocaleDateString('no-NO', { weekday:'short', day:'2-digit', month:'short', year:'numeric' });
+            })()}</div>
+            <h3 class="card_title"><a href="post.html?p=${encodeURIComponent(p.slug)}">${p.title || 'Uten tittel'}</a></h3>
+            ${p.excerpt ? `<p class="card_text">${p.excerpt}</p>` : ``}
+          </div>
+        </article>
+      `).join('');
+    }catch(e){
+      console.error(e);
+      wrap.innerHTML = `
+        <article class="card"><div class="card_body">
+          <p class="card_text">Klarte ikke å laste bloggen akkurat nå.</p>
+        </div></article>`;
+    }
+  })();
+  </script>
+</body>
+</html>
