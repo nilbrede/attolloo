@@ -148,4 +148,12 @@ html,body{margin:0;padding:0}
   display: block;
   margin: 0 0 16px 0;
 }
+/* Bloggpost: mindre cover */
+#post .card_media img,
+#post-cover {
+  max-height: 380px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
 
