@@ -107,40 +107,6 @@
       }
     })();
 
-    // Blogg: hent 3 siste innlegg (små kort)
-    (async function loadHomeBlog() {
-      const list = document.getElementById("home-blog-list");
-      const fallback = document.getElementById("home-blog-fallback");
-      try {
-        const res = await fetch("data/posts.json?v=" + Date.now(), { cache: "no-store" });
-        const posts = await res.json();
-
-        if (!Array.isArray(posts) || posts.length === 0) {
-          fallback.style.display = "block";
-          return;
-        }
-
-        // sorter nyeste først og ta 3
-        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-        const latest = posts.slice(0, 3);
-
-        list.innerHTML = latest.map(p => `
-          <article class="card card--sm">
-            ${p.cover ? `<div class="card_media"><img src="${p.cover}" alt=""></div>` : ""}
-            <div class="card_body">
-              <div class="card_date">${p.date ? new Date(p.date).toLocaleDateString("no-NO") : ""}</div>
-              <h3 class="card_title">
-                <a href="blog/post.html?p=${encodeURIComponent(p.slug)}">${p.title || "Uten tittel"}</a>
-              </h3>
-              ${p.excerpt ? `<p class="card_text">${p.excerpt}</p>` : ""}
-            </div>
-          </article>
-        `).join("");
-      } catch (e) {
-        console.error("Kunne ikke laste blogginnlegg:", e);
-        fallback.style.display = "block";
-      }
-    })();
   </script>
 </body>
 </html>
