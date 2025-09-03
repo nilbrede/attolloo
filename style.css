@@ -89,4 +89,63 @@ html,body{margin:0;padding:0}
 /* Hero: midtstilt tekst og lik høyde (beholdt) */
 .hero{display:flex; align-items:center; justify-content:center; text-align:center;}
 .hero .inner{width:100%; max-width:var(--container); padding:48px 12px;}
+/* === Blog thumbnails & small cards === */
+
+/* Grid for lister */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* Vanlig kort */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  overflow: hidden;
+}
+
+/* Standard bilde */
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* SMÅ kort: bruk på bloggliste og “siste fra bloggen” på forsiden */
+.cards.small .card img,
+.card.small img {
+  height: 160px;           /* thumbnail-høyde */
+  object-fit: cover;       /* cropper pent */
+}
+
+/* Tekst i små kort */
+.cards.small .card h3,
+.card.small h3 {
+  font-size: 1rem;
+  margin: 10px 12px 6px;
+}
+.cards.small .card p,
+.card.small p {
+  font-size: .9rem;
+  margin: 0 12px 12px;
+  color: #444;
+}
+
+/* “Siste fra bloggen” kan være litt tettere */
+#latest-blog.cards.small {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+/* Enkeltpost: mindre toppbilde */
+.small-cover {
+  max-width: 720px;   /* ikke wider enn teksten */
+  width: 100%;
+  height: auto;       /* behold proporsjoner */
+  border-radius: 12px;
+  display: block;
+  margin: 0 0 16px 0;
+}
 
