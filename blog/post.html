@@ -2,35 +2,13 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
-  <title>Blogginnlegg – Attolloo Group</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="../style.css?v=7" />
-  <style>
-  #post-excerpt {
-    font-style: italic;
-    opacity: .9;
-    margin: .25rem 0 1rem;
-  }
-  .card_media {
-    display: none;
-    margin: .5rem 0;      /* mindre margin */
-    border-radius: .6rem;
-    overflow: hidden;
-  }
-  .card_media img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    max-height: 250px;    /* begrens høyden */
-    display: block;
-  }
-  .post-content p {
-    margin: .75rem 0;
-  }
-</style>
-
+  <title>Blogger – Attolloo Group</title>
+  <link rel="stylesheet" href="../style.css" />
 </head>
 <body data-page="blog-post">
+
+  <!-- HEADER (samme som de andre sidene) -->
   <header class="site-header">
     <div class="container">
       <a class="site-logo" href="../index.html" aria-label="Til forsiden">
@@ -42,7 +20,7 @@
           <li><a href="../index.html">Forside</a></li>
           <li><a href="../about.html">Om oss</a></li>
           <li><a href="../services.html">Tjenester</a></li>
-          <li><a href="index.html" aria-current="page">Blogg</a></li>
+          <li><a href="./index.html" aria-current="page">Blogg</a></li>
         </ul>
       </nav>
     </div>
@@ -50,133 +28,105 @@
 
   <div class="page-top-space"></div>
 
+  <!-- INNHOLD -->
   <main class="container">
     <section class="section">
       <h1 id="post-title" class="page-title">Laster …</h1>
-      <div id="post-date" class="muted"></div>
-      <p id="post-excerpt" class="muted" style="display:none"></p>
+      <p id="post-date" class="muted"></p>
+      <p id="post-excerpt"></p>
 
-      <div class="card" style="overflow:visible">
-        <div class="card_media"><img id="post-cover" src="" alt=""></div>
-        <div class="card_body">
-          <div id="post-content" class="card_text post-content">(Ingen innhold)</div>
-        </div>
-      </div>
+      <img id="post-cover" alt="" style="display:none;" />
 
-      <p style="margin-top:1.25rem"><a class="btn-link" href="index.html">← Tilbake til bloggen</a></p>
+      <div id="post-content" class="card_text">(Ingen innhold)</div>
+
+      <p style="margin-top:1.25rem">
+        <a class="btn-link" href="./index.html">← Tilbake til bloggen</a>
+      </p>
     </section>
   </main>
 
   <footer>
     <div class="container">
-      <p>&copy; <span id="year"></span> Attolloogroup.</p>
+      <p>© <span id="year"></span> Attolloogroup.</p>
+      <p>Org.nr: 936 616 758</p>
+      <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
     </div>
   </footer>
 
   <script>
-  // Footer-år
-  document.getElementById('year').textContent = new Date().getFullYear();
+    // årstall i footer
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Enkle markdown/frontmatter-hjelpere
-  function splitFrontmatter(text){
-    if(typeof text !== 'string') return { attrs:{}, body:'' };
-    const m = text.match(/^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/);
-    if(!m) return { attrs:{}, body:text.trim() };
-    const attrs = {};
-    m[1].split(/\r?\n/).forEach(line=>{
-      const mm = line.match(/^(\w+)\s*:\s*(.+)$/);
-      if(mm) attrs[mm[1]] = mm[2];
-    });
-    return { attrs, body: m[2].trim() };
-  }
-  function mdToHTML(md){
-    if(!md) return '';
-    // veldig enkel: **bold**, *italic*, paragrafer
-    md = md.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-           .replace(/\*(.+?)\*/g,'<em>$1</em>');
-    return md.split(/\n\s*\n/).map(p=>`<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
-  }
-  function fmtDate(dstr, long=false){
-    const d = new Date(String(dstr).slice(0,10)+'T00:00:00');
-    if(isNaN(d)) return dstr || '';
-    return d.toLocaleDateString('no-NO', long
-      ? { weekday:'long', day:'2-digit', month:'long', year:'numeric' }
-      : { weekday:'short', day:'2-digit', month:'short', year:'numeric' });
-  }
-
-  const slug = new URLSearchParams(location.search).get('p');
-
-  (async function loadPost(){
-    const titleEl   = document.getElementById('post-title');
-    const dateEl    = document.getElementById('post-date');
-    const excerptEl = document.getElementById('post-excerpt');
-    const coverWrap = document.querySelector('.card_media');
-    const coverEl   = document.getElementById('post-cover');
-    const bodyEl    = document.getElementById('post-content');
-
-    if(!slug){ titleEl.textContent = 'Fant ikke innlegget'; return; }
-
-    try {
-      // 1) Metadata fra posts.json (tittel, cover, excerpt, date)
-      let meta = null;
-      try{
-        const r = await fetch('posts.json?v='+Date.now(), {cache:'no-store'});
-        const arr = await r.json();
-        meta = Array.isArray(arr) ? arr.find(p=>p.slug===slug) : null;
-      }catch(_){}
-
-      // 2) Alltid hent selve markdown-filen for innhold
-      let md = '';
-      let fm = {};
-      try{
-        const r2 = await fetch('posts/'+slug+'.md?v='+Date.now(), {cache:'no-store'});
-        if(r2.ok){
-          const raw = await r2.text();
-          const {attrs, body} = splitFrontmatter(raw);
-          fm = attrs || {};
-          md = body || '';
-        }
-      }catch(_){}
-
-      // Tittel (metadata -> frontmatter -> fallback)
-      const title = (meta && meta.title) || fm.title || 'Uten tittel';
-      titleEl.textContent = title;
-
-      // Dato (metadata -> frontmatter)
-      const date = (meta && meta.date) || fm.date || '';
-      dateEl.textContent = date ? fmtDate(date, true) : '';
-
-      // Ingress (kursiv)
-      const excerpt = (meta && meta.excerpt) || fm.excerpt || '';
-      if(excerpt && String(excerpt).trim()){
-        excerptEl.textContent = String(excerpt).trim();
-        excerptEl.style.display = '';
-      }else{
-        excerptEl.style.display = 'none';
-      }
-
-      // Cover-bilde (metadata -> frontmatter)
-      const cover = (meta && meta.cover) || fm.cover || '';
-      if(cover){
-        coverEl.src = cover;
-        coverEl.alt = 'Cover: ' + title;
-        coverWrap.style.display = 'block';
-      } else {
-        coverWrap.style.display = 'none';
-      }
-
-      // Innhold fra markdown
-      bodyEl.innerHTML = md ? mdToHTML(md) : '<p>(Ingen innhold)</p>';
-
-    } catch (e){
-      console.error(e);
-      titleEl.textContent = 'Feil: kunne ikke laste blogginnlegg.';
-      dateEl.textContent = '';
-      excerptEl.style.display = 'none';
-      coverWrap.style.display = 'none';
-      bodyEl.innerHTML = '<p>(Ingen innhold)</p>';
+    // --- Mini markdown -> HTML (enkel) ---
+    function mdToHtml(txt) {
+      if (!txt) return '';
+      // overskrifter, fet/kursiv, lenker, avsnitt/linjer
+      return txt
+        .replace(/^### (.*)$/gm, '<h3>$1</h3>')
+        .replace(/^## (.*)$/gm, '<h2>$1</h2>')
+        .replace(/^# (.*)$/gm, '<h1>$1</h1>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>')
+        .split(/\n{2,}/).map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
     }
-  })();
+
+    // Slug fra URL (?p=)
+    const slug = new URLSearchParams(location.search).get('p');
+
+    (async function loadPost(){
+      const titleEl   = document.getElementById('post-title');
+      const dateEl    = document.getElementById('post-date');
+      const excerptEl = document.getElementById('post-excerpt');
+      const coverEl   = document.getElementById('post-cover');
+      const bodyEl    = document.getElementById('post-content');
+
+      if (!slug) { titleEl.textContent = 'Fant ikke innlegget'; return; }
+
+      try {
+        // 1) Finn metadata fra posts.json
+        const resMeta = await fetch('posts.json?v=' + Date.now(), { cache: 'no-store' });
+        const posts   = await resMeta.json();
+        const meta    = Array.isArray(posts) ? posts.find(p => p.slug === slug) : null;
+
+        // Sett tittel/dato/ingress/cover dersom de finnes
+        if (meta) {
+          titleEl.textContent = meta.title || 'Uten tittel';
+          if (meta.date) {
+            const d = new Date(meta.date);
+            dateEl.textContent = isNaN(d) ? meta.date : d.toLocaleDateString('no-NO', { weekday:'short', day:'2-digit', month:'short', year:'numeric' });
+          }
+          excerptEl.textContent = meta.excerpt || '';
+          if (meta.cover) {
+            coverEl.src = meta.cover;
+            coverEl.style.display = 'block';
+            coverEl.alt = meta.title ? ('Cover: ' + meta.title) : '';
+          }
+        } else {
+          titleEl.textContent = 'Innlegget finnes ikke';
+        }
+
+        // 2) Hent selve artikkelen (markdown) fra /blog/posts/<slug>.md
+        const resMd = await fetch('posts/' + slug + '.md?v=' + Date.now(), { cache: 'no-store' });
+        let md = await resMd.text();
+
+        // Fjern YAML front matter om det finnes
+        if (md.startsWith('---')) {
+          const end = md.indexOf('\n---', 3);
+          if (end !== -1) md = md.slice(end + 4);
+        }
+        // Rydd litt whitespace
+        md = md.trim();
+
+        // Render markdown -> HTML (enkel)
+        bodyEl.innerHTML = md ? mdToHtml(md) : '<p>(Ingen innhold)</p>';
+
+      } catch (e) {
+        console.error(e);
+        titleEl.textContent = 'Feil: kunne ikke laste blogginlegg.';
+        bodyEl.innerHTML = '';
+      }
+    })();
   </script>
 </body>
 </html>
