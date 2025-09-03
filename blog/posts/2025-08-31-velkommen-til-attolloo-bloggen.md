@@ -1,7 +1,10 @@
 ---
 title: Velkommen til Attolloo bloggen!
 date: 2025-08-31
-excerpt: ""
+excerpt: >-
+  Dette er første blog innlegg. Her kommer det mye mer.
+
+  I 2026 planlegger vi å starte piloten Attolloo North i Stöten (Sälen). Parallelt utforsker vi Attolloo South med base i nord-Italia. Her på bloggen deler jeg korte oppdateringer, refleksjoner og bilder fra utviklingen – og litt mat, vin, reise og læring underveis.
 cover: /images/uploads/img_20231201_161514.jpg
 ---
 Attolloo handler om å løfte mennesker og miljøer – med praksisnær læring, gode opplevelser og samspill mellom fag, teknologi og ledelse.
