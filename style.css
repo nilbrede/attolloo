@@ -156,4 +156,61 @@ html,body{margin:0;padding:0}
   object-fit: cover;
   border-radius: 12px;
 }
+/* === BLOGG: layout og stil =============================== */
+
+/* Smalere og mer lesbar kolonne for blogg-innhold */
+main.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+/* Tittel, dato, ingress */
+.page-title, h1#post-title { font-size: 2rem; margin-bottom: .25em; }
+#post-date { font-size: .9rem; color: #666; margin-bottom: .5em; }
+#post-excerpt { font-style: italic; color: #444; margin: 0 0 .75em 0; }
+
+/* Cover-bilde: mindre og tett på ingressen/teksten */
+#post-cover {
+  display: block;
+  width: 100%;
+  max-height: 250px;     /* <- styrer størrelsen på toppbildet */
+  object-fit: cover;     /* beskjærer pent */
+  border-radius: 6px;
+  margin: .5em 0 1em 0;  /* lite luft over, litt under */
+}
+
+/* Selve innholdet */
+#post-content { margin-top: 0; color: #222; font-size: 1rem; }
+
+/* Blogg-forside: kompakte kort med små bilder */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,.05);
+  transition: transform .2s ease;
+}
+.card:hover { transform: translateY(-3px); }
+.card .card_media img {
+  width: 100%;
+  height: 160px;         /* små jevne forsidebilder */
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: .75rem;
+}
+.card .card_title { font-size: 1.2rem; margin: .25em 0; }
+.card .card_text  { font-size: .95rem; color: #444; }
+
+/* Enkle lenkestiler */
+a { color: #0055aa; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
