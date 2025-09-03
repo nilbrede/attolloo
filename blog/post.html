@@ -39,113 +39,97 @@
   <p>&copy; <span id="year"></span> Attolloogroup.</p>
 </footer>
 <script>
-  // ©-årstall
+  // ©-år
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Enkelt: gjør ren tekst til paragrafer
+  // Enkelt: ren tekst -> <p>
   function simpleTextToHTML(txt){
     if(!txt) return '';
-    return String(txt)
-      .split(/\n{2,}/).map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
+    return String(txt).split(/\n{2,}/).map(p=>`<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
   }
 
-  // Plukk ut innhold uansett feltnavn/struktur vi får fra CMS
+  // Velg hovedinnhold – prioriter "INNHOLD", aldri bruk excerpt
   function pickContent(post){
     if (!post || typeof post !== 'object') return '';
 
-    // Vanlige feltnavn vi støtter først
-    const direct =
+    // PRIORITET: body > content_html > html > content > markdown > text
+    const bodyFirst =
+      post.body_html || post.body ||
       post.content_html || post.html ||
-      post.content      || post.body ||
-      post.markdown     || post.text;
+      post.content || post.markdown || post.text;
 
-    if (typeof direct === 'string' && direct.trim()) return direct;
+    if (typeof bodyFirst === 'string' && bodyFirst.trim()) return bodyFirst;
 
-    // Noen CMS lagrer riktekst i arrays (blocks, paragraphs, sections)
-    const pullText = (arr) =>
+    // Arrays (blocks/paragraphs/sections) – slå sammen tekster
+    const joinTexts = (arr) =>
       Array.isArray(arr)
-        ? arr
-            .map(b => (b && (b.html || b.text || b.body)) || (typeof b === 'string' ? b : ''))
-            .filter(Boolean)
-            .join('\n\n')
+        ? arr.map(b => (b && (b.html || b.text || b.body)) || (typeof b==='string'? b : ''))
+             .filter(Boolean).join('\n\n')
         : '';
 
-    let parts = pullText(post.blocks);
-    if (parts) return parts;
-    parts = pullText(post.paragraphs);
-    if (parts) return parts;
-    parts = pullText(post.sections);
-    if (parts) return parts;
+    let parts = joinTexts(post.blocks);     if (parts) return parts;
+    parts     = joinTexts(post.paragraphs); if (parts) return parts;
+    parts     = joinTexts(post.sections);   if (parts) return parts;
 
-    // Siste fallback: finn lange tekststrenger hvor som helst i objektet
-    const seen = new Set();
-    const out = [];
-    function scan(obj){
-      if(!obj || typeof obj !== 'object' || seen.has(obj)) return;
-      seen.add(obj);
-      for (const v of Object.values(obj)){
+    // Siste fallback: plukk lange tekststrenger hvor som helst (MEN IKKE excerpt)
+    const seen = new Set(), out = [];
+    (function scan(o){
+      if(!o || typeof o!=='object' || seen.has(o)) return;
+      seen.add(o);
+      for (const [k,v] of Object.entries(o)){
+        if (k === 'excerpt') continue; // ikke ingress
         if (typeof v === 'string' && v.trim().length > 40) out.push(v);
         else if (Array.isArray(v)) v.forEach(scan);
         else if (typeof v === 'object') scan(v);
       }
-    }
-    scan(post);
+    })(post);
     return out.join('\n\n');
   }
 
-  // Hent slug (?p=) og last innlegget
   (async function loadPost(){
-    const params = new URLSearchParams(location.search);
-    const slug   = params.get('p');
+    const params   = new URLSearchParams(location.search);
+    const slug     = params.get('p');
 
-    const titleEl = document.getElementById('post-title');
-    const dateEl  = document.getElementById('post-date');
-    const coverEl = document.getElementById('post-cover');
-    const bodyEl  = document.getElementById('post-content');
-    const coverWrap = coverEl.parentElement;
+    const titleEl  = document.getElementById('post-title');
+    const dateEl   = document.getElementById('post-date');
+    const coverEl  = document.getElementById('post-cover');
+    const bodyEl   = document.getElementById('post-content');
+    const coverWrap= coverEl.parentElement;
 
-    if(!slug){
-      titleEl.textContent = 'Fant ikke innlegget';
-      return;
-    }
+    if(!slug){ titleEl.textContent = 'Fant ikke innlegget'; return; }
 
     try {
-      const res   = await fetch('posts.json?v=' + Date.now(), { cache: 'no-store' });
+      const res   = await fetch('posts.json?v='+Date.now(), { cache:'no-store' });
       const posts = await res.json();
       const post  = Array.isArray(posts) ? posts.find(p => p.slug === slug) : null;
 
-      if(!post){
-        titleEl.textContent = 'Innlegget finnes ikke';
-        return;
-      }
+      if(!post){ titleEl.textContent = 'Innlegget finnes ikke'; return; }
 
-      // Tittel og dato
+      // Tittel & dato
       titleEl.textContent = post.title || 'Uten tittel';
       if (post.date){
         const d = new Date(post.date);
         dateEl.textContent = isNaN(d) ? post.date : d.toLocaleDateString('no-NO', { weekday:'short', year:'numeric', month:'short', day:'2-digit' });
-      } else {
-        dateEl.textContent = '';
-      }
+      } else { dateEl.textContent = ''; }
 
-      // Cover-bilde (valgfritt)
-      if (post.cover){
-        coverEl.src = post.cover;
+      // Cover-bilde – støtt flere nøkler
+      const cover =
+        post.cover || post.image || post.hero_image ||
+        (post.media && (post.media.cover || post.media.image)) || null;
+
+      if (cover){
+        coverEl.src = cover;
         coverEl.alt = post.title ? `Cover: ${post.title}` : '';
         coverWrap.style.display = 'block';
       } else {
         coverWrap.style.display = 'none';
       }
 
-      // Innhold
+      // Innhold (ikke ingress)
       const raw = pickContent(post);
-      if (raw && /<\s*[a-z][\s\S]*>/i.test(raw)) {
-        bodyEl.innerHTML = raw;            // allerede HTML
-      } else if (raw) {
-        bodyEl.innerHTML = simpleTextToHTML(raw); // plain text -> <p>
-      } else {
-        bodyEl.innerHTML = '<p>(Ingen innhold)</p>';
-      }
+      if (raw && /<\s*[a-z][\s\S]*>/i.test(raw)) bodyEl.innerHTML = raw;
+      else if (raw) bodyEl.innerHTML = simpleTextToHTML(raw);
+      else bodyEl.innerHTML = '<p>(Ingen innhold)</p>';
 
     } catch (e) {
       console.error(e);
