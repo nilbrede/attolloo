@@ -159,13 +159,16 @@ html,body{margin:0;padding:0}
 /* === BLOGG: layout og stil =============================== */
 
 /* Smalere og mer lesbar kolonne for blogg-innhold */
-main.container {
+/* GJELDER KUN BLOGG-SIDER */
+body[data-page="blog"] main.container,
+body[data-page="blog-post"] main.container {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
   line-height: 1.7;
   font-size: 1.05rem;
 }
+
 
 /* Tittel, dato, ingress */
 .page-title, h1#post-title { font-size: 2rem; margin-bottom: .25em; }
