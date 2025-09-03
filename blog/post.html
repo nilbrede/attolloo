@@ -1,134 +1,151 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Blogginnlegg – Attolloo Group</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../style.css?v=8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../style.css?v=7" />
+  <style>
+    /* Lett typografi for innlegget */
+    #post-excerpt{ font-style:italic; opacity:.9; margin:.25rem 0 1rem; }
+    .card_media{ display:none; margin:.75rem 0 1rem; border-radius:.6rem; overflow:hidden; }
+    .card_media img{ width:100%; height:auto; object-fit:cover; max-height:360px; }
+    .post-content p{ margin:.75rem 0; }
+  </style>
 </head>
 <body data-page="blog-post">
+  <!-- HEADER (samme som de andre sidene) -->
+  <header class="site-header">
+    <div class="container">
+      <a class="site-logo" href="../index.html" aria-label="Til forsiden">
+        <img src="../aab-logo.png" alt="Attolloo logo" />
+      </a>
+      <span class="site-brand-text">Attolloo Group</span>
+      <nav class="main-nav" aria-label="Hovedmeny">
+        <ul>
+          <li><a href="../index.html">Forside</a></li>
+          <li><a href="../about.html">Om oss</a></li>
+          <li><a href="../services.html">Tjenester</a></li>
+          <li><a href="index.html" aria-current="page">Blogg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-<header class="site-header">
-  <div class="container">
-    <a class="site-logo" href="../index.html"><img src="../aab-logo.png" alt="Attolloo logo"></a>
-    <span class="site-brand-text">Attolloo Group</span>
-    <nav class="main-nav">
-      <ul>
-        <li><a href="../index.html">Forside</a></li>
-        <li><a href="../about.html">Om oss</a></li>
-        <li><a href="../services.html">Tjenester</a></li>
-        <li><a href="index.html">Blogg</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+  <div class="page-top-space"></div>
 
-<div class="page-top-space"></div>
+  <!-- INNHOLD -->
+  <main class="container">
+    <section class="section">
+      <h1 id="post-title" class="page-title">Laster …</h1>
+      <div id="post-date" class="muted"></div>
+      <p id="post-excerpt" class="muted" style="display:none"></p>
 
-<main class="container">
-  <article class="post">
-    <h1 id="post-title">Laster …</h1>
-    <p id="post-date"></p>
-    <img id="post-cover" class="small-cover" src="" alt="" style="display:none">
-    <div id="post-content"></div>
-  </article>
-  <p><a href="index.html">← Tilbake til bloggen</a></p>
-</main>
+      <div class="card" style="overflow:visible">
+        <div class="card_media">
+          <img id="post-cover" src="" alt="">
+        </div>
+        <div class="card_body">
+          <div id="post-content" class="card_text post-content">(Ingen innhold)</div>
+        </div>
+      </div>
 
-<footer class="container">
-  <p>&copy; <span id="year"></span> Attolloogroup.</p>
-</footer>
+      <p style="margin-top:1.25rem">
+        <a class="btn-link" href="index.html">← Tilbake til bloggen</a>
+      </p>
+    </section>
+  </main>
 
-<script>
-// © år i footer
-document.getElementById('year').textContent = new Date().getFullYear();
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Attolloogroup.</p>
+    </div>
+  </footer>
 
-// Enkel markdown → HTML (lettvekts)
-function mdToHTML(md) {
-  if (!md) return '';
-  let html = md
-    .replace(/^###### (.*)$/gm,'<h6>$1</h6>')
-    .replace(/^##### (.*)$/gm,'<h5>$1</h5>')
-    .replace(/^#### (.*)$/gm,'<h4>$1</h4>')
-    .replace(/^### (.*)$/gm,'<h3>$1</h3>')
-    .replace(/^## (.*)$/gm,'<h2>$1</h2>')
-    .replace(/^# (.*)$/gm,'<h1>$1</h1>')
-    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g,'<em>$1</em>')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
-  return html.split(/\n{2,}/).map(p => `<p>${p}</p>`).join('');
-}
+  <script>
+  // Årstall i footer
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-// Hent slug fra ?p=
-const slug = new URLSearchParams(location.search).get('p');
-
-(async function loadPost(){
-  const titleEl = document.getElementById('post-title');
-  const dateEl  = document.getElementById('post-date');
-  const coverEl = document.getElementById('post-cover');
-  const coverWrap = document.querySelector('.card_media'); // <- matcher din HTML
-  const bodyEl  = document.getElementById('post-content');
-
-  if (!slug){ titleEl.textContent = 'Fant ikke innlegget'; return; }
-
-  try {
-    // 1) Metadata fra posts.json
-    const metaRes = await fetch('posts.json?v='+Date.now(), { cache:'no-store' });
-    const posts   = await metaRes.json();
-    const post    = Array.isArray(posts) ? posts.find(p => p.slug === slug) : null;
-    if (!post){ titleEl.textContent = 'Innlegget finnes ikke'; return; }
-
-    // 2) Tittel
-    titleEl.textContent = post.title || 'Uten tittel';
-
-    // 3) Dato (fallback: hent år/mnd/dag fra slug hvis dato er rar)
-    let d = post.date ? new Date(post.date) : null;
-    if (!d || isNaN(d) || d.getFullYear() < 2005) {
-      const m = /^(\d{4})-(\d{2})-(\d{2})-/.exec(slug);
-      if (m) d = new Date(`${m[1]}-${m[2]}-${m[3]}T00:00:00`);
-    }
-    dateEl.textContent = d && !isNaN(d) 
-      ? d.toLocaleDateString('no-NO', { weekday:'long', year:'numeric', month:'long', day:'2-digit' })
-      : (post.date || '');
-
-    // 4) Cover-bilde
-    if (post.cover && coverEl && coverWrap){
-      coverEl.src = post.cover;
-      coverEl.alt = post.title || '';
-      coverWrap.style.display = 'block';
-    } else if (coverWrap) {
-      coverWrap.style.display = 'none';
-    }
-
-    // 5) Selve innholdet: prøv Markdown, deretter HTML
-    let html = '';
-    const mdPath = `posts/${slug}.md`;
-    const htmlPath = `posts/${slug}.html`;
-
-    try {
-      const mdRes = await fetch(mdPath+'?v='+Date.now(), { cache:'no-store' });
-      if (mdRes.ok) html = mdToHTML(await mdRes.text());
-    } catch(e){ /* gå videre */ }
-
-    if (!html) {
-      try {
-        const hRes = await fetch(htmlPath+'?v='+Date.now(), { cache:'no-store' });
-        if (hRes.ok) html = await hRes.text();
-      } catch(e){ /* gå videre */ }
-    }
-
-    // 6) Render
-    bodyEl.innerHTML = html || post.excerpt || '<p>(Ingen innhold)</p>';
-
-  } catch(e){
-    console.error(e);
-    titleEl.textContent = 'Feil: kunne ikke laste blogginnlegg.';
+  // Enkle hjelpere
+  function stripFrontmatter(md){
+    if (typeof md !== 'string') return md;
+    return md.replace(/^---[\\s\\S]*?---\\s*/,'').trim();
   }
-})();
-</script>
+  function mdToHTML(md){
+    if (!md) return '';
+    md = stripFrontmatter(md);
+    // veldig lett markdown: **bold**, *italic*, linjeskift -> <p>
+    md = md.replace(/\\*\\*(.+?)\\*\\*/g,'<strong>$1</strong>')
+           .replace(/\\*(.+?)\\*/g,'<em>$1</em>');
+    return md.split(/\\n\\s*\\n/).map(p => `<p>${p.replace(/\\n/g,'<br>')}</p>`).join('');
+  }
 
+  // Hent slug fra ?p=
+  const slug = new URLSearchParams(location.search).get('p');
 
+  (async function loadPost(){
+    const titleEl   = document.getElementById('post-title');
+    const dateEl    = document.getElementById('post-date');
+    const excerptEl = document.getElementById('post-excerpt');
+    const coverEl   = document.getElementById('post-cover');
+    const coverWrap = document.querySelector('.card_media');
+    const bodyEl    = document.getElementById('post-content');
 
+    if(!slug){
+      titleEl.textContent = 'Fant ikke innlegget';
+      return;
+    }
 
+    try{
+      const res = await fetch('posts.json?v=' + Date.now(), { cache: 'no-store' });
+      const posts = await res.json();
+      const post = Array.isArray(posts) ? posts.find(p => p.slug === slug) : null;
+      if(!post){
+        titleEl.textContent = 'Innlegget finnes ikke';
+        return;
+      }
+
+      // Tittel og dato
+      titleEl.textContent = post.title || 'Uten tittel';
+      if(post.date){
+        const d = new Date(post.date);
+        dateEl.textContent = isNaN(d)
+          ? (post.date || '')
+          : d.toLocaleDateString('no-NO', { weekday:'long', day:'2-digit', month:'long', year:'numeric' });
+      } else {
+        dateEl.textContent = '';
+      }
+
+      // Ingress (kursiv)
+      if (post.excerpt && String(post.excerpt).trim()){
+        excerptEl.textContent = String(post.excerpt).trim();
+        excerptEl.style.display = '';
+      } else {
+        excerptEl.style.display = 'none';
+      }
+
+      // Cover-bilde (vises kun hvis finnes)
+      if (post.cover){
+        coverEl.src = post.cover;
+        coverEl.alt = post.title ? ('Cover: ' + post.title) : '';
+        coverWrap.style.display = 'block';
+      } else {
+        coverWrap.style.display = 'none';
+      }
+
+      // Hovedinnhold – støtt både `content` og `body` (fra .md)
+      const raw = post.content || post.body || '';
+      bodyEl.innerHTML = raw ? mdToHTML(raw) : '<p>(Ingen innhold)</p>';
+
+    }catch(e){
+      console.error(e);
+      titleEl.textContent = 'Feil: kunne ikke laste blogginnlegg.';
+      dateEl.textContent = '';
+      excerptEl.style.display = 'none';
+      coverWrap.style.display = 'none';
+      bodyEl.innerHTML = '<p>(Ingen innhold)</p>';
+    }
+  })();
+  </script>
 </body>
 </html>
