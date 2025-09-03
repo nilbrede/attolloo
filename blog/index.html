@@ -1,85 +1,61 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Blogg – Attolloo Group</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="../style.css?v=7" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style.css?v=8">
 </head>
 <body data-page="blog">
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="container">
-      <a class="site-logo" href="../index.html" aria-label="Til forsiden">
-        <img src="../aab-logo.png" alt="Attolloo logo" />
-      </a>
-      <span class="site-brand-text">Attolloo Group</span>
-      <nav class="main-nav" aria-label="Hovedmeny">
-        <ul>
-          <li><a href="../index.html">Forside</a></li>
-          <li><a href="../about.html">Om oss</a></li>
-          <li><a href="../services.html">Tjenester</a></li>
-          <li><a href="index.html" aria-current="page">Blogg</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="../index.html"><img src="../aab-logo.png" alt="Attolloo logo"></a>
+    <span class="site-brand-text">Attolloo Group</span>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="../index.html">Forside</a></li>
+        <li><a href="../about.html">Om oss</a></li>
+        <li><a href="../services.html">Tjenester</a></li>
+        <li><a href="index.html" aria-current="page">Blogg</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-  <div class="page-top-space"></div>
+<div class="page-top-space"></div>
 
-  <!-- BLOGGINNHOLD -->
-  <main class="container">
-    <section class="section">
-      <h1 class="att-section-title">Blogg</h1>
-      <div id="blog-list" class="cards"></div>
-    </section>
-  </main>
+<main class="container">
+  <h1>Blogg</h1>
+  <div id="blog-list" class="cards small"></div>
+</main>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <p>&copy; <span id="year"></span> Attolloogroup.</p>
-    </div>
-  </footer>
+<footer class="container">
+  <p>&copy; <span id="year"></span> Attolloogroup.</p>
+</footer>
 
-  <script>
-    // Sett årstall
-    document.getElementById('year').textContent = new Date().getFullYear();
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Hent blogginnlegg
-    (async function loadBlog(){
-      const wrap = document.getElementById('blog-list');
-      try {
-        const res = await fetch('./posts.json?v=' + Date.now(), { cache: 'no-store' });
-        const posts = await res.json();
+(async function loadBlog(){
+  try {
+    const res = await fetch("posts.json?v=" + Date.now());
+    const posts = await res.json();
+    const wrap = document.getElementById("blog-list");
 
-        posts.sort((a,b) => (b.date || '').localeCompare(a.date || ''));
-
-        const fmt = d => {
-          const date = new Date(String(d).slice(0,10) + 'T00:00:00');
-          return isNaN(date) ? '' : date.toLocaleDateString('no-NO');
-        };
-
-        wrap.innerHTML = posts.map(p => `
-          <article class="card">
-            <a class="card_media" href="post.html?p=${encodeURIComponent(p.slug)}">
-              <img src="${p.cover || ''}" alt="">
-            </a>
-            <div class="card_body">
-              <div class="card_date">${fmt(p.date)}</div>
-              <h3 class="card_title">
-                <a href="post.html?p=${encodeURIComponent(p.slug)}">${p.title || 'Uten tittel'}</a>
-              </h3>
-              ${p.excerpt ? `<p class="card_text">${p.excerpt}</p>` : ''}
-            </div>
-          </article>
-        `).join('');
-      } catch(e) {
-        console.error(e);
-        wrap.innerHTML = `<article class="card"><div class="card_body"><p class="card_text">Klarte ikke å laste bloggen akkurat nå.</p></div></article>`;
-      }
-    })();
-  </script>
+    wrap.innerHTML = posts.map(p => `
+      <article class="card small">
+        <a href="post.html?p=${encodeURIComponent(p.slug)}">
+          <img src="${p.cover || ''}" alt="">
+          <h3>${p.title || 'Uten tittel'}</h3>
+          <p>${p.excerpt || ''}</p>
+        </a>
+      </article>
+    `).join("");
+  } catch(e){
+    document.getElementById("blog-list").innerHTML = "<p>Klarte ikke laste bloggen.</p>";
+  }
+})();
+</script>
 </body>
 </html>
