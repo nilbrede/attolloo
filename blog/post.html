@@ -38,52 +38,15 @@
 <footer class="container">
   <p>&copy; <span id="year"></span> Attolloogroup.</p>
 </footer>
+
 <script>
   // ©-år
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Enkelt: ren tekst -> <p>
+  // Enkel formattering av ren tekst -> <p>
   function simpleTextToHTML(txt){
     if(!txt) return '';
     return String(txt).split(/\n{2,}/).map(p=>`<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
-  }
-
-  // Velg hovedinnhold – prioriter "INNHOLD", aldri bruk excerpt
-  function pickContent(post){
-    if (!post || typeof post !== 'object') return '';
-
-    // PRIORITET: body > content_html > html > content > markdown > text
-    const bodyFirst =
-      post.body_html || post.body ||
-      post.content_html || post.html ||
-      post.content || post.markdown || post.text;
-
-    if (typeof bodyFirst === 'string' && bodyFirst.trim()) return bodyFirst;
-
-    // Arrays (blocks/paragraphs/sections) – slå sammen tekster
-    const joinTexts = (arr) =>
-      Array.isArray(arr)
-        ? arr.map(b => (b && (b.html || b.text || b.body)) || (typeof b==='string'? b : ''))
-             .filter(Boolean).join('\n\n')
-        : '';
-
-    let parts = joinTexts(post.blocks);     if (parts) return parts;
-    parts     = joinTexts(post.paragraphs); if (parts) return parts;
-    parts     = joinTexts(post.sections);   if (parts) return parts;
-
-    // Siste fallback: plukk lange tekststrenger hvor som helst (MEN IKKE excerpt)
-    const seen = new Set(), out = [];
-    (function scan(o){
-      if(!o || typeof o!=='object' || seen.has(o)) return;
-      seen.add(o);
-      for (const [k,v] of Object.entries(o)){
-        if (k === 'excerpt') continue; // ikke ingress
-        if (typeof v === 'string' && v.trim().length > 40) out.push(v);
-        else if (Array.isArray(v)) v.forEach(scan);
-        else if (typeof v === 'object') scan(v);
-      }
-    })(post);
-    return out.join('\n\n');
   }
 
   (async function loadPost(){
@@ -94,12 +57,15 @@
     const dateEl   = document.getElementById('post-date');
     const coverEl  = document.getElementById('post-cover');
     const bodyEl   = document.getElementById('post-content');
-    const coverWrap= coverEl.parentElement;
+
+    // wrapper til bildet (kan hete post-cover-wrap; hvis ikke finnes, bruk parent)
+    const coverWrap = document.getElementById('post-cover-wrap') || (coverEl ? coverEl.parentElement : null);
 
     if(!slug){ titleEl.textContent = 'Fant ikke innlegget'; return; }
 
     try {
-      const res   = await fetch('posts.json?v='+Date.now(), { cache:'no-store' });
+      // 1) Finn metadata for posten
+      const res   = await fetch('posts.json?v='+Date.now(), { cache: 'no-store' });
       const posts = await res.json();
       const post  = Array.isArray(posts) ? posts.find(p => p.slug === slug) : null;
 
@@ -109,31 +75,47 @@
       titleEl.textContent = post.title || 'Uten tittel';
       if (post.date){
         const d = new Date(post.date);
-        dateEl.textContent = isNaN(d) ? post.date : d.toLocaleDateString('no-NO', { weekday:'short', year:'numeric', month:'short', day:'2-digit' });
-      } else { dateEl.textContent = ''; }
+        dateEl.textContent = isNaN(d) ? post.date
+          : d.toLocaleDateString('no-NO', { weekday:'short', year:'numeric', month:'short', day:'2-digit' });
+      } else {
+        dateEl.textContent = '';
+      }
 
-      // Cover-bilde – støtt flere nøkler
-      const cover =
-        post.cover || post.image || post.hero_image ||
-        (post.media && (post.media.cover || post.media.image)) || null;
-
-      if (cover){
+      // 2) Vis cover-bilde hvis tilgjengelig
+      const cover = post.cover || post.image || post.hero_image || null;
+      if (cover && coverEl){
         coverEl.src = cover;
         coverEl.alt = post.title ? `Cover: ${post.title}` : '';
-        coverWrap.style.display = 'block';
-      } else {
+        if (coverWrap) coverWrap.style.display = 'block';
+      } else if (coverWrap){ 
         coverWrap.style.display = 'none';
       }
 
-      // Innhold (ikke ingress)
-      const raw = pickContent(post);
-      if (raw && /<\s*[a-z][\s\S]*>/i.test(raw)) bodyEl.innerHTML = raw;
-      else if (raw) bodyEl.innerHTML = simpleTextToHTML(raw);
-      else bodyEl.innerHTML = '<p>(Ingen innhold)</p>';
+      // 3) Hent HTML-innhold for posten (fallback: excerpt)
+      // Forventer fil sti: /blog/posts/<slug>.html
+      const htmlURL = `posts/${slug}.html?v=${Date.now()}`;
+      let html = '';
+
+      try {
+        const htmlRes = await fetch(htmlURL, { cache: 'no-store' });
+        if (htmlRes.ok) {
+          html = await htmlRes.text();
+        }
+      } catch(e) {
+        // ignorer, fall tilbake under
+      }
+
+      if (html && /<\s*[a-z][\s\S]*>/i.test(html)){
+        bodyEl.innerHTML = html;
+      } else if (post.excerpt){
+        bodyEl.innerHTML = simpleTextToHTML(post.excerpt);
+      } else {
+        bodyEl.innerHTML = '<p>(Ingen innhold)</p>';
+      }
 
     } catch (e) {
       console.error(e);
-      titleEl.textContent = 'Feil: kunne ikke laste blogginnlegg.';
+      document.getElementById('post-title').textContent = 'Feil: kunne ikke laste blogginnlegg.';
     }
   })();
 </script>
