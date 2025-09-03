@@ -40,85 +40,92 @@
 </footer>
 
 <script>
-  // ©-år
-  document.getElementById('year').textContent = new Date().getFullYear();
+// © årstall i footer
+document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Enkel formattering av ren tekst -> <p>
-  function simpleTextToHTML(txt){
-    if(!txt) return '';
-    return String(txt).split(/\n{2,}/).map(p=>`<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
-  }
+// Enkel markdown-til-HTML
+function mdToHTML(md) {
+  if (!md) return '';
+  let html = md
+    .replace(/^###### (.*)$/gm,'<h6>$1</h6>')
+    .replace(/^##### (.*)$/gm,'<h5>$1</h5>')
+    .replace(/^#### (.*)$/gm,'<h4>$1</h4>')
+    .replace(/^### (.*)$/gm,'<h3>$1</h3>')
+    .replace(/^## (.*)$/gm,'<h2>$1</h2>')
+    .replace(/^# (.*)$/gm,'<h1>$1</h1>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
+  return html.split(/\n{2,}/).map(p=>`<p>${p}</p>`).join('');
+}
 
-  (async function loadPost(){
-    const params   = new URLSearchParams(location.search);
-    const slug     = params.get('p');
+(async function loadPost(){
+  const slug = new URLSearchParams(location.search).get('p');
 
-    const titleEl  = document.getElementById('post-title');
-    const dateEl   = document.getElementById('post-date');
-    const coverEl  = document.getElementById('post-cover');
-    const bodyEl   = document.getElementById('post-content');
+  const titleEl = document.getElementById('post-title');
+  const dateEl  = document.getElementById('post-date');
+  const coverEl = document.getElementById('post-cover');
+  const coverWrap = document.getElementById('post-cover-wrap');
+  const bodyEl  = document.getElementById('post-content');
 
-    // wrapper til bildet (kan hete post-cover-wrap; hvis ikke finnes, bruk parent)
-    const coverWrap = document.getElementById('post-cover-wrap') || (coverEl ? coverEl.parentElement : null);
+  if (!slug){ titleEl.textContent = 'Fant ikke innlegget'; return; }
 
-    if(!slug){ titleEl.textContent = 'Fant ikke innlegget'; return; }
+  try {
+    // Metadata fra posts.json
+    const metaRes = await fetch('posts.json?v='+Date.now(), { cache:'no-store' });
+    const posts   = await metaRes.json();
+    const post    = posts.find(p => p.slug === slug);
+    if (!post){ titleEl.textContent = 'Innlegget finnes ikke'; return; }
+
+    // Sett tittel og dato
+    titleEl.textContent = post.title || 'Uten tittel';
+    if (post.date){
+      const d = new Date(post.date);
+      dateEl.textContent = isNaN(d)
+        ? post.date
+        : d.toLocaleDateString('no-NO', { weekday:'long', year:'numeric', month:'long', day:'2-digit' });
+    }
+
+    // Cover-bilde
+    if (post.cover && coverEl){
+      coverEl.src = post.cover;
+      coverEl.alt = post.title || '';
+      coverWrap.style.display = 'block';
+    } else {
+      coverWrap.style.display = 'none';
+    }
+
+    // Hent selve innholdet (Markdown eller HTML)
+    let html = '';
+    const mdPath = `posts/${slug}.md`;
+    const htmlPath = `posts/${slug}.html`;
 
     try {
-      // 1) Finn metadata for posten
-      const res   = await fetch('posts.json?v='+Date.now(), { cache: 'no-store' });
-      const posts = await res.json();
-      const post  = Array.isArray(posts) ? posts.find(p => p.slug === slug) : null;
-
-      if(!post){ titleEl.textContent = 'Innlegget finnes ikke'; return; }
-
-      // Tittel & dato
-      titleEl.textContent = post.title || 'Uten tittel';
-      if (post.date){
-        const d = new Date(post.date);
-        dateEl.textContent = isNaN(d) ? post.date
-          : d.toLocaleDateString('no-NO', { weekday:'short', year:'numeric', month:'short', day:'2-digit' });
-      } else {
-        dateEl.textContent = '';
+      const mdRes = await fetch(mdPath+'?v='+Date.now(), { cache:'no-store' });
+      if (mdRes.ok){
+        const raw = await mdRes.text();
+        html = mdToHTML(raw);
       }
+    } catch(e){}
 
-      // 2) Vis cover-bilde hvis tilgjengelig
-      const cover = post.cover || post.image || post.hero_image || null;
-      if (cover && coverEl){
-        coverEl.src = cover;
-        coverEl.alt = post.title ? `Cover: ${post.title}` : '';
-        if (coverWrap) coverWrap.style.display = 'block';
-      } else if (coverWrap){ 
-        coverWrap.style.display = 'none';
-      }
-
-      // 3) Hent HTML-innhold for posten (fallback: excerpt)
-      // Forventer fil sti: /blog/posts/<slug>.html
-      const htmlURL = `posts/${slug}.html?v=${Date.now()}`;
-      let html = '';
-
+    if (!html){
       try {
-        const htmlRes = await fetch(htmlURL, { cache: 'no-store' });
-        if (htmlRes.ok) {
-          html = await htmlRes.text();
+        const hRes = await fetch(htmlPath+'?v='+Date.now(), { cache:'no-store' });
+        if (hRes.ok){
+          html = await hRes.text();
         }
-      } catch(e) {
-        // ignorer, fall tilbake under
-      }
-
-      if (html && /<\s*[a-z][\s\S]*>/i.test(html)){
-        bodyEl.innerHTML = html;
-      } else if (post.excerpt){
-        bodyEl.innerHTML = simpleTextToHTML(post.excerpt);
-      } else {
-        bodyEl.innerHTML = '<p>(Ingen innhold)</p>';
-      }
-
-    } catch (e) {
-      console.error(e);
-      document.getElementById('post-title').textContent = 'Feil: kunne ikke laste blogginnlegg.';
+      } catch(e){}
     }
-  })();
+
+    bodyEl.innerHTML = html || post.excerpt || '<p>(Ingen innhold)</p>';
+
+  } catch(e){
+    console.error(e);
+    titleEl.textContent = 'Feil: kunne ikke laste blogginnlegg.';
+  }
+})();
 </script>
+
 
 
 </body>
