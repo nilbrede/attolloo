@@ -40,10 +40,10 @@
 </footer>
 
 <script>
-// © årstall i footer
+// © år i footer
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Enkel markdown-til-HTML
+// Enkel markdown → HTML (lettvekts)
 function mdToHTML(md) {
   if (!md) return '';
   let html = md
@@ -56,67 +56,68 @@ function mdToHTML(md) {
     .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
     .replace(/\*(.+?)\*/g,'<em>$1</em>')
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
-  return html.split(/\n{2,}/).map(p=>`<p>${p}</p>`).join('');
+  return html.split(/\n{2,}/).map(p => `<p>${p}</p>`).join('');
 }
 
-(async function loadPost(){
-  const slug = new URLSearchParams(location.search).get('p');
+// Hent slug fra ?p=
+const slug = new URLSearchParams(location.search).get('p');
 
+(async function loadPost(){
   const titleEl = document.getElementById('post-title');
   const dateEl  = document.getElementById('post-date');
   const coverEl = document.getElementById('post-cover');
-  const coverWrap = document.getElementById('post-cover-wrap');
+  const coverWrap = document.querySelector('.card_media'); // <- matcher din HTML
   const bodyEl  = document.getElementById('post-content');
 
   if (!slug){ titleEl.textContent = 'Fant ikke innlegget'; return; }
 
   try {
-    // Metadata fra posts.json
+    // 1) Metadata fra posts.json
     const metaRes = await fetch('posts.json?v='+Date.now(), { cache:'no-store' });
     const posts   = await metaRes.json();
-    const post    = posts.find(p => p.slug === slug);
+    const post    = Array.isArray(posts) ? posts.find(p => p.slug === slug) : null;
     if (!post){ titleEl.textContent = 'Innlegget finnes ikke'; return; }
 
-    // Sett tittel og dato
+    // 2) Tittel
     titleEl.textContent = post.title || 'Uten tittel';
-    if (post.date){
-      const d = new Date(post.date);
-      dateEl.textContent = isNaN(d)
-        ? post.date
-        : d.toLocaleDateString('no-NO', { weekday:'long', year:'numeric', month:'long', day:'2-digit' });
-    }
 
-    // Cover-bilde
-    if (post.cover && coverEl){
+    // 3) Dato (fallback: hent år/mnd/dag fra slug hvis dato er rar)
+    let d = post.date ? new Date(post.date) : null;
+    if (!d || isNaN(d) || d.getFullYear() < 2005) {
+      const m = /^(\d{4})-(\d{2})-(\d{2})-/.exec(slug);
+      if (m) d = new Date(`${m[1]}-${m[2]}-${m[3]}T00:00:00`);
+    }
+    dateEl.textContent = d && !isNaN(d) 
+      ? d.toLocaleDateString('no-NO', { weekday:'long', year:'numeric', month:'long', day:'2-digit' })
+      : (post.date || '');
+
+    // 4) Cover-bilde
+    if (post.cover && coverEl && coverWrap){
       coverEl.src = post.cover;
       coverEl.alt = post.title || '';
       coverWrap.style.display = 'block';
-    } else {
+    } else if (coverWrap) {
       coverWrap.style.display = 'none';
     }
 
-    // Hent selve innholdet (Markdown eller HTML)
+    // 5) Selve innholdet: prøv Markdown, deretter HTML
     let html = '';
     const mdPath = `posts/${slug}.md`;
     const htmlPath = `posts/${slug}.html`;
 
     try {
       const mdRes = await fetch(mdPath+'?v='+Date.now(), { cache:'no-store' });
-      if (mdRes.ok){
-        const raw = await mdRes.text();
-        html = mdToHTML(raw);
-      }
-    } catch(e){}
+      if (mdRes.ok) html = mdToHTML(await mdRes.text());
+    } catch(e){ /* gå videre */ }
 
-    if (!html){
+    if (!html) {
       try {
         const hRes = await fetch(htmlPath+'?v='+Date.now(), { cache:'no-store' });
-        if (hRes.ok){
-          html = await hRes.text();
-        }
-      } catch(e){}
+        if (hRes.ok) html = await hRes.text();
+      } catch(e){ /* gå videre */ }
     }
 
+    // 6) Render
     bodyEl.innerHTML = html || post.excerpt || '<p>(Ingen innhold)</p>';
 
   } catch(e){
@@ -125,6 +126,7 @@ function mdToHTML(md) {
   }
 })();
 </script>
+
 
 
 
