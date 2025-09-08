@@ -33,10 +33,10 @@ function renderSections(list) {
     section.className = 'service';
 
     section.innerHTML = `
-      ${img ? `<img class="service-img ${tall}" src="${img}" alt="">` : ''}
-      ${h ? `<h2>${h}</h2>` : ''}
-      ${b ? `<p>${b}</p>` : ''}
-    `;
+  ${img ? `<img class="service-img ${tall}" src="${img}" alt="">` : ''}
+  ${h ? `<h2>${h}</h2>` : ''}
+  ${b ? `<p class="preserve-newlines">${b.replace(/\n/g, '<br>')}</p>` : ''}
+`;
 
     container.appendChild(section);
   });
