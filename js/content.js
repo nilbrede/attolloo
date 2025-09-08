@@ -1,4 +1,4 @@
-// js/content.js
+// /js/content.js
 
 // Sett hero-bakgrunn (bruk CSS-fallback hvis bilde mangler)
 function setHeroBackground(selector, imageUrl) {
@@ -24,26 +24,29 @@ function renderSections(list) {
   }
 
   items.forEach(item => {
-    const h = item.heading || item.title || item.tittel || '';
-    const b = item.body || item.text || item.brodtekst || '';
-    const img = item.image || item.bilde || null;
+    const h   = item.heading || item.tittel || '';
+    const b   = item.body    || item.text   || item.brødtekst || '';
+    const img = item.image   || item.bilde  || null;
     const tall = item.imageTall ? 'tall' : '';
 
     const section = document.createElement('section');
     section.className = 'service';
 
+    // Viser linjeskift slik de skrives i CMS (Enter -> <br>)
+    const bodyHtml = String(b).replace(/\n/g, '<br>');
+
     section.innerHTML = `
-  ${img ? `<img class="service-img ${tall}" src="${img}" alt="">` : ''}
-  ${h ? `<h2>${h}</h2>` : ''}
-  ${b ? `<p class="preserve-newlines">${b.replace(/\n/g, '<br>')}</p>` : ''}
-`;
+      ${img ? `<img class="service-img ${tall}" src="${img}" alt="">` : ''}
+      ${h   ? `<h2>${h}</h2>` : ''}
+      ${b   ? `<div class="preserve-newlines">${bodyHtml}</div>` : ''}
+    `;
 
     container.appendChild(section);
   });
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // Finn hvilken side vi er på via data-attributt på <body>
+  // Finn hvilken side vi er på via data-atributt på <body>
   const page = document.body.dataset.page; // "home" | "about" | "services"
 
   // Koble side -> JSON-fil
@@ -52,51 +55,55 @@ document.addEventListener('DOMContentLoaded', async () => {
     about:    '/data/about.json',
     services: '/data/services.json'
   };
+
   const jsonUrl = urlMap[page];
 
   // Sett årstall i footer hvis finnes
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  try {
-    if (!jsonUrl) return;
+  if (!jsonUrl) return;
 
+  try {
     const res = await fetch(jsonUrl, { cache: 'no-cache' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
 
     // Sett hero-tekster
-    if (data.title)    (document.getElementById('heroTitle')    || {}).textContent = data.title;
-    if (data.subtitle) (document.getElementById('heroSubtitle') || {}).textContent = data.subtitle;
+    const titleEl = document.getElementById('heroTitle');
+    const subEl   = document.getElementById('heroSubtitle');
+    if (titleEl) titleEl.textContent = data.title || '';
+    if (subEl)   subEl.textContent   = data.subtitle || '';
 
     // Sett hero-bilde (fallback styres i CSS)
     const heroSelector =
-      page === 'home'     ? '.home-hero' :
+      page === 'home'     ? '.home-hero'  :
       page === 'about'    ? '.about-hero' :
-      /* services */         '.services-hero';
+      /* services */        '.services-hero';
+
     setHeroBackground(heroSelector, data.hero_image);
 
     // Render innhold under hero
     if (page === 'services') {
       // Støtter både services[] og sections[] for fleksibilitet
-      renderSections(data.services || data.sections);
+      renderSections(data.services || data.sections || []);
     } else {
-      renderSections(data.sections);
+      renderSections(data.sections || []);
     }
 
     // (Valgfritt) hent felles footer-data
     try {
       const siteRes = await fetch('/data/site.json', { cache: 'no-cache' });
       if (siteRes.ok) {
-        const site = await siteRes.json();
-        const orgEl = document.getElementById('orgnr');
-        const ftEl  = document.getElementById('footerText');
-        if (orgEl && site.orgnr) orgEl.textContent = site.orgnr;
-        if (ftEl  && site.footer) ftEl.textContent = site.footer;
+        const siteData = await siteRes.json();
+        const orgEl  = document.getElementById('orgnr');
+        const footEl = document.getElementById('footerText');
+        if (orgEl && siteData.orgnr)   orgEl.textContent  = siteData.orgnr;
+        if (footEl && siteData.footer) footEl.innerHTML   = siteData.footer;
       }
-    } catch (_) { /* stille */ }
+    } catch (e) { /* stille */ }
 
   } catch (err) {
-    console.error('Kunne ikke laste inn side-data:', err);
+    console.error('Kunne ikke laste side-data:', err);
   }
 });
