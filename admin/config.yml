@@ -2,8 +2,8 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "images/uploads"   # Filer lagres her i repoet
-public_folder: "/images/uploads" # Slik refereres de på nettsiden
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
 
 publish_mode: editorial_workflow
 locale: "no"
@@ -12,65 +12,77 @@ collections:
   # Felles nettsidedata (site.json)
   - label: "Felles"
     name: "site"
-    file: "data/site.json"
-    fields:
-      - { name: orgnr, label: "Organisasjonsnummer", widget: "string" }
-      - { name: footer, label: "Footer-tekst", widget: "markdown", default: "Attolloogroup. Alle rettigheter forbeholdt." }
+    files:
+      - label: "Nettside – Felles"
+        name: "site"
+        file: "data/site.json"
+        fields:
+          - { name: orgnr, label: "Organisasjonsnummer", widget: "string" }
+          - { name: footer, label: "Footer-tekst", widget: "markdown", default: "Attolloogroup. Alle rettigheter forbeholdt." }
 
   # Forside (home.json)
-  - name: "home"
-    label: "Forside"
-    file: "data/home.json"
-    fields:
-      - { name: title, label: "Tittel (hero)", widget: "string" }
-      - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
-      - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
-      - name: sections
-        label: "Forside-seksjoner"
-        widget: "list"
-        collapsed: true
+  - label: "Forside"
+    name: "home"
+    files:
+      - label: "Home"
+        name: "home"
+        file: "data/home.json"
         fields:
-          - { name: heading, label: "Overskrift", widget: "string" }
-          - { name: body, label: "Tekst", widget: "markdown" }
-          - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
+          - { name: title, label: "Tittel (hero)", widget: "string" }
+          - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
+          - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: sections
+            label: "Forside-seksjoner"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { name: heading, label: "Overskrift", widget: "string" }
+              - { name: body, label: "Tekst", widget: "markdown" }
+              - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
   # Om oss (about.json)
-  - name: "about"
-    label: "Om oss"
-    file: "data/about.json"
-    fields:
-      - { name: title, label: "Tittel (hero)", widget: "string" }
-      - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
-      - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
-      - name: sections
-        label: "Seksjoner"
-        widget: "list"
-        collapsed: true
+  - label: "Om oss"
+    name: "about"
+    files:
+      - label: "About"
+        name: "about"
+        file: "data/about.json"
         fields:
-          - { name: heading, label: "Overskrift", widget: "string" }
-          - { name: body, label: "Brødtekst", widget: "markdown" }
-          - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
+          - { name: title, label: "Tittel (hero)", widget: "string" }
+          - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
+          - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: sections
+            label: "Seksjoner"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { name: heading, label: "Overskrift", widget: "string" }
+              - { name: body, label: "Brødtekst", widget: "markdown" }
+              - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
   # Tjenester (services.json)
-  - name: "services"
-    label: "Tjenester"
-    file: "data/services.json"
-    fields:
-      - { name: title, label: "Tittel (hero)", widget: "string" }
-      - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
-      - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
-      - name: sections
-        label: "Seksjoner"
-        widget: "list"
-        collapsed: true
+  - label: "Tjenester"
+    name: "services"
+    files:
+      - label: "Services"
+        name: "services"
+        file: "data/services.json"
         fields:
-          - { name: heading, label: "Overskrift", widget: "string" }
-          - { name: body, label: "Brødtekst", widget: "markdown" }
-          - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
+          - { name: title, label: "Tittel (hero)", widget: "string" }
+          - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
+          - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: sections
+            label: "Seksjoner"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { name: heading, label: "Overskrift", widget: "string" }
+              - { name: body, label: "Brødtekst", widget: "markdown" }
+              - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
-  # Blogg (posts)
-  - name: "posts"
-    label: "Blogginnlegg"
+  # Blogginnlegg (posts)
+  - label: "Blogginnlegg"
+    name: "posts"
     folder: "content/posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
