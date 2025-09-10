@@ -2,13 +2,12 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Om oss – Attolloo Group</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="style.css?v=9" />
 </head>
-<body data-page="about">
+<body>
 
-  <!-- HEADER (samme som forsiden) -->
   <header class="site-header">
     <div class="container">
       <a class="site-logo" href="index.html" aria-label="Til forsiden">
@@ -28,71 +27,73 @@
 
   <div class="page-top-space"></div>
 
-  <!-- HERO (tekst og bakgrunn fra CMS) -->
-  <section class="hero" id="about-hero" aria-labelledby="about-hero-title">
+  <!-- HERO -->
+  <section class="hero about-hero" id="about-hero" aria-labelledby="heroTitle">
     <div class="inner">
-      <h1 class="hero-title" id="about-hero-title"></h1>
-      <p class="hero-subtitle"></p>
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <!-- Viktig: behold linjeskift -->
+      <p id="heroSubtitle" class="preserve-newlines"></p>
     </div>
   </section>
 
-  <!-- Kortseksjon fra CMS -->
   <main class="container">
     <section class="section">
-      <div id="about-cards" class="cards"></div>
+      <div class="cards" id="about-cards"></div>
     </section>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>© <span id="year"></span> Attolloogroup. Alle rettigheter forbeholdt.</p>
-      <p>Org.nr: 936 616 758</p>
-      <p>Kontakt: <a href="mailto:post@attolloogroup.com">post@attolloogroup.com</a></p>
-    </div>
-  </footer>
+  <div id="footer"></div>
 
   <script>
-  // årstall i footer
-  document.getElementById('year').textContent = new Date().getFullYear();
+    // last om-oss-data
+    (async function loadAbout() {
+      try {
+        const res = await fetch("data/about.json?v=" + Date.now(), { cache: "no-store" });
+        const data = await res.json();
 
-  // Last CMS-data for OM OSS
-  (async function () {
-    try {
-      const res = await fetch('data/about.json?' + Date.now(), { cache: 'no-store' });
-      const data = await res.json();
+        document.getElementById("heroTitle").textContent = data.title || "";
+        document.getElementById("heroSubtitle").textContent = data.subtitle || "";
 
-      // HERO-tekst
-      const hero = document.getElementById('about-hero');
-      hero.querySelector('.hero-title').textContent    = data.title    || 'Om Attolloogroup';
-      hero.querySelector('.hero-subtitle').textContent = data.subtitle || '';
+        const hero = document.getElementById("about-hero");
+        const img = data.hero_image || data.image || "";
+        if (img) {
+          hero.style.backgroundImage = `url(${img})`;
+          hero.classList.add("has-image");
+        } else {
+          hero.classList.remove("has-image");
+        }
 
-      // HERO-bilde (CSS-variabel)
-      const img = data.hero_image || data.image; // støtt begge nøkler
-      if (img) hero.style.setProperty('--hero-img', `url(${img})`);
+        const wrap = document.getElementById("about-cards");
+        const sections = Array.isArray(data.sections) ? data.sections : [];
+        if (!sections.length) {
+          wrap.innerHTML = "<p>Ingen innhold publisert ennå.</p>";
+          return;
+        }
 
-      // Seksjoner
-      const wrap = document.getElementById('about-cards');
-      const sections = Array.isArray(data.sections) ? data.sections : [];
-      if (!sections.length) {
-        wrap.innerHTML = '<p style="color:#69646C">Ingen innholdsseksjoner er lagt til ennå.</p>';
-        return;
+        wrap.innerHTML = sections.map(s => `
+          <article class="card">
+            ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ""}
+            <div class="card_body">
+              ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ""}
+              ${s.body ? `<div class="card_text preserve-newlines">${s.body}</div>` : ""}
+            </div>
+          </article>
+        `).join("");
+      } catch (e) {
+        console.error("Klarte ikke laste data/about.json", e);
       }
+    })();
 
-      wrap.innerHTML = sections.map(s => `
-        <article class="card">
-          ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ''}
-          <div class="card_body">
-            ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ''}
-            ${s.body ? `<p class="card_text">${s.body}</p>` : ''}
-          </div>
-        </article>
-      `).join('');
-    } catch (e) {
-      console.error(e);
-      document.getElementById('about-cards').innerHTML =
-        '<p style="color:#69646C">Kunne ikke laste innhold akkurat nå.</p>';
-    }
-  })();
+    // footer
+    (async () => {
+      try {
+        const res = await fetch("footer.html", { cache: "no-store" });
+        const html = await res.text();
+        document.getElementById("footer").innerHTML = html;
+      } catch (err) {
+        console.error("Kunne ikke laste footer:", err);
+      }
+    })();
   </script>
 </body>
 </html>
