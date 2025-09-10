@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Attolloo Group</title>
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="style.css?v=8" />
 </head>
 <body data-page="home">
 
@@ -32,7 +32,8 @@
   <section class="hero" id="home-hero" aria-labelledby="heroTitle">
     <div class="inner">
       <h1 class="hero-title" id="heroTitle"></h1>
-      <p id="heroSubtitle"></p>
+      <!-- Viktig: denne klassen gjør at \n vises som linjeskift -->
+      <p id="heroSubtitle" class="preserve-newlines"></p>
     </div>
   </section>
 
@@ -61,11 +62,12 @@
         const res = await fetch("data/home.json?v=" + Date.now(), { cache: "no-store" });
         const data = await res.json();
 
-        // hero-tekst
+        // HERO
         document.getElementById("heroTitle").textContent = data.title || "";
+        // med .preserve-newlines på <p> holder det å bruke textContent:
         document.getElementById("heroSubtitle").textContent = data.subtitle || "";
 
-        // hero-bilde
+        // HERO-bilde
         const hero = document.getElementById("home-hero");
         const img = data.hero_image || data.image || "";
         if (img) {
@@ -76,7 +78,7 @@
           hero.classList.remove("has-image");
         }
 
-        // seksjoner
+        // SEKSJONER
         const wrap = document.getElementById("home-cards");
         const sections = Array.isArray(data.sections) ? data.sections : [];
         if (!sections.length) {
@@ -84,12 +86,13 @@
           return;
         }
 
+        // NB: body legges i et element med class="preserve-newlines"
         wrap.innerHTML = sections.map(s => `
           <article class="card">
             ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ""}
             <div class="card_body">
               ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ""}
-              ${s.body ? `<p class="card_text">${s.body}</p>` : ""}
+              ${s.body ? `<div class="card_text preserve-newlines">${s.body}</div>` : ""}
             </div>
           </article>
         `).join("");
