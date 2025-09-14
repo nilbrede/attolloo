@@ -1,20 +1,34 @@
-// menu-init.js — FOUC-free (no mobile 'Blog' flash)
+// menu-init.js — FOUC-proof + hover delay + stray 'Blog' guard
 (function () {
-  // 0) Hide any existing header completely to avoid flash (esp. on mobile)
-  const oldHeaderImmediate = document.querySelector('header.site-header');
-  if (oldHeaderImmediate) oldHeaderImmediate.style.display = 'none';
+  // 0) Guard: remove any stray top-level blog links that might have been left in HTML
+  document.querySelectorAll('body > a[href*="blog"], body > ul > li > a[href*="blog"]').forEach(el => {
+    el.parentElement && el.parentElement.tagName === 'LI' && el.parentElement.parentElement === document.body
+      ? el.parentElement.remove()
+      : el.remove();
+  });
 
-  // 1) Ensure menu CSS is loaded
-  const ensureCss = () => {
-    if (document.querySelector('link[href*="/css/menu.css"]')) return;
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = '/css/menu.css';
-    document.head.appendChild(link);
-  };
+  // 1) Hide any existing header immediately to avoid flash
+  const oldHeader = document.querySelector('header.site-header');
+  if (oldHeader) oldHeader.style.display = 'none';
 
-  // 2) Fetch and mount new header
-  const mountHeader = async () => {
+  // 2) Ensure menu CSS is loaded and wait for it before showing the new header
+  function loadMenuCss() {
+    return new Promise((resolve) => {
+      const existing = document.querySelector('link[href="/css/menu.css"], link[href*="/css/menu.css"]');
+      if (existing) {
+        if (existing.sheet) return resolve();
+        existing.addEventListener('load', () => resolve(), { once: true });
+        return;
+      }
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = '/css/menu.css';
+      link.addEventListener('load', () => resolve(), { once: true });
+      document.head.appendChild(link);
+    });
+  }
+
+  async function mountHeader() {
     try {
       const res = await fetch('/header.html', { cache: 'no-store' });
       if (!res.ok) throw new Error('header.html fetch failed');
@@ -22,26 +36,21 @@
       const wrapper = document.createElement('div');
       wrapper.innerHTML = html;
       const newHeader = wrapper.firstElementChild;
+      newHeader.style.display = 'none'; // keep hidden until CSS ready
 
       const old = document.querySelector('header.site-header');
-      if (old) {
-        old.replaceWith(newHeader);
-      } else {
-        document.body.insertBefore(newHeader, document.body.firstChild);
-      }
+      if (old) old.replaceWith(newHeader); else document.body.insertBefore(newHeader, document.body.firstChild);
 
-      // Show the new header only after insertion
+      await loadMenuCss();
       newHeader.style.display = 'block';
       attachBehavior();
     } catch (e) {
-      // If anything fails, re-show the old header so navigation still works
       const fallback = document.querySelector('header.site-header');
       if (fallback) fallback.style.display = 'block';
     }
-  };
+  }
 
-  // 3) Attach menu behavior (includes hover delay)
-  const attachBehavior = () => {
+  function attachBehavior() {
     const nav = document.getElementById('primary-nav');
     const burger = document.querySelector('.nav-toggle');
     const parents = document.querySelectorAll('.has-mega > .nav-parent');
@@ -67,7 +76,7 @@
       if (!nav.contains(e.target) && !burger.contains(e.target)) closeAllMega();
     });
 
-    // Desktop hover with small close delay for stability
+    // Desktop hover with small close delay
     const mql = window.matchMedia('(hover:hover) and (pointer:fine)');
     if (mql.matches) {
       let closeTimer;
@@ -104,9 +113,8 @@
     function firstLink(btn) {
       return btn.parentElement.querySelector('.mega a, .mega button');
     }
-  };
+  }
 
-  ensureCss();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', mountHeader);
   } else {
