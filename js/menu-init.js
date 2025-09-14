@@ -1,21 +1,28 @@
-// menu-init.js — FOUC-proof + hover delay + stray 'Blog' guard
+// menu-init.js — Inline header (no fetch), FOUC-proof, hover delay, and 'Blog(g)' guard
 (function () {
-  // 0) Guard: remove any stray top-level blog links that might have been left in HTML
-  document.querySelectorAll('body > a[href*="blog"], body > ul > li > a[href*="blog"]').forEach(el => {
-    el.parentElement && el.parentElement.tagName === 'LI' && el.parentElement.parentElement === document.body
-      ? el.parentElement.remove()
-      : el.remove();
+  // 0) Remove any stray top-level Blog/Blogg links that might appear before header is mounted
+  document.querySelectorAll('body > a[href*="blog"], body > a[href*="blogg"], body > ul > li > a[href*="blog"], body > ul > li > a[href*="blogg"]').forEach(el => {
+    const li = el.closest('li');
+    if (li && li.parentElement === document.body) {
+      li.remove();
+    } else if (el.parentElement === document.body) {
+      el.remove();
+    } else {
+      // If it's nested deeper but still outside header, hide it just in case
+      el.style.display = 'none';
+    }
   });
 
-  // 1) Hide any existing header immediately to avoid flash
+  // 1) Hide any existing header immediately to avoid flashes
   const oldHeader = document.querySelector('header.site-header');
   if (oldHeader) oldHeader.style.display = 'none';
 
-  // 2) Ensure menu CSS is loaded and wait for it before showing the new header
-  function loadMenuCss() {
-    return new Promise((resolve) => {
+  // 2) Ensure menu CSS is loaded (so header looks right when shown)
+  function ensureMenuCss() {
+    return new Promise(resolve => {
       const existing = document.querySelector('link[href="/css/menu.css"], link[href*="/css/menu.css"]');
       if (existing) {
+        // If stylesheet already parsed, resolve; otherwise wait for load
         if (existing.sheet) return resolve();
         existing.addEventListener('load', () => resolve(), { once: true });
         return;
@@ -28,28 +35,70 @@
     });
   }
 
+  // 3) Build the header inline (no fetch dependency)
+  function buildHeader() {
+    const html = `
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="/index.html" aria-label="Til forsiden">
+      <img src="/aab-logo.png" alt="Attolloo logo" />
+    </a>
+    <span class="site-brand-text">Attolloo Group</span>
+
+    <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">
+      <span class="sr-only">Meny</span> ☰
+    </button>
+
+    <nav id="primary-nav" class="nav main-nav" aria-label="Hovedmeny">
+      <ul class="nav-root">
+        <li class="has-mega">
+          <button class="nav-parent" aria-expanded="false">Advisory</button>
+          <div class="mega" role="region" aria-label="Advisory undermeny">
+            <div class="mega-col">
+              <h4>Advisory</h4>
+              <a href="/services.html#advisory">Oversikt</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="has-mega">
+          <button class="nav-parent" aria-expanded="false">Polaris &amp; Lumina</button>
+          <div class="mega" role="region" aria-label="Polaris og Lumina undermeny">
+            <div class="mega-col">
+              <a href="/services.html#polaris">Polaris (North)</a>
+              <a href="/services.html#lumina">Lumina (South)</a>
+            </div>
+          </div>
+        </li>
+
+        <li><a href="/about.html">Om oss</a></li>
+        <li><a href="/blog/">Blogg</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>`;
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html.trim();
+    return wrapper.firstElementChild;
+  }
+
+  // 4) Mount header after CSS is ready
   async function mountHeader() {
     try {
-      const res = await fetch('/header.html', { cache: 'no-store' });
-      if (!res.ok) throw new Error('header.html fetch failed');
-      const html = await res.text();
-      const wrapper = document.createElement('div');
-      wrapper.innerHTML = html;
-      const newHeader = wrapper.firstElementChild;
-      newHeader.style.display = 'none'; // keep hidden until CSS ready
-
+      await ensureMenuCss();
+      const newHeader = buildHeader();
       const old = document.querySelector('header.site-header');
-      if (old) old.replaceWith(newHeader); else document.body.insertBefore(newHeader, document.body.firstChild);
-
-      await loadMenuCss();
-      newHeader.style.display = 'block';
+      if (old) old.replaceWith(newHeader);
+      else document.body.insertBefore(newHeader, document.body.firstChild);
       attachBehavior();
     } catch (e) {
+      // If anything fails, at least show whatever header exists
       const fallback = document.querySelector('header.site-header');
       if (fallback) fallback.style.display = 'block';
     }
   }
 
+  // 5) Attach behavior (click, ESC, outside click, hover with delay)
   function attachBehavior() {
     const nav = document.getElementById('primary-nav');
     const burger = document.querySelector('.nav-toggle');
@@ -72,6 +121,7 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') { closeAllMega(); burger.setAttribute('aria-expanded', false); nav.classList.remove('open'); }
     });
+
     document.addEventListener('click', (e) => {
       if (!nav.contains(e.target) && !burger.contains(e.target)) closeAllMega();
     });
