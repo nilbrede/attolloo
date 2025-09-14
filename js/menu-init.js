@@ -1,10 +1,8 @@
-// menu-init.js — no-flash replacement of old header
+// menu-init.js — with hover delay fix
 (function () {
-  // 0) Immediately hide any existing header to avoid "Kontakt" flash on mobile
   const oldHeaderImmediate = document.querySelector('header.site-header');
   if (oldHeaderImmediate) oldHeaderImmediate.style.visibility = 'hidden';
 
-  // 1) Ensure menu CSS is loaded
   const ensureCss = () => {
     if (document.querySelector('link[href*="/css/menu.css"]')) return;
     const link = document.createElement('link');
@@ -13,7 +11,6 @@
     document.head.appendChild(link);
   };
 
-  // 2) Fetch and mount new header
   const mountHeader = async () => {
     try {
       const res = await fetch('/header.html', { cache: 'no-store' });
@@ -22,26 +19,17 @@
       const wrapper = document.createElement('div');
       wrapper.innerHTML = html;
       const newHeader = wrapper.firstElementChild;
-
       const old = document.querySelector('header.site-header');
-      if (old) {
-        old.replaceWith(newHeader);
-      } else {
-        document.body.insertBefore(newHeader, document.body.firstChild);
-      }
-
-      // Make sure the new header is visible
+      if (old) old.replaceWith(newHeader);
+      else document.body.insertBefore(newHeader, document.body.firstChild);
       newHeader.style.visibility = 'visible';
       attachBehavior();
     } catch (e) {
-      // If anything fails, show the old header again so the site isn't blank
       const fallback = document.querySelector('header.site-header');
       if (fallback) fallback.style.visibility = 'visible';
-      // console.warn('Menu init failed:', e);
     }
   };
 
-  // 3) Attach menu behavior
   const attachBehavior = () => {
     const nav = document.getElementById('primary-nav');
     const burger = document.querySelector('.nav-toggle');
@@ -70,10 +58,17 @@
 
     const mql = window.matchMedia('(hover:hover) and (pointer:fine)');
     if (mql.matches) {
+      let closeTimer;
       parents.forEach(btn => {
         const li = btn.parentElement;
-        li.addEventListener('mouseenter', () => openMega(btn));
-        li.addEventListener('mouseleave', closeAllMega);
+        li.addEventListener('mouseenter', () => {
+          clearTimeout(closeTimer);
+          openMega(btn);
+        });
+        li.addEventListener('mouseleave', () => {
+          clearTimeout(closeTimer);
+          closeTimer = setTimeout(closeAllMega, 200);
+        });
       });
     }
 
