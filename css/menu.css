@@ -18,9 +18,11 @@
 /* --- MOBILE RULES --- */
 @media (max-width: 900px) {
   .nav-toggle {display:inline-block; margin-left:auto;}
-  .nav.main-nav {position:fixed; left:0; right:0; top:64px; background:#fff; transform:translateY(-120%); transition:transform .2s ease; border-bottom:1px solid var(--menu-border);}
+  .nav.main-nav {position:fixed; left:0; right:0; top:64px; background:#fff; transform:translateY(-120%); transition:transform .2s ease; border-bottom:1px solid var(--menu-border); z-index:1001;}
+  /* IMPORTANT: when open, slide the nav into view */
+  .nav.open {transform:translateY(0);}
 
-  /* KEY FIX: hide menu items by default on mobile, show only when nav is open */
+  /* Hide menu items by default on mobile, show only when nav is open */
   .nav-root {display:none !important; flex-direction:column; gap:6px; padding:8px 12px; align-items:stretch;}
   .nav.open .nav-root {display:flex !important;}
 
