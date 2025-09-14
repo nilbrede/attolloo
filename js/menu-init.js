@@ -1,6 +1,11 @@
-// Legg til mega-menyen fra header.html + atferd
+// menu-init.js — no-flash replacement of old header
 (function () {
-  const addCss = () => {
+  // 0) Immediately hide any existing header to avoid "Kontakt" flash on mobile
+  const oldHeaderImmediate = document.querySelector('header.site-header');
+  if (oldHeaderImmediate) oldHeaderImmediate.style.visibility = 'hidden';
+
+  // 1) Ensure menu CSS is loaded
+  const ensureCss = () => {
     if (document.querySelector('link[href*="/css/menu.css"]')) return;
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -8,21 +13,35 @@
     document.head.appendChild(link);
   };
 
-  const addHeader = async () => {
+  // 2) Fetch and mount new header
+  const mountHeader = async () => {
     try {
-      const res = await fetch('/header.html', {cache: 'no-store'});
-      if (!res.ok) return;
+      const res = await fetch('/header.html', { cache: 'no-store' });
+      if (!res.ok) throw new Error('header.html fetch failed');
       const html = await res.text();
       const wrapper = document.createElement('div');
       wrapper.innerHTML = html;
-      const header = wrapper.firstElementChild;
-      // Finn nåværende header og erstatt den, ellers legg til øverst
+      const newHeader = wrapper.firstElementChild;
+
       const old = document.querySelector('header.site-header');
-      if (old) old.replaceWith(header); else document.body.insertBefore(header, document.body.firstChild);
+      if (old) {
+        old.replaceWith(newHeader);
+      } else {
+        document.body.insertBefore(newHeader, document.body.firstChild);
+      }
+
+      // Make sure the new header is visible
+      newHeader.style.visibility = 'visible';
       attachBehavior();
-    } catch (e) { /* stille */ }
+    } catch (e) {
+      // If anything fails, show the old header again so the site isn't blank
+      const fallback = document.querySelector('header.site-header');
+      if (fallback) fallback.style.visibility = 'visible';
+      // console.warn('Menu init failed:', e);
+    }
   };
 
+  // 3) Attach menu behavior
   const attachBehavior = () => {
     const nav = document.getElementById('primary-nav');
     const burger = document.querySelector('.nav-toggle');
@@ -80,10 +99,10 @@
     }
   };
 
-  addCss();
+  ensureCss();
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addHeader);
+    document.addEventListener('DOMContentLoaded', mountHeader);
   } else {
-    addHeader();
+    mountHeader();
   }
 })();
