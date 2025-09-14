@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Om oss – Attolloo Group</title>
+  <link rel="stylesheet" href="style.css?v=9" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="site-logo" href="index.html" aria-label="Til forsiden">
+        <img src="aab-logo.png" alt="Attolloo logo" />
+      </a>
+      <span class="site-brand-text">Attolloo Group</span>
+      <nav class="main-nav" aria-label="Hovedmeny">
+        <ul>
+          <li><a href="index.html">Forside</a></li>
+          <li><a href="about.html" aria-current="page">Om oss</a></li>
+          <li><a href="services.html">Tjenester</a></li>
+          <li><a href="blog/index.html">Blogg</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-top-space"></div>
+
+  <!-- HERO -->
+  <section class="hero about-hero" id="about-hero" aria-labelledby="heroTitle">
+    <div class="inner">
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <!-- Viktig: behold linjeskift -->
+      <p id="heroSubtitle" class="preserve-newlines"></p>
+    </div>
+  </section>
+
+  <main class="container">
+    <section class="section">
+      <div class="cards" id="about-cards"></div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script>
+    // last om-oss-data
+    (async function loadAbout() {
+      try {
+        const res = await fetch("data/about.json?v=" + Date.now(), { cache: "no-store" });
+        const data = await res.json();
+
+        document.getElementById("heroTitle").textContent = data.title || "";
+        document.getElementById("heroSubtitle").textContent = data.subtitle || "";
+
+        const hero = document.getElementById("about-hero");
+        const img = data.hero_image || data.image || "";
+        if (img) {
+          hero.style.backgroundImage = `url(${img})`;
+          hero.classList.add("has-image");
+        } else {
+          hero.classList.remove("has-image");
+        }
+
+        const wrap = document.getElementById("about-cards");
+        const sections = Array.isArray(data.sections) ? data.sections : [];
+        if (!sections.length) {
+          wrap.innerHTML = "<p>Ingen innhold publisert ennå.</p>";
+          return;
+        }
+
+        wrap.innerHTML = sections.map(s => `
+          <article class="card">
+            ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ""}
+            <div class="card_body">
+              ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ""}
+              ${s.body ? `<div class="card_text preserve-newlines">${s.body}</div>` : ""}
+            </div>
+          </article>
+        `).join("");
+      } catch (e) {
+        console.error("Klarte ikke laste data/about.json", e);
+      }
+    })();
+
+    // footer
+    (async () => {
+      try {
+        const res = await fetch("footer.html", { cache: "no-store" });
+        const html = await res.text();
+        document.getElementById("footer").innerHTML = html;
+      } catch (err) {
+        console.error("Kunne ikke laste footer:", err);
+      }
+    })();
+  </script>
+<script src="/js/menu-init.js" defer></script>
+</body>
+</html>
