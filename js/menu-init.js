@@ -1,8 +1,10 @@
-// menu-init.js — with hover delay fix
+// menu-init.js — FOUC-free (no mobile 'Blog' flash)
 (function () {
+  // 0) Hide any existing header completely to avoid flash (esp. on mobile)
   const oldHeaderImmediate = document.querySelector('header.site-header');
-  if (oldHeaderImmediate) oldHeaderImmediate.style.visibility = 'hidden';
+  if (oldHeaderImmediate) oldHeaderImmediate.style.display = 'none';
 
+  // 1) Ensure menu CSS is loaded
   const ensureCss = () => {
     if (document.querySelector('link[href*="/css/menu.css"]')) return;
     const link = document.createElement('link');
@@ -11,6 +13,7 @@
     document.head.appendChild(link);
   };
 
+  // 2) Fetch and mount new header
   const mountHeader = async () => {
     try {
       const res = await fetch('/header.html', { cache: 'no-store' });
@@ -19,17 +22,25 @@
       const wrapper = document.createElement('div');
       wrapper.innerHTML = html;
       const newHeader = wrapper.firstElementChild;
+
       const old = document.querySelector('header.site-header');
-      if (old) old.replaceWith(newHeader);
-      else document.body.insertBefore(newHeader, document.body.firstChild);
-      newHeader.style.visibility = 'visible';
+      if (old) {
+        old.replaceWith(newHeader);
+      } else {
+        document.body.insertBefore(newHeader, document.body.firstChild);
+      }
+
+      // Show the new header only after insertion
+      newHeader.style.display = 'block';
       attachBehavior();
     } catch (e) {
+      // If anything fails, re-show the old header so navigation still works
       const fallback = document.querySelector('header.site-header');
-      if (fallback) fallback.style.visibility = 'visible';
+      if (fallback) fallback.style.display = 'block';
     }
   };
 
+  // 3) Attach menu behavior (includes hover delay)
   const attachBehavior = () => {
     const nav = document.getElementById('primary-nav');
     const burger = document.querySelector('.nav-toggle');
@@ -56,6 +67,7 @@
       if (!nav.contains(e.target) && !burger.contains(e.target)) closeAllMega();
     });
 
+    // Desktop hover with small close delay for stability
     const mql = window.matchMedia('(hover:hover) and (pointer:fine)');
     if (mql.matches) {
       let closeTimer;
