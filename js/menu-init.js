@@ -35,7 +35,7 @@
     });
   }
 
-  // 3) Build the header inline (no fetch dependency)
+    // 3) Build the header inline (no fetch dependency)
   function buildHeader() {
     const html = `
 <header class="site-header">
@@ -51,26 +51,29 @@
 
     <nav id="primary-nav" class="nav main-nav" aria-label="Hovedmeny">
       <ul class="nav-root">
+        <!-- Tjenester (tidl. Advisory) -->
         <li class="has-mega">
-          <button class="nav-parent" aria-expanded="false">Advisory</button>
-          <div class="mega" role="region" aria-label="Advisory undermeny">
+          <button class="nav-parent" aria-expanded="false">Tjenester</button>
+          <div class="mega" role="region" aria-label="Tjenester undermeny">
             <div class="mega-col">
-              <h4>Advisory</h4>
+              <h4>Tjenester</h4>
               <a href="/services.html#advisory">Oversikt</a>
             </div>
           </div>
         </li>
 
+        <!-- Arenaer – Polaris & Lumina (tidl. Polaris & Lumina) -->
         <li class="has-mega">
-          <button class="nav-parent" aria-expanded="false">Polaris &amp; Lumina</button>
-          <div class="mega" role="region" aria-label="Polaris og Lumina undermeny">
+          <button class="nav-parent" aria-expanded="false">Arenaer – Polaris &amp; Lumina</button>
+          <div class="mega" role="region" aria-label="Arenaer, Polaris og Lumina, undermeny">
             <div class="mega-col">
-              <a href="/services.html#polaris">Polaris (North)</a>
-              <a href="/services.html#lumina">Lumina (South)</a>
+              <a href="/services.html#polaris">Polaris</a>
+              <a href="/services.html#lumina">Lumina</a>
             </div>
           </div>
         </li>
 
+        <!-- Om oss og Blogg -->
         <li><a href="/about.html">Om oss</a></li>
         <li><a href="/blog/">Blogg</a></li>
       </ul>
