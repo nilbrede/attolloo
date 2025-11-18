@@ -1,0 +1,221 @@
+/* ---- Reset & base ---- */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+:root{
+  --container:1100px;
+  --hero-min:288px;         /* desktop hero-høyde */
+  --hero-min-m:220px;       /* mobil hero-høyde */
+  --card-gap:20px;
+  --radius:12px;
+  --shadow:0 2px 8px rgba(0,0,0,.06);
+  --brand:#0a4f6a;
+}
+/* ---- Layout ---- */
+.container{max-width:var(--container);margin:0 auto;padding:0 12px}
+
+/* ---- Header (samme på alle sider) ---- */
+.site-header{background:#fff;border-bottom:1px solid #e9ecef}
+.site-header .container{display:flex;align-items:center;gap:16px;padding:12px 12px}
+.site-logo img{height:44px;width:auto;display:block}           /* logo-størrelse */
+.site-brand-text{font-weight:600;color:#555}
+.main-nav{margin-left:auto}                                     /* MENY HØYRE */
+.main-nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+.main-nav a{color:#2b2b2b;text-decoration:none}
+.main-nav a[aria-current="page"]{font-weight:700}
+
+/* ---- Hero (lik på alle sider) ---- */
+.hero{
+  position:relative;
+  background:#111; color:#fff;
+  min-height:var(--hero-min);
+  display:flex;align-items:center;
+  overflow:hidden;
+}
+@media (max-width:767px){ .hero{min-height:var(--hero-min-m)} }
+.hero::before{                                                /* bakgrunnsbilde fra CMS */
+  content:""; position:absolute; inset:0;
+  background-image:var(--hero-img, none);
+  background-size:cover; background-position:center;
+  filter:brightness(.65);
+}
+.hero .inner{
+  position:relative; z-index:1; text-align:center;            /* TEKST MIDTSTILT */
+  width:100%; max-width:var(--container); margin:0 auto; padding:48px 12px;
+}
+#heroTitle{margin:.1rem 0 1rem;font-size:clamp(24px,3.2vw,34px);font-weight:800}
+#heroSubtitle{margin:0 auto;max-width:920px;line-height:1.5;color:#e7e7e7}
+
+/* ---- Kort/seksjoner (samme stil som Om oss/Tjenester) ---- */
+.section{padding:32px 0}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(286px,1fr));
+  gap:var(--card-gap);
+}
+.card{
+  background:#fff;border:1px solid #e9ecef;border-radius:var(--radius);
+  box-shadow:var(--shadow); overflow:hidden; display:flex;flex-direction:column;
+}
+.card_media{aspect-ratio:16/9;overflow:hidden}
+.card_media img{width:100%;height:100%;object-fit:cover;display:block}
+.card_body{padding:14px}
+.card_title{margin:0 0 .5rem;font-size:1.05rem;font-weight:700}
+.card_text{margin:0;color:#60666c;line-height:1.6}
+.card_date{margin:.25rem 0 .75rem;color:#7a7f87;font-size:.95rem}
+
+/* ---- Blogg-boks på forsiden (kort + ramme) ---- */
+.home-blog{padding:30px 0}
+.home-blog .card_head{
+  display:flex;align-items:center;justify-content:space-between;margin:0 0 10px
+}
+.btn-link{font-size:.95rem;text-decoration:none}
+.btn-link:hover{text-decoration:underline}
+
+/* ---- Små justeringer ---- */
+.page-top-space{height:0} /* placeholder hvis du trenger spacing senere */
+/* Header fix: logo-størrelse, meny høyre, ingen linjebrudd */
+.site-header .container{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; padding:12px 12px; flex-wrap:nowrap;
+}
+.site-logo{display:flex; align-items:center; flex:0 0 auto;}
+.site-logo img{height:44px; width:auto; display:block;}
+.site-brand-text{margin-left:8px; font-weight:600; color:#555; white-space:nowrap;}
+.main-nav{margin-left:auto; flex:0 0 auto;}
+.main-nav ul{display:flex; gap:22px; list-style:none; margin:0; padding:0; flex-wrap:nowrap; white-space:nowrap;}
+.main-nav a{color:#2b2b2b; text-decoration:none;}
+.main-nav a[aria-current="page"]{font-weight:700;}
+
+/* Hero: midtstilt tekst og lik høyde (beholdt) */
+.hero{display:flex; align-items:center; justify-content:center; text-align:center;}
+.hero .inner{width:100%; max-width:var(--container); padding:48px 12px;}
+/* === Blog thumbnails & small cards === */
+
+/* Grid for lister */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* Vanlig kort */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  overflow: hidden;
+}
+
+/* Standard bilde */
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* SMÅ kort: bruk på bloggliste og “siste fra bloggen” på forsiden */
+.cards.small .card img,
+.card.small img {
+  height: 160px;           /* thumbnail-høyde */
+  object-fit: cover;       /* cropper pent */
+}
+
+/* Tekst i små kort */
+.cards.small .card h3,
+.card.small h3 {
+  font-size: 1rem;
+  margin: 10px 12px 6px;
+}
+.cards.small .card p,
+.card.small p {
+  font-size: .9rem;
+  margin: 0 12px 12px;
+  color: #444;
+}
+
+/* “Siste fra bloggen” kan være litt tettere */
+#latest-blog.cards.small {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+/* Enkeltpost: mindre toppbilde */
+.small-cover {
+  max-width: 720px;   /* ikke wider enn teksten */
+  width: 100%;
+  height: auto;       /* behold proporsjoner */
+  border-radius: 12px;
+  display: block;
+  margin: 0 0 16px 0;
+}
+/* Bloggpost: mindre cover */
+#post .card_media img,
+#post-cover {
+  max-height: 380px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+/* === BLOGG: layout og stil =============================== */
+
+/* Smalere og mer lesbar kolonne for blogg-innhold */
+/* GJELDER KUN BLOGG-SIDER */
+body[data-page="blog"] main.container,
+body[data-page="blog-post"] main.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+
+/* Tittel, dato, ingress */
+.page-title, h1#post-title { font-size: 2rem; margin-bottom: .25em; }
+#post-date { font-size: .9rem; color: #666; margin-bottom: .5em; }
+#post-excerpt { font-style: italic; color: #444; margin: 0 0 .75em 0; }
+
+/* Cover-bilde: mindre og tett på ingressen/teksten */
+#post-cover {
+  display: block;
+  width: 100%;
+  max-height: 250px;     /* <- styrer størrelsen på toppbildet */
+  object-fit: cover;     /* beskjærer pent */
+  border-radius: 6px;
+  margin: .5em 0 1em 0;  /* lite luft over, litt under */
+}
+
+/* Selve innholdet */
+#post-content { margin-top: 0; color: #222; font-size: 1rem; }
+
+/* Blogg-forside: kompakte kort med små bilder */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,.05);
+  transition: transform .2s ease;
+}
+.card:hover { transform: translateY(-3px); }
+.card .card_media img {
+  width: 100%;
+  height: 160px;         /* små jevne forsidebilder */
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: .75rem;
+}
+.card .card_title { font-size: 1.2rem; margin: .25em 0; }
+.card .card_text  { font-size: .95rem; color: #444; }
+
+/* Enkle lenkestiler */
+a { color: #0055aa; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.preserve-newlines {
+  white-space: pre-line;
+}
