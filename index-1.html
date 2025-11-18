@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attolloo Group</title>
+  <link rel="stylesheet" href="style.css?v=8" />
+</head>
+<body data-page="home">
+
+  <div class="page-top-space"></div>
+
+  <!-- HERO -->
+  <section class="hero" id="home-hero" aria-labelledby="heroTitle">
+    <div class="inner">
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <!-- Viktig: denne klassen gjør at \n vises som linjeskift -->
+      <p id="heroSubtitle" class="preserve-newlines"></p>
+    </div>
+  </section>
+
+  <!-- INNHOLD -->
+  <main class="container">
+    <!-- Forside-seksjoner fra CMS -->
+    <section class="section">
+      <div class="cards" id="home-cards"></div>
+    </section>
+  </main>
+
+  <!-- FOOTER placeholder -->
+  <div id="footer"></div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Årstall i footer (hvis brukt)
+    document.addEventListener("DOMContentLoaded", () => {
+      const yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    });
+
+    // Last forside-data (hero + seksjoner) fra CMS
+    (async function loadHome() {
+      try {
+        const res = await fetch("data/home.json?v=" + Date.now(), { cache: "no-store" });
+        const data = await res.json();
+
+        // HERO
+        document.getElementById("heroTitle").textContent = data.title || "";
+        // med .preserve-newlines på <p> holder det å bruke textContent:
+        document.getElementById("heroSubtitle").textContent = data.subtitle || "";
+
+        // HERO-bilde
+        const hero = document.getElementById("home-hero");
+        const img = data.hero_image || data.image || "";
+        if (img) {
+          hero.style.setProperty("--hero-img", `url(${img})`);
+          hero.style.backgroundImage = `url(${img})`;
+          hero.classList.add("has-image");
+        } else {
+          hero.classList.remove("has-image");
+        }
+
+        // SEKSJONER
+        const wrap = document.getElementById("home-cards");
+        const sections = Array.isArray(data.sections) ? data.sections : [];
+        if (!sections.length) {
+          wrap.innerHTML = "<p>Ingen innholdsseksjoner er lagt til ennå.</p>";
+          return;
+        }
+
+        // NB: body legges i et element med class="preserve-newlines"
+        wrap.innerHTML = sections.map(s => `
+          <article class="card">
+            ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ""}
+            <div class="card_body">
+              ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ""}
+              ${s.body ? `<div class="card_text preserve-newlines">${s.body}</div>` : ""}
+            </div>
+          </article>
+        `).join("");
+      } catch (e) {
+        console.error("Klarte ikke laste data/home.json", e);
+      }
+    })();
+
+    // Hent inn footer fra footer.html
+    (async () => {
+      try {
+        const res = await fetch("footer.html", { cache: "no-store" });
+        const html = await res.text();
+        document.getElementById("footer").innerHTML = html;
+      } catch (err) {
+        console.error("Kunne ikke laste footer:", err);
+      }
+    })();
+  </script>
+<script src="/js/menu-init.js" defer></script>
+</body>
+</html>
