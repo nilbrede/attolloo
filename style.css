@@ -60,9 +60,10 @@ body {
 }
 
 .site-logo {
-  height: 44px;
+  height: 38px;       /* mindre */
   width: auto;
-  display: block;
+  max-width: 160px;   /* garantilås */
+  object-fit: contain;
 }
 
 .site-tagline {
