@@ -4,18 +4,33 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Attolloo Group</title>
-  <link rel="stylesheet" href="style.css?v=8" />
+  <link rel="stylesheet" href="style.css?v=9" />
 </head>
 <body data-page="home">
+
+  <!-- Topp med logo -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-logo-wrap">
+        <img src="/images/uploads/attolloo-logo.png" alt="Attolloo Group logo" class="site-logo" />
+      </div>
+      <div class="site-header-right">
+        <!-- Hvis meny-init legger inn meny et annet sted, lar vi denne være enkel -->
+        <span class="site-tagline">Leadership · AI · RegTech</span>
+      </div>
+    </div>
+  </header>
 
   <div class="page-top-space"></div>
 
   <!-- HERO -->
   <section class="hero" id="home-hero" aria-labelledby="heroTitle">
-    <div class="inner">
-      <h1 class="hero-title" id="heroTitle"></h1>
-      <!-- Viktig: denne klassen gjør at \n vises som linjeskift -->
-      <p id="heroSubtitle" class="preserve-newlines"></p>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1 class="hero-title" id="heroTitle"></h1>
+        <!-- Viktig: denne klassen gjør at \n vises som linjeskift -->
+        <p id="heroSubtitle" class="hero-subtitle preserve-newlines"></p>
+      </div>
     </div>
   </section>
 
@@ -46,7 +61,6 @@
 
         // HERO
         document.getElementById("heroTitle").textContent = data.title || "";
-        // med .preserve-newlines på <p> holder det å bruke textContent:
         document.getElementById("heroSubtitle").textContent = data.subtitle || "";
 
         // HERO-bilde
@@ -54,7 +68,6 @@
         const img = data.hero_image || data.image || "";
         if (img) {
           hero.style.setProperty("--hero-img", `url(${img})`);
-          hero.style.backgroundImage = `url(${img})`;
           hero.classList.add("has-image");
         } else {
           hero.classList.remove("has-image");
@@ -68,7 +81,6 @@
           return;
         }
 
-        // NB: body legges i et element med class="preserve-newlines"
         wrap.innerHTML = sections.map(s => `
           <article class="card">
             ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ""}
@@ -94,6 +106,7 @@
       }
     })();
   </script>
-<script src="/js/menu-init.js" defer></script>
+
+  <script src="/js/menu-init.js" defer></script>
 </body>
 </html>
