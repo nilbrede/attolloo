@@ -263,3 +263,57 @@ a:hover { text-decoration: underline; }
   max-width: 180px;
   object-fit: contain;
 }
+/* --- Attolloo: Midtstilt footer --- */
+
+.site-footer {
+  border-top: 1px solid rgba(215, 223, 235, 0.8);
+  background: rgba(247, 249, 253, 0.96);
+  font-size: 13px;
+  margin-top: 40px;
+}
+
+.footer-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 16px 28px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-brand {
+  font-weight: 600;
+  font-size: 15px;
+  color: #071422;
+}
+
+.footer-copy {
+  color: #4a5a70;
+  font-size: 13px;
+}
+
+.footer-nav {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.footer-nav a {
+  text-decoration: none;
+  color: #4a5a70;
+  font-size: 13px;
+}
+
+.footer-nav a:hover {
+  color: #071422;
+}
+
+/* Mobil: litt mer luft mellom lenker */
+@media (max-width: 600px) {
+  .footer-nav {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
