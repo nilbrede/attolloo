@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tjenester – Attolloo Group</title>
+  <link rel="stylesheet" href="style.css?v=9" />
+</head>
+<body>
+
+  <div class="page-top-space"></div>
+
+  <!-- HERO -->
+  <section class="hero services-hero" id="services-hero" aria-labelledby="heroTitle">
+    <div class="inner">
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <!-- Viktig: behold linjeskift -->
+      <p id="heroSubtitle" class="preserve-newlines"></p>
+    </div>
+  </section>
+
+  <main class="container">
+    <section class="section">
+      <div class="cards" id="services-cards"></div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script>
+    // last tjenester-data
+    (async function loadServices() {
+      try {
+        const res = await fetch("data/services.json?v=" + Date.now(), { cache: "no-store" });
+        const data = await res.json();
+
+        // hero-tekst
+        document.getElementById("heroTitle").textContent = data.title || "";
+        document.getElementById("heroSubtitle").textContent = data.subtitle || "";
+
+        // hero-bilde
+        const hero = document.getElementById("services-hero");
+        const img = data.hero_image || data.image || "";
+        if (img) {
+          hero.style.backgroundImage = `url(${img})`;
+          hero.classList.add("has-image");
+        } else {
+          hero.classList.remove("has-image");
+        }
+
+        // seksjoner
+        const wrap = document.getElementById("services-cards");
+        const sections = Array.isArray(data.sections)
+          ? data.sections
+          : (Array.isArray(data.services) ? data.services : []);
+
+        if (!sections.length) {
+          wrap.innerHTML = "<p>Ingen innhold publisert ennå.</p>";
+          return;
+        }
+
+        // lag kort
+        wrap.innerHTML = sections.map(s => `
+          <article class="card">
+            ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ""}
+            <div class="card_body">
+              ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ""}
+              ${s.body ? `<div class="card_text preserve-newlines">${s.body}</div>` : ""}
+            </div>
+          </article>
+        `).join("");
+
+        // legg på anker-IDer etter at kortene er rendret
+        addServiceAnchors();
+
+      } catch (e) {
+        console.error("Klarte ikke laste data/services.json", e);
+      }
+    })();
+
+    // footer
+    (async () => {
+      try {
+        const res = await fetch("footer.html", { cache: "no-store" });
+        const html = await res.text();
+        document.getElementById("footer").innerHTML = html;
+      } catch (err) {
+        console.error("Kunne ikke laste footer:", err);
+      }
+    })();
+
+    // --- Legg til anker-IDer på kort basert på overskrift ---
+    function addServiceAnchors() {
+      const cards = document.querySelectorAll('#services-cards .card');
+      cards.forEach(card => {
+        const h = card.querySelector('.card_title');
+        if (!h) return;
+        const txt = h.textContent || '';
+
+        let id = '';
+        if (/leadership/i.test(txt)) id = 'leadership';
+        else if (/growth/i.test(txt)) id = 'growth';
+        else if (/structure/i.test(txt)) id = 'structure';
+        else if (/polaris/i.test(txt)) id = 'polaris';
+        else if (/lumina/i.test(txt)) id = 'lumina';
+        else return;
+
+        // sett id på selve kortet slik at /services.html#polaris osv. fungerer
+        card.id = id;
+      });
+    }
+  </script>
+
+  <script src="/js/menu-init.js" defer></script>
+</body>
+</html>
