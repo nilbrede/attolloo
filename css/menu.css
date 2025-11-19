@@ -1,0 +1,222 @@
+/* Basic reset for header/nav */
+.site-header,
+.site-header * {
+  box-sizing: border-box;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(246, 248, 251, 0.95);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(215, 223, 235, 0.9);
+}
+
+/* Container */
+
+.site-header .container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Logo + brand */
+
+.site-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.site-logo img {
+  display: block;
+  height: 32px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+}
+
+.site-brand-text {
+  margin-left: 10px;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4a5a70;
+}
+
+/* Nav + burger */
+
+.nav-toggle {
+  margin-left: auto;
+  background: none;
+  border: 1px solid rgba(7, 20, 34, 0.15);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  display: none; /* skjult på desktop */
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid #0e5c8f;
+}
+
+/* Hovedmeny */
+
+.nav.main-nav {
+  margin-left: auto;
+}
+
+.nav-root {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.nav-root > li {
+  position: relative;
+}
+
+/* Vanlige lenker */
+
+.nav-root > li > a {
+  text-decoration: none;
+  font-size: 14px;
+  color: #4a5a70;
+  padding: 4px 6px;
+  border-radius: 999px;
+}
+
+.nav-root > li > a:hover {
+  color: #071422;
+  background: rgba(217, 235, 255, 0.75);
+}
+
+/* Foreldre-knapper (med mega-meny) */
+
+.nav-parent {
+  background: none;
+  border: none;
+  padding: 4px 6px;
+  border-radius: 999px;
+  font-size: 14px;
+  color: #4a5a70;
+  cursor: pointer;
+}
+
+.nav-parent:hover {
+  color: #071422;
+  background: rgba(217, 235, 255, 0.75);
+}
+
+/* Mega-meny */
+
+.has-mega .mega {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  min-width: 220px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 14px 35px rgba(5, 20, 40, 0.18);
+  border: 1px solid rgba(215, 223, 235, 0.9);
+  padding: 10px 14px 12px;
+  display: none;
+}
+
+.has-mega.open .mega {
+  display: block;
+}
+
+.mega-col h4 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #071422;
+}
+
+.mega-col a {
+  display: block;
+  text-decoration: none;
+  font-size: 14px;
+  color: #4a5a70;
+  padding: 4px 0;
+}
+
+.mega-col a:hover {
+  color: #071422;
+}
+
+/* Mobilvisning */
+
+@media (max-width: 800px) {
+  .site-header .container {
+    padding: 8px 12px;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav.main-nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background: rgba(246, 248, 251, 0.98);
+    border-bottom: 1px solid rgba(215, 223, 235, 0.9);
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+  }
+
+  .nav.main-nav.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav-root {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 12px 10px;
+    gap: 6px;
+  }
+
+  .has-mega .mega {
+    position: static;
+    box-shadow: none;
+    border-radius: 0;
+    border: none;
+    padding: 4px 0 6px;
+  }
+
+  .mega-col h4 {
+    margin-top: 4px;
+  }
+}
+
+/* Skjermleser-tekst */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
