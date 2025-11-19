@@ -219,3 +219,47 @@ a:hover { text-decoration: underline; }
 .preserve-newlines {
   white-space: pre-line;
 }
+/* --- Attolloo: cards / tjenester --- */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #d7dfeb;
+  box-shadow: 0 10px 26px rgba(7, 20, 34, 0.08);
+  overflow: hidden;
+}
+
+.card_media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.card_body {
+  padding: 18px 18px 16px;
+}
+
+.card_title {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.card_text {
+  margin: 0;
+  font-size: 14px;
+  color: #4a5a70;
+}
+/* --- Attolloo: logo sizing fallback --- */
+.site-header .site-logo img {
+  height: 32px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+}
