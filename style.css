@@ -317,3 +317,36 @@ a:hover { text-decoration: underline; }
     gap: 6px;
   }
 }
+/* --- Polaris & Lumina spesifikk styling --- */
+
+.page--polaris .hero--polaris {
+  color: #f5f8ff;
+  background-color: #051428;
+  background-size: cover;
+  background-position: center;
+}
+
+.page--polaris .card--polaris {
+  border-top: 3px solid rgba(80, 150, 255, 0.6);
+}
+
+.page--polaris .card--polaris .card_title {
+  font-size: 1.4rem;
+}
+
+/* Lumina – varmere uttrykk */
+
+.page--lumina .hero--lumina {
+  color: #fff8f0;
+  background-color: #5a2810;
+  background-size: cover;
+  background-position: center;
+}
+
+.page--lumina .card--lumina {
+  border-top: 3px solid rgba(230, 170, 80, 0.9);
+}
+
+.page--lumina .card--lumina .card_title {
+  font-size: 1.4rem;
+}
