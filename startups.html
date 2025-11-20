@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Startups & Scaleups – Attolloo</title>
+  <link rel="stylesheet" href="style.css?v=11" />
+</head>
+<body class="page page--startups">
+
+  <div class="page-top-space"></div>
+
+  <!-- HERO -->
+  <section class="hero hero--startups" id="startups-hero" aria-labelledby="heroTitle">
+    <div class="inner hero-inner">
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <p id="heroSubtitle" class="preserve-newlines hero-subtitle"></p>
+    </div>
+  </section>
+
+  <!-- INNHOLD -->
+  <main class="container">
+    <section class="section">
+      <div class="cards" id="startups-sections"></div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <div id="footer"></div>
+
+  <script>
+    // Last startups/scaleups-data
+    (async function loadStartups() {
+      try {
+        const res = await fetch("data/startups.json?v=" + Date.now(), { cache: "no-store" });
+        const data = await res.json();
+
+        // HERO
+        document.getElementById("heroTitle").textContent = data.title || "";
+        document.getElementById("heroSubtitle").textContent = data.subtitle || "";
+
+        const hero = document.getElementById("startups-hero");
+        const img = data.hero_image || data.image || "";
+        if (img) {
+          hero.style.setProperty("--hero-img", `url(${img})`);
+          hero.style.backgroundImage = `linear-gradient(135deg, rgba(10,15,35,0.8), rgba(20,60,110,0.6)), url(${img})`;
+          hero.classList.add("has-image");
+        } else {
+          hero.classList.remove("has-image");
+        }
+
+        // SEKSJONER
+        const wrap = document.getElementById("startups-sections");
+        const sections = Array.isArray(data.sections) ? data.sections : [];
+        if (!sections.length) {
+          wrap.innerHTML = "<p>Innhold for Startups & Scaleups er ikke publisert ennå.</p>";
+          return;
+        }
+
+        wrap.innerHTML = sections.map(s => `
+          <article class="card card--startups">
+            ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ""}
+            <div class="card_body">
+              ${s.heading ? `<h2 class="card_title">${s.heading}</h2>` : ""}
+              ${s.body ? `<div class="card_text preserve-newlines">${s.body}</div>` : ""}
+            </div>
+          </article>
+        `).join("");
+      } catch (e) {
+        console.error("Klarte ikke laste data/startups.json", e);
+      }
+    })();
+
+    // Footer
+    (async () => {
+      try {
+        const res = await fetch("footer.html", { cache: "no-store" });
+        const html = await res.text();
+        document.getElementById("footer").innerHTML = html;
+      } catch (err) {
+        console.error("Kunne ikke laste footer:", err);
+      }
+    })();
+  </script>
+  <script src="/js/menu-init.js" defer></script>
+</body>
+</html>
