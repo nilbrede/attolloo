@@ -68,16 +68,17 @@
           </div>
         </li>
 
-        <!-- Arenaer: Polaris & Lumina -->
-        <li class="has-mega">
-          <button class="nav-parent" aria-expanded="false">Arenaer – Polaris &amp; Lumina</button>
-          <div class="mega" role="region" aria-label="Arenaer undermeny">
-            <div class="mega-col">
-              <a href="/services.html#polaris">Polaris</a>
-              <a href="/services.html#lumina">Lumina</a>
-            </div>
-          </div>
-        </li>
+       <!-- Arenaer – Polaris & Lumina -->
+<li class="has-mega">
+  <button class="nav-parent" aria-expanded="false">Arenaer – Polaris &amp; Lumina</button>
+  <div class="mega" role="region" aria-label="Arenaer, Polaris og Lumina, undermeny">
+    <div class="mega-col">
+      <a href="/polaris.html">Polaris</a>
+      <a href="/lumina.html">Lumina</a>
+    </div>
+  </div>
+</li>
+
 
         <!-- Om oss og Blogg -->
         <li><a href="/about.html">Om oss</a></li>
