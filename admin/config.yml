@@ -80,6 +80,46 @@ collections:
               - { name: body, label: "Brødtekst", widget: "markdown" }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
+  # Polaris (polaris.json)
+  - label: "Polaris"
+    name: "polaris"
+    files:
+      - label: "Polaris-side"
+        name: "polaris"
+        file: "data/polaris.json"
+        fields:
+          - { name: title, label: "Tittel (hero)", widget: "string" }
+          - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
+          - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: sections
+            label: "Seksjoner"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { name: heading, label: "Overskrift", widget: "string" }
+              - { name: body, label: "Tekst", widget: "markdown" }
+              - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
+
+  # Lumina (lumina.json)
+  - label: "Lumina"
+    name: "lumina"
+    files:
+      - label: "Lumina-side"
+        name: "lumina"
+        file: "data/lumina.json"
+        fields:
+          - { name: title, label: "Tittel (hero)", widget: "string" }
+          - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
+          - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: sections
+            label: "Seksjoner"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { name: heading, label: "Overskrift", widget: "string" }
+              - { name: body, label: "Tekst", widget: "markdown" }
+              - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
+
   # Blogginnlegg (posts)
   - label: "Blogginnlegg"
     name: "posts"
