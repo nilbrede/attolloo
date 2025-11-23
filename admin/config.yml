@@ -157,11 +157,13 @@ collections:
       - { label: "Ingress", name: "excerpt", widget: "text" }
       - { label: "Innhold", name: "body", widget: "markdown" }
       - { label: "Bilde", name: "image", widget: "image", choose_url: true, required: false }
-         
-          - label: "Teaser-seksjoner"
-            name: "teasers"
-            widget: list
-            summary: "{{fields.title}}"
-            fields:
-              - { label: "Tittel", name: "title", widget: string }
-              - { label: "Tekst", name: "text", widget: text }
+
+  - label: "Teaser-seksjoner"
+    name: "teasers"
+    widget: list
+    summary: "{{fields.title}}"
+    fields:
+        - { label: "Tittel", name: "title", widget: string }
+        - { label: "Tekst", name: "text", widget: text }
+        
+       
