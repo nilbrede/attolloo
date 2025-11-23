@@ -84,7 +84,7 @@
         <li><a href="/about.html">Om oss</a></li>
         <li><a href="/blog/">Blogg</a></li>
        <li><a href="/startups.html">Attolloo 6Sense</a></li>
-      </ul><li><a href="/ai-compass.html">AI Compass</a></li>
+       <li><a href="/ai-compass.html">AI Compass</a></li> </ul>
 
     </nav>
 
