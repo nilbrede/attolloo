@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Attolloo Polaris – Klarhet, fokus og beslutninger</title>
+  <title>Attolloo AI Compass™ | Attolloo Group</title>
   <link rel="stylesheet" href="style.css?v=10" />
 </head>
-<body class="page page--polaris">
+<body class="page page--ai-compass">
 
   <div class="page-top-space"></div>
 
   <!-- HERO -->
-  <section class="hero hero--polaris" id="polaris-hero" aria-labelledby="heroTitle">
+  <section class="hero hero--ai-compass" id="ai-compass-hero" aria-labelledby="heroTitle">
     <div class="inner hero-inner">
       <h1 class="hero-title" id="heroTitle"></h1>
       <p id="heroSubtitle" class="preserve-newlines hero-subtitle"></p>
@@ -21,7 +21,7 @@
   <!-- INNHOLD -->
   <main class="container">
     <section class="section">
-      <div class="cards" id="polaris-sections"></div>
+      <div class="cards" id="ai-compass-sections"></div>
     </section>
   </main>
 
@@ -29,36 +29,37 @@
   <div id="footer"></div>
 
   <script>
-    // Last Polaris-data
-    (async function loadPolaris() {
+    // Last AI Compass-data
+    (async function loadAiCompass() {
       try {
-        const res = await fetch("data/polaris.json?v=" + Date.now(), { cache: "no-store" });
+        const res = await fetch("data/ai-compass.json?v=" + Date.now(), { cache: "no-store" });
         const data = await res.json();
 
         // HERO
         document.getElementById("heroTitle").textContent = data.title || "";
         document.getElementById("heroSubtitle").textContent = data.subtitle || "";
 
-        const hero = document.getElementById("polaris-hero");
+        const hero = document.getElementById("ai-compass-hero");
         const img = data.hero_image || data.image || "";
         if (img) {
           hero.style.setProperty("--hero-img", `url(${img})`);
-          hero.style.backgroundImage = `linear-gradient(135deg, rgba(5,20,40,0.75), rgba(5,20,40,0.4)), url(${img})`;
+          hero.style.backgroundImage =
+            `linear-gradient(135deg, rgba(5,20,40,0.75), rgba(5,20,40,0.4)), url(${img})`;
           hero.classList.add("has-image");
         } else {
           hero.classList.remove("has-image");
         }
 
         // SEKSJONER
-        const wrap = document.getElementById("polaris-sections");
+        const wrap = document.getElementById("ai-compass-sections");
         const sections = Array.isArray(data.sections) ? data.sections : [];
         if (!sections.length) {
-          wrap.innerHTML = "<p>Innhold for Polaris er ikke publisert ennå.</p>";
+          wrap.innerHTML = "<p>Innhold for AI Compass er ikke publisert ennå.</p>";
           return;
         }
 
         wrap.innerHTML = sections.map(s => `
-          <article class="card card--polaris">
+          <article class="card card--ai-compass">
             ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ""}
             <div class="card_body">
               ${s.heading ? `<h2 class="card_title">${s.heading}</h2>` : ""}
@@ -67,7 +68,7 @@
           </article>
         `).join("");
       } catch (e) {
-        console.error("Klarte ikke laste data/polaris.json", e);
+        console.error("Klarte ikke laste data/ai-compass.json", e);
       }
     })();
 
