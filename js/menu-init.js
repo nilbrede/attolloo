@@ -83,7 +83,7 @@
         <!-- Om oss og Blogg -->
         <li><a href="/about.html">Om oss</a></li>
         <li><a href="/blog/">Blogg</a></li>
-       <li><a href="/startups.html">Startups &amp; Scaleups</a></li>
+       <li><a href="/startups.html">Attolloo 6Sense</a></li>
 
       </ul>
     </nav>
