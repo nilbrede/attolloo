@@ -141,6 +141,27 @@ collections:
               - { name: body, label: "Tekst", widget: "markdown" }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
+  # AI Compass (ai-compass.json)
+  - label: "AI Compass"
+    name: "ai_compass"
+    files:
+      - label: "AI Compass-side"
+        name: "ai_compass"
+        file: "data/ai-compass.json"
+        fields:
+          - { name: title, label: "Tittel (hero)", widget: "string" }
+          - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
+          - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: sections
+            label: "Seksjoner"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { name: heading, label: "Overskrift", widget: "string" }
+              - { name: body, label: "Tekst", widget: "markdown" }
+              - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
+
+
   # Blogginnlegg (posts)
   - label: "Blogginnlegg"
     name: "posts"
