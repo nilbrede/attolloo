@@ -81,10 +81,10 @@ collections:
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
   # Startups & Scaleups (startups.json)
-  - label: "Startups & Scaleups"
+  - label: "Attolloo 6Sense"
     name: "startups"
     files:
-      - label: "Startups & Scaleups-side"
+      - label: "Attolloo 6Sense"
         name: "startups"
         file: "data/startups.json"
         fields:
@@ -157,3 +157,11 @@ collections:
       - { label: "Ingress", name: "excerpt", widget: "text" }
       - { label: "Innhold", name: "body", widget: "markdown" }
       - { label: "Bilde", name: "image", widget: "image", choose_url: true, required: false }
+         
+          - label: "Teaser-seksjoner"
+            name: "teasers"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Tittel", name: "title", widget: string }
+              - { label: "Tekst", name: "text", widget: text }
