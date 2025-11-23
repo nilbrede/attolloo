@@ -70,7 +70,7 @@
 
        <!-- Arenaer – Polaris & Lumina -->
 <li class="has-mega">
-  <button class="nav-parent" aria-expanded="false">Arenaer – Polaris &amp; Lumina</button>
+  <button class="nav-parent" aria-expanded="false">Arenaer</button>
   <div class="mega" role="region" aria-label="Arenaer, Polaris og Lumina, undermeny">
     <div class="mega-col">
       <a href="/polaris.html">Polaris</a>
