@@ -258,7 +258,7 @@ a:hover { text-decoration: underline; }
 }
 /* --- Attolloo: logo sizing fallback --- */
 .site-header .site-logo img {
-  height: 64px;
+  height: 100px;
   width: auto;
   max-width: 180px;
   object-fit: contain;
