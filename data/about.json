@@ -1,27 +1,22 @@
 {
   "hero_image": "/images/uploads/sergei-a-helwtuan3c-unsplash.jpg",
   "title": "Om Attolloo",
-  "subtitle": "Attolloo er et nordisk miljø for AI- og tech-selskaper som ønsker å vokse med klarhet, fokus og gjennomføring.\n\nVi hjelper små team å skape stor effekt gjennom tydelige prioriteringer og sterk beslutningskapasitet.",
+  "subtitle": "Attolloo er grunnlagt av Nils Johan Brede — norsk leder med 35 år erfaring fra bla IBM, NKI, PwC, Watchcom og Statens Pensjonskasse. Vi kombinerer dyp organisasjons- , tech og sikkerhetsfaglig erfaring med akademisk forankret metodikk for å hjelpe ledere og AI-drevne oppstartsvirksomheter å skape varig verdi.",
   "sections": [
     {
-      "heading": "Grunnlagt av en leder med erfaring fra høyt trykk og stor kompleksitet",
-      "body": "Attolloo er etablert av Nils Johan Brede, direktør i en statlig virksomhet med ansvar for HR og sikkerhet på øverste nivå.\n\nHan har ledet store omstillinger, bygget tverrfaglige organisasjoner og utviklet moderne arbeidsformer i miljøer med høye krav, regulatorisk kompleksitet og sterk endringstakt.\n\nTidligere har han vært administrerende direktør i et cybersikkerhetsselskap og leder i privat rådgivning.\n\nKjernen i arbeidet hans har vært å skape klarhet, kapasitet og gjennomføring i team som må levere raskt og riktig — erfaringen som ligger bak Polaris, 6Sense og Lumina.",
+      "heading": "Grunnlegger og leder",
+      "body": "Nils Johan Brede er en norsk leder med ca. 35 år erfaring i toppledelse på tvers av bla IBM, NKI, PwC, Watchcom og Statens Pensjonskasse (SPK) — Norges største offentlige pensjonskasse, med forvaltningsansvar for ca. én million offentlig ansattes pensjonsrettigheter. Hans erfaring i samtidige roller som HR-direktør og Chief Security Officer ved SPK gir Attolloo en uvanlig kombinasjon: mennesker og strategi, teknologi og sikkerhet — alt innenfor et av Norges mest regulerte institusjonelle miljøer. Attolloo er det strukturerte uttrykket for en overbevisning utviklet gjennom 35 år: at erfaren eksekutiv ledelse, tilført tidlig nok, skaper mer varig verdi enn kapital alene.",
       "image": "/images/uploads/img_20240413_122438_hdr.jpg"
     },
     {
-      "heading": "Hva er Attolloo?",
-      "body": "Attolloo er et nordisk miljø for AI- og tech-selskaper som ønsker å vokse med klarhet, fokus og gjennomføring.\n\nVi er utviklet for team som står i høyt tempo og økende kompleksitet, og som vil skape stor effekt med små organisasjoner.",
+      "heading": "Attolloo Lab - venture builder modellen",
+      "body": "Gjennom Attolloo Lab identifiserer, kvalifiserer og utvikler vi AI-drevne oppstartsvirksomheter i regulerte bransjer — der kunstig intelligens kan forstyrre etablerte tjenestemodeller og der regulatorisk kompleksitet skaper et forsvarbart konkurransefortrinn.Vi opererer som kompetanseinvestor. Bidrag er kompetanse, metodikk og styringserfaring. Kompensasjonen er eierandel. Verdien realiseres ved exit. Dette gir full interessesammenfall med virksomhetene vi utvikler.Modellen er enkel og tydelig: kapital er en råvare. Lederskap er det ikke.",
       "image": "/images/uploads/about-hero.jpeg"
     },
     {
-      "heading": "Hva vi gjør",
-      "body": "Vi hjelper lederteam å ta tydelige beslutninger, prioritere hardere og skape fremdrift som holder i praksis.\n\nArbeidet vårt handler om retning, kapasitet og gjennomføring — ikke flere prosesser eller større organisasjon tidlig.",
+      "heading": "Metodikk og akademisk forankring",
+      "body": "Attolloos metodikk er bygget på fire egenutviklede rammeverk: 6Sense som beslutnings- og kvalifiseringsverktøy, Polaris som nordisk sprintarena, Lumina som sør-europeisk refleksjonsarena, og AI Compass som navigasjonsrammeverk for ansvarlig AI-implementering.Disse metodene utvikles løpende og forankres akademisk gjennom et dobbelt masterprogram i MBA og Digital Business ved ENEB Barcelona — et program der hvert modul bygger ett funksjonelt element i Attolloo Labs metodiske fundament. Business Plan-modulen (Q1 2027) vil produsere det fullstendige investordokumentet for Attolloo Lab.Kombinasjonen av 35 år operativ erfaring og pågående akademisk fordypning er ikke tilfeldig. Det er Attolloo Labs viktigste differensiator.",
       "image": "/images/uploads/pexels-fauxels-3182781.jpg"
-    },
-    {
-      "heading": "Hvordan vi jobber",
-      "body": "Metoden vår bygger på tre kjerneelementer:\n\n**Polaris** for klare prioriteringer og en 90-dagers plan.\n\n**Attolloo 6Sense Framework** for økt fokus og beslutningskvalitet.\n\n**Lumina** for utsyn, energi og utholdenhet når veksten krever mer enn tempo.",
-      "image": "/images/uploads/home-hero.jpeg"
     }
   ]
 }
