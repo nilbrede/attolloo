@@ -63,7 +63,7 @@
               <a href="/startups.html">6Sense Filter™</a>
               <a href="/ai-compass.html">AI Compass™</a>
               <a href="/polaris.html">Polaris Sprints™</a>
-              <a href="/kando.html">KANDO Framework™</a>
+              <a href="/lumina.html">KANDO Framework™</a>
             </div>
           </div>
         </li>
