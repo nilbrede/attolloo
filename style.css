@@ -356,3 +356,74 @@ a:hover { text-decoration: underline; }
 .page--lumina .card--lumina .card_title {
   font-size: 1.4rem;
 }
+/* Tvinger forside-kortene til å ligge i et symmetrisk 2x2 grid */
+.cards {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important; /* 2 like store kolonner */
+  gap: 28px !important; /* Avstand mellom kortene */
+  max-width: 1050px !important;
+  margin: 40px auto !important;
+}
+
+/* Gjør at alle kortene har lik høyde og ryddig tekstjustering */
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card_body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Mobilvisning: Legger kortene under hverandre på smale skjermer */
+@media (max-width: 768px) {
+  .cards {
+    grid-template-columns: 1fr !important;
+  }
+}
+/* Mørkt slør over hero-bildet for perfekt kontrast */
+.hero {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  color: #ffffff !important;
+  padding: 90px 20px !important;
+  text-align: center;
+}
+
+/* Legger et mørkt, halvtransparent lag oppå bakgrunnsbildet */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(7, 20, 34, 0.65); /* 65% mørk toning */
+  z-index: 1;
+}
+
+/* Sørger for at teksten ligger foran det mørke laget */
+.hero .inner {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  color: #ffffff !important;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.hero p {
+  color: #e2e8f0 !important;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
