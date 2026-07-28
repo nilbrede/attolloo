@@ -1,17 +1,27 @@
 {
-  "title": "Lumina — Data & Marketing Analytics Platform",
-  "subtitle": "Lumina delivers data-driven visibility, predictive marketing analytics, and executive dashboards for early-stage and scaling ventures operating in high-complexity markets.",
+  "title": "KANDO Framework™",
+  "subtitle": "The systematic conversion of operational experience into strategic organisational knowledge — and of raw data into genuine customer value.",
   "hero_image": "/images/uploads/tuscany-italy-2023-floral-design-retreat-wine-tasting-600x450.jpg",
   "sections": [
     {
-      "heading": "Predictive Data Architecture",
-      "body": "Lumina translates raw operational data and market signals into actionable decision metrics. By combining Big Data patterns with automated KPI tracking, Lumina gives venture leaders real-time control over growth performance, customer acquisition dynamics, and capital velocity.",
+      "heading": "What KANDO Means",
+      "body": "KANDO draws on Nonaka's dynamic theory of organisational knowledge creation and Sony Corporation's philosophy of creating value that genuinely exceeds customer expectations. In Attolloo's B2B venture context, KANDO means creating value for portfolio companies that exceeds what they could access in the open market — combining executive depth, regulatory intelligence, and structured methodology.\n\n\n\nKANDO is the answer to the question that closes every Polaris Sprint: are we creating value that genuinely exceeds market expectations?",
       "image": "/images/uploads/italia1.jpg"
     },
     {
-      "heading": "Core Capabilities",
-      "body": "`• **Attribution & Unit Economics:** Continuous tracking of CLV, CAC, and unit margin health.`\n\n`• **Automated Compliance & Audit Trail:** Built-in governance reporting tailored for regulated domains.`\n\n`• **Executive Dashboards:** Clean, high-impact visual models designed for board oversight and investor reporting.`\n\n``",
+      "heading": "Negative Events as Intelligence",
+      "body": "`KANDO reframes how ventures relate to failure signals. Returns, complaints, churn, and audit findings are direct, unambiguous evidence of the gap between customer expectation and product reality.`\n\n``\n\n`Treated as intelligence events rather than administrative costs, these signals power a continuous product improvement engine. The company that listens to its failure data builds better products faster; the one that processes them as admin absorbs the cost and repeats the mistake.`",
       "image": "/images/uploads/italia9.jpg"
+    },
+    {
+      "heading": "Transparency as Pricing Power",
+      "body": "In regulated sectors, verified transparency shifts willingness-to-pay. When a company can demonstrate — not just claim — regulatory compliance, data integrity, and governance maturity, that verification becomes a market positioning mechanism, not just a compliance checkbox.\n\n\n\nThis is KANDO in market-facing form: the value the customer perceives must be designed into the product and distribution model, not asserted in marketing.",
+      "image": "/images/uploads/img_20201128_112844_1.jpg"
+    },
+    {
+      "heading": "Knowledge That Survives the Founder",
+      "body": "The Attolloo methodology stack itself is a KANDO artefact — tacit executive judgement converted, module by module, into explicit, teachable, exit-valuable frameworks. This is what makes Attolloo's contribution investable: not advisory opinions, but transferable methodology that increases enterprise value independently of any single person.\n\n\n\nIf you want to understand how KANDO applies to your operational challenges, reach out: nils.johan@attolloogroup.com",
+      "image": "/images/uploads/20251108_145149.jpg"
     }
   ]
 }
