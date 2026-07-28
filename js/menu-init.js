@@ -36,7 +36,7 @@
     });
   }
 
-  // 3) Build new header (clean, English, high-impact)
+ // 3) Build new header (clean, working links)
   function buildHeader() {
     const html = `
 <header class="site-header">
@@ -59,8 +59,7 @@
           <button class="nav-parent" aria-expanded="false">Attolloo Lab</button>
           <div class="mega" role="region" aria-label="Attolloo Lab submenu">
             <div class="mega-col">
-              <h4>Venture Studio &amp; Stack</h4>
-              <a href="/lab.html">Overview &amp; Method</a>
+              <h4>Proprietary Stack</h4>
               <a href="/startups.html">6Sense Filter™</a>
               <a href="/ai-compass.html">AI Compass™</a>
               <a href="/polaris.html">Polaris Sprints™</a>
@@ -74,9 +73,6 @@
         <!-- About -->
         <li><a href="/about.html">About</a></li>
 
-        <!-- Contact -->
-        <li><a href="/contact.html">Contact</a></li>
-
       </ul>
     </nav>
 
@@ -86,6 +82,7 @@
     wrapper.innerHTML = html.trim();
     return wrapper.firstElementChild;
   }
+
 
   // 4) Mount when CSS is ready
   async function mountHeader() {
