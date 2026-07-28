@@ -1,17 +1,22 @@
 {
   "title": "Executive-as-a-Service (EaaS)",
-  "subtitle": "Capital is a commodity. Senior executive leadership capable of navigating regulatory complexity, security architecture, and organizational scaling is scarce.",
+  "subtitle": "Capital is a commodity. Senior executive leadership capable of navigating regulatory complexity, security architecture, and organisational scaling is scarce — and that scarcity is precisely what Attolloo provides.",
   "hero_image": "/images/uploads/img_20231201_161440.jpg",
   "sections": [
     {
       "heading": "The Competence Investment Thesis:",
-      "body": "Attolloo contributes senior executive capacity (CEO governance, CSO risk architecture, HR Director leadership) in exchange for equity or performance-based revenue share — without deploying dilutive capital.",
+      "body": "Attolloo contributes senior executive capacity — CEO governance, CSO risk architecture, HR Director leadership — in exchange for equity or performance-based revenue share. No dilutive capital is deployed. The investment is time, expertise, and methodology. The return is equity at exit.\n\nThis model works because experienced executive leadership with regulatory depth is genuinely scarce at the early stage, and its absence is the primary reason high-potential ventures in regulated sectors stall or fail.",
       "image": "/images/uploads/business-team-of-diverse-colleagues-meeting-in-boardroom-with-mentor-2pkncd4.jpg"
     },
     {
-      "heading": "Engagement Roles:",
-      "body": "* Board Member: `Strategic direction, investor relations, and EMV decision frameworks.`\n\n* Strategic Adviser: `Framework deployment (Polaris 90-day sprints, 6Sense evaluation).`\n\n* Operative Partner: `Hands-on leadership in critical transition periods (interim CEO/CSO/HR).`",
+      "heading": "Three Engagement Roles",
+      "body": "* `Board Member — Strategic direction, investor relations, governance structure, and EMV-based decision frameworks.`\n* `Strategic Adviser — Framework deployment across the full 4-Pillar Stack: 6Sense qualification, Polaris sprint design, AI Compass diagnostic, KANDO operational excellence.`\n* `Operative Partner — Hands-on interim leadership (CEO, CSO, or HR Director) during critical transition periods: funding rounds, regulatory audits, market entry, or leadership gaps.`",
       "image": "/images/uploads/tuscany-italy-2023-floral-design-retreat-wine-tasting-600x450.jpg"
+    },
+    {
+      "heading": "Who This Is For",
+      "body": "Attolloo works with asset-light AI startups with broad customer addressability, operating in sectors where regulatory complexity creates both risk and competitive moat: fintech, regtech, legal tech, health data, cybersecurity-as-a-service, HR tech, compliance automation, and sustainability reporting.\n\nIf your company fits this profile and needs C-level depth — not just capital — reach out: nils.johan@attolloogroup.com",
+      "image": "/images/uploads/about-hero.jpeg"
     }
   ]
 }
