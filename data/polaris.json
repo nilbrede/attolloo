@@ -2,5 +2,16 @@
   "title": "Polaris Sprints",
   "subtitle": "90-day execution sprints using hybrid agile patterns, RACI matrices, and Capital Velocity Audits to unlock working capital.",
   "hero_image": "/images/uploads/img_20231201_161514.jpg",
-  "sections": []
+  "sections": [
+    {
+      "heading": "Hybrid Agile Execution Cycles",
+      "body": "Polaris Sprints™ combine high-velocity Scrum/Kanban cycles for product development with gated milestone patterns for regulatory governance. This dual-layer approach allows teams to iterate rapidly while maintaining full auditability.",
+      "image": "/images/uploads/a9069838-a295-45dc-8f0c-731d23c88646.png"
+    },
+    {
+      "heading": "Capital Velocity & Bottleneck Removal",
+      "body": "Applying Theory of Constraints (TOC) and RACI matrices, each 90-day sprint targets working capital bottlenecks. We shorten operational lead times, optimize Cash Conversion Cycles (CCC), and accelerate path-to-market.",
+      "image": "/images/uploads/photo-1429962714451-bb934ecdc4ec.avif"
+    }
+  ]
 }
