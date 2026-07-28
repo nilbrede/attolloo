@@ -1,17 +1,22 @@
 {
   "hero_image": "/images/uploads/sergei-a-helwtuan3c-unsplash.jpg",
   "title": "Leadership & Background",
-  "subtitle": "Attolloo Group is led by Nils Johan Brede — combining four decades of operational computer science, executive leadership, and academic rigor.",
+  "subtitle": "Attolloo Group is founded and led by Nils Johan Brede — combining four decades of operational computer science, executive leadership, and academic rigour into a single methodology stack.",
   "sections": [
     {
-      "heading": "40-Year Thread:",
-      "body": "From algorithmic computing and economics at the University of Oslo (1983), through founding municipal internet portal networks (Lokalnett), cybersecurity turnaround (CEO Watchcom), and leading Privacy Tech at PwC Europe, to serving as CSO & HR Director at SPK.",
+      "heading": "The 40-Year Thread:",
+      "body": "From algorithmic computing and economics at the University of Oslo (1983), through founding municipal internet portal networks (Lokalnett AS), leading cybersecurity turnaround as CEO of Watchcom, and directing Privacy Tech at PwC Europe — to serving as CSO & HR Director at SPK (Statens Pensjonskasse). Each role added a layer: governance, regulatory navigation, technical architecture, organisational leadership.",
       "image": "/images/uploads/img_20240413_122438_hdr.jpg"
     },
     {
       "heading": "Academic Capstone:",
-      "body": "Currently completing a Double Master in MBA & Master of Digital Business at ENEB Barcelona (Course grade: 95.36). The methodology stack represents 20+ years of applied practice academically validated through formal research.",
-      "image": "/images/uploads/about-hero.jpeg"
+      "body": "Currently completing a Double Master in MBA & Master of Digital Business at ENEB Barcelona (Course grade: 95.36 — consecutive 10.0 scores across Digital Business, Digital Transformation, Fintech & Blockchain, and Big Data). The Attolloo methodology stack represents 20+ years of applied executive practice, now being academically validated and formalised through the programme.",
+      "image": "/images/uploads/services-hero.jpeg"
+    },
+    {
+      "heading": "Why Attolloo Exists",
+      "body": "Most early-stage AI companies in regulated sectors have access to capital. What they lack is experienced executive leadership capable of translating regulatory complexity into competitive moat — and structured methodology to govern execution at the speed a startup demands. Attolloo contributes exactly that, in exchange for equity.\n\n\n\nThe name draws on Latin (to elevate) and Greek (to foster/flourish).",
+      "image": "/images/uploads/1679ac19-5304-4f26-93a9-7ddb182fbf43~1.jpg"
     }
   ]
 }
