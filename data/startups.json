@@ -2,5 +2,16 @@
   "title": "6Sense Filter",
   "subtitle": "Six-dimensional qualification screening evaluating Direction, Energy (CLV:CAC ≥ 3:1), Capacity, Prioritisation, Risk (EMV models), and Decision governance.",
   "hero_image": "/images/uploads/business-team-of-diverse-colleagues-meeting-in-boardroom-with-mentor-2pkncd4.jpg",
-  "sections": []
+  "sections": [
+    {
+      "heading": "The 6-Dimensional Qualification Architecture",
+      "body": "The 6Sense Filter™ evaluates ventures across six operational pillars: Direction, Energy (CLV:CAC ≥ 3:1), Capacity (OEE & CCC metrics), Prioritisation, Risk (Expected Monitory Value models), and Decision Governance. Decision capability holds absolute veto power — ensuring strategic alignment before capital deployment.",
+      "image": "/images/uploads/1679ac19-5304-4f26-93a9-7ddb182fbf43~1.jpg"
+    },
+    {
+      "heading": "Regulated Domain De-risking",
+      "body": "Traditional venture frameworks fail in high-barrier industries. 6Sense embeds compliance, cybersecurity, and data architecture requirements directly into early-stage evaluation, turning regulatory constraints into durable competitive moats.",
+      "image": "/images/uploads/lizrwvberuuzqoowjuen_photoaday_csd-1-of-1-5.avif"
+    }
+  ]
 }
