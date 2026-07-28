@@ -1,7 +1,7 @@
-// menu-init.js — New clean version with correct anchors, stable init, no legacy items
+// menu-init.js — Updated clean English menu for Attolloo Group
 (function () {
 
-  // 0) Remove stray blog links (as before)
+  // 0) Remove stray legacy blog links if present
   document.querySelectorAll(
     'body > a[href*="blog"], body > a[href*="blogg"], body > ul > li > a[href*="blog"], body > ul > li > a[href*="blogg"]'
   ).forEach(el => {
@@ -36,56 +36,48 @@
     });
   }
 
-  // 3) Build new header (clean, updated)
+  // 3) Build new header (clean, English, high-impact)
   function buildHeader() {
     const html = `
 <header class="site-header">
   <div class="container">
 
-    <a class="site-logo" href="/index.html" aria-label="Til forsiden">
+    <a class="site-logo" href="/index.html" aria-label="Home">
       <img src="/aab-logo.png" alt="Attolloo logo" />
     </a>
     <span class="site-brand-text">Attolloo Group</span>
 
     <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">
-      <span class="sr-only">Meny</span> ☰
+      <span class="sr-only">Menu</span> ☰
     </button>
 
-    <nav id="primary-nav" class="nav main-nav" aria-label="Hovedmeny">
+    <nav id="primary-nav" class="nav main-nav" aria-label="Main menu">
       <ul class="nav-root">
 
-        <!-- Tjenester -->
+        <!-- Attolloo Lab Mega Menu -->
         <li class="has-mega">
-          <button class="nav-parent" aria-expanded="false">Tjenester</button>
-          <div class="mega" role="region" aria-label="Tjenester undermeny">
+          <button class="nav-parent" aria-expanded="false">Attolloo Lab</button>
+          <div class="mega" role="region" aria-label="Attolloo Lab submenu">
             <div class="mega-col">
-              <h4>Tjenester</h4>
-              <a href="/services.html">Oversikt</a>
-              <a href="/services.html#leadership">Leadership &amp; Culture</a>
-              <a href="/services.html#growth">Growth &amp; Innovation</a>
-              <a href="/services.html#structure">Structure &amp; Scale</a>
+              <h4>Venture Studio &amp; Stack</h4>
+              <a href="/lab.html">Overview &amp; Method</a>
+              <a href="/startups.html">6Sense Filter™</a>
+              <a href="/ai-compass.html">AI Compass™</a>
+              <a href="/polaris.html">Polaris Sprints™</a>
             </div>
           </div>
         </li>
 
-       <!-- Arenaer – Polaris & Lumina -->
-<li class="has-mega">
-  <button class="nav-parent" aria-expanded="false">Arenaer</button>
-  <div class="mega" role="region" aria-label="Arenaer, Polaris og Lumina, undermeny">
-    <div class="mega-col">
-      <a href="/polaris.html">Polaris</a>
-      <a href="/lumina.html">Lumina</a>
-    </div>
-  </div>
-</li>
+        <!-- EaaS Model -->
+        <li><a href="/services.html">EaaS Model</a></li>
 
+        <!-- About -->
+        <li><a href="/about.html">About</a></li>
 
-        <!-- Om oss og Blogg -->
-        <li><a href="/about.html">Om oss</a></li>
-        <li><a href="/blog/">Blogg</a></li>
-       <li><a href="/startups.html">Attolloo 6Sense</a></li>
-       <li><a href="/ai-compass.html">AI Compass</a></li> </ul>
+        <!-- Contact -->
+        <li><a href="/contact.html">Contact</a></li>
 
+      </ul>
     </nav>
 
   </div>
