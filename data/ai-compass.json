@@ -1,27 +1,6 @@
 {
-  "title": "AI Compass — Strategisk navigasjon i en AI-drevet tid",
-  "subtitle": "Et rammeverk for ansvarlig og verdiskapende bruk av kunstig intelligens — langs fire dimensjoner: Retning, Verdi, Beredskap og Integritet.",
+  "title": "AI Compass ",
+  "subtitle": "1 to 5-star digital and organizational maturity diagnostic evaluating data readiness, predictive analytics, and automated compliance.",
   "hero_image": "/images/uploads/img_20231201_161327.jpg",
-  "sections": [
-    {
-      "heading": "Hva er AI Compass",
-      "body": "AI Compass er Attolloos rammeverk for strategisk og ansvarlig bruk av kunstig intelligens i virksomhetsutvikling.\n\nDer mange virksomheter nærmer seg AI gjennom eksperimentering og teknologidrevet entusiasme, gir AI Compass et strukturert beslutningsgrunnlag: hva skal vi egentlig oppnå, er vi klare, skaper det faktisk verdi, og gjør vi det på en måte som er forsvarlig?\n\nRammeverket er utviklet fra erfaring med AI-implementering i regulerte institusjonelle miljøer — der feil ikke er et læringsmoment, men en styringsrisiko.",
-      "image": "/images/uploads/img_20201128_112844_1.jpg"
-    },
-    {
-      "heading": "De fire dimensjonene",
-      "body": "Retning — er AI-satsingen forankret i virksomhetens strategi og tydelige mål, eller er den teknologidrevet uten strategisk hensikt?\n\nVerdi — skaper bruken reell og varig verdi for virksomheten og dens kunder, eller er det aktivitet uten målbar effekt?\n\nBeredskap — har virksomheten kapasitet, kompetanse og organisatorisk modenhet til å lykkes med implementeringen?\n\nIntegritet — brukes teknologien ansvarlig, etisk og i tråd med gjeldende regulatoriske krav og forventninger?\n\nDe fire dimensjonene vurderes samlet. En virksomhet som scorer høyt på Retning og Verdi, men lavt på Beredskap og Integritet, er ikke klar — uansett hvor god ideen er.",
-      "image": "/images/uploads/img_20201107_132654.jpg"
-    },
-    {
-      "heading": "Hva AI Compass gir",
-      "body": "AI Compass gir virksomheter og ledere et felles språk for å diskutere og beslutte AI-satsinger — på tvers av teknologer, forretningsledere og styrerom.\n\nDet gir et strukturert beslutningsgrunnlag som erstatter magefølelse og teknologipress med metodisk vurdering. Det identifiserer gap mellom ambisjon og faktisk beredskap — og gir et tydelig bilde av hva som må adresseres før implementering begynner.\n\nResultatet er AI-satsinger som holder seg over tid, skaper reell verdi og tåler regulatorisk og institusjonell gransking.",
-      "image": "/images/uploads/img_20201105_163707.jpg"
-    },
-    {
-      "heading": "AI Compass i Attolloo Lab",
-      "body": "I Attolloo Labs venture builder-modell er AI Compass det primære navigasjonsverktøyet for porteføljeselskaper som implementerer AI i regulerte bransjer.\n\nAlle fire dimensjoner vurderes systematisk gjennom hele utviklingsløpet — fra tidlig kvalifisering til skalering mot exit. \n\nEt porteføljeselskap som ikke kan demonstrere solid Integritet-scoring, er ikke klar for de regulerte markedene Attolloo Lab opererer i.\n\nAI Compass forankres akademisk gjennom masterstudiet i Digital Business ved ENEB Barcelona, der modulene Big Data, Fintech & Blockchain og Data Management alle bidrar til å styrke det metodiske fundamentet.",
-      "image": "/images/uploads/img_20230408_195814.jpg"
-    }
-  ]
+  "sections": []
 }

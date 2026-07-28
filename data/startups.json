@@ -1,27 +1,6 @@
 {
-  "title": "6Sense — Klarhet i kompleksitet",
-  "subtitle": "Et beslutnings- og kvalifiseringsrammeverk som analyserer seks dimensjoner:\n\n\\- Retning, \n\n\\- Energi, \n\n\\- Kapasitet, \n\n\\- Prioritering, \n\n\\- Risiko og \n\n\\- Beslutning\n\nog gjør komplekse situasjoner forståelige og håndterbare.",
+  "title": "6Sense Filter",
+  "subtitle": "Six-dimensional qualification screening evaluating Direction, Energy (CLV:CAC ≥ 3:1), Capacity, Prioritisation, Risk (EMV models), and Decision governance.",
   "hero_image": "/images/uploads/business-team-of-diverse-colleagues-meeting-in-boardroom-with-mentor-2pkncd4.jpg",
-  "sections": [
-    {
-      "heading": "Hva Attolloo 6Sense er?",
-      "body": "6Sense er Attolloos beslutnings- og kvalifiseringsrammeverk for komplekse situasjoner og strategiske vurderinger.Rammeverket analyserer seks dimensjoner og gir et helhetlig bilde av en virksomhets eller en leders handlingsrom — hva som faktisk er mulig å gjennomføre i den gitte konteksten, og hva som blokkerer fremdrift.\n\n6Sense brukes i to roller: som refleksjons- og beslutningsverktøy for ledere og team i krevende situasjoner, og som kvalifiseringsfilter i Attolloo Labs vurdering av potensielle porteføljeselskaper.",
-      "image": "/images/uploads/about-hero.jpeg"
-    },
-    {
-      "heading": "De 6 dimensjonene",
-      "body": "\\- Retning — er det tydelig hva virksomheten eller lederen beveger seg mot, og hvorfor?\n\n\\- Energi — finnes det tilstrekkelig vilje, motivasjon og driv til å gjennomføre det som kreves?\n\n\\- Kapasitet — har virksomheten den reelle kapabiliteten, ressursene og kompetansen som trengs?\n\n\\- Prioritering — er de viktigste tingene faktisk prioritert, eller drukner de i operativt støy?\n\n\\- Risiko — er de vesentligste risikoene identifisert, forstått og håndterbare?\n\n\\- Beslutning — er beslutningstakerne i stand til å ta de nødvendige valgene med den informasjonen de har?\n\nSamlet gir de seks dimensjonene et presist bilde av hva som er mulig å gjennomføre — og hva som må adresseres først.",
-      "image": "/images/uploads/pexels-fauxels-3182781.jpg"
-    },
-    {
-      "heading": "Slik brukes 6Sense",
-      "body": "6Sense brukes som oppstartspunkt i alle Attolloo-prosesser — det er kartleggingsverktøyet som avklarer hva som faktisk er mulig og hva som må adresseres før vi går videre.\n\nI lederutviklings-sporet brukes 6Sense til å skape felles forståelse og beslutningsgrunnlag i ledergruppper og team — spesielt i situasjoner der tempo, teknologi og forventninger presser simultant. \n\nI Attolloo Lab brukes 6Sense som den primære kvalifiseringsmodellen: alle seks dimensjoner vurderes systematisk før en oppstartsvirksomhet kvalifiseres for videre samarbeid.",
-      "image": "/images/uploads/img_20220210_184620.jpg"
-    },
-    {
-      "heading": "6sense i Attolloo Lab",
-      "body": "I Attolloo Labs venture builder-modell er 6Sense det metodiske fundamentet for hele kvalifiseringspipelinen.\n\nNår en potensiell porteføljevirksomhet vurderes, gjennomgår den en systematisk 6Sense-analyse: alle seks dimensjoner kartlegges, gap identifiseres, og en vurdering gjøres av om Attolloos bidrag faktisk kan adressere det som mangler.\n\nRammeverket er utviklet fra 35 år med erfaring fra beslutningsprosesser i komplekse organisasjoner — og forankres akademisk gjennom MBA+Master of Digital Business-studiet ved ENEB Barcelona.",
-      "image": "/images/uploads/sergei-a-helwtuan3c-unsplash.jpg"
-    }
-  ]
+  "sections": []
 }
