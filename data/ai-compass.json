@@ -2,5 +2,16 @@
   "title": "AI Compass ",
   "subtitle": "1 to 5-star digital and organizational maturity diagnostic evaluating data readiness, predictive analytics, and automated compliance.",
   "hero_image": "/images/uploads/img_20231201_161327.jpg",
-  "sections": []
+  "sections": [
+    {
+      "heading": "5-Tier Digital Maturity Diagnostic",
+      "body": "AI Compass™ benchmarks enterprise capabilities on a 1-to-5 star scale — moving organisations from fragmented, manual PDF workflows (1★) through structured API architectures (3★) to fully automated, predictive AI models (5★).",
+      "image": "/images/uploads/20250728_202532.jpg"
+    },
+    {
+      "heading": "Data Infrastructure & Automated Compliance",
+      "body": "Before deploying AI algorithms, systems must be data-ready. AI Compass audits pipeline architecture, synthetic identity integrity, and automated governance to ensure models remain performant, audit-compliant, and secure.",
+      "image": "/images/uploads/img_20201105_163707.jpg"
+    }
+  ]
 }
