@@ -1,17 +1,26 @@
 {
   "title": "Polaris Sprints",
-  "subtitle": "90-day execution sprints using hybrid agile patterns, RACI matrices, and Capital Velocity Audits to unlock working capital.",
+  "subtitle": "Structured 90-day execution sprints that answer one question per cycle: what must be true in 90 days to de-risk the next stage — and how do we get there?",
   "hero_image": "/images/uploads/img_20231201_161514.jpg",
   "sections": [
     {
       "heading": "Hybrid Agile Execution Cycles",
-      "body": "Polaris Sprints™ combine high-velocity Scrum/Kanban cycles for product development with gated milestone patterns for regulatory governance. This dual-layer approach allows teams to iterate rapidly while maintaining full auditability.",
+      "body": "Polaris Sprints™ combine high-velocity Scrum/Kanban cycles for product development with gated milestone patterns for regulatory governance. This dual-layer approach allows teams to iterate rapidly while maintaining full auditability — which is non-negotiable in regulated sectors.\n\n\n\nEach sprint produces evidence, not features. The output is a validated or falsified hypothesis that changes the capital-commitment decision for the next stage.",
       "image": "/images/uploads/a9069838-a295-45dc-8f0c-731d23c88646.png"
     },
     {
       "heading": "Capital Velocity & Bottleneck Removal",
-      "body": "Applying Theory of Constraints (TOC) and RACI matrices, each 90-day sprint targets working capital bottlenecks. We shorten operational lead times, optimize Cash Conversion Cycles (CCC), and accelerate path-to-market.",
+      "body": "Applying Theory of Constraints (TOC) and RACI matrices, each 90-day sprint targets working capital bottlenecks. We shorten operational lead times, optimise Cash Conversion Cycles (CCC), and accelerate path-to-market.\n\n\n\nSprint design begins with one question: where is the highest-bandwidth feedback environment available to test the critical hypothesis? We validate there first, before committing capital to scale.",
       "image": "/images/uploads/photo-1429962714451-bb934ecdc4ec.avif"
+    },
+    {
+      "heading": "Champion Networks for Knowledge Retention",
+      "body": "Every Polaris Sprint that deploys new capability into a portfolio company includes the design of an internal champion network — a super-user layer that ensures knowledge survives the sprint team's exit.\n\n\n\nThis is not optional. Capability that lives only in the deploying team evaporates when the engagement ends. The champion network is the mechanism that converts sprint outcomes into durable organisational change."
+    },
+    {
+      "heading": "Complete Loops — Never Half-Digitise",
+      "body": "Sprint scope must close a full operational loop: capture, process, decide, act. Partial digitisation — where one step of a process is automated while the rest remains manual — creates more risk than no digitisation at all. Polaris design explicitly prevents this.\n\n\n\nIf you want to understand how a Polaris Sprint would apply to your company's current execution challenges, reach out: nils.johan@attolloogroup.com",
+      "image": "/images/uploads/italia1.jpg"
     }
   ]
 }
