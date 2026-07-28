@@ -1,22 +1,17 @@
 {
   "hero_image": "/images/uploads/sergei-a-helwtuan3c-unsplash.jpg",
-  "title": "Om Attolloo",
-  "subtitle": "Attolloo er grunnlagt av Nils Johan Brede — norsk leder med 35 år erfaring fra bla IBM, NKI, PwC, Watchcom og Statens Pensjonskasse. Vi kombinerer dyp organisasjons- , tech og sikkerhetsfaglig erfaring med akademisk forankret metodikk for å hjelpe ledere og AI-drevne oppstartsvirksomheter å skape varig verdi.",
+  "title": "Leadership & Background",
+  "subtitle": "Attolloo Group is led by Nils Johan Brede — combining four decades of operational computer science, executive leadership, and academic rigor.",
   "sections": [
     {
-      "heading": "Grunnlegger og leder",
-      "body": "Nils Johan Brede er en norsk leder med ca. 35 år erfaring i toppledelse på tvers av bla IBM, NKI, PwC, Watchcom og Statens Pensjonskasse (SPK) — Norges største offentlige pensjonskasse, med forvaltningsansvar for ca. én million offentlig ansattes pensjonsrettigheter. \n\nHans erfaring i samtidige roller som HR-direktør og Chief Security Officer ved SPK gir Attolloo en uvanlig kombinasjon: mennesker og strategi, teknologi og sikkerhet — alt innenfor et av Norges mest regulerte institusjonelle miljøer. \n\nAttolloo er det strukturerte uttrykket for en overbevisning utviklet gjennom 35 år: at erfaren eksekutiv ledelse, tilført tidlig nok, skaper mer varig verdi enn kapital alene.",
+      "heading": "40-Year Thread:",
+      "body": "From algorithmic computing and economics at the University of Oslo (1983), through founding municipal internet portal networks (Lokalnett), cybersecurity turnaround (CEO Watchcom), and leading Privacy Tech at PwC Europe, to serving as CSO & HR Director at SPK.",
       "image": "/images/uploads/img_20240413_122438_hdr.jpg"
     },
     {
-      "heading": "Attolloo Lab - venture builder modellen",
-      "body": "Gjennom Attolloo Lab identifiserer, kvalifiserer og utvikler vi AI-drevne oppstartsvirksomheter i regulerte bransjer — der kunstig intelligens kan forstyrre etablerte tjenestemodeller og der regulatorisk kompleksitet skaper et forsvarbart konkurransefortrinn.\n\nVi opererer som kompetanseinvestor. Bidrag er kompetanse, metodikk og styringserfaring. Kompensasjonen er eierandel. Verdien realiseres ved exit. \n\nDette gir full interessesammenfall med virksomhetene vi utvikler.Modellen er enkel og tydelig: kapital er en råvare. Lederskap er det ikke.",
+      "heading": "Academic Capstone:",
+      "body": "Currently completing a Double Master in MBA & Master of Digital Business at ENEB Barcelona (Course grade: 95.36). The methodology stack represents 20+ years of applied practice academically validated through formal research.",
       "image": "/images/uploads/about-hero.jpeg"
-    },
-    {
-      "heading": "Metodikk og akademisk forankring",
-      "body": "Attolloos metodikk er bygget på fire egenutviklede rammeverk: \n\n6Sense som beslutnings- og kvalifiseringsverktøy, Polaris som nordisk sprintarena, Lumina som sør-europeisk refleksjonsarena, og AI Compass som navigasjonsrammeverk for ansvarlig AI-implementering.\n\nDisse metodene utvikles løpende og forankres akademisk gjennom et dobbelt masterprogram i MBA og Digital Business ved ENEB Barcelona — et program der hvert modul bygger ett funksjonelt element i Attolloo Labs metodiske fundament. Business Plan-modulen (Q1 2027) vil produsere det fullstendige investordokumentet for Attolloo Lab.\n\nKombinasjonen av 35 år operativ erfaring og pågående akademisk fordypning er ikke tilfeldig. Det er Attolloo Labs viktigste differensiator.",
-      "image": "/images/uploads/pexels-fauxels-3182781.jpg"
     }
   ]
 }
