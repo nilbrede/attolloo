@@ -100,7 +100,6 @@ collections:
               - { name: body, label: "Tekst", widget: "markdown" }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
-
   # Polaris (polaris.json)
   - label: "Polaris"
     name: "polaris"
@@ -121,11 +120,11 @@ collections:
               - { name: body, label: "Tekst", widget: "markdown" }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
-  # Lumina (lumina.json)
-  - label: "Lumina"
+  # Kando Framework (lumina.json)
+  - label: "Kando Framework"
     name: "lumina"
     files:
-      - label: "Lumina-side"
+      - label: "Kando Framework-side"
         name: "lumina"
         file: "data/lumina.json"
         fields:
@@ -161,7 +160,6 @@ collections:
               - { name: body, label: "Tekst", widget: "markdown" }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
-
   # Blogginnlegg (posts)
   - label: "Blogginnlegg"
     name: "posts"
@@ -178,4 +176,3 @@ collections:
       - { label: "Ingress", name: "excerpt", widget: "text" }
       - { label: "Innhold", name: "body", widget: "markdown" }
       - { label: "Bilde", name: "image", widget: "image", choose_url: true, required: false }
-
