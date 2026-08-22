@@ -5,22 +5,22 @@
   "sections": [
     {
       "heading": "What AI Compass Measures",
-      "body": "AI Compass™ evaluates an organisation across four navigational points:\n\n\\- Direction — Is the AI deployment aimed at the right business problem, with a clear hypothesis?\n\n\\- Value — Does the model create measurable, decision-driving value — or just produce dashboards?\n\n\\- Readiness — Do people, processes, and data infrastructure support deployment without creating insider risk?\n\n\\- Integrity — Is the system lawful, auditable, and architecturally compliant with GDPR and sector-specific regulation?",
+      "body": "AI Compass evaluates an organisation across four navigational dimensions — asking not just whether AI is being used, but whether it is aimed correctly, generating real value, supported by the right infrastructure, and architecturally sound under regulatory scrutiny.\n\n**Direction**\nIs the AI deployment aimed at the right business problem, with a clear and testable hypothesis?\n\n**Value**\nDoes the model create measurable, decision-driving value — or just produce dashboards?\n\n**Readiness**\nDo people, processes, and data infrastructure support deployment without creating insider risk or operational fragility?\n\n**Integrity**\nIs the system lawful, auditable, and architecturally compliant with GDPR, EU AI Act, and sector-specific regulation?\n\n",
       "image": "/images/uploads/20250728_202532.jpg"
     },
     {
       "heading": "The 5-Tier Maturity Scale",
-      "body": "AI Compass benchmarks capabilities on a 1-to-5 star scale:\n\n1★ Fragmented — Manual PDF workflows, no structured data layer, decisions made by instinct.\n\n2★ Structured — Basic reporting, spreadsheet-driven analytics, partial digitisation.\n\n3★ Integrated — API-connected systems, descriptive analytics, some automation.\n\n4★ Predictive — Machine learning models informing decisions, governed data pipelines.\n\n5★ Autonomous — Fully automated, predictive AI with closed-loop compliance and real-time governance.\n\nMost early-stage ventures arrive at 1–2★. AI Compass maps the gap and prescribes a sequenced path forward.",
+      "body": "AI Compass benchmarks capabilities on a 1-to-5 star scale. Most early-stage ventures arrive at 1-2 stars. The diagnostic maps the gap and prescribes a sequenced path forward.\n\n**1 star — Fragmented**\nManual and PDF-based workflows. No structured data layer. Decisions made by instinct. High operational risk in any regulated context.\n\n**2 stars — Structured**\nBasic reporting. Spreadsheet-driven analytics. Partial digitisation. Compliance documentation exists but is not integrated with operations.\n\n**3 stars — Integrated**\nAPI-connected systems. Descriptive analytics. Some automation. Reporting is consistent but not yet predictive.\n\n**4 stars — Predictive**\nMachine learning models informing decisions. Governed data pipelines. Active channel management. Demand forecasting using exponential smoothing or ML.\n\n**5 stars — Autonomous**\nFully automated, predictive AI with closed-loop compliance and real-time governance. Linked Open Data. AI-driven decision systems with human oversight architecturally designed in.\n",
       "image": "/images/uploads/img_20201105_163707.jpg"
     },
     {
       "heading": "  Data Infrastructure & Automated Compliance",
-      "body": "Before deploying AI algorithms, systems must be data-ready. AI Compass audits pipeline architecture, synthetic identity integrity, and automated governance to ensure models remain performant, audit-compliant, and legally defensible.\n\nIn regulated sectors, this is not optional — it is the difference between a competitive moat and a regulatory liability. The diagnostic output feeds directly into the Polaris Sprint design and the 6Sense qualification score.",
+      "body": "Before deploying AI algorithms, systems must be data-ready. AI Compass audits pipeline architecture, synthetic identity integrity, and automated governance to ensure models remain performant, auditable, and legally defensible.\n\nIn regulated sectors, this is not optional — it is the difference between a competitive asset and a regulatory liability. The diagnostic output feeds directly into the Polaris Framework sprint design and the 6Sense qualification score.\n\nCompanies using ML-based demand forecasting score 4 stars or above. Companies relying on sales intuition score 1-2 stars and are flagged as high operational risk.\n",
       "image": "/images/uploads/img_20230407_132746_hdr.jpg"
     },
     {
-      "heading": "How to Engage",
-      "body": "AI Compass is deployed as part of the Attolloo EaaS engagement — typically following initial 6Sense qualification screening. If you want to understand where your organisation sits on the maturity scale, reach out: nils.johan@attolloogroup.com",
+      "heading": "Understand Where You Are",
+      "body": "AI Compass is deployed as part of the Attolloo EaaS engagement, typically following initial 6Sense qualification screening. If you want to understand where your organisation sits on the maturity scale — and what the sequenced path forward looks like — reach out.\n\nnils.johan@attolloogroup.com\n",
       "image": "/images/uploads/20250726_204600.jpg"
     }
   ]
