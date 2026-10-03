@@ -1,9 +1,51 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Om oss – Attolloo Group</title>
+  <title>About – Attolloo Group</title>
+  <meta name="description" content="Attolloo Group is founded and led by Nils Johan Brede: four decades of executive experience in regulated markets, built into one validated methodology stack." />
+  <link rel="canonical" href="https://attolloogroup.com/about.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Attolloo Group" />
+  <meta property="og:title" content="About – Attolloo Group" />
+  <meta property="og:description" content="Attolloo Group is founded and led by Nils Johan Brede: four decades of executive experience in regulated markets, built into one validated methodology stack." />
+  <meta property="og:url" content="https://attolloogroup.com/about.html" />
+  <meta property="og:image" content="https://attolloogroup.com/images/uploads/sergei-a-helwtuan3c-unsplash.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "@id": "https://attolloogroup.com/about.html#webpage",
+        "url": "https://attolloogroup.com/about.html",
+        "name": "About – Attolloo Group",
+        "description": "Attolloo Group is founded and led by Nils Johan Brede: four decades of executive experience in regulated markets, built into one validated methodology stack.",
+        "inLanguage": "en",
+        "isPartOf": {
+          "@id": "https://attolloogroup.com/#website"
+        },
+        "about": {
+          "@id": "https://attolloogroup.com/#organization"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://attolloogroup.com/#website",
+        "url": "https://attolloogroup.com/",
+        "name": "Attolloo Group"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://attolloogroup.com/#organization",
+        "name": "Attolloo Group AS",
+        "url": "https://attolloogroup.com/"
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="style.css?v=9" />
 </head>
 <body>
@@ -49,7 +91,7 @@
         const wrap = document.getElementById("about-cards");
         const sections = Array.isArray(data.sections) ? data.sections : [];
         if (!sections.length) {
-          wrap.innerHTML = "<p>Ingen innhold publisert ennå.</p>";
+          wrap.innerHTML = "<p>No content published yet.</p>";
           return;
         }
 
