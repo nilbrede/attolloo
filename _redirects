@@ -1,0 +1,11 @@
+# Old backup pages removed in the October 2026 cleanup — send visitors and search engines to the live page
+/index2.html              /                301
+/index3.html              /                301
+/index-ai1.html           /                301
+/index-feil.html          /                301
+/index-fungerer.html      /                301
+/attolloo-new/*           /                301
+/about-fungerer.html      /about.html      301
+/services-fungerer.html   /services.html   301
+/services-old.html        /services.html   301
+/blog/index-backup.html   /blog/           301
