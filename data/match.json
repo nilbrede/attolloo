@@ -1,0 +1,146 @@
+{
+  "title": "Are we a match?",
+  "subtitle": "A two-minute self-test for founders of AI companies in regulated sectors. Four questions about fit, then one for each dimension of the 6Sense Filter.",
+  "intro_heading": "A straight first answer, before the conversation",
+  "intro_body": "Attolloo invests senior executive depth in exchange for equity, and only where it can make a real difference. That means saying no early when the fit is not there.\n\nThis self-test follows the same logic as the 6Sense Filter. It is an indication based on your own answers, not the screening itself. The real screening takes one structured conversation.",
+  "start_label": "Start the self-test",
+  "privacy_note": "Your answers stay in your browser. Nothing is stored or sent unless you choose to email them.",
+  "contact_email": "nils.johan@attolloogroup.com",
+  "questions": [
+    {
+      "group": "fit",
+      "dimension": "Sector",
+      "question": "Which sector does your company operate in?",
+      "help": "Attolloo works where regulatory complexity creates both the risk and the competitive moat.",
+      "options": [
+        { "label": "Fintech, regtech or compliance automation", "score": 2 },
+        { "label": "Legal technology, health data or clinical AI, cybersecurity-as-a-service, or HR technology", "score": 2 },
+        { "label": "Another regulated sector", "score": 1, "note": "Your sector is not on Attolloo's main list. Whether the regulatory depth carries over is a question for the first conversation." },
+        { "label": "A sector without significant regulation", "score": 0, "note": "Attolloo works in sectors where regulatory complexity creates both the risk and the competitive moat." }
+      ]
+    },
+    {
+      "group": "fit",
+      "dimension": "Product",
+      "question": "What do you sell, and to whom?",
+      "help": "",
+      "options": [
+        { "label": "AI-driven software or services, sold to businesses or institutions", "score": 2 },
+        { "label": "Software sold to both businesses and consumers", "score": 1, "note": "Attolloo's focus is products sold to businesses and institutions. The consumer side would need to be discussed." },
+        { "label": "A consumer product, or hardware without a software governance layer", "score": 0, "note": "Consumer-facing products and hardware without a software governance layer are outside Attolloo's scope." }
+      ]
+    },
+    {
+      "group": "fit",
+      "dimension": "Evidence",
+      "question": "What evidence do you have that customers will pay for it?",
+      "help": "",
+      "options": [
+        { "label": "We have paying customers", "score": 2 },
+        { "label": "We have paid pilots or signed letters of intent", "score": 2 },
+        { "label": "We are pre-revenue, with documented evidence that the product solves a real problem for customers who would pay", "score": 1, "note": "Pre-revenue is possible when the evidence of a real, paid-for problem is documented. Bring it to the conversation." },
+        { "label": "We are pre-revenue and have not documented this yet", "score": 0, "note": "Attolloo does not take on pre-revenue ventures without documented evidence that the product solves a real problem for paying customers." }
+      ]
+    },
+    {
+      "group": "fit",
+      "dimension": "Model",
+      "question": "Attolloo contributes executive capacity in exchange for equity or a performance-based revenue share, not fees. Is that a model you are open to?",
+      "help": "",
+      "options": [
+        { "label": "Yes", "score": 2 },
+        { "label": "Possibly, depending on the terms", "score": 1, "note": "The model is equity or a performance-based revenue share. Terms are part of the first conversation." },
+        { "label": "No, we would rather pay fees", "score": 0, "note": "Attolloo contributes executive capacity in exchange for equity or a performance-based revenue share. It does not work for hourly fees." }
+      ]
+    },
+    {
+      "group": "dimension",
+      "dimension": "Direction",
+      "question": "Is the problem real, and can you show it with buying behaviour rather than market-size estimates?",
+      "help": "",
+      "options": [
+        { "label": "Yes. Customers already buy, and we have the data to show it", "score": 2 },
+        { "label": "We see clear demand signals, but the evidence is thin", "score": 1 },
+        { "label": "So far we rely on market-size estimates", "score": 0 }
+      ]
+    },
+    {
+      "group": "dimension",
+      "dimension": "Energy",
+      "question": "Does each customer bring in substantially more than it costs to win them?",
+      "help": "",
+      "options": [
+        { "label": "Yes. We track acquisition cost, payback time and long-term customer value", "score": 2 },
+        { "label": "We believe so, but we do not track it systematically", "score": 1 },
+        { "label": "We do not know yet", "score": 0 }
+      ]
+    },
+    {
+      "group": "dimension",
+      "dimension": "Capacity",
+      "question": "Could your team and infrastructure deliver at several times today's volume?",
+      "help": "",
+      "options": [
+        { "label": "Yes. We have mapped where the constraints are", "score": 2 },
+        { "label": "For a while, but we know something will break", "score": 1 },
+        { "label": "We have not looked at it", "score": 0 }
+      ]
+    },
+    {
+      "group": "dimension",
+      "dimension": "Prioritisation",
+      "question": "Is your roadmap sequenced for capital efficiency, and does your business model generate the data it needs?",
+      "help": "",
+      "options": [
+        { "label": "Yes. It is sequenced by what de-risks the next stage, and the data comes out of operations", "score": 2 },
+        { "label": "The roadmap is clear, but data is collected as needed", "score": 1 },
+        { "label": "The roadmap is mostly a list of features", "score": 0 }
+      ]
+    },
+    {
+      "group": "dimension",
+      "dimension": "Risk",
+      "question": "Have you assessed regulatory exposure, platform dependency and worst-case scenarios, and not only commercial risk?",
+      "help": "",
+      "options": [
+        { "label": "Yes. It is documented and reviewed", "score": 2 },
+        { "label": "We know the main risks, but they are not written down", "score": 1 },
+        { "label": "We have focused on the upside", "score": 0 }
+      ]
+    },
+    {
+      "group": "dimension",
+      "dimension": "Decision",
+      "question": "Does your leadership make structured decisions under uncertainty, with clear owners, documented reasoning and a working board?",
+      "help": "",
+      "options": [
+        { "label": "Yes. Governance is in place and used", "score": 2 },
+        { "label": "Decisions get made, but informally", "score": 1 },
+        { "label": "Decisions are mostly made as issues come up", "score": 0 }
+      ]
+    }
+  ],
+  "results": {
+    "strong": {
+      "heading": "This looks like a match",
+      "body": "You are in a sector Attolloo works in, and you report evidence on all six dimensions. The next step is the screening itself: one structured conversation where that evidence is tested."
+    },
+    "possible": {
+      "heading": "Possibly a match, with gaps to talk through",
+      "body": "The fit is there, but your answers show gaps or open questions. That is common at this stage, and closing governance gaps is the work Attolloo does. It is worth a conversation. Bring the gaps with you."
+    },
+    "not_yet": {
+      "heading": "Probably not a match yet",
+      "body": "Several of the six dimensions are not in place yet. The 6Sense Filter requires all six, so a screening now would most likely end in a no. The dimensions marked \"Not yet\" below are where to start."
+    },
+    "veto": {
+      "heading": "Not a match yet: decision-making comes first",
+      "body": "In the 6Sense Filter, the Decision dimension holds a veto. A company that cannot make structured decisions under uncertainty fails the filter regardless of the other five. Get clear owners, documented reasoning and a working board in place, then take the test again."
+    },
+    "excluded": {
+      "heading": "Not a match for Attolloo",
+      "body": "At least one of your answers falls outside what Attolloo takes on. That says nothing about the quality of your company. It means this model is the wrong tool for it."
+    }
+  },
+  "scoring_note": "Any of the four fit questions can rule a match out. Each of the six dimensions is then rated documented, partly or not yet, based on your answer. No dimension at \"not yet\", at least three documented and a clear fit reads as a match. Decision at \"not yet\" is a veto. Up to two dimensions at \"not yet\" reads as possibly a match, and three or more as not yet.\n\nThis is a self-assessment. The 6Sense screening itself tests the evidence behind each answer."
+}
