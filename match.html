@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Executive-as-a-Service (EaaS) – Attolloo Group</title>
-  <meta name="description" content="Executive-as-a-Service (EaaS): senior executive leadership for regulatory complexity, security architecture and organisational scaling — against equity, not fees." />
-  <link rel="canonical" href="https://attolloogroup.com/services.html" />
+  <title>Are we a match? Self-test – Attolloo Group</title>
+  <meta name="description" content="A two-minute self-test for founders of AI companies in regulated sectors: four questions about fit and one for each dimension of the 6Sense Filter." />
+  <link rel="canonical" href="https://attolloogroup.com/match.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Attolloo Group" />
-  <meta property="og:title" content="Executive-as-a-Service (EaaS) – Attolloo Group" />
-  <meta property="og:description" content="Executive-as-a-Service (EaaS): senior executive leadership for regulatory complexity, security architecture and organisational scaling — against equity, not fees." />
-  <meta property="og:url" content="https://attolloogroup.com/services.html" />
+  <meta property="og:title" content="Are we a match? Self-test – Attolloo Group" />
+  <meta property="og:description" content="A two-minute self-test for founders of AI companies in regulated sectors: four questions about fit and one for each dimension of the 6Sense Filter." />
+  <meta property="og:url" content="https://attolloogroup.com/match.html" />
   <meta property="og:image" content="https://attolloogroup.com/images/uploads/img_20231201_161440.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <script type="application/ld+json">
@@ -19,10 +19,10 @@
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": "https://attolloogroup.com/services.html#webpage",
-        "url": "https://attolloogroup.com/services.html",
-        "name": "Executive-as-a-Service (EaaS) – Attolloo Group",
-        "description": "Executive-as-a-Service (EaaS): senior executive leadership for regulatory complexity, security architecture and organisational scaling — against equity, not fees.",
+        "@id": "https://attolloogroup.com/match.html#webpage",
+        "url": "https://attolloogroup.com/match.html",
+        "name": "Are we a match? Self-test – Attolloo Group",
+        "description": "A two-minute self-test for founders of AI companies in regulated sectors: four questions about fit and one for each dimension of the 6Sense Filter.",
         "inLanguage": "en",
         "isPartOf": {
           "@id": "https://attolloogroup.com/#website"
@@ -54,22 +54,30 @@
   <link rel="stylesheet" href="/css/site.css?v=1" />
   <link rel="stylesheet" href="/css/menu.css?v=2" />
 </head>
-<body data-page="services">
+<body data-page="match">
 
-  <!-- Hero: title, subtitle and image come from /data via /js/site.js -->
-  <section class="hero" id="hero" aria-labelledby="heroTitle">
-    <div class="hero-inner">
-      <h1 id="heroTitle"></h1>
-      <p class="hero-sub" id="heroSubtitle"></p>
+  <!-- Title and subtitle come from /data/match.json via /js/match.js -->
+  <section class="match-intro" aria-labelledby="matchTitle">
+    <div class="wrap match-intro-inner">
+      <h1 id="matchTitle">Are we a match?</h1>
+      <p id="matchSubtitle"></p>
     </div>
   </section>
 
-  <!-- Sections from the CMS -->
-  <main id="sections" class="story"></main>
+  <main class="wrap match-layout">
+    <div class="match-panel" id="matchPanel">
+      <noscript>
+        <p>The self-test needs JavaScript. You can also email
+        <a href="mailto:nils.johan@attolloogroup.com">nils.johan@attolloogroup.com</a> directly.</p>
+      </noscript>
+    </div>
+    <figure class="match-figure" id="matchFigure"></figure>
+  </main>
 
   <div id="footer"></div>
 
   <script src="/js/site.js?v=1" defer></script>
+  <script src="/js/match.js?v=1" defer></script>
   <script src="/js/menu-init.js?v=2" defer></script>
 </body>
 </html>

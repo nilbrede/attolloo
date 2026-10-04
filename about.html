@@ -46,80 +46,30 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="style.css?v=9" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/css/site.css?v=1" />
+  <link rel="stylesheet" href="/css/menu.css?v=2" />
 </head>
-<body>
+<body data-page="about">
 
-  <div class="page-top-space"></div>
-
-  <!-- HERO -->
-  <section class="hero about-hero" id="about-hero" aria-labelledby="heroTitle">
-    <div class="inner">
-      <h1 class="hero-title" id="heroTitle"></h1>
-      <!-- Viktig: behold linjeskift -->
-      <p id="heroSubtitle" class="preserve-newlines"></p>
+  <!-- Hero: title, subtitle and image come from /data via /js/site.js -->
+  <section class="hero" id="hero" aria-labelledby="heroTitle">
+    <div class="hero-inner">
+      <h1 id="heroTitle"></h1>
+      <p class="hero-sub" id="heroSubtitle"></p>
     </div>
   </section>
 
-  <main class="container">
-    <section class="section">
-      <div class="cards" id="about-cards"></div>
-    </section>
-  </main>
+  <!-- Sections from the CMS -->
+  <main id="sections" class="story"></main>
 
   <div id="footer"></div>
 
-  <script>
-    // last om-oss-data
-    (async function loadAbout() {
-      try {
-        const res = await fetch("data/about.json?v=" + Date.now(), { cache: "no-store" });
-        const data = await res.json();
-
-        document.getElementById("heroTitle").textContent = data.title || "";
-        document.getElementById("heroSubtitle").textContent = data.subtitle || "";
-
-        const hero = document.getElementById("about-hero");
-        const img = data.hero_image || data.image || "";
-        if (img) {
-          hero.style.backgroundImage = `url(${img})`;
-          hero.classList.add("has-image");
-        } else {
-          hero.classList.remove("has-image");
-        }
-
-        const wrap = document.getElementById("about-cards");
-        const sections = Array.isArray(data.sections) ? data.sections : [];
-        if (!sections.length) {
-          wrap.innerHTML = "<p>No content published yet.</p>";
-          return;
-        }
-
-        wrap.innerHTML = sections.map(s => `
-          <article class="card">
-            ${s.image ? `<div class="card_media"><img src="${s.image}" alt=""></div>` : ""}
-            <div class="card_body">
-              ${s.heading ? `<h3 class="card_title">${s.heading}</h3>` : ""}
-              ${s.body ? `<div class="card_text preserve-newlines">${s.body}</div>` : ""}
-            </div>
-          </article>
-        `).join("");
-      } catch (e) {
-        console.error("Klarte ikke laste data/about.json", e);
-      }
-    })();
-
-    // footer
-    (async () => {
-      try {
-        const res = await fetch("footer.html", { cache: "no-store" });
-        const html = await res.text();
-        document.getElementById("footer").innerHTML = html;
-      } catch (err) {
-        console.error("Kunne ikke laste footer:", err);
-      }
-    })();
-  </script>
-<script src="/js/menu-init.js" defer></script>
+  <script src="/js/site.js?v=1" defer></script>
+  <script src="/js/menu-init.js?v=2" defer></script>
 </body>
 </html>

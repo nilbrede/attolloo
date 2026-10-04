@@ -42,13 +42,12 @@
 <header class="site-header">
   <div class="container">
 
-    <a class="site-logo" href="/index.html" aria-label="Home">
-      <img src="/aab-logo.png" alt="Attolloo logo" />
+    <a class="site-logo" href="/index.html" aria-label="Attolloo Group, home">
+      <img src="/images/logo-attolloo.png" alt="Attolloo Group" width="112" height="46" />
     </a>
-    <span class="site-brand-text">Attolloo Group</span>
 
     <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">
-      <span class="sr-only">Menu</span> ☰
+      <span aria-hidden="true">☰</span> Menu
     </button>
 
     <nav id="primary-nav" class="nav main-nav" aria-label="Main menu">
@@ -73,6 +72,9 @@
 
         <!-- About -->
         <li><a href="/about.html">About</a></li>
+
+        <!-- Self-test -->
+        <li><a class="nav-cta" href="/match.html">Are we a match?</a></li>
 
       </ul>
     </nav>
@@ -114,7 +116,12 @@
     });
 
     parents.forEach(btn => {
-      btn.addEventListener('click', () => toggleMega(btn));
+      btn.addEventListener('click', (e) => {
+        // With a mouse the submenu is already open from hovering, so a click
+        // must not close it again. Touch and keyboard still toggle.
+        if (mql.matches && e.detail > 0) openMega(btn);
+        else toggleMega(btn);
+      });
       btn.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowDown') {
           e.preventDefault();

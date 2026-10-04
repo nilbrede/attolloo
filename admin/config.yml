@@ -160,6 +160,91 @@ collections:
               - { name: body, label: "Tekst", widget: "markdown" }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
+  # Selvtest "Are we a match?" (match.json)
+  - label: "Selvtest"
+    name: "match"
+    files:
+      - label: "Selvtest – Are we a match?"
+        name: "match"
+        file: "data/match.json"
+        fields:
+          - { name: title, label: "Tittel", widget: "string" }
+          - { name: subtitle, label: "Ingress", widget: "text" }
+          - { name: intro_heading, label: "Overskrift på startskjermen", widget: "string" }
+          - { name: intro_body, label: "Tekst på startskjermen", widget: "text" }
+          - { name: start_label, label: "Tekst på startknappen", widget: "string" }
+          - { name: privacy_note, label: "Personvernnotis", widget: "text" }
+          - { name: contact_email, label: "E-post som svarene sendes til", widget: "string" }
+          - name: questions
+            label: "Spørsmål"
+            label_singular: "spørsmål"
+            widget: "list"
+            collapsed: true
+            summary: "{{fields.dimension}} – {{fields.question}}"
+            fields:
+              - name: group
+                label: "Type"
+                widget: "select"
+                options:
+                  - { label: "Passform (kan utelukke match)", value: "fit" }
+                  - { label: "6Sense-dimensjon", value: "dimension" }
+              - { name: dimension, label: "Navn (dimensjon eller tema)", widget: "string" }
+              - { name: question, label: "Spørsmål", widget: "text" }
+              - { name: help, label: "Hjelpetekst", widget: "text", required: false }
+              - name: options
+                label: "Svaralternativer"
+                label_singular: "svaralternativ"
+                widget: "list"
+                collapsed: true
+                summary: "{{fields.score}} – {{fields.label}}"
+                fields:
+                  - { name: label, label: "Svartekst", widget: "text" }
+                  - name: score
+                    label: "Verdi"
+                    widget: "select"
+                    value_type: "int"
+                    options:
+                      - { label: "2 – Dokumentert / passer", value: 2 }
+                      - { label: "1 – Delvis / må diskuteres", value: 1 }
+                      - { label: "0 – Ikke ennå / utelukker (for passform)", value: 0 }
+                  - { name: note, label: "Forklaring i resultatet (valgfritt)", widget: "text", required: false }
+          - name: results
+            label: "Resultattekster"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: strong
+                label: "Match"
+                widget: "object"
+                fields:
+                  - { name: heading, label: "Overskrift", widget: "string" }
+                  - { name: body, label: "Tekst", widget: "text" }
+              - name: possible
+                label: "Mulig match"
+                widget: "object"
+                fields:
+                  - { name: heading, label: "Overskrift", widget: "string" }
+                  - { name: body, label: "Tekst", widget: "text" }
+              - name: not_yet
+                label: "Ikke ennå"
+                widget: "object"
+                fields:
+                  - { name: heading, label: "Overskrift", widget: "string" }
+                  - { name: body, label: "Tekst", widget: "text" }
+              - name: veto
+                label: "Veto (Decision)"
+                widget: "object"
+                fields:
+                  - { name: heading, label: "Overskrift", widget: "string" }
+                  - { name: body, label: "Tekst", widget: "text" }
+              - name: excluded
+                label: "Utenfor målgruppen"
+                widget: "object"
+                fields:
+                  - { name: heading, label: "Overskrift", widget: "string" }
+                  - { name: body, label: "Tekst", widget: "text" }
+          - { name: scoring_note, label: "Forklaring av poengberegningen", widget: "text" }
+
   # Blogginnlegg (posts)
   - label: "Blogginnlegg"
     name: "posts"
