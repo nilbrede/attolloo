@@ -85,7 +85,14 @@
         html.push('<h3>' + esc(m[1]) + '</h3>');
       } else if (isLabel(line)) {
         flush();
-        html.push('<h3>' + esc(line) + '</h3>');
+        // "GENERATION 1 — TITLE (1980-1996)" → a timeline entry with the years set apart
+        var gen = line.match(/^(GENERATION \d+ — .+?)\s*\((\d{4})\s*[-–]\s*(\d{4}|PRESENT)\)$/);
+        if (gen) {
+          html.push('<h3 class="gen"><span class="gen-years">' + gen[2] + '–' + (gen[3] === 'PRESENT' ? 'present' : gen[3]) +
+            '</span> <span class="gen-name">' + esc(gen[1]) + '</span></h3>');
+        } else {
+          html.push('<h3>' + esc(line) + '</h3>');
+        }
       } else {
         if (list.length || quote.length) flush();
         para.push(line);
@@ -110,9 +117,12 @@
       var id = slug(heading);
       if (id && used[id]) id = '';
       if (id) used[id] = true;
-      var media = s.image
-        ? '<figure class="story-media"><img src="' + esc(s.image) + '" alt="" loading="lazy" decoding="async"></figure>'
-        : '';
+      var media = '';
+      if (s.image && /\.svg(\?.*)?$/i.test(s.image)) {
+        media = '<figure class="story-media story-media--diagram"><div class="diagram" data-svg="' + esc(s.image) + '"></div></figure>';
+      } else if (s.image) {
+        media = '<figure class="story-media"><img src="' + esc(s.image) + '" alt="" loading="lazy" decoding="async"></figure>';
+      }
       return '<section class="story-row' + (media ? '' : ' story-row--text') + '"' + (id ? ' id="' + id + '"' : '') + '>' +
         media +
         '<div class="story-body">' +
@@ -120,6 +130,31 @@
         '<div class="prose">' + renderText(s.body || s.text || '') + '</div>' +
         '</div></section>';
     }).join('') + '</div>';
+  }
+
+  // Fetch each diagram and place it in the page. Scripts and event attributes are removed first.
+  function loadDiagrams(container) {
+    container.querySelectorAll('.diagram[data-svg]').forEach(function (slot) {
+      var src = slot.getAttribute('data-svg');
+      fetch(src)
+        .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.text(); })
+        .then(function (text) {
+          var doc = new DOMParser().parseFromString(text, 'image/svg+xml');
+          var svg = doc.documentElement;
+          if (!svg || svg.nodeName.toLowerCase() !== 'svg') throw new Error('not an svg');
+          svg.querySelectorAll('script, foreignObject').forEach(function (n) { n.remove(); });
+          svg.querySelectorAll('*').forEach(function (n) {
+            Array.prototype.slice.call(n.attributes).forEach(function (a) {
+              if (/^on/i.test(a.name) || (/href$/i.test(a.name) && /^\s*javascript:/i.test(a.value))) n.removeAttribute(a.name);
+            });
+          });
+          slot.appendChild(document.importNode(svg, true));
+        })
+        .catch(function (err) {
+          console.error('Could not load diagram ' + src, err);
+          slot.innerHTML = '<img src="' + esc(src) + '" alt="">';
+        });
+    });
   }
 
   // Six-sided figure used for the 6Sense self-test.
@@ -190,7 +225,7 @@
         var sections = Array.isArray(data.sections) ? data.sections
           : (Array.isArray(data.services) ? data.services : []);
         var container = document.getElementById('sections');
-        if (container) renderSections(container, sections);
+        if (container) { renderSections(container, sections); loadDiagrams(container); }
 
         // Jump to a section if the address has an #anchor
         if (location.hash.length > 1) {

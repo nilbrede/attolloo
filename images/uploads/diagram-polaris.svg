@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t d" font-family="Schibsted Grotesk, Segoe UI, Arial, sans-serif">
+  <title id="t">How a Polaris sprint keeps product and compliance in step</title>
+  <desc id="d">Over ninety days, short product iterations run alongside three gated compliance milestones. Handover checkpoints connect the two tracks. Each sprint ends in evidence for the next capital decision.</desc>
+  <text x="28.0" y="36.0" font-size="12.5" font-weight="600" fill="#4b5d72" text-anchor="start">Day 0</text>
+  <text x="372.0" y="36.0" font-size="12.5" font-weight="600" fill="#4b5d72" text-anchor="end">Day 90</text>
+  <line x1="72" y1="32" x2="320" y2="32" stroke="#d6dfe8" stroke-width="1.5"/>
+  <text x="28.0" y="72.0" font-size="13" font-weight="600" fill="#002448" text-anchor="start">Product: short iterations</text>
+  <rect x="28.0" y="82" width="52.3" height="18" rx="3" fill="#9ad9ac"/>
+  <rect x="86.3" y="82" width="52.3" height="18" rx="3" fill="#9ad9ac"/>
+  <rect x="144.7" y="82" width="52.3" height="18" rx="3" fill="#9ad9ac"/>
+  <rect x="203.0" y="82" width="52.3" height="18" rx="3" fill="#9ad9ac"/>
+  <rect x="261.3" y="82" width="52.3" height="18" rx="3" fill="#9ad9ac"/>
+  <rect x="319.7" y="82" width="52.3" height="18" rx="3" fill="#9ad9ac"/>
+  <text x="28.0" y="212.0" font-size="13" font-weight="600" fill="#002448" text-anchor="start">Compliance: gated milestones</text>
+  <rect x="28.0" y="174" width="110.7" height="18" rx="3" fill="#b9c8da"/>
+  <rect x="144.7" y="174" width="110.7" height="18" rx="3" fill="#b9c8da"/>
+  <rect x="261.3" y="174" width="110.7" height="18" rx="3" fill="#b9c8da"/>
+  <line x1="138.7" y1="102" x2="138.7" y2="170" stroke="#002448" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <path d="M138.7,172 l7,11 l-7,11 l-7,-11 z" fill="#e9b44c" stroke="#002448" stroke-width="1.2"/>
+  <line x1="255.3" y1="102" x2="255.3" y2="170" stroke="#002448" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <path d="M255.3,172 l7,11 l-7,11 l-7,-11 z" fill="#e9b44c" stroke="#002448" stroke-width="1.2"/>
+  <line x1="372.0" y1="102" x2="372.0" y2="170" stroke="#002448" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <path d="M372.0,172 l7,11 l-7,11 l-7,-11 z" fill="#e9b44c" stroke="#002448" stroke-width="1.2"/>
+  <text x="28.0" y="132.0" font-size="12.5" font-weight="600" fill="#4b5d72" text-anchor="start">Handover</text>
+  <text x="28.0" y="148.0" font-size="12.5" font-weight="600" fill="#4b5d72" text-anchor="start">checkpoints</text>
+  <line x1="28" y1="234" x2="372" y2="234" stroke="#d6dfe8" stroke-width="1.5"/>
+  <polygon points="38.0,251.0 40.5,258.5 48.0,261.0 40.5,263.5 38.0,271.0 35.5,263.5 28.0,261.0 35.5,258.5" fill="#30b454"/>
+  <text x="58.0" y="257.0" font-size="13" font-weight="700" fill="#002448" text-anchor="start">Each sprint ends in evidence</text>
+  <text x="58.0" y="274.0" font-size="13" font-weight="500" fill="#4b5d72" text-anchor="start">for the next capital decision.</text>
+</svg>
