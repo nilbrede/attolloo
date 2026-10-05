@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t d" font-family="Schibsted Grotesk, Segoe UI, Arial, sans-serif">
+  <title id="t">The six dimensions of the 6Sense Filter</title>
+  <desc id="d">A hexagon with six segments: Direction, Energy, Capacity, Prioritisation, Risk and Decision. Decision holds the veto. A venture must pass all six.</desc>
+  <polygon points="200,150 200.0,66.0 272.7,108.0" fill="#dff1e4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="200,150 272.7,108.0 272.7,192.0" fill="#dff1e4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="200,150 272.7,192.0 200.0,234.0" fill="#dff1e4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="200,150 200.0,234.0 127.3,192.0" fill="#dff1e4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="200,150 127.3,192.0 127.3,108.0" fill="#dff1e4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="200,150 127.3,108.0 200.0,66.0" fill="#f6e3b4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
+  <text x="225.0" y="111.7" font-size="15" font-weight="700" fill="#002448" text-anchor="middle">1</text>
+  <text x="250.0" y="155.0" font-size="15" font-weight="700" fill="#002448" text-anchor="middle">2</text>
+  <text x="225.0" y="198.3" font-size="15" font-weight="700" fill="#002448" text-anchor="middle">3</text>
+  <text x="175.0" y="198.3" font-size="15" font-weight="700" fill="#002448" text-anchor="middle">4</text>
+  <text x="150.0" y="155.0" font-size="15" font-weight="700" fill="#002448" text-anchor="middle">5</text>
+  <text x="175.0" y="111.7" font-size="15" font-weight="700" fill="#002448" text-anchor="middle">6</text>
+  <text x="258.0" y="60.0" font-size="13" font-weight="600" fill="#002448" text-anchor="start">Direction</text>
+  <text x="282.0" y="155.0" font-size="13" font-weight="600" fill="#002448" text-anchor="start">Energy</text>
+  <text x="258.0" y="250.0" font-size="13" font-weight="600" fill="#002448" text-anchor="start">Capacity</text>
+  <text x="142.0" y="250.0" font-size="13" font-weight="600" fill="#002448" text-anchor="end">Prioritisation</text>
+  <text x="118.0" y="155.0" font-size="13" font-weight="600" fill="#002448" text-anchor="end">Risk</text>
+  <text x="142.0" y="46.0" font-size="13" font-weight="600" fill="#002448" text-anchor="end">Decision</text>
+  <text x="142.0" y="62.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="end">holds the veto</text>
+  <text x="200.0" y="287.0" font-size="13" font-weight="500" fill="#4b5d72" text-anchor="middle">A venture must pass all six.</text>
+</svg>

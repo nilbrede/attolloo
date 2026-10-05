@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="group" aria-labelledby="t d" font-family="Schibsted Grotesk, Segoe UI, Arial, sans-serif">
+  <title id="t">The four Attolloo frameworks</title>
+  <desc id="d">Four linked steps: 6Sense Filter, the qualification gate. AI Compass, the maturity diagnostic. Polaris Sprints, execution in 90-day sprints. Kando Framework, crisis intelligence and constraints. Each links to its page.</desc>
+  <line x1="52" y1="70" x2="52" y2="82" stroke="#002448" stroke-width="1.5"/>
+  <a href="/startups.html">
+    <rect class="diagram-row" x="16" y="14" width="368" height="56" rx="6" fill="#ffffff" stroke="#d6dfe8" stroke-width="1.5"/>
+    <polygon points="52.0,29.0 63.3,35.5 63.3,48.5 52.0,55.0 40.7,48.5 40.7,35.5" fill="#dff1e4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
+    <text x="84" y="39" font-size="15" font-weight="700" fill="#002448">6Sense Filter</text>
+    <text x="84" y="57" font-size="12.5" font-weight="500" fill="#4b5d72">Qualification gate: six dimensions</text>
+    <path d="M362,36.0 l6,6 l-6,6" fill="none" stroke="#002448" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </a>
+  <line x1="52" y1="138" x2="52" y2="150" stroke="#002448" stroke-width="1.5"/>
+  <a href="/ai-compass.html">
+    <rect class="diagram-row" x="16" y="82" width="368" height="56" rx="6" fill="#ffffff" stroke="#d6dfe8" stroke-width="1.5"/>
+    <rect x="39" y="112.0" width="7" height="9" rx="1.5" fill="#c5d0db"/>
+    <rect x="49" y="105.0" width="7" height="16" rx="1.5" fill="#63c480"/>
+    <rect x="59" y="98.0" width="7" height="23" rx="1.5" fill="#30b454"/>
+    <text x="84" y="107" font-size="15" font-weight="700" fill="#002448">AI Compass</text>
+    <text x="84" y="125" font-size="12.5" font-weight="500" fill="#4b5d72">Maturity diagnostic: one to five stars</text>
+    <path d="M362,104.0 l6,6 l-6,6" fill="none" stroke="#002448" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </a>
+  <line x1="52" y1="206" x2="52" y2="218" stroke="#002448" stroke-width="1.5"/>
+  <a href="/polaris.html">
+    <rect class="diagram-row" x="16" y="150" width="368" height="56" rx="6" fill="#ffffff" stroke="#d6dfe8" stroke-width="1.5"/>
+    <polygon points="52.0,164.0 55.5,174.5 66.0,178.0 55.5,181.5 52.0,192.0 48.5,181.5 38.0,178.0 48.5,174.5" fill="#30b454"/>
+    <text x="84" y="175" font-size="15" font-weight="700" fill="#002448">Polaris Sprints</text>
+    <text x="84" y="193" font-size="12.5" font-weight="500" fill="#4b5d72">Execution in 90-day sprints</text>
+    <path d="M362,172.0 l6,6 l-6,6" fill="none" stroke="#002448" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </a>
+  <a href="/lumina.html">
+    <rect class="diagram-row" x="16" y="218" width="368" height="56" rx="6" fill="#ffffff" stroke="#d6dfe8" stroke-width="1.5"/>
+    <circle cx="52" cy="246.0" r="11" fill="none" stroke="#002448" stroke-width="1.5"/>
+    <path d="M-5,-4 L5,0 L-5,4 z" fill="#002448" transform="translate(63,246.0) rotate(90)"/>
+    <text x="84" y="243" font-size="15" font-weight="700" fill="#002448">Kando Framework</text>
+    <text x="84" y="261" font-size="12.5" font-weight="500" fill="#4b5d72">Crisis intelligence and constraints</text>
+    <path d="M362,240.0 l6,6 l-6,6" fill="none" stroke="#002448" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </a>
+</svg>
