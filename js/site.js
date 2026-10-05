@@ -11,7 +11,8 @@
     startups: '/data/startups.json',
     'ai-compass': '/data/ai-compass.json',
     polaris: '/data/polaris.json',
-    lumina: '/data/lumina.json'
+    lumina: '/data/lumina.json',
+    'responsible-ai': '/data/responsible-ai.json'
   };
 
   function esc(s) {
@@ -40,22 +41,26 @@
   function inlineRest(text) {
     var out = esc(text);
     out = out.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-    out = out.replace(/([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})/g, '<a href="mailto:$1">$1</a>');
+    // [link text](/page.html) or [link text](https://…)
+    out = out.replace(/\[([^\]]+)\]\((\/[^)\s]*|https?:\/\/[^)\s]+)\)/g, '<a href="$2">$1</a>');
+    out = out.replace(/(^|[\s(])([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})/g, '$1<a href="mailto:$2">$2</a>');
     return out;
   }
 
   // Small, safe renderer for the text written in the CMS:
-  // paragraphs, "- " lists, "> " quotes, "## " headings and capitalised sub-headings.
+  // paragraphs, "- " lists, "1. " numbered lists, "> " quotes, "## " headings,
+  // capitalised sub-headings and [text](/link) links.
   function renderText(src) {
     var lines = String(src || '').replace(/\r/g, '').split('\n');
     var html = [];
     var para = [];
     var list = [];
+    var listTag = 'ul';
     var quote = [];
 
     function flush() {
       if (para.length) { html.push('<p>' + para.map(inline).join('<br>') + '</p>'); para = []; }
-      if (list.length) { html.push('<ul>' + list.map(function (i) { return '<li>' + inline(i) + '</li>'; }).join('') + '</ul>'); list = []; }
+      if (list.length) { html.push('<' + listTag + '>' + list.map(function (i) { return '<li>' + inline(i) + '</li>'; }).join('') + '</' + listTag + '>'); list = []; }
       if (quote.length) { html.push('<blockquote>' + inline(quote.join(' ')) + '</blockquote>'); quote = []; }
     }
 
@@ -64,7 +69,12 @@
       var m;
       if (!line) { flush(); return; }
       if ((m = line.match(/^[-*]\s+(.*)$/))) {
-        if (para.length || quote.length) flush();
+        if (para.length || quote.length || (list.length && listTag !== 'ul')) flush();
+        listTag = 'ul';
+        list.push(m[1]);
+      } else if ((m = line.match(/^\d{1,2}[.)]\s+(.*)$/))) {
+        if (para.length || quote.length || (list.length && listTag !== 'ol')) flush();
+        listTag = 'ol';
         list.push(m[1]);
       } else if ((m = line.match(/^>\s?(.*)$/))) {
         if (para.length || list.length) flush();
@@ -134,7 +144,7 @@
     band.innerHTML =
       '<div class="wrap match-band-inner">' + hexFigure() +
       '<div><h2 id="matchBandTitle">Is Attolloo right for your company?</h2>' +
-      '<p>Ten questions, about two minutes. You get a straight answer, including when the answer is no.</p></div>' +
+      '<p>A short self-test, about two minutes. You get a straight answer, including when the answer is no.</p></div>' +
       '<a class="btn btn--primary" href="/match.html">Take the self-test</a>' +
       '</div>';
     before.parentNode.insertBefore(band, before);

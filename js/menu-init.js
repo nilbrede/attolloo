@@ -70,6 +70,9 @@
         <!-- EaaS Model -->
         <li><a href="/services.html">EaaS Model</a></li>
 
+        <!-- Responsible AI -->
+        <li><a href="/responsible-ai.html">Responsible AI</a></li>
+
         <!-- About -->
         <li><a href="/about.html">About</a></li>
 

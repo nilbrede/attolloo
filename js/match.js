@@ -59,7 +59,7 @@
     var caption;
     if (step < 0) caption = 'The six dimensions fill in as you answer.';
     else if (step >= data.questions.length) caption = 'Your answers across the six dimensions.';
-    else if (data.questions[step].group === 'fit') caption = 'First, four questions about fit.';
+    else if (data.questions[step].group === 'fit') caption = 'First, the questions about fit.';
     else caption = 'Now answering: ' + data.questions[step].dimension + '.';
 
     figure.innerHTML =
@@ -108,7 +108,7 @@
       '<form novalidate>' +
       '<p class="match-step">Question ' + (i + 1) + ' of ' + total + ': ' + esc(q.group === 'fit' ? 'Fit' : q.dimension) + '</p>' +
       '<fieldset><legend><h2>' + esc(q.question) + '</h2></legend>' +
-      (q.help ? '<p class="match-help">' + esc(q.help) + '</p>' : '') +
+      (q.help ? '<div class="match-help prose">' + renderText(q.help) + '</div>' : '') +
       '<div class="match-options">' + options + '</div></fieldset>' +
       '<div class="match-actions">' +
       '<button type="submit" class="btn btn--primary"' + (answers[i] == null ? ' disabled' : '') + '>' + (last ? 'See the result' : 'Next') + '</button>' +
