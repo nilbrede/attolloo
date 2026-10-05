@@ -26,7 +26,7 @@
   // A short line written in capitals ("AI COMPASS", "① DIRECTION") is a sub-heading.
   function isLabel(line) {
     var t = line.trim();
-    if (t.length < 3 || t.length > 48) return false;
+    if (t.length < 3 || t.length > 100) return false;
     if (/[.!?,;]$/.test(t)) return false;
     return /[A-Z]/.test(t) && t === t.toUpperCase();
   }
