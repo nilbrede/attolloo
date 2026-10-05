@@ -200,6 +200,55 @@ collections:
               - { name: body, label: "Tekst", widget: "markdown" }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
+  # Ett-minutts pitch, animasjon (pitch.json)
+  - label: "Pitch-animasjon"
+    name: "pitch"
+    files:
+      - label: "Pitch på ett minutt"
+        name: "pitch"
+        file: "data/pitch.json"
+        fields:
+          - { name: poster_title, label: "Tittel før avspilling", widget: "string" }
+          - { name: play_label, label: "Tekst på startknappen", widget: "string" }
+          - { name: replay_label, label: "Tekst for å spille på nytt", widget: "string" }
+          - { name: transcript_label, label: "Tekst for «les som tekst»", widget: "string" }
+          - { name: cta_label, label: "Knapp i siste scene", widget: "string" }
+          - { name: cta_url, label: "Lenke for knappen", widget: "string" }
+          - name: line
+            label: "Linjen nederst"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { name: left, label: "Venstre", widget: "string" }
+              - { name: right, label: "Høyre", widget: "string" }
+              - { name: gap, label: "Gapet", widget: "string" }
+              - { name: bridge, label: "Når gapet er lukket", widget: "string" }
+          - name: scenes
+            label: "Scener"
+            label_singular: "scene"
+            widget: "list"
+            collapsed: true
+            summary: "{{fields.seconds}} s – {{fields.headline}}"
+            fields:
+              - name: type
+                label: "Type"
+                widget: "select"
+                options:
+                  - { label: "Utsagn (stor tekst)", value: "statement" }
+                  - { label: "Liste (overskrift + punkter)", value: "list" }
+                  - { label: "Avslutning (med knapp)", value: "close" }
+              - { name: seconds, label: "Varighet i sekunder", widget: "number", value_type: "int", min: 3, max: 20 }
+              - { name: headline, label: "Overskrift", widget: "text" }
+              - { name: items, label: "Punkter («Navn: forklaring» gir navnet i fet skrift)", widget: "list", field: { name: item, label: "Punkt", widget: "string" }, required: false }
+              - { name: detail, label: "Tilleggslinje", widget: "text", required: false }
+              - name: line
+                label: "Linjen nederst i denne scenen"
+                widget: "select"
+                options:
+                  - { label: "Uten gap-merking", value: "base" }
+                  - { label: "Gapet vises", value: "gap" }
+                  - { label: "Gapet er lukket (Attolloo)", value: "bridge" }
+
   # Selvtest "Are we a match?" (match.json)
   - label: "Selvtest"
     name: "match"

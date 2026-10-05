@@ -1,0 +1,98 @@
+{
+  "poster_title": "The Attolloo pitch, in one minute.",
+  "play_label": "Play",
+  "replay_label": "Play again",
+  "transcript_label": "Read the pitch as text",
+  "cta_label": "Are we a match?",
+  "cta_url": "/match.html",
+  "line": {
+    "left": "Technology",
+    "right": "Institutional buyers",
+    "gap": "Governance gap",
+    "bridge": "Attolloo"
+  },
+  "scenes": [
+    {
+      "type": "statement",
+      "seconds": 7,
+      "headline": "AI companies in regulated markets do not die from lack of technology.",
+      "items": [],
+      "detail": "",
+      "line": "base"
+    },
+    {
+      "type": "statement",
+      "seconds": 6,
+      "headline": "They die from lack of governance.",
+      "items": [],
+      "detail": "",
+      "line": "gap"
+    },
+    {
+      "type": "list",
+      "seconds": 9,
+      "headline": "The buyers that matter ask for it before they sign.",
+      "items": [
+        "Banks",
+        "Insurers",
+        "Pension funds",
+        "Public sector"
+      ],
+      "detail": "",
+      "line": "gap"
+    },
+    {
+      "type": "list",
+      "seconds": 8,
+      "headline": "The rules are in force now.",
+      "items": [
+        "EU AI Act",
+        "DORA",
+        "GDPR"
+      ],
+      "detail": "A lawyer and a CTO cannot solve this alone.",
+      "line": "gap"
+    },
+    {
+      "type": "list",
+      "seconds": 9,
+      "headline": "Attolloo invests senior executive depth.",
+      "items": [
+        "CEO governance",
+        "CSO risk architecture",
+        "HR Director leadership"
+      ],
+      "detail": "Against equity, not hourly fees.",
+      "line": "bridge"
+    },
+    {
+      "type": "list",
+      "seconds": 8,
+      "headline": "Four frameworks, built from forty years in regulated markets.",
+      "items": [
+        "6Sense Filter: who qualifies",
+        "AI Compass: where you stand",
+        "Polaris Sprints: the next 90 days",
+        "Kando Framework: learning from what goes wrong"
+      ],
+      "detail": "",
+      "line": "bridge"
+    },
+    {
+      "type": "statement",
+      "seconds": 7,
+      "headline": "What happens if this ends up in the wrong hands?",
+      "items": [],
+      "detail": "Every venture is assessed for misuse. Red lines apply.",
+      "line": "bridge"
+    },
+    {
+      "type": "close",
+      "seconds": 6,
+      "headline": "Skin in the game from day one.",
+      "items": [],
+      "detail": "If you qualify, we are with you until you are scalable.",
+      "line": "bridge"
+    }
+  ]
+}

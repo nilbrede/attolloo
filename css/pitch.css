@@ -1,0 +1,258 @@
+/* The one-minute pitch. Built by /js/pitch.js; colours and fonts come from /css/site.css. */
+
+.pitch-band { background: var(--frost); border-bottom: 1px solid var(--line); }
+.pitch-band-inner { max-width: 1040px; margin-inline: auto; padding: clamp(28px, 5vw, 64px) var(--gutter); }
+
+.pitch-stage {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--sans);
+}
+
+/* ---------- Scenes ---------- */
+
+.pitch-scene {
+  position: absolute;
+  inset: 0 0 20cqw 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6cqw 7cqw 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0s 0.35s;
+}
+.pitch-scene.is-active { opacity: 1; visibility: visible; transition: opacity 0.35s ease; }
+
+.pitch-headline {
+  margin: 0;
+  max-width: 17em;
+  font-size: 5.3cqw;
+  font-weight: 700;
+  line-height: 1.07;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.pitch-headline .pitch-anim { display: inline-block; }
+
+.pitch-scene--list .pitch-headline { max-width: 24em; font-size: 3.1cqw; line-height: 1.15; letter-spacing: -0.012em; color: rgba(255, 255, 255, 0.78); }
+
+.pitch-items { margin: 2.2cqw 0 0; padding: 0; list-style: none; }
+.pitch-items li {
+  position: relative;
+  padding: 0.28em 0 0.28em 1.15em;
+  font-size: 3.5cqw;
+  line-height: 1.15;
+}
+.pitch-items li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 0.5em;
+  height: 0.16em;
+  background: var(--green);
+}
+.pitch-scene[data-items="4"] .pitch-items li { font-size: 2.85cqw; }
+.pitch-item-name { font-weight: 700; }
+.pitch-item-note { font-weight: 400; color: rgba(255, 255, 255, 0.74); }
+
+.pitch-detail {
+  margin: 2cqw 0 0;
+  max-width: 30em;
+  font-family: var(--serif);
+  font-size: 2.6cqw;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.86);
+}
+.pitch-cta { margin: 2.6cqw 0 0; }
+.pitch-cta .btn { font-size: max(1.9cqw, 0.9rem); }
+
+/* Entrances */
+
+@keyframes pitch-in {
+  from { opacity: 0; transform: translateY(0.55em); }
+  to { opacity: 1; transform: none; }
+}
+.pitch-stage.is-started .pitch-scene.is-active .pitch-anim {
+  animation: pitch-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0s);
+}
+.pitch-stage.is-paused .pitch-anim,
+.pitch-stage.is-paused .pitch-seg i { animation-play-state: paused !important; transition: none; }
+
+/* ---------- The line with a gap in it ---------- */
+
+.pitch-line {
+  position: absolute;
+  left: 7cqw;
+  right: 7cqw;
+  bottom: 6.2cqw;
+  display: grid;
+  grid-template-columns: 41fr 18fr 41fr;
+  font-size: 1.75cqw;
+}
+.pitch-seg { position: relative; display: block; padding-top: 1.1em; }
+.pitch-seg i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.34em;
+  background: #fff;
+  transform: scaleX(0);
+  transition: transform 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.pitch-seg--left i { transform-origin: left center; }
+.pitch-seg--right i { transform-origin: right center; }
+.pitch-seg--gap i { background: var(--green); transform-origin: left center; }
+.pitch-seg b {
+  display: block;
+  font-weight: 600;
+  line-height: 1.25;
+  color: rgba(255, 255, 255, 0.74);
+  opacity: 0;
+  transition: opacity 0.5s ease 0.5s;
+}
+.pitch-seg--right b { text-align: right; }
+.pitch-seg--gap b { position: absolute; top: 1.1em; left: 0; right: 0; text-align: center; }
+.pitch-seg--gap::before {            /* the gap itself, drawn as a dashed outline */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0.5em;
+  right: 0.5em;
+  height: 0.34em;
+  border-top: 0.16em dashed var(--amber);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.pitch-gap-label { color: var(--amber) !important; }
+.pitch-bridge-label { color: #fff !important; font-weight: 700 !important; }
+
+.pitch-stage:not([data-line="none"]) .pitch-seg--left i,
+.pitch-stage:not([data-line="none"]) .pitch-seg--right i { transform: scaleX(1); }
+.pitch-stage:not([data-line="none"]) .pitch-seg--left b,
+.pitch-stage:not([data-line="none"]) .pitch-seg--right b { opacity: 1; }
+
+.pitch-stage[data-line="gap"] .pitch-seg--gap::before,
+.pitch-stage[data-line="gap"] .pitch-gap-label { opacity: 1; }
+
+.pitch-stage[data-line="bridge"] .pitch-seg--gap i { transform: scaleX(1); }
+.pitch-stage[data-line="bridge"] .pitch-bridge-label { opacity: 1; }
+
+/* ---------- Poster and controls ---------- */
+
+.pitch-poster {
+  position: absolute;
+  inset: 0 0 20cqw 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3cqw;
+  padding: 6cqw 7cqw 0;
+}
+.pitch-stage.is-started .pitch-poster { display: none; }
+.pitch-stage:not(.is-started) .pitch-seg i,
+.pitch-stage:not(.is-started) .pitch-seg b,
+.pitch-stage:not(.is-started) .pitch-seg--gap::before { transition: none; }
+.pitch-start { display: inline-flex; align-items: center; gap: 0.7em; font-size: max(2cqw, 1rem); }
+
+.pitch-icon {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0.42em 0 0.42em 0.7em;
+  border-color: transparent transparent transparent currentColor;
+}
+
+.pitch-controls { display: flex; align-items: center; gap: 14px; margin-top: 12px; font-family: var(--sans); }
+.pitch-toggle {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  font-size: 1rem;
+  cursor: pointer;
+}
+.pitch-toggle:hover { border-color: var(--ink); }
+.pitch-toggle.is-on .pitch-icon {          /* pause: two bars */
+  width: 0.72em;
+  height: 0.84em;
+  border-width: 0 0.24em;
+  border-color: transparent currentColor;
+}
+
+.pitch-steps { flex: 1 1 auto; display: flex; gap: 4px; }
+.pitch-step { flex: 1 1 0; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; display: flex; align-items: center; }
+.pitch-step::before { content: ""; display: block; width: 100%; height: 6px; border-radius: 3px; background: var(--line); }
+.pitch-step span {
+  position: absolute;
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--green-deep);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.pitch-step { position: relative; }
+.pitch-step span { left: 0; right: 0; top: 50%; margin-top: -3px; }
+.pitch-step:hover::before { background: #b9c6d3; }
+
+.pitch-time { flex: 0 0 auto; min-width: 5.6em; text-align: right; font-size: 0.9rem; font-variant-numeric: tabular-nums; color: var(--text-soft); }
+
+.pitch-transcript { margin-top: 10px; font-size: 1rem; color: var(--text-soft); }
+.pitch-transcript summary { font-family: var(--sans); font-size: 0.92rem; font-weight: 600; color: var(--ink); cursor: pointer; }
+.pitch-transcript ol { margin: 0.8em 0 0; padding-left: 1.4em; max-width: var(--measure); color: var(--text); }
+.pitch-transcript li { margin-bottom: 0.5em; }
+
+/* ---------- Narrow stages (phones) ---------- */
+
+@container (max-width: 560px) {
+  .pitch-scene { inset: 0 0 30cqw 0; padding: 8cqw 7cqw 0; }
+  .pitch-headline { font-size: 8.4cqw; }
+  .pitch-scene--list .pitch-headline { font-size: 5.2cqw; }
+  .pitch-items { margin-top: 4cqw; }
+  .pitch-items li { font-size: 6cqw; }
+  .pitch-scene[data-items="4"] .pitch-items li { font-size: 4.7cqw; }
+  .pitch-detail { margin-top: 4cqw; font-size: 4.5cqw; }
+  .pitch-cta { margin-top: 5cqw; }
+  .pitch-line { bottom: 9cqw; font-size: 3.1cqw; grid-template-columns: 36fr 28fr 36fr; }
+  .pitch-poster { inset: 0 0 30cqw 0; gap: 6cqw; padding: 8cqw 7cqw 0; }
+}
+@media (max-width: 600px) {
+  .pitch-stage { aspect-ratio: 4 / 5; }
+}
+
+/* ---------- The film on its own page ---------- */
+
+body[data-page="pitch"] { background: var(--frost); }
+body[data-page="pitch"] .pitch-band { border-bottom: 0; }
+body[data-page="pitch"] .pitch-band-inner { max-width: 1240px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pitch-stage.is-started .pitch-scene.is-active .pitch-anim { animation: none; }
+  .pitch-scene, .pitch-seg i, .pitch-seg b, .pitch-seg--gap::before { transition: none; }
+}
+
+/* ---------- Recording mode (/pitch.html?autoplay&record): the film fills the window ---------- */
+
+.pitch-record body { overflow: hidden; }
+.pitch-record .site-header { display: none; }
+.pitch-record .pitch-poster { display: none; }
+.pitch-record .pitch-stage { position: fixed; inset: 0; z-index: 999; width: 100vw; height: 100vh; aspect-ratio: auto; border-radius: 0; }
+.pitch-record .pitch-cta::after { content: "attolloogroup.com"; margin-left: 1.4em; font-size: 2.2cqw; font-weight: 600; vertical-align: middle; }
