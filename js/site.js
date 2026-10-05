@@ -12,7 +12,8 @@
     'ai-compass': '/data/ai-compass.json',
     polaris: '/data/polaris.json',
     lumina: '/data/lumina.json',
-    'responsible-ai': '/data/responsible-ai.json'
+    'responsible-ai': '/data/responsible-ai.json',
+    research: '/data/research.json'
   };
 
   function esc(s) {
@@ -167,7 +168,8 @@
     var page = document.body.dataset.page;
     var url = DATA[page];
     var footerSlot = document.getElementById('footer');
-    if (footerSlot && page !== 'match') addMatchBand(footerSlot);
+    // The self-test invitation is for founders; skip it on the self-test itself and on the research page
+    if (footerSlot && page !== 'match' && page !== 'research') addMatchBand(footerSlot);
     if (!url) return;
 
     fetch(url + '?v=' + Date.now(), { cache: 'no-store' })
