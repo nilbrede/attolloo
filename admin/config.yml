@@ -180,6 +180,26 @@ collections:
               - { name: body, label: "Tekst", widget: "markdown" }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
+  # Research (research.json)
+  - label: "Research"
+    name: "research"
+    files:
+      - label: "Research"
+        name: "research"
+        file: "data/research.json"
+        fields:
+          - { name: title, label: "Tittel (hero)", widget: "string" }
+          - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
+          - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: sections
+            label: "Seksjoner"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { name: heading, label: "Overskrift", widget: "string" }
+              - { name: body, label: "Tekst", widget: "markdown" }
+              - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
+
   # Selvtest "Are we a match?" (match.json)
   - label: "Selvtest"
     name: "match"

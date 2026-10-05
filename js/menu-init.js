@@ -73,6 +73,9 @@
         <!-- Responsible AI -->
         <li><a href="/responsible-ai.html">Responsible AI</a></li>
 
+        <!-- Research -->
+        <li><a href="/research.html">Research</a></li>
+
         <!-- About -->
         <li><a href="/about.html">About</a></li>
 
