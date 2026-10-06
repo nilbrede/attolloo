@@ -1,5 +1,5 @@
-// /js/pitch.js — the one-minute pitch, as an animation built from text.
-// Scenes and wording come from /data/pitch.json (editable in the CMS).
+// /js/pitch.js — the one-minute pitch, as a short film built from text, photographs and line drawings.
+// Scenes, wording and backdrops come from /data/pitch.json (editable in the CMS).
 // No sound, no autoplay: it only runs when the visitor presses play,
 // or follows a link marked data-pitch-play ("Watch the one-minute pitch").
 (function () {
@@ -15,6 +15,9 @@
     return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2);
   }
 
+  function ease(p) { return p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; }
+  function clamp01(p) { return Math.max(0, Math.min(1, p)); }
+
   // "6Sense Filter: who qualifies" → name in bold, explanation after it
   function itemHtml(text) {
     var m = String(text).match(/^([^:]{2,40}):\s+(.+)$/);
@@ -22,50 +25,137 @@
     return '<span class="pitch-item-name">' + esc(text) + '</span>';
   }
 
+  // Line drawings for the four frameworks, in the order they are listed:
+  // the six-sided filter, the five-step scale, the sprint track with its milestones, the cycle.
+  var GLYPHS = [
+    '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
+      '<path class="pitch-tint" d="M24 24V5L7.5 14.5Z"/>' +
+      '<path class="pitch-draw" pathLength="1" d="M24 5L40.5 14.5V33.5L24 43L7.5 33.5V14.5Z"/>' +
+      '<path class="pitch-draw pitch-draw--late" pathLength="1" d="M24 5V43M7.5 14.5L40.5 33.5M40.5 14.5L7.5 33.5"/></svg>',
+    '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
+      '<rect class="pitch-rise" style="--k:0" x="5" y="34" width="5.5" height="8"/>' +
+      '<rect class="pitch-rise" style="--k:1" x="13.2" y="28" width="5.5" height="14"/>' +
+      '<rect class="pitch-rise" style="--k:2" x="21.4" y="21" width="5.5" height="21"/>' +
+      '<rect class="pitch-rise" style="--k:3" x="29.6" y="14" width="5.5" height="28"/>' +
+      '<rect class="pitch-rise" style="--k:4" x="37.8" y="7" width="5.5" height="35"/>' +
+      '<path class="pitch-draw pitch-draw--late pitch-draw--amber" pathLength="1" d="M2 18.5H46"/></svg>',
+    '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
+      '<path class="pitch-draw" pathLength="1" d="M4 16h5M11 16h5M18 16h5M25 16h5M32 16h5M39 16h5"/>' +
+      '<path class="pitch-draw pitch-draw--late" pathLength="1" d="M4 32H44"/>' +
+      '<path class="pitch-tint pitch-tint--solid" d="M15 28l4 4-4 4-4-4zM27 28l4 4-4 4-4-4zM39 28l4 4-4 4-4-4z"/></svg>',
+    '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
+      '<path class="pitch-draw" pathLength="1" d="M31.5 11A15 15 0 1 1 16.5 11"/>' +
+      '<path class="pitch-draw pitch-draw--late" pathLength="1" d="M11 10.5L16.5 11L14.2 16"/>' +
+      '<circle class="pitch-tint pitch-tint--green" cx="24" cy="24" r="3.4"/></svg>'
+  ];
+
   function build(root, data) {
     var scenes = data.scenes || [];
+    var calm = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    function secs(i) { return Number(scenes[i].seconds) || 6; }
+
     var starts = [];
     var total = 0;
-    scenes.forEach(function (s) { starts.push(total); total += (Number(s.seconds) || 6) * 1000; });
+    scenes.forEach(function (s, i) { starts.push(total); total += secs(i) * 1000; });
 
     var line = data.line || {};
 
+    // ----- backdrops: one layer per photograph, pushed in slowly while its scenes run -----
+    var images = [];
+    var focus = [];                    // which part of a tall photograph to show: top, center or bottom
+    var bgOf = scenes.map(function (s) {
+      var src = String(s.image || '').trim();
+      if (!src) return -1;
+      var k = images.indexOf(src);
+      if (k < 0) { images.push(src); focus.push(/^(top|bottom)$/.test(s.focus) ? s.focus : 'center'); k = images.length - 1; }
+      return k;
+    });
+    var runOf = scenes.map(function (s, i) {
+      var a = i, b = i;
+      while (a > 0 && bgOf[a - 1] === bgOf[i]) a--;
+      while (b < scenes.length - 1 && bgOf[b + 1] === bgOf[i]) b++;
+      return [starts[a], starts[b] + secs(b) * 1000];
+    });
+    var bgsHtml = '<div class="pitch-bgs" aria-hidden="true">' +
+      images.map(function (src, k) { return '<div class="pitch-bg pitch-bg--' + focus[k] + '" data-src="' + esc(src) + '"></div>'; }).join('') +
+      '</div><div class="pitch-shade" aria-hidden="true"></div>';
+
+    // ----- the dot that travels the line: where it should be at the end of each scene -----
+    // 'edge' = stopped at the gap, a number = how far along the stretch after the gap (0 to 1)
+    var bridgeScenes = [];
+    scenes.forEach(function (s, i) { if (s.line === 'bridge') bridgeScenes.push(i); });
+    var dotAt = [];
+    scenes.forEach(function (s, i) {
+      var x = i ? dotAt[i - 1] : 'start';
+      if (s.line === 'base' || s.line === 'gap') x = 'edge';
+      else if (s.line === 'bridge') {
+        var k = bridgeScenes.indexOf(i);
+        x = bridgeScenes.length > 1 ? k / (bridgeScenes.length - 1) : 1;
+      }
+      dotAt.push(x);
+    });
+    var gapFrom = 0.41, gapTo = 0.59;                             // measured from the layout in measure()
+    function place(x) {
+      if (x === 'start') return 0.02;
+      if (x === 'edge') return gapFrom - 0.018;
+      return gapTo + 0.018 + (0.985 - gapTo - 0.018) * x;
+    }
+    function dotX(i, local) {
+      var from = place(i ? dotAt[i - 1] : 'start');
+      var to = place(dotAt[i]);
+      if (from === to || calm) return to;
+      var firstBridge = scenes[i].line === 'bridge' && (!i || scenes[i - 1].line !== 'bridge');
+      var delay = firstBridge ? 1100 : 300;                       // wait for the gap to close
+      var dur = scenes[i].line === 'base' ? Math.max(1200, secs(i) * 800 - delay) : 1700;
+      return from + (to - from) * ease(clamp01((local - delay) / dur));
+    }
+
     // ----- scenes -----
     var scenesHtml = scenes.map(function (s, i) {
-      var seconds = Number(s.seconds) || 6;
+      var seconds = secs(i);
+      var fig = String(s.figure || '').replace(/[^a-z]/g, '');
       var words = String(s.headline || '').split(/\s+/).filter(Boolean);
-      var step = 0.07;
+      var step = 0.065;
       var headline = words.map(function (w, k) {
-        return '<span class="pitch-anim" style="--d:' + (0.15 + k * step).toFixed(2) + 's">' + esc(w) + '</span>';
+        return '<span class="pitch-w"><span class="pitch-anim" style="--d:' + (0.2 + k * step).toFixed(2) + 's">' + esc(w) + '</span></span>';
       }).join(' ');
-      var t = 0.15 + words.length * step + 0.5;            // when the headline has landed
+      var t = 0.2 + words.length * step + 0.55;              // when the headline has landed
+      var mark = '';
+      if (fig === 'redline') {
+        mark = '<span class="pitch-redline" style="--d:' + t.toFixed(2) + 's"></span>';
+        t += 0.9;
+      }
       var items = Array.isArray(s.items) ? s.items : [];
       var hold = 1.6;                                         // seconds everything stays before the scene ends
       var room = Math.max(0.3, seconds - hold - t - (s.detail ? 0.8 : 0));
-      var itemStep = items.length ? Math.min(0.85, room / items.length) : 0;
+      var itemStep = items.length ? Math.min(0.8, room / items.length) : 0;
       var itemsHtml = items.map(function (it, k) {
-        return '<li class="pitch-anim" style="--d:' + (t + k * itemStep).toFixed(2) + 's">' + itemHtml(it) + '</li>';
+        var d = (t + k * itemStep).toFixed(2);
+        var lead = fig === 'frameworks' ? '<span class="pitch-glyph">' + (GLYPHS[k % GLYPHS.length]) + '</span>'
+          : (fig === 'grid' || fig === 'columns') ? '<i class="pitch-rule"></i>' : '';
+        return '<li style="--d:' + d + 's">' + lead + '<span class="pitch-item pitch-anim">' + itemHtml(it) + '</span></li>';
       }).join('');
-      var after = t + items.length * itemStep + (items.length ? 0.2 : 0.3);
+      var after = t + items.length * itemStep + (items.length ? 0.2 : 0.2);
       var detail = s.detail
         ? '<p class="pitch-detail pitch-anim" style="--d:' + after.toFixed(2) + 's">' + esc(s.detail) + '</p>' : '';
       var cta = s.type === 'close' && data.cta_url
         ? '<p class="pitch-cta pitch-anim" style="--d:' + (after + 0.7).toFixed(2) + 's"><a class="btn btn--light" href="' + esc(data.cta_url) + '">' + esc(data.cta_label || 'Are we a match?') + '</a></p>' : '';
-      return '<div class="pitch-scene pitch-scene--' + esc(s.type || 'statement') + '" data-items="' + items.length + '" aria-hidden="true">' +
-        '<p class="pitch-headline">' + headline + '</p>' +
+      return '<div class="pitch-scene pitch-scene--' + esc(s.type || 'statement') + (fig ? ' pitch-fig--' + fig : '') + '" data-items="' + items.length + '" aria-hidden="true">' +
+        '<p class="pitch-headline">' + headline + '</p>' + mark +
         (items.length ? '<ul class="pitch-items">' + itemsHtml + '</ul>' : '') + detail + cta + '</div>';
     }).join('');
 
-    // ----- the line with a gap in it -----
+    // ----- the line with a gap in it, and the dot that has to cross it -----
     var lineHtml =
       '<div class="pitch-line" aria-hidden="true">' +
       '<span class="pitch-seg pitch-seg--left"><i></i><b>' + esc(line.left || '') + '</b></span>' +
       '<span class="pitch-seg pitch-seg--gap"><i></i><b class="pitch-gap-label">' + esc(line.gap || '') + '</b><b class="pitch-bridge-label">' + esc(line.bridge || '') + '</b></span>' +
       '<span class="pitch-seg pitch-seg--right"><i></i><b>' + esc(line.right || '') + '</b></span>' +
+      '<span class="pitch-dot"><b></b></span>' +
       '</div>';
 
     var segs = scenes.map(function (s, i) {
-      return '<button type="button" class="pitch-step" data-seek="' + i + '" style="flex-grow:' + (Number(s.seconds) || 6) + '" aria-label="Go to part ' + (i + 1) + ' of ' + scenes.length + '"><span></span></button>';
+      return '<button type="button" class="pitch-step" data-seek="' + i + '" style="flex-grow:' + secs(i) + '" aria-label="Go to part ' + (i + 1) + ' of ' + scenes.length + '"><span></span></button>';
     }).join('');
 
     var transcript = scenes.map(function (s) {
@@ -75,10 +165,13 @@
 
     root.innerHTML =
       '<div class="pitch-stage" role="group" aria-label="One-minute pitch. Animation without sound." data-line="none">' +
-      lineHtml + scenesHtml +
+      bgsHtml + lineHtml + scenesHtml +
       '<div class="pitch-poster">' +
       '<p class="pitch-headline">' + esc(data.poster_title || 'The pitch in one minute') + '</p>' +
+      '<p class="pitch-poster-row">' +
       '<button type="button" class="pitch-start btn btn--light" data-act="toggle"><span class="pitch-icon" aria-hidden="true"></span>' + esc(data.play_label || 'Play') + '</button>' +
+      (data.poster_note ? '<span class="pitch-poster-note">' + esc(data.poster_note) + '</span>' : '') +
+      '</p>' +
       '</div>' +
       '</div>' +
       '<div class="pitch-controls">' +
@@ -91,10 +184,31 @@
     var stage = root.querySelector('.pitch-stage');
     var sceneEls = root.querySelectorAll('.pitch-scene');
     var stepEls = root.querySelectorAll('.pitch-step');
+    var bgEls = root.querySelectorAll('.pitch-bg');
+    var lineEl = root.querySelector('.pitch-line');
     var toggle = root.querySelector('.pitch-toggle');
     var timeEl = root.querySelector('.pitch-time');
 
     var t = 0, playing = false, current = -1, last = 0, raf = 0;
+    // A long pause between frames (a sleeping tab) must not skip the film ahead; a recording keeps real time.
+    var frameCap = /[?&]record\b/.test(location.search) ? 1000 : 100;
+
+    function measure() {
+      var gap = root.querySelector('.pitch-seg--gap');
+      var w = lineEl.offsetWidth;
+      if (!gap || !w) return;
+      gapFrom = gap.offsetLeft / w;
+      gapTo = (gap.offsetLeft + gap.offsetWidth) / w;
+    }
+
+    function loadBg(k) {
+      var el = bgEls[k];
+      if (!el || el.style.backgroundImage) return;
+      el.style.backgroundImage = 'url("' + el.getAttribute('data-src').replace(/["\\\n\r]/g, '') + '")';
+    }
+    function showBg(k) {
+      bgEls.forEach(function (el, n) { el.classList.toggle('is-on', n === k); });
+    }
 
     function show(i, restart) {
       if (i === current && !restart) return;
@@ -106,6 +220,7 @@
         if (on) { void el.offsetWidth; el.classList.add('is-active'); }   // restart its animations
       });
       stage.setAttribute('data-line', scenes[i].line || 'none');
+      showBg(bgOf[i]);
     }
 
     function paint() {
@@ -113,11 +228,22 @@
       for (var k = 0; k < starts.length; k++) if (t >= starts[k]) i = k;
       show(i, false);
       stepEls.forEach(function (el, k) {
-        var len = (Number(scenes[k].seconds) || 6) * 1000;
-        var p = Math.max(0, Math.min(1, (t - starts[k]) / len));
+        var p = clamp01((t - starts[k]) / (secs(k) * 1000));
         el.firstChild.style.transform = 'scaleX(' + p.toFixed(3) + ')';
       });
       timeEl.textContent = clock(t) + ' / ' + clock(total);
+
+      // the dot on the line
+      var x = dotX(i, t - starts[i]);
+      lineEl.style.setProperty('--x', x.toFixed(4));
+      stage.classList.toggle('is-arrived', x > 0.975);
+
+      // slow push-in on the photograph behind this scene
+      var bg = bgEls[bgOf[i]];
+      if (bg) {
+        var p2 = calm ? 0 : clamp01((t - runOf[i][0]) / (runOf[i][1] - runOf[i][0]));
+        bg.style.transform = 'scale(' + (1.04 + 0.1 * p2).toFixed(4) + ') translate3d(' + (-1.4 * p2).toFixed(3) + '%,0,0)';
+      }
     }
 
     function setPlaying(on) {
@@ -132,7 +258,7 @@
 
     function tick(now) {
       if (!playing) return;
-      t += Math.min(100, now - last);
+      t += Math.min(frameCap, now - last);
       last = now;
       if (t >= total) {
         t = total;
@@ -146,6 +272,8 @@
     }
 
     function start(from) {
+      measure();
+      for (var k = 0; k < bgEls.length; k++) loadBg(k);
       stage.classList.add('is-started');
       stage.classList.remove('is-ended');
       t = from;
@@ -175,7 +303,6 @@
       var link = e.target.closest('a[data-pitch-play]');
       if (!link || !document.body.contains(stage)) return;
       e.preventDefault();
-      var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       stage.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'center' });
       toggle.focus({ preventScroll: true });
       if (playing) return;
@@ -188,9 +315,30 @@
       arrive.observe(stage);
     });
 
-    // Poster: a title, the play button and the line with its gap, until play is pressed
+    // Poster: the first photograph, a title, the play button and the line with its gap
     stage.setAttribute('data-line', 'gap');
+    measure();
+    lineEl.style.setProperty('--x', place('edge').toFixed(4));
+    window.addEventListener('resize', function () {
+      measure();
+      if (stage.classList.contains('is-started')) { if (!playing) paint(); }
+      else lineEl.style.setProperty('--x', place('edge').toFixed(4));
+    });
     timeEl.textContent = clock(0) + ' / ' + clock(total);
+    if (bgEls.length && bgOf[0] >= 0) {
+      showBg(bgOf[0]);
+      bgEls[bgOf[0]].style.transform = 'scale(1.04)';
+      if ('IntersectionObserver' in window) {
+        var near = new IntersectionObserver(function (entries) {
+          if (!entries[0].isIntersecting) return;
+          near.disconnect();
+          loadBg(bgOf[0]);
+        }, { rootMargin: '700px 0px' });
+        near.observe(stage);
+      } else {
+        loadBg(bgOf[0]);
+      }
+    }
 
     // For recording and testing: /pitch.html?autoplay (add &record to fill the window with the film)
     if (/[?&]record\b/.test(location.search)) document.documentElement.classList.add('pitch-record');
