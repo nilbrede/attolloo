@@ -139,15 +139,23 @@
     return { key: key, fit: fit, dims: dims, excluded: excluded, maybes: maybes };
   }
 
-  function mailto(v, res) {
+  function summary(v, res) {
     var lines = ['Self-test result: ' + res.heading, ''];
     v.fit.forEach(function (x) { lines.push(x.q.dimension + ': ' + x.o.label); });
     lines.push('');
     v.dims.forEach(function (x) { lines.push(x.q.dimension + ' (' + LEVELS[x.o.score] + '): ' + x.o.label); });
-    lines.push('', 'Company:', 'Name:', '');
+    return lines;
+  }
+
+  function mailto(v, res) {
     return 'mailto:' + (data.contact_email || '') +
       '?subject=' + encodeURIComponent('Attolloo self-test: ' + res.heading) +
-      '&body=' + encodeURIComponent(lines.join('\n'));
+      '&body=' + encodeURIComponent(summary(v, res).concat(['', 'Company:', 'Name:', '']).join('\n'));
+  }
+
+  // The answers travel after the # in the address, so they are not sent anywhere until the form is submitted
+  function formLink(v, res) {
+    return '/contact.html#selftest=' + encodeURIComponent(summary(v, res).join('\n'));
   }
 
   function showResult() {
@@ -177,11 +185,12 @@
 
     html += '<div class="match-actions">' +
       (canTalk
-        ? '<a class="btn btn--primary" href="' + esc(mailto(v, res)) + '">Email your answers to Nils</a>'
+        ? '<a class="btn btn--primary" href="' + esc(formLink(v, res)) + '">Send your answers to Nils</a>' +
+          '<a class="btn btn--quiet" href="' + esc(mailto(v, res)) + '">Use your own email instead</a>'
         : '<a class="btn btn--primary" href="/startups.html">Read how the 6Sense Filter works</a>') +
       '<button type="button" class="btn btn--quiet" data-go="restart">Start again</button></div>';
 
-    if (canTalk) html += '<p class="match-note">The button opens a draft in your own email program. Nothing is sent until you send it.</p>';
+    if (canTalk) html += '<p class="match-note">The first button opens the contact form with your answers filled in. Nothing is sent until you press send there.</p>';
 
     if (data.scoring_note) {
       html += '<details class="match-scoring"><summary>How this is scored</summary>' + renderText(data.scoring_note) + '</details>';

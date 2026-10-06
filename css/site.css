@@ -364,6 +364,85 @@ body[data-page="home"] .hero { min-height: clamp(400px, 62vh, 620px); }
   color: var(--ink);
 }
 
+/* ---------- Contact page ---------- */
+
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: start;
+  padding-block: clamp(48px, 7vw, 92px);
+}
+.contact h2 {
+  margin: 0;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.3vw, 1.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+}
+.contact-photo { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); margin-bottom: 1.3rem; }
+.contact-role { margin: 0.35em 0 0; font-family: var(--sans); font-size: 1rem; color: var(--text-soft); }
+.contact-ways { list-style: none; margin: 1.5rem 0 0; padding: 0; border-top: 1px solid var(--line); font-family: var(--sans); font-size: 1rem; }
+.contact-ways li { display: grid; grid-template-columns: 5.6em minmax(0, 1fr); gap: 0.8em; padding: 0.8em 0; border-bottom: 1px solid var(--line); }
+.contact-ways li > span:first-child { color: var(--text-soft); }
+.contact-ways a { overflow-wrap: anywhere; }
+
+.contact-intro { margin: 0.7em 0 0; max-width: 54ch; }
+.contact-prefill { margin: 1.1em 0 0; padding: 0.7em 0.9em; border-left: 3px solid var(--green); background: #f1f8f3; font-family: var(--sans); font-size: 0.98rem; }
+
+.contact-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem 1.25rem; margin-top: 1.7rem; font-family: var(--sans); }
+.contact-form .field--wide { grid-column: 1 / -1; }
+.contact-form label { display: block; margin-bottom: 0.4em; font-size: 0.98rem; font-weight: 600; color: var(--ink); }
+.contact-form .optional { font-weight: 400; color: var(--text-soft); }
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.65em 0.8em;
+  border: 1.5px solid #b7c4d1;
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+.contact-form textarea { resize: vertical; min-height: 9.5em; }
+.contact-form input:hover,
+.contact-form select:hover,
+.contact-form textarea:hover { border-color: var(--text-soft); }
+.contact-form input:focus-visible,
+.contact-form select:focus-visible,
+.contact-form textarea:focus-visible { outline: 3px solid var(--blue); outline-offset: 1px; border-color: var(--blue); }
+.contact-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.contact-actions { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1rem 1.4rem; align-items: center; margin-top: 0.3rem; }
+.contact-privacy { margin: 0; font-size: 0.9rem; line-height: 1.45; color: var(--text-soft); }
+.contact-error { margin: 0; padding: 0.8em 1em; border-left: 3px solid var(--amber); background: #fdf6e6; font-size: 1rem; color: var(--ink); }
+.contact-success { margin-top: 1.7rem; padding: 1.4rem 1.5rem; border-left: 3px solid var(--green); background: #f1f8f3; }
+.contact-success h3 { margin: 0 0 0.3em; font-family: var(--sans); font-size: 1.2rem; color: var(--ink); }
+.contact-success p { margin: 0; }
+.contact-success:focus { outline: none; }
+
+@media (max-width: 820px) {
+  .contact { grid-template-columns: minmax(0, 1fr); }
+  .contact-card { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 30rem; }
+  .contact-form { grid-template-columns: minmax(0, 1fr); }
+  .contact-actions { grid-template-columns: minmax(0, 1fr); }
+  .contact-actions .btn { justify-self: start; }
+}
+
+/* ---------- Page not found ---------- */
+
+.notfound { padding-block: clamp(48px, 7vw, 92px); }
+.notfound p { max-width: var(--measure); margin: 0 0 1.05em; }
+.notfound ul { margin: 0.4em 0 0; padding-left: 1.15em; font-family: var(--sans); }
+.notfound li { margin-bottom: 0.5em; }
+.notfound li::marker { color: var(--green-deep); }
+
 /* ---------- Invitation to the self-test ---------- */
 
 .match-band { background: var(--frost); border-top: 1px solid var(--line); }

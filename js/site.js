@@ -13,7 +13,8 @@
     polaris: '/data/polaris.json',
     lumina: '/data/lumina.json',
     'responsible-ai': '/data/responsible-ai.json',
-    research: '/data/research.json'
+    research: '/data/research.json',
+    contact: '/data/contact.json'
   };
 
   function esc(s) {

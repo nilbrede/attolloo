@@ -171,7 +171,7 @@
 
 /* Mobile */
 
-@media (max-width: 980px) {
+@media (max-width: 1060px) {
   .site-header .container {
     padding-block: 10px;
   }
