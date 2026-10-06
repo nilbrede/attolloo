@@ -1,6 +1,9 @@
 /* The one-minute pitch. Built by /js/pitch.js; colours and fonts come from /css/site.css. */
 
 .pitch-band { background: var(--frost); border-bottom: 1px solid var(--line); }
+/* On the home page the film waits to be placed among the sections (see placeBands in /js/site.js) */
+.pitch-band[data-after-section]:not(.is-placed) { display: none; }
+.story > .pitch-band { border-top: 1px solid var(--line); }
 .pitch-band-inner { max-width: 1040px; margin-inline: auto; padding: clamp(28px, 5vw, 64px) var(--gutter); }
 
 .pitch-stage {

@@ -147,6 +147,25 @@
         '<div class="prose">' + renderText(s.body || s.text || '') + '</div>' +
         '</div></section>';
     }).join('') + '</div>';
+    placeBands(container);
+  }
+
+  // A full-width band (the pitch on the home page) can ask to sit after section n:
+  // <section data-after-section="3">. With fewer sections it stays where the page has it.
+  function placeBands(container) {
+    document.querySelectorAll('[data-after-section]').forEach(function (band) {
+      var n = parseInt(band.getAttribute('data-after-section'), 10);
+      var wrap = container.querySelector('.wrap');
+      var rows = wrap ? Array.prototype.slice.call(wrap.children) : [];
+      if (n > 0 && rows.length > n) {
+        var rest = document.createElement('div');
+        rest.className = 'wrap';
+        rows.slice(n).forEach(function (row) { rest.appendChild(row); });
+        container.appendChild(band);
+        container.appendChild(rest);
+      }
+      band.classList.add('is-placed');
+    });
   }
 
   // Fetch each diagram and place it in the page. Scripts and event attributes are removed first.
