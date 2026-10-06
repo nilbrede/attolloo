@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t d" font-family="Schibsted Grotesk, Segoe UI, Arial, sans-serif">
   <title id="t">The Kando turnaround sequence</title>
-  <desc id="d">A cycle of five steps: identify the constraint, subordinate everything else, elevate the constraint, break the assumption, repeat. The order matters.</desc>
+  <desc id="d">A cycle of five steps: identify the constraint, exploit the constraint, subordinate everything else, elevate the constraint, repeat. The order matters.</desc>
   <circle cx="200" cy="150" r="84" fill="none" stroke="#002448" stroke-width="1.5"/>
   <path d="M-6,-5 L6,0 L-6,5 z" fill="#002448" transform="translate(249.4,82.0) rotate(36.0)"/>
   <path d="M-6,-5 L6,0 L-6,5 z" fill="#002448" transform="translate(279.9,176.0) rotate(108.0)"/>
@@ -18,12 +18,12 @@
   <circle cx="120.1" cy="124.0" r="15" fill="#ffffff" stroke="#002448" stroke-width="1.5"/>
   <text x="120.1" y="129.0" font-size="14" font-weight="700" fill="#002448" text-anchor="middle">5</text>
   <text x="200.0" y="34.0" font-size="13" font-weight="600" fill="#002448" text-anchor="middle">Identify the constraint</text>
-  <text x="303.9" y="122.0" font-size="13" font-weight="600" fill="#002448" text-anchor="start">Subordinate</text>
-  <text x="303.9" y="138.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="start">everything else</text>
-  <text x="271.4" y="230.0" font-size="13" font-weight="600" fill="#002448" text-anchor="start">Elevate</text>
-  <text x="271.4" y="246.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="start">the constraint</text>
-  <text x="128.6" y="230.0" font-size="13" font-weight="600" fill="#002448" text-anchor="end">Break</text>
-  <text x="128.6" y="246.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="end">the assumption</text>
+  <text x="303.9" y="122.0" font-size="13" font-weight="600" fill="#002448" text-anchor="start">Exploit</text>
+  <text x="303.9" y="138.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="start">the constraint</text>
+  <text x="271.4" y="230.0" font-size="13" font-weight="600" fill="#002448" text-anchor="start">Subordinate</text>
+  <text x="271.4" y="246.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="start">everything else</text>
+  <text x="128.6" y="230.0" font-size="13" font-weight="600" fill="#002448" text-anchor="end">Elevate</text>
+  <text x="128.6" y="246.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="end">the constraint</text>
   <text x="96.1" y="129.0" font-size="13" font-weight="600" fill="#002448" text-anchor="end">Repeat</text>
   <text x="200.0" y="146.0" font-size="13" font-weight="700" fill="#002448" text-anchor="middle">The order</text>
   <text x="200.0" y="163.0" font-size="13" font-weight="700" fill="#002448" text-anchor="middle">matters</text>

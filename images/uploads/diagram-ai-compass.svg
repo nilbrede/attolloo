@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t d" font-family="Schibsted Grotesk, Segoe UI, Arial, sans-serif">
   <title id="t">The five-tier AI Compass maturity scale</title>
-  <desc id="d">Five rising bars from one star, fragmented, to five stars, autonomous. Most ventures start at one or two stars. The 6Sense Filter requires three stars or more.</desc>
+  <desc id="d">Five rising bars from one star, fragmented, to five stars, autonomous. Most ventures start at one or two stars. The 6Sense Filter requires at least two stars for early-stage ventures and three stars at growth stage.</desc>
   <rect x="37" y="182" width="54" height="40" rx="3" fill="#c5d0db"/>
   <text x="64.0" y="242.0" font-size="14" font-weight="700" fill="#002448" text-anchor="middle">1★</text>
   <text x="64.0" y="259.0" font-size="11.5" font-weight="600" fill="#4b5d72" text-anchor="middle">Fragmented</text>
-  <rect x="105" y="152" width="54" height="70" rx="3" fill="#c5d0db"/>
+  <rect x="105" y="152" width="54" height="70" rx="3" fill="#cfe9d6"/>
   <text x="132.0" y="242.0" font-size="14" font-weight="700" fill="#002448" text-anchor="middle">2★</text>
   <text x="132.0" y="259.0" font-size="11.5" font-weight="600" fill="#4b5d72" text-anchor="middle">Structured</text>
   <rect x="173" y="122" width="54" height="100" rx="3" fill="#9ad9ac"/>
@@ -17,9 +17,10 @@
   <text x="336.0" y="242.0" font-size="14" font-weight="700" fill="#002448" text-anchor="middle">5★</text>
   <text x="336.0" y="259.0" font-size="11.5" font-weight="600" fill="#4b5d72" text-anchor="middle">Autonomous</text>
   <line x1="37" y1="222" x2="363" y2="222" stroke="#002448" stroke-width="1.5"/>
-  <line x1="166" y1="30" x2="166" y2="226" stroke="#002448" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <text x="174.0" y="40.0" font-size="12.5" font-weight="600" fill="#002448" text-anchor="start">6Sense requires 3 stars or more</text>
-  <text x="37.0" y="104.0" font-size="12.5" font-weight="600" fill="#4b5d72" text-anchor="start">Where most</text>
-  <text x="37.0" y="120.0" font-size="12.5" font-weight="600" fill="#4b5d72" text-anchor="start">ventures start</text>
-  <path d="M37,136 v-6 h122 v6" fill="none" stroke="#4b5d72" stroke-width="1.2"/>
+  <text x="37.0" y="34.0" font-size="13" font-weight="700" fill="#002448" text-anchor="start">6Sense minimum</text>
+  <text x="37.0" y="51.0" font-size="12.5" font-weight="500" fill="#4b5d72" text-anchor="start">2 stars for early-stage ventures</text>
+  <text x="37.0" y="67.0" font-size="12.5" font-weight="500" fill="#4b5d72" text-anchor="start">3 stars at growth stage</text>
+  <text x="37.0" y="108.0" font-size="12.5" font-weight="600" fill="#4b5d72" text-anchor="start">Where most</text>
+  <text x="37.0" y="124.0" font-size="12.5" font-weight="600" fill="#4b5d72" text-anchor="start">ventures start</text>
+  <path d="M37,140 v-6 h122 v6" fill="none" stroke="#4b5d72" stroke-width="1.2"/>
 </svg>
