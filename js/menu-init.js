@@ -63,6 +63,8 @@
               <a href="/ai-compass.html">AI Compass</a>
               <a href="/polaris.html">Polaris Sprints</a>
               <a href="/lumina.html">KANDO Framework</a>
+              <h4>Worked Example</h4>
+              <a href="/example.html">Method in Practice</a>
             </div>
           </div>
         </li>

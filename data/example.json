@@ -1,0 +1,42 @@
+{
+  "title": "Method in Practice",
+  "subtitle": "The 6Sense Filter and AI Compass applied to an example company, step by step, with the numbers visible.",
+  "hero_image": "/images/uploads/site-hero-slope.jpg",
+  "sections": [
+    {
+      "heading": "A Fictitious Company, the Real Method",
+      "body": "Aurvik AS does not exist. The company, its founder, and every number on this page are invented. The method is not: the steps, the order, and the thresholds are the ones Attolloo uses.\n\nAurvik sells software that reads regulatory updates and maps them to a client's own routines, so that a compliance team sees what has changed and what to do about it. The founder has asked Attolloo for executive capacity against equity.\n\n- Customers: four, in Nordic asset management and insurance, all paying\n- Revenue: NOK 1.2 million a year in subscriptions, 14 months after launch\n- Team: seven people. Three in engineering, two compliance experts, one in sales, and the founder\n- Costs: NOK 7.45 million a year\n",
+      "image": ""
+    },
+    {
+      "heading": "Step 1: The Responsible AI Gate",
+      "body": "Before any scoring, one question: what happens if this ends up in the wrong hands?\n\nAurvik hits no red lines. The product reads public regulation and the client's own routines. It does not identify individuals, and it does not make decisions about them.\n\nOn the seven criteria for misuse and dual-use risk, two score low. Both become work for the first sprint.\n\n+++ The seven scores\n\nEach criterion is scored from 1 (high risk) to 5 (low risk).\n\n- Misuse potential: 4. The output is advice to a compliance team, with little use outside it.\n- Access control: 3. Access is by role, but changes to the rule library are not logged.\n- Customer control: 4. Four known customers, with terms of use.\n- Data and privacy: 4. Little personal data, and none of it sensitive.\n- Supply chain: 2. The product depends on one external language model. Sub-suppliers are not mapped, and there is no plan for replacing the model.\n- Regulatory maturity: 2. The product has not been classified under the EU AI Act, and nobody is named as owner.\n- Governance and culture: 3. The founder takes misuse seriously, but there are no written principles or escalation routines.\n",
+      "image": ""
+    },
+    {
+      "heading": "Step 2: The 6Sense Filter",
+      "body": "Four dimensions pass. Two pass on conditions, which is the most the filter allows. One more, and the answer would have been no.\n\n+++ The six dimensions, with the numbers\n\n① DIRECTION: PASSES ON A CONDITION\nFour customers pay annual subscriptions on signed contracts. That is demand shown by payment, not by market size. But all four came through the founder's own network. Condition: within 30 days, two qualified buyers from outside that network.\n\n② ENERGY: PASSES\nEach customer pays NOK 300,000 a year at a gross margin of 78 per cent, and costs NOK 85,000 to win. Assuming a customer stays five years, that is NOK 1.17 million in lifetime value, about 14 times the cost of winning the customer. The threshold is 3. The cost is earned back in 4.4 months. The five years are an assumption: no customer has left yet, but 14 months is a short history.\n\n③ CAPACITY: PASSES\nCustomers pay within 28 days and suppliers are paid after 45, so growth does not eat working capital. The company loses NOK 6.25 million a year and breaks even at about 32 customers. The real limit is people: every regulatory change is reviewed by hand by two compliance experts.\n\n④ PRIORITISATION: PASSES ON A CONDITION\nAI Compass places the company at 2.5 stars. The minimum for an early-stage venture is 2. Condition: a full baseline in the first two weeks, and a plan for 3 stars within six months.\n\n⑤ RISK: PASSES\nThe pre-mortem asks: assume Aurvik has failed in 24 months, what happened? The most expensive answer is that the model gave a client wrong compliance advice. The two low scores from the Responsible AI Gate belong here as well.\n\n⑥ DECISION: PASSES\nThree alternatives are compared in numbers: a full engagement, a limited advisory role, and no engagement. The comparison is in the next section.\n",
+      "image": "/images/uploads/diagram-example-6sense.svg"
+    },
+    {
+      "heading": "Where the Filter Corrected the Numbers",
+      "body": "Most of the value of a screening lies in the numbers it changes. In this case there were three, and one of them was Attolloo's own.\n\nTHE VALUATION\nThe founder opened with a valuation of NOK 50 million. Built from the bottom, yearly subscription revenue of 1.2 million times a multiple of six gives 7.2 million. The multiple is an assumption, but the distance is not a rounding error. The first number had anchored the conversation.\n\nTHE FORECAST\nThe founder expected to go from 4 to 50 customers in a year. Without a sales team, the base case was set at 13 to 20 customers, to be checked against the pipeline every month.\n\nATTOLLOO'S OWN ESTIMATE\nAttolloo's first estimate gave a full engagement a 65 per cent chance of success. That is the same optimism the founder was corrected for. The decision was therefore tested at 30 per cent.\n\n+++ The decision in numbers\n\n- A full engagement: 8 per cent equity over 24 months. If it succeeds, the stake is worth NOK 4.8 million, assuming a sale at 60 million. If it fails, the time spent is valued at 1.2 million.\n- A limited advisory role: 2 per cent equity and a yearly fee of NOK 120,000, with a 20 per cent chance of success, since Attolloo would have less influence.\n- No engagement.\n\nAt a 30 per cent chance of success, the full engagement has an expected value of NOK 0.6 million. The advisory role comes to 0.16 million, and staying out to zero. The full engagement is worth more than staying out as long as the chance of success is above 20 per cent. Below that, the answer is no.\n",
+      "image": ""
+    },
+    {
+      "heading": "Step 3: AI Compass",
+      "body": "After the filter comes the baseline: where does the company stand today, and what should be different in 90 days?\n\nAurvik is aimed at a real problem and creates value a client can measure. It is weaker on the two dimensions that institutional buyers ask about.\n\n+++ The four dimensions\n\nDIRECTION: 3 STARS\nThe product is aimed at a specific, testable problem: the 15 to 40 hours a week a compliance team spends following regulation by hand.\n\nVALUE: 3 STARS\nClients can measure hours saved. But Aurvik can only see whether an analysis was read, not whether the client acted on it.\n\nREADINESS: 2 STARS\nEngineering, compliance and sales work in three separate groups. The link between the model and the rule library is undocumented and breaks at every major update.\n\nINTEGRITY: 2 STARS\nReports are reviewed by a person before they go to a client, but the review is not logged. There is no EU AI Act classification, and no plan for replacing the external model.\n",
+      "image": "/images/uploads/diagram-example-compass.svg"
+    },
+    {
+      "heading": "Step 4: The First 90 Days",
+      "body": "The first Polaris sprint is built from what the screening found, not from a standard plan.\n\nTHE CONSTRAINT\nKando names one constraint: the two compliance experts. Before anyone is hired, routine classification of regulatory changes is taken off their desk, so their time goes to the cases that need judgement.\n\nTHE WORK\n- An EU AI Act classification, with a named owner\n- A map of suppliers, and a plan for replacing the external model\n- A log of human review for every report sent to a client\n- Two teams built around the work, each with compliance expertise, instead of three separate groups\n- A monthly forecast model in place of the founder's estimate\n\nHOW THE GAIN IS COUNTED\nAs capacity: from four to seven customers with the same seven people.\n\nTHE EVIDENCE AT DAY 90\nAI Compass from 2.5 to 3 stars, and both conditions from the filter closed. If a condition is not met in time, the engagement pauses.\n",
+      "image": ""
+    },
+    {
+      "heading": "What the Example Shows",
+      "body": "A screening that only confirms what the founder hoped is not worth much. Here it changed a valuation, a forecast and Attolloo's own estimate, set two conditions, and turned the two weakest points into the first 90 days of work.\n\n[Take the self-test](/match.html) to see where your own company stands, or [send a message](/contact.html).\n",
+      "image": ""
+    }
+  ]
+}

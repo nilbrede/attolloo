@@ -14,7 +14,8 @@
     lumina: '/data/lumina.json',
     'responsible-ai': '/data/responsible-ai.json',
     research: '/data/research.json',
-    contact: '/data/contact.json'
+    contact: '/data/contact.json',
+    example: '/data/example.json'
   };
 
   function esc(s) {

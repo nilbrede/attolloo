@@ -200,6 +200,26 @@ collections:
               - { name: body, label: "Tekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
+  # Metoden i praksis, eksempel (example.json)
+  - label: "Metoden i praksis"
+    name: "example"
+    files:
+      - label: "Metoden i praksis"
+        name: "example"
+        file: "data/example.json"
+        fields:
+          - { name: title, label: "Tittel (hero)", widget: "string" }
+          - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
+          - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: sections
+            label: "Seksjoner"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { name: heading, label: "Overskrift", widget: "string" }
+              - { name: body, label: "Tekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter." }
+              - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
+
   # Kontaktsiden (contact.json)
   - label: "Kontakt"
     name: "contact"
