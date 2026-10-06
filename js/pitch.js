@@ -1,6 +1,7 @@
 // /js/pitch.js — the one-minute pitch, as an animation built from text.
 // Scenes and wording come from /data/pitch.json (editable in the CMS).
-// No sound, no autoplay: it only runs when the visitor presses play.
+// No sound, no autoplay: it only runs when the visitor presses play,
+// or follows a link marked data-pitch-play ("Watch the one-minute pitch").
 (function () {
   'use strict';
 
@@ -168,6 +169,24 @@
         if (playing && entries[0].intersectionRatio < 0.25) setPlaying(false);
       }, { threshold: [0, 0.25, 1] }).observe(stage);
     }
+
+    // "Watch the one-minute pitch" elsewhere on the page: scroll to the film, then start it
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[data-pitch-play]');
+      if (!link || !document.body.contains(stage)) return;
+      e.preventDefault();
+      var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      stage.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'center' });
+      toggle.focus({ preventScroll: true });
+      if (playing) return;
+      if (!('IntersectionObserver' in window)) { start(0); return; }
+      var arrive = new IntersectionObserver(function (entries) {
+        if (entries[0].intersectionRatio < 0.6) return;
+        arrive.disconnect();
+        if (!playing) start(0);
+      }, { threshold: [0.6] });
+      arrive.observe(stage);
+    });
 
     // Poster: a title, the play button and the line with its gap, until play is pressed
     stage.setAttribute('data-line', 'gap');
