@@ -1,0 +1,16 @@
+{
+  "title": "Contact",
+  "subtitle": "For founders, investors, and universities. Messages go directly to Nils Johan Brede.",
+  "hero_image": "/images/uploads/site-hero-snow-pines.jpg",
+  "name": "Nils Johan Brede",
+  "role": "Founder and CEO, Attolloo Group AS",
+  "photo": "/images/uploads/site-nils-portrait.jpg",
+  "email": "nils.johan@attolloogroup.com",
+  "linkedin": "https://www.linkedin.com/in/nilsjohan/",
+  "location": "Oslo, Norway",
+  "form_heading": "Send a message",
+  "form_intro": "A few lines are enough. Say who you are and what you would like to talk about.",
+  "privacy_note": "Your message is sent to Nils Johan Brede by email and stored by Netlify, the company that hosts this site. It is used only to answer you.",
+  "success_heading": "Message sent",
+  "success_body": "Thank you. Your message has gone to Nils Johan Brede."
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact – Attolloo Group</title>
+  <meta name="description" content="Contact Nils Johan Brede, founder of Attolloo Group: send a message, email, or connect on LinkedIn. For founders, investors, and universities." />
+  <link rel="canonical" href="https://attolloogroup.com/contact.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Attolloo Group" />
+  <meta property="og:title" content="Contact – Attolloo Group" />
+  <meta property="og:description" content="Contact Nils Johan Brede, founder of Attolloo Group: send a message, email, or connect on LinkedIn." />
+  <meta property="og:url" content="https://attolloogroup.com/contact.html" />
+  <meta property="og:image" content="https://attolloogroup.com/images/share/share-contact.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Contact Attolloo Group: messages go directly to Nils Johan Brede." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://attolloogroup.com/images/share/share-contact.jpg" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/css/site.css?v=3" />
+  <link rel="stylesheet" href="/css/menu.css?v=3" />
+</head>
+<body data-page="contact">
+
+  <!-- Hero: title, subtitle and image come from /data/contact.json via /js/site.js -->
+  <section class="hero" id="hero" aria-labelledby="heroTitle">
+    <div class="hero-inner">
+      <h1 id="heroTitle">Contact</h1>
+      <p class="hero-sub" id="heroSubtitle"></p>
+    </div>
+  </section>
+
+  <main class="wrap contact">
+
+    <!-- Who you reach. Name, photo, email and LinkedIn come from /data/contact.json via /js/contact.js -->
+    <aside class="contact-card" aria-labelledby="contactName">
+      <img class="contact-photo" id="contactPhoto" src="/images/uploads/site-nils-portrait.jpg" alt="Nils Johan Brede" width="1200" height="900" />
+      <h2 id="contactName">Nils Johan Brede</h2>
+      <p class="contact-role" id="contactRole">Founder and CEO, Attolloo Group AS</p>
+      <ul class="contact-ways">
+        <li><span>Email</span> <a id="contactEmail" href="mailto:nils.johan@attolloogroup.com">nils.johan@attolloogroup.com</a></li>
+        <li id="contactLinkedinRow"><span>LinkedIn</span> <a id="contactLinkedin" href="https://www.linkedin.com/in/nilsjohan/" rel="me noopener">Nils Johan Brede on LinkedIn</a></li>
+        <li><span>Based in</span> <span id="contactLocation">Oslo, Norway</span></li>
+      </ul>
+    </aside>
+
+    <section class="contact-form-wrap" aria-labelledby="formHeading">
+      <h2 id="formHeading">Send a message</h2>
+      <p class="contact-intro" id="formIntro">A few lines are enough. Say who you are and what you would like to talk about.</p>
+      <p class="contact-prefill" id="prefillNote" hidden>Your self-test answers are filled in below. Change anything you like before sending.</p>
+
+      <!-- Handled by Netlify Forms. The form must stay in this file (not built by script) for Netlify to find it. -->
+      <form class="contact-form" id="contactForm" name="contact" method="POST" action="/contact.html" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="hidden" name="subject" value="Message from attolloogroup.com" />
+        <p class="contact-hp"><label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+        <div class="field">
+          <label for="cf-name">Your name</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="cf-company">Company or institution <span class="optional">optional</span></label>
+          <input id="cf-company" name="company" type="text" autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="cf-role">I am writing as</label>
+          <select id="cf-role" name="role">
+            <option>Founder or company leader</option>
+            <option>Investor</option>
+            <option>University or research</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="field field--wide">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" rows="7" required></textarea>
+        </div>
+
+        <div class="contact-actions field--wide">
+          <button type="submit" class="btn btn--primary" id="contactSubmit">Send message</button>
+          <p class="contact-privacy" id="privacyNote">Your message is sent to Nils Johan Brede by email and stored by Netlify, the company that hosts this site. It is used only to answer you.</p>
+        </div>
+        <p class="contact-error field--wide" id="contactError" role="alert" hidden></p>
+      </form>
+
+      <div class="contact-success" id="contactSuccess" role="status" tabindex="-1" hidden>
+        <h3 id="successHeading">Message sent</h3>
+        <p id="successBody">Thank you. Your message has gone to Nils Johan Brede.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/js/site.js?v=3" defer></script>
+  <script src="/js/contact.js?v=1" defer></script>
+  <script src="/js/menu-init.js?v=3" defer></script>
+</body>
+</html>

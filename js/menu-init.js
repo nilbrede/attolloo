@@ -79,6 +79,9 @@
         <!-- About -->
         <li><a href="/about.html">About</a></li>
 
+        <!-- Contact -->
+        <li><a href="/contact.html">Contact</a></li>
+
         <!-- Self-test -->
         <li><a class="nav-cta" href="/match.html">Are we a match?</a></li>
 

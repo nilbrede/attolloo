@@ -200,6 +200,29 @@ collections:
               - { name: body, label: "Tekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
+  # Kontaktsiden (contact.json)
+  - label: "Kontakt"
+    name: "contact"
+    files:
+      - label: "Kontaktsiden"
+        name: "contact"
+        file: "data/contact.json"
+        fields:
+          - { name: title, label: "Tittel (hero)", widget: "string" }
+          - { name: subtitle, label: "Ingress (hero)", widget: "text", required: false }
+          - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, required: false }
+          - { name: name, label: "Navn", widget: "string" }
+          - { name: role, label: "Rolle", widget: "string" }
+          - { name: photo, label: "Bilde", widget: "image", choose_url: true, required: false }
+          - { name: email, label: "E-post", widget: "string" }
+          - { name: linkedin, label: "LinkedIn-adresse", widget: "string", required: false, hint: "Hele adressen, for eksempel https://www.linkedin.com/in/navn/. La feltet stå tomt for å skjule linjen." }
+          - { name: location, label: "Sted", widget: "string" }
+          - { name: form_heading, label: "Overskrift over skjemaet", widget: "string" }
+          - { name: form_intro, label: "Tekst over skjemaet", widget: "text", required: false }
+          - { name: privacy_note, label: "Personvernlinje under skjemaet", widget: "text" }
+          - { name: success_heading, label: "Overskrift når meldingen er sendt", widget: "string" }
+          - { name: success_body, label: "Tekst når meldingen er sendt", widget: "text" }
+
   # Ett-minutts pitch, animasjon (pitch.json)
   - label: "Pitch-animasjon"
     name: "pitch"
