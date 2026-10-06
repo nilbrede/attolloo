@@ -37,7 +37,7 @@ collections:
             collapsed: true
             fields:
               - { name: heading, label: "Overskrift", widget: "string" }
-              - { name: body, label: "Tekst", widget: "markdown" }
+              - { name: body, label: "Tekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
   # Om oss (about.json)
@@ -57,7 +57,7 @@ collections:
             collapsed: true
             fields:
               - { name: heading, label: "Overskrift", widget: "string" }
-              - { name: body, label: "Brødtekst", widget: "markdown" }
+              - { name: body, label: "Brødtekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
   # Tjenester (services.json)
@@ -77,7 +77,7 @@ collections:
             collapsed: true
             fields:
               - { name: heading, label: "Overskrift", widget: "string" }
-              - { name: body, label: "Brødtekst", widget: "markdown" }
+              - { name: body, label: "Brødtekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
   # Startups & Scaleups (startups.json)
@@ -97,7 +97,7 @@ collections:
             collapsed: true
             fields:
               - { name: heading, label: "Overskrift", widget: "string" }
-              - { name: body, label: "Tekst", widget: "markdown" }
+              - { name: body, label: "Tekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
   # Polaris (polaris.json)
@@ -117,7 +117,7 @@ collections:
             collapsed: true
             fields:
               - { name: heading, label: "Overskrift", widget: "string" }
-              - { name: body, label: "Tekst", widget: "markdown" }
+              - { name: body, label: "Tekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
   # Kando Framework (lumina.json)
@@ -137,7 +137,7 @@ collections:
             collapsed: true
             fields:
               - { name: heading, label: "Overskrift", widget: "string" }
-              - { name: body, label: "Tekst", widget: "markdown" }
+              - { name: body, label: "Tekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
   # AI Compass (ai-compass.json)
@@ -157,7 +157,7 @@ collections:
             collapsed: true
             fields:
               - { name: heading, label: "Overskrift", widget: "string" }
-              - { name: body, label: "Tekst", widget: "markdown" }
+              - { name: body, label: "Tekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
   # Responsible AI (responsible-ai.json)
@@ -177,7 +177,7 @@ collections:
             collapsed: true
             fields:
               - { name: heading, label: "Overskrift", widget: "string" }
-              - { name: body, label: "Tekst", widget: "markdown" }
+              - { name: body, label: "Tekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
   # Research (research.json)
@@ -197,7 +197,7 @@ collections:
             collapsed: true
             fields:
               - { name: heading, label: "Overskrift", widget: "string" }
-              - { name: body, label: "Tekst", widget: "markdown" }
+              - { name: body, label: "Tekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
   # Ett-minutts pitch, animasjon (pitch.json)
