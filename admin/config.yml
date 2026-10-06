@@ -210,6 +210,7 @@ collections:
         fields:
           - { name: poster_title, label: "Tittel før avspilling", widget: "string" }
           - { name: play_label, label: "Tekst på startknappen", widget: "string" }
+          - { name: poster_note, label: "Liten tekst ved startknappen", widget: "string", required: false }
           - { name: replay_label, label: "Tekst for å spille på nytt", widget: "string" }
           - { name: transcript_label, label: "Tekst for «les som tekst»", widget: "string" }
           - { name: cta_label, label: "Knapp i siste scene", widget: "string" }
@@ -241,6 +242,28 @@ collections:
               - { name: headline, label: "Overskrift", widget: "text" }
               - { name: items, label: "Punkter («Navn: forklaring» gir navnet i fet skrift)", widget: "list", field: { name: item, label: "Punkt", widget: "string" }, required: false }
               - { name: detail, label: "Tilleggslinje", widget: "text", required: false }
+              - { name: image, label: "Bakgrunnsbilde", widget: "image", choose_url: true, required: false, hint: "Bildet tones ned bak teksten. Scener etter hverandre med samme bilde får én sammenhengende, langsom zoom." }
+              - name: focus
+                label: "Utsnitt av bildet"
+                widget: "select"
+                required: false
+                default: "center"
+                options:
+                  - { label: "Midten", value: "center" }
+                  - { label: "Øvre del", value: "top" }
+                  - { label: "Nedre del", value: "bottom" }
+              - name: figure
+                label: "Utforming av punktene"
+                widget: "select"
+                required: false
+                default: ""
+                options:
+                  - { label: "Vanlig (tekst og punktliste)", value: "" }
+                  - { label: "Rutenett med streker (2 kolonner)", value: "grid" }
+                  - { label: "Kolonner med grønn strek", value: "columns" }
+                  - { label: "Merkelapper i ramme", value: "tags" }
+                  - { label: "De fire rammeverkene med tegninger", value: "frameworks" }
+                  - { label: "Rød linje under overskriften", value: "redline" }
               - name: line
                 label: "Linjen nederst i denne scenen"
                 widget: "select"
