@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t d" font-family="Schibsted Grotesk, Segoe UI, Arial, sans-serif">
+  <title id="t">The 6Sense scorecard for the example company</title>
+  <desc id="d">Six dimensions. Direction and Prioritisation pass on a condition. Energy, Capacity, Risk and Decision pass. The verdict is qualified, on two conditions.</desc>
+  <polygon points="200,138 200.0,58.0 269.3,98.0" fill="#f6e3b4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="200,138 269.3,98.0 269.3,178.0" fill="#dff1e4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="200,138 269.3,178.0 200.0,218.0" fill="#dff1e4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="200,138 200.0,218.0 130.7,178.0" fill="#f6e3b4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="200,138 130.7,178.0 130.7,98.0" fill="#dff1e4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="200,138 130.7,98.0 200.0,58.0" fill="#dff1e4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
+  <text x="224.0" y="101.4" font-size="15" font-weight="700" fill="#002448" text-anchor="middle">1</text>
+  <text x="248.0" y="143.0" font-size="15" font-weight="700" fill="#002448" text-anchor="middle">2</text>
+  <text x="224.0" y="184.6" font-size="15" font-weight="700" fill="#002448" text-anchor="middle">3</text>
+  <text x="176.0" y="184.6" font-size="15" font-weight="700" fill="#002448" text-anchor="middle">4</text>
+  <text x="152.0" y="143.0" font-size="15" font-weight="700" fill="#002448" text-anchor="middle">5</text>
+  <text x="176.0" y="101.4" font-size="15" font-weight="700" fill="#002448" text-anchor="middle">6</text>
+  <text x="254.0" y="42.0" font-size="13" font-weight="600" fill="#002448" text-anchor="start">Direction</text>
+  <text x="254.0" y="58.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="start">on a condition</text>
+  <text x="288.0" y="134.0" font-size="13" font-weight="600" fill="#002448" text-anchor="start">Energy</text>
+  <text x="288.0" y="150.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="start">passes</text>
+  <text x="254.0" y="226.0" font-size="13" font-weight="600" fill="#002448" text-anchor="start">Capacity</text>
+  <text x="254.0" y="242.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="start">passes</text>
+  <text x="146.0" y="226.0" font-size="13" font-weight="600" fill="#002448" text-anchor="end">Prioritisation</text>
+  <text x="146.0" y="242.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="end">on a condition</text>
+  <text x="112.0" y="134.0" font-size="13" font-weight="600" fill="#002448" text-anchor="end">Risk</text>
+  <text x="112.0" y="150.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="end">passes</text>
+  <text x="146.0" y="42.0" font-size="13" font-weight="600" fill="#002448" text-anchor="end">Decision</text>
+  <text x="146.0" y="58.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="end">passes</text>
+  <line x1="10" y1="262" x2="390" y2="262" stroke="#d6dfe8" stroke-width="1.5"/>
+  <text x="200.0" y="284.0" font-size="13.5" font-weight="700" fill="#002448" text-anchor="middle">Qualified, on two conditions</text>
+</svg>
