@@ -51,6 +51,7 @@
   // Small, safe renderer for the text written in the CMS:
   // paragraphs, "- " lists, "1. " numbered lists, "> " quotes, "## " headings,
   // capitalised sub-headings and [text](/link) links.
+  // "+++ Title" folds the rest of the section (or up to a bare "+++") behind that title.
   function renderText(src) {
     var lines = String(src || '').replace(/\r/g, '').split('\n');
     var html = [];
@@ -65,10 +66,25 @@
       if (quote.length) { html.push('<blockquote>' + inline(quote.join(' ')) + '</blockquote>'); quote = []; }
     }
 
+    var folded = false;
+    function closeFold() { if (folded) { html.push('</div></details>'); folded = false; } }
+
     lines.forEach(function (raw) {
       var line = raw.trim();
       var m;
       if (!line) { flush(); return; }
+      // "+++ The six dimensions in detail" puts what follows behind a "read more" line.
+      // A line with only "+++" ends it; otherwise it runs to the end of the section.
+      if ((m = line.match(/^\\?\+\\?\+\\?\+\s*(.*)$/))) {
+        flush();
+        var wasFolded = folded;
+        closeFold();
+        if (m[1] || !wasFolded) {
+          html.push('<details class="more"><summary><span class="more-label">' + inlineRest(m[1] || 'More detail') + '</span></summary><div class="more-body">');
+          folded = true;
+        }
+        return;
+      }
       if ((m = line.match(/^[-*]\s+(.*)$/))) {
         if (para.length || quote.length || (list.length && listTag !== 'ul')) flush();
         listTag = 'ul';
@@ -99,6 +115,7 @@
       }
     });
     flush();
+    closeFold();
     return html.join('');
   }
 
@@ -154,6 +171,24 @@
           console.error('Could not load diagram ' + src, err);
           slot.innerHTML = '<img src="' + esc(src) + '" alt="">';
         });
+    });
+  }
+
+  // A link to "#section" opens the detail in that section; printing opens everything.
+  function openFoldsFor(hash) {
+    var id = String(hash || '').replace(/^#/, '');
+    if (!id) return;
+    var target = null;
+    try { target = document.getElementById(decodeURIComponent(id)); } catch (e) { return; }
+    if (!target) return;
+    target.querySelectorAll('details.more').forEach(function (d) { d.open = true; });
+    target.scrollIntoView();
+  }
+  function wireFolds() {
+    openFoldsFor(location.hash);
+    window.addEventListener('hashchange', function () { openFoldsFor(location.hash); });
+    window.addEventListener('beforeprint', function () {
+      document.querySelectorAll('details.more').forEach(function (d) { d.open = true; });
     });
   }
 
@@ -225,7 +260,7 @@
         var sections = Array.isArray(data.sections) ? data.sections
           : (Array.isArray(data.services) ? data.services : []);
         var container = document.getElementById('sections');
-        if (container) { renderSections(container, sections); loadDiagrams(container); }
+        if (container) { renderSections(container, sections); loadDiagrams(container); wireFolds(); }
 
         // Jump to a section if the address has an #anchor
         if (location.hash.length > 1) {
