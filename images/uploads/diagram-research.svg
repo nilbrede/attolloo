@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="group" aria-labelledby="t d" font-family="Schibsted Grotesk, Segoe UI, Arial, sans-serif">
+  <title id="t">Three open research questions, by framework</title>
+  <desc id="d">6Sense Filter: predictive validity, studied by longitudinal tracking and survival analysis. AI Compass: inter-rater reliability, studied by psychometric testing with Cohen's kappa and intra-class correlation, suited to a master's thesis. Polaris Sprints: hybrid agile governance, studied by qualitative case study or action research. Each framework links to its page.</desc>
+  <text x="22.0" y="22.0" font-size="12" font-weight="600" fill="#4b5d72" text-anchor="start">Framework</text>
+  <text x="124.0" y="22.0" font-size="12" font-weight="600" fill="#4b5d72" text-anchor="start">Open question</text>
+  <text x="246.0" y="22.0" font-size="12" font-weight="600" fill="#4b5d72" text-anchor="start">Approach</text>
+  <rect x="8" y="32" width="384" height="78" rx="6" fill="#ffffff" stroke="#d6dfe8" stroke-width="1.5"/>
+  <a href="/startups.html">
+    <rect class="diagram-row" x="14" y="38" width="92" height="66" rx="4" fill="#e6f4ea" stroke="#e6f4ea" stroke-width="1.5"/>
+    <text x="22" y="67" font-size="14" font-weight="700" fill="#002448">6Sense</text>
+    <text x="22" y="84" font-size="14" font-weight="700" fill="#002448">Filter</text>
+  </a>
+  <path d="M111,66.0 l5,5 l-5,5" fill="none" stroke="#4b5d72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M233,66.0 l5,5 l-5,5" fill="none" stroke="#4b5d72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="124.0" y="67.0" font-size="13.5" font-weight="700" fill="#002448" text-anchor="start">Predictive</text>
+  <text x="124.0" y="84.0" font-size="13.5" font-weight="700" fill="#002448" text-anchor="start">validity</text>
+  <text x="246.0" y="67.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="start">Longitudinal tracking,</text>
+  <text x="246.0" y="83.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="start">survival analysis</text>
+  <rect x="8" y="119" width="384" height="78" rx="6" fill="#ffffff" stroke="#d6dfe8" stroke-width="1.5"/>
+  <a href="/ai-compass.html">
+    <rect class="diagram-row" x="14" y="125" width="92" height="66" rx="4" fill="#e6f4ea" stroke="#e6f4ea" stroke-width="1.5"/>
+    <text x="22" y="154" font-size="14" font-weight="700" fill="#002448">AI</text>
+    <text x="22" y="171" font-size="14" font-weight="700" fill="#002448">Compass</text>
+  </a>
+  <path d="M111,153.0 l5,5 l-5,5" fill="none" stroke="#4b5d72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M233,153.0 l5,5 l-5,5" fill="none" stroke="#4b5d72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="124.0" y="154.0" font-size="13.5" font-weight="700" fill="#002448" text-anchor="start">Inter-rater</text>
+  <text x="124.0" y="171.0" font-size="13.5" font-weight="700" fill="#002448" text-anchor="start">reliability</text>
+  <text x="246.0" y="148.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="start">Psychometric testing:</text>
+  <text x="246.0" y="164.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="start">Cohen's kappa, ICC</text>
+  <rect x="244" y="171" width="142" height="18" rx="9" fill="#1b7a3a"/>
+  <text x="315.0" y="184.0" font-size="10.5" font-weight="600" fill="#ffffff" text-anchor="middle">Suited to a master's thesis</text>
+  <rect x="8" y="206" width="384" height="78" rx="6" fill="#ffffff" stroke="#d6dfe8" stroke-width="1.5"/>
+  <a href="/polaris.html">
+    <rect class="diagram-row" x="14" y="212" width="92" height="66" rx="4" fill="#e6f4ea" stroke="#e6f4ea" stroke-width="1.5"/>
+    <text x="22" y="241" font-size="14" font-weight="700" fill="#002448">Polaris</text>
+    <text x="22" y="258" font-size="14" font-weight="700" fill="#002448">Sprints</text>
+  </a>
+  <path d="M111,240.0 l5,5 l-5,5" fill="none" stroke="#4b5d72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M233,240.0 l5,5 l-5,5" fill="none" stroke="#4b5d72" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="124.0" y="241.0" font-size="13.5" font-weight="700" fill="#002448" text-anchor="start">Hybrid agile</text>
+  <text x="124.0" y="258.0" font-size="13.5" font-weight="700" fill="#002448" text-anchor="start">governance</text>
+  <text x="246.0" y="241.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="start">Qualitative case study</text>
+  <text x="246.0" y="257.0" font-size="12" font-weight="500" fill="#4b5d72" text-anchor="start">or action research</text>
+</svg>
