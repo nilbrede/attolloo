@@ -54,6 +54,9 @@ body {
 
 img { max-width: 100%; }
 
+/* An element marked hidden stays hidden, whatever display its class sets */
+[hidden] { display: none !important; }
+
 a { color: var(--blue); text-underline-offset: 0.16em; }
 a:hover { color: var(--ink); }
 
