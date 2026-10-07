@@ -69,8 +69,8 @@
           </div>
         </li>
 
-        <!-- EaaS Model -->
-        <li><a href="/services.html">EaaS Model</a></li>
+        <!-- How It Works: the Executive-as-a-Service (EaaS) model -->
+        <li><a href="/services.html">How It Works</a></li>
 
         <!-- Responsible AI -->
         <li><a href="/responsible-ai.html">Responsible AI</a></li>

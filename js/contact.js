@@ -36,6 +36,15 @@
 
   // "Send with the contact form" on the self-test passes the answers in the address, after the #
   function prefill() {
+    // "Request a 6Sense screening" links here with #screening: tick the box for the visitor
+    if (location.hash === '#screening') {
+      var box = $('cf-screening');
+      if (box) box.checked = true;
+      history.replaceState(null, '', location.pathname);
+      var heading = $('formHeading');
+      if (heading) heading.scrollIntoView();          // on a phone the form sits below the contact card
+      return;
+    }
     var m = location.hash.match(/^#selftest=(.+)$/);
     if (!m) return;
     try {
@@ -49,6 +58,7 @@
     var pairs = [];
     Array.prototype.forEach.call(form.elements, function (el) {
       if (!el.name || el.type === 'submit') return;
+      if ((el.type === 'checkbox' || el.type === 'radio') && !el.checked) return;
       pairs.push(encodeURIComponent(el.name) + '=' + encodeURIComponent(el.value));
     });
     return pairs.join('&');
@@ -63,6 +73,11 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      // The subject line of the email Nils receives says when a screening is asked for
+      var wantsScreening = $('cf-screening') && $('cf-screening').checked;
+      if (form.elements.subject) {
+        form.elements.subject.value = wantsScreening ? '6Sense screening request from attolloogroup.com' : 'Message from attolloogroup.com';
+      }
       error.hidden = true;
       button.disabled = true;
       button.textContent = 'Sending…';

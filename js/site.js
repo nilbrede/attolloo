@@ -54,6 +54,7 @@
   // paragraphs, "- " lists, "1. " numbered lists, "> " quotes, "## " headings,
   // capitalised sub-headings and [text](/link) links.
   // "+++ Title" folds the rest of the section (or up to a bare "+++") behind that title.
+  // "::: Title" starts a framed box with that title; a bare ":::" ends it.
   function renderText(src) {
     var lines = String(src || '').replace(/\r/g, '').split('\n');
     var html = [];
@@ -69,7 +70,9 @@
     }
 
     var folded = false;
-    function closeFold() { if (folded) { html.push('</div></details>'); folded = false; } }
+    var boxed = false;
+    function closeBox() { if (boxed) { html.push('</aside>'); boxed = false; } }
+    function closeFold() { closeBox(); if (folded) { html.push('</div></details>'); folded = false; } }
 
     lines.forEach(function (raw) {
       var line = raw.trim();
@@ -84,6 +87,17 @@
         if (m[1] || !wasFolded) {
           html.push('<details class="more"><summary><span class="more-label">' + inlineRest(m[1] || 'More detail') + '</span></summary><div class="more-body">');
           folded = true;
+        }
+        return;
+      }
+      // "::: How an engagement works" frames what follows as a box, up to a line with only ":::".
+      if ((m = line.match(/^\\?:\\?:\\?:\s*(.*)$/))) {
+        flush();
+        var wasBoxed = boxed;
+        closeBox();
+        if (m[1] || !wasBoxed) {
+          html.push('<aside class="callout">' + (m[1] ? '<h3 class="callout-title">' + inlineRest(m[1]) + '</h3>' : ''));
+          boxed = true;
         }
         return;
       }
