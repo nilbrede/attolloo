@@ -1,0 +1,13 @@
+# How Netlify publishes the site.
+#
+# Each time something is merged or saved in the CMS, Netlify runs the script below.
+# It copies the site to _site/ and writes the text from /data into the pages there,
+# so the content is in the page itself and does not depend on scripts in the browser.
+# The files in this repository are not changed. See /scripts/prerender.mjs.
+
+[build]
+  command = "node scripts/prerender.mjs"
+  publish = "_site"
+
+[build.environment]
+  NODE_VERSION = "22"

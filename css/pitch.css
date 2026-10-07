@@ -416,3 +416,9 @@ body[data-page="pitch"] .pitch-band-inner { max-width: 1240px; }
 .pitch-record .pitch-poster { display: none; }
 .pitch-record .pitch-stage { position: fixed; inset: 0; z-index: 999; width: 100vw; height: 100vh; aspect-ratio: auto; border-radius: 0; }
 .pitch-record .pitch-cta::after { content: "attolloogroup.com"; margin-left: 1.4em; font-size: 2.2cqw; font-weight: 600; vertical-align: middle; }
+
+/* The pitch as plain text, shown when scripts are off */
+.pitch-static { max-width: var(--measure); }
+.pitch-static h2 { font-family: var(--sans); font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.2; color: var(--ink); margin: 0 0 0.6em; }
+.pitch-static ol { margin: 0 0 1.4em; padding-left: 1.4em; color: var(--text); }
+.pitch-static li { margin-bottom: 0.5em; }

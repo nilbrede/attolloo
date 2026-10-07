@@ -1,6 +1,11 @@
 // /js/site.js — shared page engine for the main pages.
 // Each page sets <body data-page="..."> and gets its content from /data/<file>.json.
 // Content is written in Netlify CMS; this file only decides how it is shown.
+//
+// When the site is published, /scripts/prerender.mjs runs this same file and writes the
+// finished text into each page (<body data-prerendered>), so the content is there without
+// scripts. In the browser this file then only adds the behaviour. A page opened straight
+// from the repository, with no publish step, is filled in here as before.
 (function () {
   'use strict';
 
@@ -125,13 +130,10 @@
     return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
   }
 
-  function renderSections(container, sections) {
-    if (!sections.length) {
-      container.innerHTML = '<p class="empty-note wrap">No content published yet.</p>';
-      return;
-    }
+  function sectionsHtml(sections) {
+    if (!sections.length) return '<p class="empty-note wrap">No content published yet.</p>';
     var used = {};
-    container.innerHTML = '<div class="wrap">' + sections.map(function (s) {
+    return '<div class="wrap">' + sections.map(function (s) {
       var heading = String(s.heading || '').trim();
       var id = slug(heading);
       if (id && used[id]) id = '';
@@ -149,7 +151,11 @@
         '<div class="prose">' + renderText(s.body || s.text || '') + '</div>' +
         '</div></section>';
     }).join('') + '</div>';
-    placeBands(container);
+  }
+
+  function sectionsOf(data) {
+    return Array.isArray(data.sections) ? data.sections
+      : (Array.isArray(data.services) ? data.services : []);
   }
 
   // A full-width band (the pitch on the home page) can ask to sit after section n:
@@ -229,22 +235,33 @@
     return '<svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">' + wedges + '</svg>';
   }
 
-  function addMatchBand(before) {
-    var band = document.createElement('aside');
-    band.className = 'match-band';
-    band.setAttribute('aria-labelledby', 'matchBandTitle');
-    band.innerHTML =
+  // The self-test invitation is for founders; skip it on the self-test itself and on the research page
+  function wantsMatchBand(page) {
+    return page !== 'match' && page !== 'research';
+  }
+
+  function matchBandHtml() {
+    return '<aside class="match-band" aria-labelledby="matchBandTitle">' +
       '<div class="wrap match-band-inner">' + hexFigure() +
       '<div><h2 id="matchBandTitle">Is Attolloo right for your company?</h2>' +
       '<p>A short self-test, about two minutes. You get a straight answer, including when the answer is no.</p></div>' +
       '<a class="btn btn--primary" href="/match.html">Take the self-test</a>' +
-      '</div>';
-    before.parentNode.insertBefore(band, before);
+      '</div></aside>';
+  }
+
+  function addMatchBand(before) {
+    if (document.querySelector('.match-band')) return;   // already in the published page
+    before.insertAdjacentHTML('beforebegin', matchBandHtml());
   }
 
   function loadFooter() {
     var slot = document.getElementById('footer');
     if (!slot) return Promise.resolve();
+    if (slot.children.length) {                           // already in the published page
+      var y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+      return Promise.resolve();
+    }
     return fetch('/footer.html', { cache: 'no-store' })
       .then(function (res) { return res.text(); })
       .then(function (html) {
@@ -255,13 +272,32 @@
       .catch(function (err) { console.error('Could not load footer:', err); });
   }
 
+  // Behaviour for the sections once their text is in the page
+  function wireSections(container) {
+    placeBands(container);
+    loadDiagrams(container);
+    wireFolds();
+    // Jump to a section if the address has an #anchor
+    if (location.hash.length > 1) {
+      var target = null;
+      try { target = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (e) { /* odd address */ }
+      if (target) target.scrollIntoView();
+    }
+  }
+
   function loadPage() {
     var page = document.body.dataset.page;
     var url = DATA[page];
     var footerSlot = document.getElementById('footer');
-    // The self-test invitation is for founders; skip it on the self-test itself and on the research page
-    if (footerSlot && page !== 'match' && page !== 'research') addMatchBand(footerSlot);
+    if (footerSlot && wantsMatchBand(page)) addMatchBand(footerSlot);
     if (!url) return;
+    var container = document.getElementById('sections');
+
+    // Published pages already hold their text
+    if (document.body.hasAttribute('data-prerendered')) {
+      if (container) wireSections(container);
+      return;
+    }
 
     fetch(url + '?v=' + Date.now(), { cache: 'no-store' })
       .then(function (res) {
@@ -275,29 +311,32 @@
         if (sub) sub.textContent = String(data.subtitle || '').trim();
 
         var hero = document.getElementById('hero');
-        var img = data.hero_image || data.image || '';
-        if (hero && img) hero.style.setProperty('--hero-img', 'url("' + String(img).replace(/"/g, '%22') + '")');
+        var img = heroImage(data);
+        if (hero && img) hero.style.setProperty('--hero-img', heroImageCss(img));
 
-        var sections = Array.isArray(data.sections) ? data.sections
-          : (Array.isArray(data.services) ? data.services : []);
-        var container = document.getElementById('sections');
-        if (container) { renderSections(container, sections); loadDiagrams(container); wireFolds(); }
-
-        // Jump to a section if the address has an #anchor
-        if (location.hash.length > 1) {
-          var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-          if (target) target.scrollIntoView();
-        }
+        if (container) { container.innerHTML = sectionsHtml(sectionsOf(data)); wireSections(container); }
       })
       .catch(function (err) {
         console.error('Could not load ' + url, err);
-        var container = document.getElementById('sections');
         if (container) container.innerHTML = '<p class="empty-note wrap">This page could not be loaded. Please try again in a moment.</p>';
       });
   }
 
-  // Shared with /js/match.js
-  window.AttollooSite = { esc: esc, renderText: renderText };
+  function heroImage(data) { return String(data.hero_image || data.image || ''); }
+  function heroImageCss(img) { return 'url("' + String(img).replace(/"/g, '%22') + '")'; }
+
+  // Shared with /js/match.js, and with /scripts/prerender.mjs when the site is published
+  window.AttollooSite = {
+    esc: esc,
+    renderText: renderText,
+    DATA: DATA,
+    sectionsHtml: sectionsHtml,
+    sectionsOf: sectionsOf,
+    heroImage: heroImage,
+    heroImageCss: heroImageCss,
+    wantsMatchBand: wantsMatchBand,
+    matchBandHtml: matchBandHtml
+  };
 
   function start() {
     loadPage();
