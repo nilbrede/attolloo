@@ -1,4 +1,7 @@
-// menu-init.js — Updated clean English menu for Attolloo Group
+// menu-init.js — the menu for Attolloo Group.
+// HEADER_HTML below is the one place the menu is written. When the site is published,
+// /scripts/prerender.mjs copies it into every page (<header data-prerendered>), so the menu
+// is there without scripts; this file then only adds the behaviour.
 (function () {
 
   // 0) Remove stray legacy blog links if present
@@ -15,9 +18,10 @@
     }
   });
 
-  // 1) Hide any existing header immediately
+  // 1) A published page already has the right header. Any other header is hidden until replaced.
+  const published = document.querySelector('header.site-header[data-prerendered]');
   const oldHeader = document.querySelector('header.site-header');
-  if (oldHeader) oldHeader.style.display = 'none';
+  if (oldHeader && !published) oldHeader.style.display = 'none';
 
   // 2) Ensure menu.css is loaded
   function ensureMenuCss() {
@@ -36,9 +40,8 @@
     });
   }
 
- // 3) Build new header (with Kando Framework added)
-  function buildHeader() {
-    const html = `
+  // 3) The menu
+  const HEADER_HTML = `
 <header class="site-header">
   <div class="container">
 
@@ -69,8 +72,8 @@
           </div>
         </li>
 
-        <!-- EaaS Model -->
-        <li><a href="/services.html">EaaS Model</a></li>
+        <!-- How It Works: the Executive-as-a-Service (EaaS) model -->
+        <li><a href="/services.html">How It Works</a></li>
 
         <!-- Responsible AI -->
         <li><a href="/responsible-ai.html">Responsible AI</a></li>
@@ -92,13 +95,16 @@
 
   </div>
 </header>`;
+
+  function buildHeader() {
     const wrapper = document.createElement('div');
-    wrapper.innerHTML = html.trim();
+    wrapper.innerHTML = HEADER_HTML.trim();
     return wrapper.firstElementChild;
   }
 
   // 4) Mount when CSS is ready
   async function mountHeader() {
+    if (published) { attachBehavior(); return; }
     try {
       await ensureMenuCss();
       const newHeader = buildHeader();

@@ -359,6 +359,60 @@ body[data-page="home"] .hero { min-height: clamp(400px, 62vh, 620px); }
   color: var(--ink);
 }
 
+/* A framed box: "::: Title" in the CMS text, ended by a line with only ":::" */
+.prose .callout {
+  margin: 1.7em 0;
+  padding: 1.25em 1.35em 1.3em;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--green);
+  border-radius: var(--radius);
+  background: var(--frost);
+}
+.prose .callout > :last-child { margin-bottom: 0; }
+.prose .callout .callout-title {
+  margin: 0 0 0.9em;
+  font-size: 1.12rem;
+  letter-spacing: -0.005em;
+}
+.prose .callout ol { list-style: none; margin: 0 0 1.1em; padding: 0; counter-reset: step; }
+.prose .callout ol li {
+  counter-increment: step;
+  position: relative;
+  margin-bottom: 0.85em;
+  padding-left: 2.5em;
+  font-size: 1.02rem;
+  line-height: 1.5;
+}
+.prose .callout ol li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  width: 1.75em;
+  height: 1.75em;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.75em;
+  text-align: center;
+}
+.prose .callout p > a:only-child {
+  display: inline-block;
+  padding: 0.6em 1.1em;
+  border-radius: var(--radius);
+  background: var(--green-deep);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.prose .callout p > a:only-child:hover { background: #14602d; }
+.prose .callout p > a:only-child:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
 .prose .lead-in {
   font-family: var(--sans);
   font-size: 0.86em;
@@ -392,6 +446,7 @@ body[data-page="home"] .hero { min-height: clamp(400px, 62vh, 620px); }
 .contact-ways li > span:first-child { color: var(--text-soft); }
 .contact-ways a { overflow-wrap: anywhere; }
 
+#formHeading { scroll-margin-top: 96px; }
 .contact-intro { margin: 0.7em 0 0; max-width: 54ch; }
 .contact-prefill { margin: 1.1em 0 0; padding: 0.7em 0.9em; border-left: 3px solid var(--green); background: #f1f8f3; font-family: var(--sans); font-size: 0.98rem; }
 
@@ -421,6 +476,9 @@ body[data-page="home"] .hero { min-height: clamp(400px, 62vh, 620px); }
 .contact-form input:focus-visible,
 .contact-form select:focus-visible,
 .contact-form textarea:focus-visible { outline: 3px solid var(--blue); outline-offset: 1px; border-color: var(--blue); }
+.contact-form .check { display: flex; align-items: flex-start; gap: 0.7em; margin: 0; font-weight: 500; cursor: pointer; }
+.contact-form .check input { flex: 0 0 auto; width: 1.25rem; height: 1.25rem; min-height: 0; margin: 0.12em 0 0; padding: 0; accent-color: var(--green-deep); }
+.contact-form .check small { display: block; margin-top: 0.15em; font-size: 0.9rem; font-weight: 400; color: var(--text-soft); }
 .contact-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .contact-actions { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1rem 1.4rem; align-items: center; margin-top: 0.3rem; }
 .contact-privacy { margin: 0; font-size: 0.9rem; line-height: 1.45; color: var(--text-soft); }
