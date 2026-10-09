@@ -1,11 +1,11 @@
 {
   "title": "Method in Practice",
-  "subtitle": "The 6Sense Filter and AI Compass applied to an example company, step by step, with the numbers visible.",
+  "subtitle": "The 6Sense Filter and AI Compass applied to two example companies: one that sells to the established players, and one that competes with them.",
   "hero_image": "/images/uploads/site-hero-slope.jpg",
   "sections": [
     {
       "heading": "A Fictitious Company, the Real Method",
-      "body": "Aurvik AS does not exist. The company, its founder, and every number on this page are invented. The method is not: the steps, the order, and the thresholds are the ones Attolloo uses.\n\nAurvik sells software that reads regulatory updates and maps them to a client's own routines, so that a compliance team sees what has changed and what to do about it. The founder has ordered a Readiness Assessment, and wants to know whether a longer partnership would make sense.\n\n- Customers: four, in Nordic asset management and insurance, all paying\n- Revenue: NOK 1.2 million a year in subscriptions, 14 months after launch\n- Team: seven people. Three in engineering, two compliance experts, one in sales, and the founder\n- Costs: NOK 7.45 million a year\n",
+      "body": "Aurvik AS does not exist. The company, its founder, and every number on this page are invented. The method is not: the steps, the order, and the thresholds are the ones Attolloo uses.\n\nAurvik sells software that reads regulatory updates and maps them to a client's own routines, so that a compliance team sees what has changed and what to do about it. The founder has ordered a Readiness Assessment, and wants to know whether a longer partnership would make sense.\n\n- Customers: four, in Nordic asset management and insurance, all paying\n- Revenue: NOK 1.2 million a year in subscriptions, 14 months after launch\n- Team: seven people. Three in engineering, two compliance experts, one in sales, and the founder\n- Costs: NOK 7.45 million a year\n\nFurther down, the same method is applied to [a second company](/example.html#a-second-company-the-challenger), one that competes with the established players.\n",
       "image": ""
     },
     {
@@ -34,8 +34,18 @@
       "image": ""
     },
     {
-      "heading": "What the Example Shows",
-      "body": "A screening that only confirms what the founder hoped is not worth much. Here it changed a valuation, a forecast and Attolloo's own estimate, set two conditions, and turned the two weakest points into the first 90 days of work.\n\n[Take the self-test](/match.html) to see where your own company stands, or [send a message](/contact.html).\n",
+      "heading": "A Second Company: The Challenger",
+      "body": "Tidevik AS does not exist either. Where Aurvik sells to the established players, Tidevik competes with them.\n\nTidevik lets small businesses take payments and have the money the same day. An AI model screens every payment for fraud and decides, in real time, whether to let it through. The company runs under a partner bank's licence, and plans to apply for its own.\n\n- Customers: 1,200 small businesses, all paying\n- Revenue: NOK 5.76 million a year in subscriptions and transaction fees, 20 months after launch\n- Team: 14 people\n\nTidevik has no procurement function to get through. Its customers sign up online in ten minutes. The ones who have to say yes are the regulator, the partner bank, and the investor in the next round.\n",
+      "image": ""
+    },
+    {
+      "heading": "What the Assessment Found",
+      "body": "No red lines. Four of the six dimensions pass, and two pass on conditions. AI Compass places the company at 2 stars, the minimum for an early-stage venture.\n\nThe numbers were not the problem. The company rested on one agreement and one person.\n\n+++ The findings in detail\n\nTHE RESPONSIBLE AI GATE\nTwo of the seven criteria score low.\n\n- Data and privacy: 2. Payment data on 1,200 businesses and their customers, and no impact assessment.\n- Regulatory maturity: 2. The fraud model has not been classified under the EU AI Act, and nobody is named as its owner.\n\n② ENERGY: PASSES, NARROWLY\nEach customer brings in NOK 4,800 a year at a gross margin of 55 per cent, and costs NOK 2,900 to win. Assuming a customer stays four years, that is NOK 10,560 in lifetime value, 3.6 times the cost of winning the customer. The threshold is 3. The cost is earned back in 13 months.\n\n⑤ RISK: PASSES ON A CONDITION\nAll revenue runs through one agreement with one partner bank, which can end it at 90 days' notice. Condition: within 60 days, either a longer notice period or a second partner in dialogue.\n\n⑥ DECISION: PASSES ON A CONDITION\nThe model stops about 2 per cent of payments. Nobody can say who set that threshold, or when it was last reviewed. Condition: within 30 days, a named owner and a written decision.\n\nAI COMPASS: 2 STARS\nThe model's decisions are logged in a form only engineering can read. A customer whose payment is stopped has nobody to complain to. The partner bank's last questionnaire took five weeks to answer.\n\n+++\n\nTHE FIRST 90 DAYS\nKando names one constraint: the CTO, the only person who can answer the partner bank and the regulator. Before anyone is hired, the routine answers are taken off her desk and put in a standing evidence pack.\n\n- An EU AI Act classification of the fraud model, with a named owner\n- A readable log of stopped payments, and a person who handles complaints\n- An impact assessment for the payment data\n- An evidence pack that answers the partner bank's standard questions\n- New terms with the partner bank, or a second partner\n\nTHE EVIDENCE AT DAY 90\nAI Compass from 2 to 3 stars, the partner bank's questions answered in days instead of weeks, and both conditions closed.\n",
+      "image": ""
+    },
+    {
+      "heading": "What the Examples Show",
+      "body": "A screening that only confirms what the founder hoped is not worth much. Here it changed a valuation, a forecast and Attolloo's own estimate, set two conditions, and turned the two weakest points into the first 90 days of work. For Tidevik it showed that a growing company rested on one agreement and one person.\n\n[Take the self-test](/match.html) to see where your own company stands, or [send a message](/contact.html).\n",
       "image": ""
     }
   ]

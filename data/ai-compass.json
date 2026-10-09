@@ -5,7 +5,7 @@
   "sections": [
     {
       "heading": "What AI Compass Measures",
-      "body": "AI Compass evaluates an organisation across four navigational dimensions — asking not just whether AI is being used, but whether it is aimed correctly, generating real value, supported by the right infrastructure, and architecturally sound under regulatory scrutiny.\n\nDIRECTION\nIs the AI deployment aimed at the right business problem, with a clear and testable hypothesis?\n\n② VALUE\nDoes the model create measurable, decision-driving value — or just produce dashboards?\n\n③ READINESS\nDo people, processes, and data infrastructure support deployment without creating insider risk or operational fragility?\n\n④ INTEGRITY\nIs the system lawful, auditable, and architecturally compliant with GDPR, EU AI Act, and sector-specific regulation?\n\n\n",
+      "body": "AI Compass evaluates an organisation across four navigational dimensions — asking not just whether AI is being used, but whether it is aimed correctly, generating real value, supported by the right infrastructure, and architecturally sound under regulatory scrutiny.\n\n① DIRECTION\nIs the AI deployment aimed at the right business problem, with a clear and testable hypothesis?\n\n② VALUE\nDoes the model create measurable, decision-driving value — or just produce dashboards?\n\n③ READINESS\nDo people, processes, and data infrastructure support deployment without creating insider risk or operational fragility?\n\n④ INTEGRITY\nIs the system lawful, auditable, and architecturally compliant with GDPR, EU AI Act, and sector-specific regulation?\n\n\n",
       "image": "/images/uploads/site-plateau-skier.jpg"
     },
     {
