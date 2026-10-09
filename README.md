@@ -20,3 +20,21 @@ The website for Attolloo Group, [attolloogroup.com](https://attolloogroup.com).
 
 If the script cannot prepare a page, that page is published as its shell and still works
 in the browser. The publish log on Netlify says which pages were prepared.
+
+## The visit count
+
+The site counts its own visits. There is no outside service, no cookie, and nothing that can tell
+one visitor from another.
+
+- `js/count.js` runs on every page. It sends the page, the action and the name of the site the
+  visitor came from to `/api/count`. It sends nothing for browsers that ask not to be tracked,
+  or where the count has been switched off by opening `/?nocount` (on again with `/?count`).
+- `netlify/functions/count.mjs` is `/api/count`. It stores one small entry per visit in Netlify
+  Blobs, which comes with the Netlify account. Visits to preview versions of the site are kept
+  apart from visits to attolloogroup.com.
+- The numbers are at `/admin/stats.html`, behind the same login as the CMS.
+- What is counted is described for visitors in `data/privacy.json` ("Counting Visits"). If the
+  count changes, change that text first.
+
+`package.json` exists only for this: the function needs `@netlify/blobs`. The pages themselves
+need nothing installed.

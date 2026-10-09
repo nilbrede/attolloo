@@ -1,0 +1,9 @@
+{
+  "name": "attolloo",
+  "private": true,
+  "description": "attolloogroup.com. The only dependency is for the visit counter in netlify/functions.",
+  "type": "module",
+  "dependencies": {
+    "@netlify/blobs": "^8.2.0"
+  }
+}
