@@ -368,7 +368,32 @@
     matchBandHtml: matchBandHtml
   };
 
+  // A picture that fails to download (a weak mobile connection) is tried again, twice,
+  // instead of being left as a broken frame. If it still fails, the frame is left empty.
+  function retryPictures() {
+    if (typeof document.addEventListener !== 'function') return;   // the publish step has no page to listen to
+    function again(img) {
+      var n = Number(img.getAttribute('data-retry') || 0);
+      var src = String(img.getAttribute('src') || '').replace(/[?&]retry=\d+$/, '');
+      if (!src) return;
+      if (n >= 2) { img.style.visibility = 'hidden'; return; }
+      img.setAttribute('data-retry', n + 1);
+      setTimeout(function () {
+        img.src = src + (src.indexOf('?') < 0 ? '?' : '&') + 'retry=' + (n + 1);
+      }, n ? 5000 : 1500);
+    }
+    document.addEventListener('error', function (e) {
+      var t = e.target;
+      if (t && t.tagName === 'IMG' && t.closest && t.closest('.story-media, .contact-card')) again(t);
+    }, true);
+    // pictures that had already failed before this script ran
+    document.querySelectorAll('.story-media img, .contact-card img').forEach(function (img) {
+      if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) again(img);
+    });
+  }
+
   function start() {
+    retryPictures();
     loadPage();
     loadFooter();
   }
