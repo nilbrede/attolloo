@@ -1,6 +1,6 @@
 {
   "title": "AI Compass ",
-  "subtitle": "A structured 1-to-5 star diagnostic that benchmarks digital maturity, data infrastructure, and AI deployment readiness — before capital is committed.",
+  "subtitle": "A 1-to-5 star diagnostic of AI governance maturity, built around the questions buyers, regulators and investors ask.",
   "hero_image": "/images/uploads/site-hero-twilight-snow.jpg",
   "sections": [
     {
@@ -10,17 +10,17 @@
     },
     {
       "heading": "The 5-Tier Maturity Scale",
-      "body": "AI Compass benchmarks capabilities on a 1-to-5 star scale. Most early-stage ventures arrive at 1-2 stars. The diagnostic maps the gap and prescribes a sequenced path forward.\n\n+++ What each tier looks like\n\n1 STAR — FRAGMENTED\nManual and PDF-based workflows. No structured data layer. Decisions made by instinct. High operational risk in any regulated context.\n\n2 STARS — STRUCTURED\nBasic reporting. Spreadsheet-driven analytics. Partial digitisation. Compliance documentation exists but is not integrated with operations.\n\n3 STARS — INTEGRATED\nAPI-connected systems. Descriptive analytics. Some automation. Reporting is consistent but not yet predictive.\n\n4 STARS — PREDICTIVE\nMachine learning models informing decisions. Governed data pipelines. Active channel management. Demand forecasting using exponential smoothing or ML.\n\n5 STARS — AUTONOMOUS\nFully automated, predictive AI with closed-loop compliance and real-time governance. Linked Open Data. AI-driven decision systems with human oversight architecturally designed in.\n",
+      "body": "AI Compass benchmarks capabilities on a 1-to-5 star scale. Most early-stage ventures arrive at 1-2 stars. The diagnostic maps the gap and prescribes a sequenced path forward.\n\n+++ What each tier looks like\n\n1 STAR — FRAGMENTED\nNo inventory of the AI systems in use. No named owner. A buyer's security questionnaire cannot be answered without guessing.\n\n2 STARS — STRUCTURED\nThe systems are listed and policies exist on paper. Compliance documentation is not connected to how the product is actually built and run.\n\n3 STARS — INTEGRATED\nEach system is classified under the EU AI Act and has a named owner. Human review is logged. Suppliers and sub-suppliers are mapped. Procurement questions are answered with evidence.\n\n4 STARS — MONITORED\nControls are tested on a schedule. Model changes and incidents are logged and reviewed. Evidence can be produced on request, within days.\n\n5 STARS — ASSURED\nGovernance is verified by an independent party, for example certification against ISO/IEC 42001 and ISO/IEC 27001. Monitoring is continuous, and human oversight is designed into the system.\n",
       "image": "/images/uploads/diagram-ai-compass.svg"
     },
     {
       "heading": "  Data Infrastructure & Automated Compliance",
-      "body": "Before deploying AI algorithms, systems must be data-ready. AI Compass audits pipeline architecture, synthetic identity integrity, and automated governance to ensure models remain performant, auditable, and legally defensible.\n\nIn regulated sectors, this is not optional — it is the difference between a competitive asset and a regulatory liability. The diagnostic output feeds directly into Polaris sprint design and the 6Sense qualification score.\n\nCompanies using ML-based demand forecasting score 4 stars or above. Companies relying on sales intuition score 1-2 stars and are flagged as high operational risk.\n",
+      "body": "Before deploying AI algorithms, systems must be data-ready. AI Compass audits pipeline architecture and automated governance to ensure models remain performant, auditable, and legally defensible.\n\nIn regulated sectors, this is not optional — it is the difference between a competitive asset and a regulatory liability. The diagnostic output feeds directly into Polaris sprint design and the 6Sense qualification score.\n",
       "image": "/images/uploads/site-slope-sun.jpg"
     },
     {
       "heading": "Understand Where You Are",
-      "body": "AI Compass is deployed as part of the Attolloo EaaS engagement, typically following initial 6Sense qualification screening. If you want to understand where your organisation sits on the maturity scale — and what the sequenced path forward looks like — reach out.\n\n[Send a message](/contact.html) or email nils.johan@attolloogroup.com\n",
+      "body": "AI Compass is part of every Readiness Assessment. If you want to understand where your organisation sits on the maturity scale — and what the sequenced path forward looks like — reach out.\n\n[Send a message](/contact.html) or email nils.johan@attolloogroup.com\n",
       "image": ""
     }
   ]

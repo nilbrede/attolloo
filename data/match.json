@@ -2,7 +2,7 @@
   "title": "Are we a match?",
   "subtitle": "A two-minute self-test for founders of AI companies in regulated sectors. Five questions about fit, then one for each dimension of the 6Sense Filter.",
   "intro_heading": "A straight first answer, before the conversation",
-  "intro_body": "Attolloo invests senior executive depth in exchange for equity, and only where it can make a real difference. That means saying no early when the fit is not there.\n\nThis self-test follows the same logic as the 6Sense Filter. It is an indication based on your own answers, not the screening itself. The real screening takes one structured conversation.",
+  "intro_body": "Attolloo works with a small number of AI companies, and only where it can make a real difference. That means saying no early when the fit is not there.\n\nThis self-test follows the same logic as the 6Sense Filter. It is an indication based on your own answers, not the screening itself. The real screening is part of a Readiness Assessment.",
   "start_label": "Start the self-test",
   "privacy_note": "Your answers stay in your browser. Nothing is stored or sent unless you choose to send them.",
   "contact_email": "nils.johan@attolloogroup.com",
@@ -33,25 +33,35 @@
       "group": "fit",
       "dimension": "Sector",
       "question": "Which sector does your company operate in?",
-      "help": "Attolloo works where regulatory complexity creates both the risk and the competitive moat.",
+      "help": "Attolloo works with AI companies entering regulated markets, whether they sell to the established players or compete with them.",
       "options": [
         {
-          "label": "Fintech, regtech or compliance automation",
+          "label": "Fintech, insurtech, regtech or compliance automation",
           "score": 2
         },
         {
-          "label": "Legal technology, health data or clinical AI, cybersecurity-as-a-service, or HR technology",
+          "label": "Cybersecurity services or HR technology",
           "score": 2
         },
         {
           "label": "Another regulated sector",
           "score": 1,
-          "note": "Your sector is not on Attolloo's main list. Whether the regulatory depth carries over is a question for the first conversation."
+          "note": "Your sector is not on Attolloo's main list. Whether the experience carries over is a question for the first conversation."
+        },
+        {
+          "label": "Health or life science",
+          "score": 0,
+          "note": "Health and life science are outside what Attolloo takes on."
+        },
+        {
+          "label": "We compete in the pension market, or our main customers are pension providers or the public sector",
+          "score": 0,
+          "note": "Attolloo does not take on companies that compete in the pension market, or whose main customers are pension providers or the public sector."
         },
         {
           "label": "A sector without significant regulation",
           "score": 0,
-          "note": "Attolloo works in sectors where regulatory complexity creates both the risk and the competitive moat."
+          "note": "Attolloo works with companies entering regulated markets."
         }
       ]
     },
@@ -62,18 +72,17 @@
       "help": "",
       "options": [
         {
-          "label": "AI-driven software or services, sold to businesses or institutions",
+          "label": "AI-driven software or services, sold to regulated businesses or institutions",
           "score": 2
         },
         {
-          "label": "Software sold to both businesses and consumers",
-          "score": 1,
-          "note": "Attolloo's focus is products sold to businesses and institutions. The consumer side would need to be discussed."
+          "label": "An AI-driven service of our own in a regulated market, competing with the established players",
+          "score": 2
         },
         {
-          "label": "A consumer product, or hardware without a software governance layer",
+          "label": "Hardware without a software governance layer",
           "score": 0,
-          "note": "Consumer-facing products and hardware without a software governance layer are outside Attolloo's scope."
+          "note": "Hardware without a software governance layer is outside what Attolloo takes on."
         }
       ]
     },
@@ -88,40 +97,40 @@
           "score": 2
         },
         {
-          "label": "We have paid pilots or signed letters of intent",
+          "label": "We have paid pilots",
           "score": 2
         },
         {
-          "label": "We are pre-revenue, with documented evidence that the product solves a real problem for customers who would pay",
+          "label": "We have signed letters of intent, but nobody is paying yet",
           "score": 1,
-          "note": "Pre-revenue is possible when the evidence of a real, paid-for problem is documented. Bring it to the conversation."
+          "note": "Attolloo takes on companies with paying customers. With signed letters of intent you may be close. Say where the first contract stands."
         },
         {
-          "label": "We are pre-revenue and have not documented this yet",
+          "label": "We have no paying customers and no signed commitments yet",
           "score": 0,
-          "note": "Attolloo does not take on pre-revenue ventures without documented evidence that the product solves a real problem for paying customers."
+          "note": "Companies without paying customers are outside what Attolloo takes on."
         }
       ]
     },
     {
       "group": "fit",
       "dimension": "Model",
-      "question": "Attolloo contributes executive capacity in exchange for equity or a performance-based revenue share, not fees. Is that a model you are open to?",
-      "help": "",
+      "question": "Attolloo starts with a Readiness Assessment at a fixed price. Is a paid first step something you are open to?",
+      "help": "The price is quoted before the work starts. Equity only comes up later, and only in an executive partnership.",
       "options": [
         {
           "label": "Yes",
           "score": 2
         },
         {
-          "label": "Possibly, depending on the terms",
+          "label": "Possibly, depending on price and scope",
           "score": 1,
-          "note": "The model is equity or a performance-based revenue share. Terms are part of the first conversation."
+          "note": "The assessment has a fixed price, quoted before the work starts. Price and scope are part of the first conversation, which is free."
         },
         {
-          "label": "No, we would rather pay fees",
+          "label": "No, we are only looking for someone who works for equity",
           "score": 0,
-          "note": "Attolloo contributes executive capacity in exchange for equity or a performance-based revenue share. It does not work for hourly fees."
+          "note": "Attolloo starts with a paid assessment. Equity is only part of an executive partnership, and only after an assessment."
         }
       ]
     },
@@ -249,11 +258,11 @@
   "results": {
     "strong": {
       "heading": "This looks like a match",
-      "body": "You are in a sector Attolloo works in, and you report evidence on all six dimensions. The next step is the screening itself: one structured conversation where that evidence is tested."
+      "body": "You are in a sector Attolloo works in, and you report evidence on all six dimensions. The next step is a Readiness Assessment, where that evidence is tested and you get a written report and a 90-day plan."
     },
     "possible": {
       "heading": "Possibly a match, with gaps to talk through",
-      "body": "The fit is there, but your answers show gaps or open questions. That is common at this stage, and closing governance gaps is the work Attolloo does. It is worth a conversation. Bring the gaps with you."
+      "body": "The fit is there, but your answers show gaps or open questions. That is common at this stage, and closing governance gaps is the work Attolloo does. A Readiness Assessment puts those gaps in priority order. Bring them to the first conversation."
     },
     "not_yet": {
       "heading": "Probably not a match yet",
@@ -265,8 +274,8 @@
     },
     "excluded": {
       "heading": "Not a match for Attolloo",
-      "body": "At least one of your answers falls outside what Attolloo takes on. That says nothing about the quality of your company. It means this model is the wrong tool for it."
+      "body": "At least one of your answers falls outside what Attolloo takes on. That says nothing about the quality of your company. It means Attolloo is the wrong tool for it."
     }
   },
-  "scoring_note": "Any of the five fit questions can rule a match out. Each of the six dimensions is then rated documented, partly or not yet, based on your answer. No dimension at \"not yet\", at least three documented and a clear fit reads as a match. Decision at \"not yet\" is a veto. Up to two dimensions at \"not yet\" reads as possibly a match, and three or more as not yet.\n\nThis is a self-assessment. The 6Sense screening itself tests the evidence behind each answer."
+  "scoring_note": "Any of the five fit questions can rule a match out. Each of the six dimensions is then rated documented, partly or not yet, based on your answer. No dimension at \"not yet\", at least three documented and a clear fit reads as a match. Decision at \"not yet\" is a veto. Up to two dimensions at \"not yet\" reads as possibly a match, and three or more as not yet.\n\nThis is a self-assessment. A Readiness Assessment tests the evidence behind each answer."
 }

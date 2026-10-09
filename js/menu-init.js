@@ -56,23 +56,23 @@
     <nav id="primary-nav" class="nav main-nav" aria-label="Main menu">
       <ul class="nav-root">
 
-        <!-- Attolloo Lab Mega Menu -->
+        <!-- Method: the four frameworks and the worked example -->
         <li class="has-mega">
-          <button class="nav-parent" aria-expanded="false">Attolloo Lab</button>
-          <div class="mega" role="region" aria-label="Attolloo Lab submenu">
+          <button class="nav-parent" aria-expanded="false">Method</button>
+          <div class="mega" role="region" aria-label="Method submenu">
             <div class="mega-col">
-              <h4>Proprietary Stack</h4>
-              <a href="/startups.html">6Sense Filter</a>
+              <h4>The four frameworks</h4>
+              <a href="/6sense.html">6Sense Filter</a>
               <a href="/ai-compass.html">AI Compass</a>
               <a href="/polaris.html">Polaris Sprints</a>
-              <a href="/lumina.html">KANDO Framework</a>
+              <a href="/kando.html">Kando Framework</a>
               <h4>Worked Example</h4>
               <a href="/example.html">Method in Practice</a>
             </div>
           </div>
         </li>
 
-        <!-- How It Works: the Executive-as-a-Service (EaaS) model -->
+        <!-- How It Works: the three ways to work with Attolloo -->
         <li><a href="/services.html">How It Works</a></li>
 
         <!-- Responsible AI -->

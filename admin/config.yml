@@ -60,11 +60,11 @@ collections:
               - { name: body, label: "Brødtekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter. Ramme: en linje som starter med ::: og en tittel legger teksten under i en ramme. En linje med bare ::: avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
-  # Tjenester (services.json)
-  - label: "Tjenester"
+  # How It Works (services.json)
+  - label: "How It Works"
     name: "services"
     files:
-      - label: "Services"
+      - label: "How It Works"
         name: "services"
         file: "data/services.json"
         fields:
@@ -80,13 +80,13 @@ collections:
               - { name: body, label: "Brødtekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter. Ramme: en linje som starter med ::: og en tittel legger teksten under i en ramme. En linje med bare ::: avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
-  # Startups & Scaleups (startups.json)
-  - label: "Attolloo 6Sense"
-    name: "startups"
+  # 6Sense Filter (6sense.json)
+  - label: "6Sense Filter"
+    name: "sixsense"
     files:
-      - label: "Attolloo 6Sense"
-        name: "startups"
-        file: "data/startups.json"
+      - label: "6Sense Filter-side"
+        name: "sixsense"
+        file: "data/6sense.json"
         fields:
           - { name: title, label: "Tittel (hero)", widget: "string" }
           - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
@@ -120,13 +120,13 @@ collections:
               - { name: body, label: "Tekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter. Ramme: en linje som starter med ::: og en tittel legger teksten under i en ramme. En linje med bare ::: avslutter." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
-  # Kando Framework (lumina.json)
+  # Kando Framework (kando.json)
   - label: "Kando Framework"
-    name: "lumina"
+    name: "kando"
     files:
       - label: "Kando Framework-side"
-        name: "lumina"
-        file: "data/lumina.json"
+        name: "kando"
+        file: "data/kando.json"
         fields:
           - { name: title, label: "Tittel (hero)", widget: "string" }
           - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }

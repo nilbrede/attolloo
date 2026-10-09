@@ -153,9 +153,10 @@
       '&body=' + encodeURIComponent(summary(v, res).concat(['', 'Company:', 'Name:', '']).join('\n'));
   }
 
-  // The answers travel after the # in the address, so they are not sent anywhere until the form is submitted
+  // The answers travel after the # in the address, so they are not sent anywhere until the form is submitted.
+  // "screening" ticks the Readiness Assessment box on the contact form.
   function formLink(v, res) {
-    return '/contact.html#selftest=' + encodeURIComponent(summary(v, res).join('\n'));
+    return '/contact.html#screening&selftest=' + encodeURIComponent(summary(v, res).join('\n'));
   }
 
   function showResult() {
@@ -185,12 +186,12 @@
 
     html += '<div class="match-actions">' +
       (canTalk
-        ? '<a class="btn btn--primary" href="' + esc(formLink(v, res)) + '">Send your answers to Nils</a>' +
+        ? '<a class="btn btn--primary" href="' + esc(formLink(v, res)) + '">Book a Readiness Assessment</a>' +
           '<a class="btn btn--quiet" href="' + esc(mailto(v, res)) + '">Use your own email instead</a>'
-        : '<a class="btn btn--primary" href="/startups.html">Read how the 6Sense Filter works</a>') +
+        : '<a class="btn btn--primary" href="/6sense.html">Read how the 6Sense Filter works</a>') +
       '<button type="button" class="btn btn--quiet" data-go="restart">Start again</button></div>';
 
-    if (canTalk) html += '<p class="match-note">The first button opens the contact form with your answers filled in. Nothing is sent until you press send there.</p>';
+    if (canTalk) html += '<p class="match-note">The first button opens the contact form with your answers filled in and the Readiness Assessment box ticked. Nothing is sent until you press send there.</p>';
 
     if (data.scoring_note) {
       html += '<details class="match-scoring"><summary>How this is scored</summary>' + renderText(data.scoring_note) + '</details>';

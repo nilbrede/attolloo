@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t d" font-family="Schibsted Grotesk, Segoe UI, Arial, sans-serif">
   <title id="t">The five-tier AI Compass maturity scale</title>
-  <desc id="d">Five rising bars from one star, fragmented, to five stars, autonomous. Most ventures start at one or two stars. The 6Sense Filter requires at least two stars for early-stage ventures and three stars at growth stage.</desc>
+  <desc id="d">Five rising bars from one star, fragmented, to five stars, assured. Most ventures start at one or two stars. The 6Sense Filter requires at least two stars for early-stage ventures and three stars at growth stage.</desc>
   <rect x="37" y="182" width="54" height="40" rx="3" fill="#c5d0db"/>
   <text x="64.0" y="242.0" font-size="14" font-weight="700" fill="#002448" text-anchor="middle">1★</text>
   <text x="64.0" y="259.0" font-size="11.5" font-weight="600" fill="#4b5d72" text-anchor="middle">Fragmented</text>
@@ -12,10 +12,10 @@
   <text x="200.0" y="259.0" font-size="11.5" font-weight="600" fill="#4b5d72" text-anchor="middle">Integrated</text>
   <rect x="241" y="92" width="54" height="130" rx="3" fill="#63c480"/>
   <text x="268.0" y="242.0" font-size="14" font-weight="700" fill="#002448" text-anchor="middle">4★</text>
-  <text x="268.0" y="259.0" font-size="11.5" font-weight="600" fill="#4b5d72" text-anchor="middle">Predictive</text>
+  <text x="268.0" y="259.0" font-size="11.5" font-weight="600" fill="#4b5d72" text-anchor="middle">Monitored</text>
   <rect x="309" y="62" width="54" height="160" rx="3" fill="#30b454"/>
   <text x="336.0" y="242.0" font-size="14" font-weight="700" fill="#002448" text-anchor="middle">5★</text>
-  <text x="336.0" y="259.0" font-size="11.5" font-weight="600" fill="#4b5d72" text-anchor="middle">Autonomous</text>
+  <text x="336.0" y="259.0" font-size="11.5" font-weight="600" fill="#4b5d72" text-anchor="middle">Assured</text>
   <line x1="37" y1="222" x2="363" y2="222" stroke="#002448" stroke-width="1.5"/>
   <text x="37.0" y="34.0" font-size="13" font-weight="700" fill="#002448" text-anchor="start">6Sense minimum</text>
   <text x="37.0" y="51.0" font-size="12.5" font-weight="500" fill="#4b5d72" text-anchor="start">2 stars for early-stage ventures</text>
