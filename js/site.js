@@ -13,10 +13,10 @@
     home: '/data/home.json',
     about: '/data/about.json',
     services: '/data/services.json',
-    startups: '/data/startups.json',
+    '6sense': '/data/6sense.json',
     'ai-compass': '/data/ai-compass.json',
     polaris: '/data/polaris.json',
-    lumina: '/data/lumina.json',
+    kando: '/data/kando.json',
     'responsible-ai': '/data/responsible-ai.json',
     research: '/data/research.json',
     contact: '/data/contact.json',
@@ -40,9 +40,9 @@
   }
 
   function inline(text) {
-    // "BOARD MEMBER — Strategic direction…" → emphasised lead-in
-    var lead = String(text).match(/^([A-Z][A-Z0-9 &'\/-]{2,40}) — ([\s\S]*)$/);
-    if (lead) return '<span class="lead-in">' + esc(lead[1]) + '</span> — ' + inlineRest(lead[2]);
+    // "CUSTOMER PROFITABILITY — Does each…" or "BOARD MEMBER: governance…" → emphasised lead-in
+    var lead = String(text).match(/^([A-Z][A-Z0-9 &'\/-]{2,40})( —|:) ([\s\S]*)$/);
+    if (lead) return '<span class="lead-in">' + esc(lead[1]) + '</span>' + lead[2] + ' ' + inlineRest(lead[3]);
     return inlineRest(text);
   }
 

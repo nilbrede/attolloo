@@ -1,11 +1,11 @@
 {
   "title": "6Sense Filter",
-  "subtitle": "Six-dimensional qualification screening that converts the costly question \"should we invest?\" into a structured, evidence-based answer — before equity is committed.",
+  "subtitle": "A six-dimension screening that opens every engagement. It tells a founder where the company stands, and tells both of us whether a longer partnership makes sense.",
   "hero_image": "/images/uploads/site-hero-fell.jpg",
   "sections": [
     {
       "heading": "The Six-Dimensional Architecture",
-      "body": "The 6Sense Filter evaluates every venture across six operational dimensions. A company must pass all six — the filter exists to say no early and cheaply, not to manufacture reasons to proceed.\n\n[See the filter applied to an example company](/example.html)\n\n+++ The six dimensions in detail\n\n① DIRECTION\nIs the problem real, the market sizeable, and the founder thesis credible? Verified by actual buying behaviour and search intent data — not broad market size estimates.\n\n② ENERGY\nDoes the business model generate substantially more value from each customer than it costs to acquire them? Cash flow sustainability and the time it takes to recover acquisition costs are tracked alongside long-term customer value.\n\n③ CAPACITY\nDoes the team and infrastructure have the operational capability to execute at scale? Equipment utilisation, working capital efficiency, and supply chain constraints must all be mapped before growth capital is allocated.\n\n④ PRIORITISATION\nIs the roadmap sequenced for capital efficiency, not feature maximalism? Data maturity of at least 2 stars on AI Compass for early-stage ventures, and 3 stars at growth stage. Business model structurally generates the data it needs — designed data gaps are permanent.\n\n⑤ RISK\nDoes the risk model account for regulatory exposure, not just commercial risk? Platform dependency, decision-making blind spots, and worst-case scenarios must all be assessed — not just upside projections.\n\n⑥ DECISION\nDoes the leadership team have the governance capability to make structured decisions under uncertainty? Decision holds absolute veto power. A company that cannot make structured decisions under uncertainty will fail regardless of the other five dimensions.\n",
+      "body": "The 6Sense Filter evaluates every venture across six operational dimensions. A company must pass all six — the filter exists to say no early and cheaply, not to manufacture reasons to proceed.\n\n[See the filter applied to an example company](/example.html)\n\n+++ The six dimensions in detail\n\n① DIRECTION\nIs the problem real, the market sizeable, and the founder thesis credible? Verified by paying customers and signed contracts, not by market-size estimates.\n\n② ENERGY\nDoes the business model generate substantially more value from each customer than it costs to acquire them? Cash flow sustainability and the time it takes to recover acquisition costs are tracked alongside long-term customer value.\n\n③ CAPACITY\nDoes the team have the operational capability to deliver at scale? Dependence on a few key people, how fast customers pay, and what it costs to bring each new customer into production are mapped before growth capital is spent.\n\n④ PRIORITISATION\nIs the roadmap sequenced for capital efficiency, not feature maximalism? Data maturity of at least 2 stars on AI Compass for early-stage ventures, and 3 stars at growth stage. Business model structurally generates the data it needs — designed data gaps are permanent.\n\n⑤ RISK\nDoes the risk model account for regulatory exposure, not just commercial risk? Platform dependency, decision-making blind spots, and worst-case scenarios must all be assessed — not just upside projections.\n\n⑥ DECISION\nDoes the leadership team have the governance capability to make structured decisions under uncertainty? Decision holds absolute veto power. A company that cannot make structured decisions under uncertainty will fail regardless of the other five dimensions.\n",
       "image": "/images/uploads/diagram-6sense.svg"
     },
     {
@@ -23,8 +23,8 @@
       "image": "/images/uploads/site-sun-over-fog.jpg"
     },
     {
-      "heading": "Apply to the Pipeline",
-      "body": "If you lead an AI-driven company in a regulated sector and believe your venture can clear the 6Sense Filter, start the conversation.\n\n[Send a message](/contact.html) or email nils.johan@attolloogroup.com\n\nThe initial screening takes one structured conversation.\n",
+      "heading": "Start With an Assessment",
+      "body": "If you lead an AI company in a regulated sector and want to know how you look to a buyer, a regulator or an investor, start with a conversation. The first one is free and takes about half an hour.\n\n[Send a message](/contact.html) or email nils.johan@attolloogroup.com\n",
       "image": ""
     }
   ]

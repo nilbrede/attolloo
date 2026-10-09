@@ -399,7 +399,8 @@ body[data-page="home"] .hero { min-height: clamp(400px, 62vh, 620px); }
   line-height: 1.75em;
   text-align: center;
 }
-.prose .callout p > a:only-child {
+.prose .callout p > a:only-child,
+.prose p > a[href$="#screening"]:only-child {
   display: inline-block;
   padding: 0.6em 1.1em;
   border-radius: var(--radius);
@@ -410,8 +411,10 @@ body[data-page="home"] .hero { min-height: clamp(400px, 62vh, 620px); }
   font-weight: 600;
   text-decoration: none;
 }
-.prose .callout p > a:only-child:hover { background: #14602d; }
-.prose .callout p > a:only-child:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.prose .callout p > a:only-child:hover,
+.prose p > a[href$="#screening"]:only-child:hover { background: #14602d; }
+.prose .callout p > a:only-child:focus-visible,
+.prose p > a[href$="#screening"]:only-child:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
 
 .prose .lead-in {
   font-family: var(--sans);

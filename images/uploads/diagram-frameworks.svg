@@ -2,7 +2,7 @@
   <title id="t">The four Attolloo frameworks</title>
   <desc id="d">Four linked steps, each with its task. Qualify: 6Sense Filter, the qualification gate. Diagnose: AI Compass, the maturity diagnostic. Execute: Polaris Sprints, execution in 90-day sprints. Learn: Kando Framework, crisis intelligence and constraints. Each links to its page.</desc>
   <line x1="52" y1="70" x2="52" y2="82" stroke="#002448" stroke-width="1.5"/>
-  <a href="/startups.html">
+  <a href="/6sense.html">
     <rect class="diagram-row" x="16" y="14" width="368" height="56" rx="6" fill="#ffffff" stroke="#d6dfe8" stroke-width="1.5"/>
     <polygon points="52.0,29.0 63.3,35.5 63.3,48.5 52.0,55.0 40.7,48.5 40.7,35.5" fill="#dff1e4" stroke="#002448" stroke-width="1.5" stroke-linejoin="round"/>
     <text x="84" y="39" font-size="15" font-weight="700" fill="#002448">6Sense Filter</text>
@@ -33,7 +33,7 @@
     <text x="84" y="193" font-size="12.5" font-weight="500" fill="#4b5d72">Execution in 90-day sprints</text>
     <path d="M362,172.0 l6,6 l-6,6" fill="none" stroke="#002448" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </a>
-  <a href="/lumina.html">
+  <a href="/kando.html">
     <rect class="diagram-row" x="16" y="218" width="368" height="56" rx="6" fill="#ffffff" stroke="#d6dfe8" stroke-width="1.5"/>
     <circle cx="52" cy="246.0" r="11" fill="none" stroke="#002448" stroke-width="1.5"/>
     <path d="M-5,-4 L5,0 L-5,4 z" fill="#002448" transform="translate(63,246.0) rotate(90)"/>

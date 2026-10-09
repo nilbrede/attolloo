@@ -5,7 +5,7 @@
   <text x="124.0" y="22.0" font-size="12" font-weight="600" fill="#4b5d72" text-anchor="start">Open question</text>
   <text x="246.0" y="22.0" font-size="12" font-weight="600" fill="#4b5d72" text-anchor="start">Approach</text>
   <rect x="8" y="32" width="384" height="78" rx="6" fill="#ffffff" stroke="#d6dfe8" stroke-width="1.5"/>
-  <a href="/startups.html">
+  <a href="/6sense.html">
     <rect class="diagram-row" x="14" y="38" width="92" height="66" rx="4" fill="#e6f4ea" stroke="#e6f4ea" stroke-width="1.5"/>
     <text x="22" y="67" font-size="14" font-weight="700" fill="#002448">6Sense</text>
     <text x="22" y="84" font-size="14" font-weight="700" fill="#002448">Filter</text>

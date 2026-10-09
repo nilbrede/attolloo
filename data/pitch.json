@@ -4,11 +4,11 @@
   "poster_note": "Plays without sound.",
   "replay_label": "Play again",
   "transcript_label": "Read the pitch as text",
-  "cta_label": "Are we a match?",
-  "cta_url": "/match.html",
+  "cta_label": "Book a Readiness Assessment",
+  "cta_url": "/contact.html#screening",
   "line": {
     "left": "Technology",
-    "right": "Institutional buyers",
+    "right": "Regulated market",
     "gap": "Governance gap",
     "bridge": "Attolloo"
   },
@@ -38,12 +38,12 @@
     {
       "type": "list",
       "seconds": 9,
-      "headline": "The buyers that matter ask for it before they sign.",
+      "headline": "Someone has to say yes before you can grow.",
       "items": [
-        "Banks",
-        "Insurers",
-        "Pension funds",
-        "Public sector"
+        "Buyers",
+        "Regulators",
+        "Partners",
+        "Investors"
       ],
       "detail": "",
       "image": "/images/uploads/site-hero-twilight-snow.jpg",
@@ -69,13 +69,13 @@
     {
       "type": "list",
       "seconds": 9,
-      "headline": "Attolloo invests senior executive depth.",
+      "headline": "Attolloo gets you ready for that scrutiny.",
       "items": [
-        "CEO governance",
-        "CSO risk architecture",
-        "HR Director leadership"
+        "Readiness Assessment",
+        "Board, advisory and mentoring",
+        "Executive partnership"
       ],
-      "detail": "Against equity, not hourly fees.",
+      "detail": "It starts with a fixed-price assessment.",
       "image": "/images/uploads/site-sun-over-fog.jpg",
       "focus": "center",
       "figure": "columns",
@@ -84,7 +84,7 @@
     {
       "type": "list",
       "seconds": 8,
-      "headline": "Four frameworks, built from forty years in regulated markets.",
+      "headline": "Four frameworks, built from four decades in regulated markets.",
       "items": [
         "6Sense Filter: who qualifies",
         "AI Compass: where you stand",
@@ -111,9 +111,9 @@
     {
       "type": "close",
       "seconds": 6,
-      "headline": "Skin in the game from day one.",
+      "headline": "Start with a Readiness Assessment.",
       "items": [],
-      "detail": "If you qualify, we are with you until you are scalable.",
+      "detail": "A written report and a 90-day plan. Yours to use either way.",
       "image": "/images/uploads/site-sunset-slope.jpg",
       "focus": "center",
       "figure": "",

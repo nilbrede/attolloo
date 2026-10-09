@@ -34,24 +34,35 @@
     }
   }
 
-  // "Send with the contact form" on the self-test passes the answers in the address, after the #
+  // The submit button says what it will do: book an assessment when the box is ticked
+  var SEND_LABEL = 'Send message';
+  var BOOK_LABEL = 'Book a Readiness Assessment';
+  function wantsAssessment() { var box = $('cf-screening'); return !!(box && box.checked); }
+  function submitLabel() { return wantsAssessment() ? BOOK_LABEL : SEND_LABEL; }
+  function showSubmitLabel() { var b = $('contactSubmit'); if (b && !b.disabled) b.textContent = submitLabel(); }
+
+  // "Book a Readiness Assessment" links here with #screening: tick the box for the visitor.
+  // The self-test adds its answers after it (#screening&selftest=…, or #selftest=… on its own).
   function prefill() {
-    // "Request a 6Sense screening" links here with #screening: tick the box for the visitor
-    if (location.hash === '#screening') {
+    var hash = location.hash;
+    var ticked = /^#screening(&|$)/.test(hash);
+    var m = hash.match(/(?:^#|&)selftest=(.+)$/);
+    if (!ticked && !m) return;
+    if (ticked) {
       var box = $('cf-screening');
       if (box) box.checked = true;
-      history.replaceState(null, '', location.pathname);
+    }
+    if (m) {
+      try {
+        $('cf-message').value = decodeURIComponent(m[1]).slice(0, 4000);
+        $('prefillNote').hidden = false;
+      } catch (e) { /* a broken address is simply ignored */ }
+    }
+    history.replaceState(null, '', location.pathname);
+    if (ticked && !m) {
       var heading = $('formHeading');
       if (heading) heading.scrollIntoView();          // on a phone the form sits below the contact card
-      return;
     }
-    var m = location.hash.match(/^#selftest=(.+)$/);
-    if (!m) return;
-    try {
-      $('cf-message').value = decodeURIComponent(m[1]).slice(0, 4000);
-      $('prefillNote').hidden = false;
-      history.replaceState(null, '', location.pathname);
-    } catch (e) { /* a broken address is simply ignored */ }
   }
 
   function encode(form) {
@@ -69,14 +80,15 @@
     if (!form) return;
     var button = $('contactSubmit');
     var error = $('contactError');
-    var label = button.textContent;
+    var box = $('cf-screening');
+    if (box) box.addEventListener('change', showSubmitLabel);
+    showSubmitLabel();
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      // The subject line of the email Nils receives says when a screening is asked for
-      var wantsScreening = $('cf-screening') && $('cf-screening').checked;
+      // The subject line of the email Nils receives says when an assessment is asked for
       if (form.elements.subject) {
-        form.elements.subject.value = wantsScreening ? '6Sense screening request from attolloogroup.com' : 'Message from attolloogroup.com';
+        form.elements.subject.value = wantsAssessment() ? 'Readiness Assessment request from attolloogroup.com' : 'Message from attolloogroup.com';
       }
       error.hidden = true;
       button.disabled = true;
@@ -98,7 +110,7 @@
         .catch(function (err) {
           console.error('Could not send the contact form', err);
           button.disabled = false;
-          button.textContent = label;
+          button.textContent = submitLabel();
           var body = $('cf-message').value + '\n\n' + $('cf-name').value + ($('cf-company').value ? ', ' + $('cf-company').value : '');
           error.textContent = 'The message could not be sent from this page. ';
           var a = document.createElement('a');
