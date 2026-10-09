@@ -1,0 +1,29 @@
+{
+  "section": 1,
+  "title": "What applies, and when",
+  "today_label": "Today",
+  "applies_label": "Applies",
+  "note": "Buyers are not waiting for the last date. They already ask.",
+  "events": [
+    {
+      "date": "2025-01-17",
+      "name": "DORA",
+      "what": "Applies to the financial sector, and reaches its technology suppliers through their contracts."
+    },
+    {
+      "date": "2025-02-02",
+      "name": "EU AI Act",
+      "what": "Prohibited practices are banned."
+    },
+    {
+      "date": "2026-08-02",
+      "name": "EU AI Act",
+      "what": "Transparency duties apply."
+    },
+    {
+      "date": "2027-12-02",
+      "name": "EU AI Act",
+      "what": "Requirements for stand-alone high-risk systems apply."
+    }
+  ]
+}

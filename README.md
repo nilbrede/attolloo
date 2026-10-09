@@ -7,6 +7,9 @@ The website for Attolloo Group, [attolloogroup.com](https://attolloogroup.com).
 - The pages (`index.html`, `about.html` and so on) are shells. The text lives in `data/*.json`
   and is edited in the CMS at `/admin`.
 - `js/site.js` turns that text into the page. `js/menu-init.js` holds the menu, `footer.html` the footer.
+- The home page has two figures, built by `js/figures.js`: the timeline of rules (`data/timeline.json`)
+  and "Who has to say yes?" (`data/gates.json`). Both are edited in the CMS under "Figurer på forsiden".
+  Where "today" sits on the timeline is worked out from the date of the visit.
 - When Netlify publishes the site it runs `node scripts/prerender.mjs` (see `netlify.toml`).
   The script copies the site to `_site/` and writes the text, the menu and the footer into each
   page there, so the content is in the page itself and can be read without scripts (search

@@ -243,6 +243,65 @@ collections:
           - { name: success_heading, label: "Overskrift når meldingen er sendt", widget: "string" }
           - { name: success_body, label: "Tekst når meldingen er sendt", widget: "text" }
 
+  # Figurene på forsiden (timeline.json og gates.json)
+  - label: "Figurer på forsiden"
+    name: "figures"
+    files:
+      - label: "Tidslinje: hva gjelder, og når"
+        name: "timeline"
+        file: "data/timeline.json"
+        fields:
+          - { name: section, label: "Vises i stedet for bildet i seksjon nr.", widget: "number", value_type: "int", min: 1, max: 12, hint: "Seksjonene på forsiden telles ovenfra. 1 er den første." }
+          - { name: title, label: "Overskrift", widget: "string" }
+          - { name: today_label, label: "Ordet for «i dag»", widget: "string" }
+          - { name: applies_label, label: "Ordet for «gjelder nå»", widget: "string" }
+          - { name: note, label: "Linje under tidslinjen", widget: "text", required: false }
+          - name: events
+            label: "Datoer"
+            label_singular: "dato"
+            widget: "list"
+            collapsed: true
+            summary: "{{fields.date}} – {{fields.name}}"
+            hint: "Rekkefølgen ordnes etter dato. «I dag» og tiden som gjenstår regnes ut av seg selv."
+            fields:
+              - { name: date, label: "Gjelder fra", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+              - { name: name, label: "Regelverk", widget: "string" }
+              - { name: what, label: "Hva som begynner å gjelde", widget: "text", required: false }
+      - label: "Who has to say yes?"
+        name: "gates"
+        file: "data/gates.json"
+        fields:
+          - { name: title, label: "Overskrift", widget: "string" }
+          - { name: intro, label: "Ingress", widget: "text", required: false }
+          - { name: switch_label, label: "Navn på valget (for skjermlesere)", widget: "string" }
+          - { name: from_label, label: "Tekst ved starten av linjen", widget: "string" }
+          - { name: to_label, label: "Tekst ved enden av linjen", widget: "string" }
+          - { name: asks_label, label: "Overskrift over spørsmålene", widget: "string" }
+          - { name: assessment_label, label: "Innledning til linjen om vurderingen", widget: "string" }
+          - { name: next_label, label: "Tekst på knappen til neste port", widget: "string" }
+          - { name: link_label, label: "Tekst på knappen etter siste port", widget: "string" }
+          - { name: link_url, label: "Lenke for den knappen", widget: "string" }
+          - { name: note, label: "Linje nederst", widget: "text", required: false }
+          - name: paths
+            label: "Veier inn i markedet"
+            label_singular: "vei"
+            widget: "list"
+            collapsed: true
+            summary: "{{fields.label}}"
+            fields:
+              - { name: label, label: "Valget leseren tar", widget: "string" }
+              - name: gates
+                label: "Porter"
+                label_singular: "port"
+                widget: "list"
+                collapsed: true
+                summary: "{{fields.name}}"
+                fields:
+                  - { name: name, label: "Hvem som må si ja (kort)", widget: "string" }
+                  - { name: who, label: "Hvem det er", widget: "text", required: false }
+                  - { name: questions, label: "Hva de spør om", widget: "list", field: { name: question, label: "Spørsmål", widget: "string" } }
+                  - { name: assessment, label: "Hva vurderingen dekker (fortsetter setningen)", widget: "text", required: false }
+
   # Ett-minutts pitch, animasjon (pitch.json)
   - label: "Pitch-animasjon"
     name: "pitch"

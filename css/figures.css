@@ -1,0 +1,262 @@
+/* The two figures on the home page. Built by /js/figures.js; colours and fonts come from /css/site.css. */
+
+/* A band that asks to sit among the sections waits until /js/site.js has placed it */
+[data-after-section]:not(.is-placed) { display: none; }
+
+/* ---------- 1. The timeline: which rules apply, and when ---------- */
+
+.tl {
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: var(--radius);
+  background: var(--frost);
+  font-family: var(--sans);
+}
+.tl-title { margin: 0 0 1.3em; font-size: 1.05rem; font-weight: 700; line-height: 1.25; color: var(--ink); }
+
+.tl-list { list-style: none; margin: 0; padding: 0; }
+.tl-list li { position: relative; padding: 0 0 1.5em 36px; }
+.tl-list li:last-child { padding-bottom: 0; }
+
+/* the rail: every row draws the stretch from its own mark down to the next one */
+.tl-list li::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 0.75em;
+  bottom: -0.75em;
+  border-left: 2px solid var(--green);
+}
+.tl-list li:last-child::before { display: none; }
+.tl-list li::after {                    /* the mark */
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 0.28em;
+  box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px var(--frost);
+}
+/* from today onwards the rail is dashed, and the marks are open */
+.tl-today::before,
+.tl-event.is-next::before,
+.tl-event.is-later::before { border-left: 2px dashed #c9962f; }
+.tl-event.is-next::after,
+.tl-event.is-later::after { background: var(--frost); border: 2.5px solid #c9962f; }
+
+.tl-event { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; align-items: baseline; }
+.tl-when { font-size: 0.84rem; font-weight: 600; color: var(--text-soft); }
+.tl-state { grid-column: 2; grid-row: 1; font-size: 0.84rem; font-weight: 700; color: var(--green-deep); white-space: nowrap; }
+.tl-event.is-next .tl-state,
+.tl-event.is-later .tl-state { color: #7a5200; }
+.tl-name { grid-column: 1 / -1; margin-top: 0.15em; font-size: 1.05rem; font-weight: 700; line-height: 1.25; color: var(--ink); }
+.tl-what { grid-column: 1 / -1; margin-top: 0.2em; font-family: var(--serif); font-size: 0.98rem; line-height: 1.42; color: var(--text); }
+.tl-event.is-next .tl-name { font-size: 1.15rem; }
+
+/* today: a bar across the rail, and the date */
+.tl-list li.tl-today { padding-bottom: 1.5em; }
+.tl-list li.tl-today::after {
+  left: -2px;
+  top: 0.62em;
+  width: 24px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--ink);
+}
+.tl-today-label {
+  display: inline-block;
+  padding: 0.28em 0.8em 0.32em;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.tl-note {
+  margin: 1.5em 0 0;
+  padding-top: 1.1em;
+  border-top: 1px solid var(--line);
+  font-family: var(--serif);
+  font-size: 0.98rem;
+  line-height: 1.45;
+  color: var(--text-soft);
+}
+
+/* one reveal, the first time the timeline is in view: the rows arrive in order, down to today and past it */
+.tl.is-armed .tl-list li { opacity: 0; transform: translateY(12px); }
+.tl.is-armed.is-shown .tl-list li {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 0.17s);
+}
+@keyframes tl-today { 0% { box-shadow: 0 0 0 0 rgba(0, 36, 72, 0.45); } 100% { box-shadow: 0 0 0 14px rgba(0, 36, 72, 0); } }
+.tl.is-armed.is-shown .tl-today-label { animation: tl-today 1.1s ease-out 2; animation-delay: calc(var(--i, 0) * 0.17s + 0.4s); }
+
+/* ---------- 2. Who has to say yes? ---------- */
+
+.gates-band { background: var(--ink); color: #fff; }
+.gates { padding-block: clamp(52px, 7vw, 96px); font-family: var(--sans); }
+.gates h2 {
+  margin: 0;
+  max-width: 16ch;
+  font-size: clamp(1.9rem, 3.8vw, 2.9rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+.gates-intro {
+  margin: 0.9em 0 0;
+  max-width: 54ch;
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.86);
+}
+.gates :focus-visible { outline-color: #fff; }
+
+/* the choice between the two ways in */
+.gates-switch { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1.9em; }
+.gates-choice {
+  padding: 0.8em 1.2em;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius);
+  background: transparent;
+  color: #fff;
+  font: 600 1rem/1.2 var(--sans);
+  cursor: pointer;
+}
+.gates-choice:hover { border-color: #fff; }
+.gates-choice[aria-pressed="true"] { border-color: #fff; background: #fff; color: var(--ink); }
+
+/* the line from product to market, with a gap for every gate */
+.gates-track { margin-top: clamp(44px, 6vw, 76px); }
+.gates-rail { position: relative; display: flex; align-items: flex-end; }
+.gates-seg { flex: 1 1 0; min-width: 10px; height: 4px; background: #fff; }
+.gates-gap {
+  flex: 0 0 clamp(84px, 16%, 170px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 0 0;
+  border: 0;
+  background: none;
+  color: rgba(255, 255, 255, 0.7);
+  font: 600 clamp(0.86rem, 1.5vw, 1.02rem)/1.2 var(--sans);
+  cursor: pointer;
+}
+.gates-gap-name { padding: 0 2px; text-align: center; }
+.gates-gap i {
+  display: block;
+  width: 100%;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, var(--amber) 0 9px, transparent 9px 15px);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+.gates-gap:hover { color: #fff; }
+.gates-gap:hover i { opacity: 0.8; }
+.gates-gap[aria-pressed="true"] { color: #fff; }
+.gates-gap[aria-pressed="true"] .gates-gap-name { font-weight: 700; }
+.gates-gap[aria-pressed="true"] i { opacity: 1; }
+.gates-gap.is-passed i { background: var(--green); opacity: 1; box-shadow: 0 0 14px rgba(48, 180, 84, 0.75); }
+
+/* the dot waits at the gate that is chosen, and keeps trying it */
+.gates-dot {
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 18px;
+  height: 18px;
+  margin: 0 0 -9px -9px;
+  pointer-events: none;
+}
+.gates-dot.is-moving { transition: left 0.75s cubic-bezier(0.6, 0, 0.2, 1); }
+.gates-dot b {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(233, 180, 76, 0.35), 0 0 22px rgba(233, 180, 76, 0.8);
+  animation: gates-try 2.3s ease-in-out 1s infinite;
+}
+@keyframes gates-try {
+  0%, 44%, 100% { transform: translateX(0); }
+  58% { transform: translateX(15px); }
+  68% { transform: translateX(-8px); }
+  82% { transform: translateX(2px); }
+}
+.gates-ends {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 14px 0 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* what the chosen gate asks */
+.gates-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(24px, 5vw, 72px);
+  margin-top: clamp(30px, 4vw, 52px);
+  padding-top: clamp(26px, 3.4vw, 40px);
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+@keyframes gates-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.gates-panel > * { animation: gates-in 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.gates-panel > :last-child { animation-delay: 0.08s; }
+.gates-count { margin: 0 0 0.5em; font-size: 0.86rem; font-weight: 600; color: var(--amber); }
+.gates-panel h3 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.016em;
+  outline: none;
+}
+.gates-who { margin: 0.6em 0 0; max-width: 34ch; font-family: var(--serif); font-size: 1.05rem; line-height: 1.5; color: rgba(255, 255, 255, 0.82); }
+.gates-asks { margin: 0 0 0.3em; font-size: 0.86rem; font-weight: 600; color: rgba(255, 255, 255, 0.7); }
+.gates-questions { list-style: none; margin: 0; padding: 0; }
+.gates-questions li {
+  padding: 0.7em 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  font-family: var(--serif);
+  font-size: clamp(1.08rem, 1.5vw, 1.22rem);
+  line-height: 1.4;
+}
+.gates-questions li:first-child { border-top: 0; padding-top: 0.2em; }
+.gates-in { margin: 1em 0 0; max-width: 58ch; font-size: 0.95rem; line-height: 1.5; color: rgba(255, 255, 255, 0.78); }
+.gates-in span { font-weight: 700; color: #fff; }
+.gates-actions { margin: 1.5em 0 0; }
+.gates-note { margin: clamp(28px, 4vw, 44px) 0 0; max-width: 62ch; font-family: var(--serif); font-size: 0.98rem; line-height: 1.5; color: rgba(255, 255, 255, 0.66); }
+
+/* the same content as plain text, when scripts are off */
+.gates-plain { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 36px clamp(28px, 5vw, 72px); margin-top: 2.2em; }
+.gates-path h3 { margin: 0 0 0.9em; font-size: 1.25rem; line-height: 1.2; }
+.gates-list { list-style: none; margin: 0; padding: 0; }
+.gates-gate { padding: 1.1em 0; border-top: 1px solid rgba(255, 255, 255, 0.22); }
+.gates-gate h4 { margin: 0; font-size: 1.05rem; }
+.gates-plain .gates-questions li { font-size: 1.02rem; padding: 0.45em 0; }
+.gates-plain .gates-questions { margin-top: 0.7em; }
+
+@media (max-width: 760px) {
+  .gates-switch { flex-direction: column; align-items: stretch; }
+  .gates-choice { text-align: left; }
+  .gates-gap { flex-basis: 22%; gap: 12px; }
+  .gates-panel { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gates-dot b, .gates-panel > * { animation: none; }
+  .gates-dot.is-moving, .gates-gap i { transition: none; }
+}

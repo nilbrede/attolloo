@@ -1,0 +1,85 @@
+{
+  "title": "Who has to say yes?",
+  "intro": "It depends on how you enter the market. Choose the one that fits, and step through the gates on the way.",
+  "switch_label": "How you enter the market",
+  "from_label": "Your product",
+  "to_label": "The market",
+  "asks_label": "What they ask",
+  "assessment_label": "In a Readiness Assessment:",
+  "next_label": "Next gate",
+  "link_label": "See what a Readiness Assessment covers",
+  "link_url": "/services.html#1-readiness-assessment",
+  "note": "The order varies from company to company. What does not vary is that each of them asks before saying yes.",
+  "paths": [
+    {
+      "label": "We sell AI to the established players",
+      "gates": [
+        {
+          "name": "Procurement",
+          "who": "The buyer's purchasing function. It decides whether you get as far as a contract.",
+          "questions": [
+            "Which AI systems are in the product, and who answers for each of them?",
+            "How is the system classified under the EU AI Act?",
+            "Which models and sub-suppliers do you depend on?"
+          ],
+          "assessment": "your EU AI Act classification, and an AI Compass baseline built around these questions."
+        },
+        {
+          "name": "Security review",
+          "who": "The buyer's security and privacy function. It can stop a deal that everyone else wants.",
+          "questions": [
+            "Who can reach models, data and APIs, and is that access logged?",
+            "Which personal data is processed, where, and with what minimisation?",
+            "Can you show evidence, and not only a policy?"
+          ],
+          "assessment": "the seven criteria for misuse and dual-use risk, including access control, data and supply chain."
+        },
+        {
+          "name": "Investor",
+          "who": "The institutional investor in your next round, doing due diligence.",
+          "questions": [
+            "What is the regulatory exposure, and who owns it in the company?",
+            "Would the company get through a large customer's review?",
+            "Are decisions made with clear owners, documented reasoning and a working board?"
+          ],
+          "assessment": "the 6Sense screening, where Risk and Decision are two of the six dimensions."
+        }
+      ]
+    },
+    {
+      "label": "We compete with them",
+      "gates": [
+        {
+          "name": "Regulator",
+          "who": "You become the regulated party yourself. The supervisor asks before you are allowed to operate.",
+          "questions": [
+            "Who answers for each AI system, and how is it classified under the EU AI Act?",
+            "Do people have the final say in decisions that affect individuals, and is that logged?",
+            "How are model changes and incidents recorded and reviewed?"
+          ],
+          "assessment": "your EU AI Act classification, and an AI Compass baseline that shows where the evidence is missing."
+        },
+        {
+          "name": "Partner",
+          "who": "The bank, insurer or platform you build on. Its own obligations are passed on to you.",
+          "questions": [
+            "Can we rely on you without breaching our own requirements?",
+            "Which sub-suppliers do you depend on, and what happens if one of them fails?",
+            "Can you produce evidence when we ask for it, within days?"
+          ],
+          "assessment": "the seven criteria for misuse and dual-use risk, including access control, data and supply chain."
+        },
+        {
+          "name": "Investor",
+          "who": "The institutional investor in your next round, doing due diligence.",
+          "questions": [
+            "What is the regulatory exposure, and who owns it in the company?",
+            "Would the company get through the regulator's and the partner's review?",
+            "Are decisions made with clear owners, documented reasoning and a working board?"
+          ],
+          "assessment": "the 6Sense screening, where Risk and Decision are two of the six dimensions."
+        }
+      ]
+    }
+  ]
+}

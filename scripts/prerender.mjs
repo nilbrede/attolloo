@@ -54,6 +54,16 @@ function loadEngine() {
   return window.AttollooSite;
 }
 
+// The figures on the home page (the timeline and "Who has to say yes?"), with the same code as the browser
+function loadFigures() {
+  const window = {};
+  vm.runInNewContext(read('js/figures.js'), { window, console });
+  if (!window.AttollooFigures || typeof window.AttollooFigures.timelineHtml !== 'function') {
+    throw new Error('js/figures.js did not provide the functions the prerender needs');
+  }
+  return window.AttollooFigures;
+}
+
 function loadHeader() {
   const m = read('js/menu-init.js').match(/const HEADER_HTML = `([\s\S]*?)`;/);
   if (!m || /\$\{/.test(m[1])) throw new Error('could not read HEADER_HTML from js/menu-init.js');
@@ -89,6 +99,7 @@ const notes = [];
 const attempt = (label, fn) => { try { return fn(); } catch (err) { notes.push(label + ': ' + err.message); return null; } };
 
 engine = attempt('page engine', loadEngine);
+const figures = attempt('home page figures', loadFigures);
 header = attempt('menu', loadHeader);
 footer = attempt('footer', () => read('footer.html').trim()
   .replace('<span id="year"></span>', '<span id="year">' + new Date().getFullYear() + '</span>'));
@@ -120,7 +131,16 @@ function preparePage(file) {
     }
 
     let diagrams = 0;
-    const sections = engine.sectionsHtml(engine.sectionsOf(data))
+    let sections = engine.sectionsHtml(engine.sectionsOf(data));
+    // Home: the timeline takes the place of the picture in one section. The browser brings "today" up to date.
+    if (page === 'home' && figures) {
+      attempt(file + ' timeline', () => {
+        const tl = readJson('data/timeline.json');
+        const withIt = figures.withTimeline(sections, tl.section, figures.timelineHtml(tl, new Date()));
+        if (withIt !== sections) { sections = withIt; did.push('timeline'); }
+      });
+    }
+    sections = sections
       .replace(/<div class="diagram" data-svg="([^"]*)"><\/div>/g, (slot, src) => {
         const svg = attempt(file + ' diagram', () => inlineSvg(src.replace(/&amp;/g, '&')));
         if (!svg) return slot;
@@ -133,6 +153,15 @@ function preparePage(file) {
       html = html.replace(bodyTag[0], bodyTag[0].replace(/>$/, ' data-prerendered>'));
       did.push('text' + (diagrams ? ' + ' + diagrams + ' diagram' + (diagrams > 1 ? 's' : '') : ''));
     }
+  }
+
+  // Home: "Who has to say yes?" as plain text. The browser turns it into the figure.
+  if (page === 'home' && figures) {
+    attempt(file + ' gates', () => {
+      const gates = readJson('data/gates.json');
+      [html, ok] = swap(html, /(<div class="wrap gates" data-gates>)(<\/div>)/, (m, a, b) => a + figures.gatesHtml(gates) + b);
+      if (ok) did.push('gates');
+    });
   }
 
   // The pitch: the film is built in the browser. The words are written here for readers
