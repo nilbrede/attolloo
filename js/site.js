@@ -371,6 +371,7 @@
   // A picture that fails to download (a weak mobile connection) is tried again, twice,
   // instead of being left as a broken frame. If it still fails, the frame is left empty.
   function retryPictures() {
+    if (typeof document.addEventListener !== 'function') return;   // the publish step has no page to listen to
     function again(img) {
       var n = Number(img.getAttribute('data-retry') || 0);
       var src = String(img.getAttribute('src') || '').replace(/[?&]retry=\d+$/, '');
