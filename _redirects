@@ -8,10 +8,13 @@
 /about-fungerer.html      /about.html      301
 /services-fungerer.html   /services.html   301
 /services-old.html        /services.html   301
-/blog/index-backup.html   /blog/           301
 
 # The 6Sense Filter and Kando Framework pages moved to addresses that match their names (October 2026)
 /startups.html            /6sense.html     301
 /startups                 /6sense.html     301
 /lumina.html              /kando.html      301
 /lumina                   /kando.html      301
+
+# The old blog (2025) was taken down in October 2026: its address goes to the home page
+/blog                     /                301
+/blog/*                   /                301
