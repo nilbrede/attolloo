@@ -1,4 +1,6 @@
 // /js/pitch.js — the one-minute pitch, as a short film built from text, photographs and line drawings.
+// The line at the bottom carries the story: a dot runs up to a gap, is stopped there, and crosses when the gap closes.
+// The photographs cut behind a sweep across the frame; the line and the dot stay in view while they do.
 // Scenes, wording and backdrops come from /data/pitch.json (editable in the CMS).
 // No sound, no autoplay: it only runs when the visitor presses play,
 // or follows a link marked data-pitch-play ("Watch the one-minute pitch").
@@ -16,6 +18,7 @@
   }
 
   function ease(p) { return p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; }
+  function easeOut(p) { return 1 - Math.pow(1 - p, 3); }
   function clamp01(p) { return Math.max(0, Math.min(1, p)); }
 
   // "6Sense Filter: who qualifies" → name in bold, explanation after it
@@ -100,14 +103,27 @@
       if (x === 'edge') return gapFrom - 0.018;
       return gapTo + 0.018 + (0.985 - gapTo - 0.018) * x;
     }
+    // When each scene's headline has landed (ms), and how long a scene waits for the cut to pass (s).
+    // Both are filled in where the scenes are built, below.
+    var landAt = [];
+    var leadOf = [];
     function dotX(i, local) {
       var from = place(i ? dotAt[i - 1] : 'start');
       var to = place(dotAt[i]);
       if (from === to || calm) return to;
+      if (scenes[i].line === 'base') {                            // runs up, and reaches the edge as the line lands
+        return from + (to - from) * easeOut(clamp01((local - 350) / Math.max(1200, landAt[i] - 350)));
+      }
       var firstBridge = scenes[i].line === 'bridge' && (!i || scenes[i - 1].line !== 'bridge');
-      var delay = firstBridge ? 1100 : 300;                       // wait for the gap to close
-      var dur = scenes[i].line === 'base' ? Math.max(1200, secs(i) * 800 - delay) : 1700;
-      return from + (to - from) * ease(clamp01((local - delay) / dur));
+      var delay = firstBridge ? landAt[i] + 450 : 300 + leadOf[i] * 1000;   // wait for the gap to close
+      return from + (to - from) * ease(clamp01((local - delay) / (firstBridge ? 1500 : 1400)));
+    }
+    // The gap opens, and later closes, at the moment the headline that says so has landed
+    function lineState(i, local) {
+      var now = scenes[i].line || 'none';
+      var before = i ? (scenes[i - 1].line || 'none') : 'none';
+      if (!calm && i && now !== before && (now === 'gap' || now === 'bridge') && local < landAt[i]) return before;
+      return now;
     }
 
     // ----- scenes -----
@@ -115,20 +131,29 @@
       var seconds = secs(i);
       var fig = String(s.figure || '').replace(/[^a-z]/g, '');
       var words = String(s.headline || '').split(/\s+/).filter(Boolean);
-      var step = 0.065;
+      var step = 0.055;
+      // a new photograph arrives behind a sweep across the frame: the text waits for it to pass
+      var lead = (!calm && i > 0 && bgOf[i] !== bgOf[i - 1]) ? 0.3 : 0;
+      // a statement holds its last word back for a beat
+      var beat = (s.type !== 'list' && words.length > 2) ? 0.3 : 0;
       var headline = words.map(function (w, k) {
-        return '<span class="pitch-w"><span class="pitch-anim" style="--d:' + (0.2 + k * step).toFixed(2) + 's">' + esc(w) + '</span></span>';
+        var held = beat && k === words.length - 1;
+        return '<span class="pitch-w' + (held ? ' pitch-w--beat' : '') + '"><span class="pitch-anim" style="--d:' +
+          (lead + 0.2 + k * step + (held ? beat : 0)).toFixed(2) + 's">' + esc(w) + '</span></span>';
       }).join(' ');
-      var t = 0.2 + words.length * step + 0.55;              // when the headline has landed
+      var t = lead + 0.2 + words.length * step + beat + 0.5;  // when the headline has landed
+      leadOf[i] = lead;
+      landAt[i] = (t - 0.15) * 1000;
       var mark = '';
+      var hit = t;                                            // when the scene's mark strikes (the red line)
       if (fig === 'redline') {
         mark = '<span class="pitch-redline" style="--d:' + t.toFixed(2) + 's"></span>';
         t += 0.9;
       }
       var items = Array.isArray(s.items) ? s.items : [];
-      var hold = 1.6;                                         // seconds everything stays before the scene ends
+      var hold = 1.4;                                         // seconds everything stays before the scene ends
       var room = Math.max(0.3, seconds - hold - t - (s.detail ? 0.8 : 0));
-      var itemStep = items.length ? Math.min(0.8, room / items.length) : 0;
+      var itemStep = items.length ? Math.min(0.6, room / items.length) : 0;
       var itemsHtml = items.map(function (it, k) {
         var d = (t + k * itemStep).toFixed(2);
         var lead = fig === 'frameworks' ? '<span class="pitch-glyph">' + (GLYPHS[k % GLYPHS.length]) + '</span>'
@@ -140,7 +165,8 @@
         ? '<p class="pitch-detail pitch-anim" style="--d:' + after.toFixed(2) + 's">' + esc(s.detail) + '</p>' : '';
       var cta = s.type === 'close' && data.cta_url
         ? '<p class="pitch-cta pitch-anim" style="--d:' + (after + 0.7).toFixed(2) + 's"><a class="btn btn--light" href="' + esc(data.cta_url) + '">' + esc(data.cta_label || 'Are we a match?') + '</a></p>' : '';
-      return '<div class="pitch-scene pitch-scene--' + esc(s.type || 'statement') + (fig ? ' pitch-fig--' + fig : '') + '" data-items="' + items.length + '" aria-hidden="true">' +
+      return '<div class="pitch-scene pitch-scene--' + esc(s.type || 'statement') + (fig ? ' pitch-fig--' + fig : '') + '" data-items="' + items.length +
+        '" data-fig="' + fig + '" style="--dur:' + seconds + 's;--hit:' + hit.toFixed(2) + 's" aria-hidden="true">' +
         '<p class="pitch-headline">' + headline + '</p>' + mark +
         (items.length ? '<ul class="pitch-items">' + itemsHtml + '</ul>' : '') + detail + cta + '</div>';
     }).join('');
@@ -166,6 +192,7 @@
     root.innerHTML =
       '<div class="pitch-stage" role="group" aria-label="One-minute pitch. Animation without sound." data-line="none">' +
       bgsHtml + lineHtml + scenesHtml +
+      '<div class="pitch-wipe" aria-hidden="true"></div>' +
       '<div class="pitch-poster">' +
       '<p class="pitch-headline">' + esc(data.poster_title || 'The pitch in one minute') + '</p>' +
       '<p class="pitch-poster-row">' +
@@ -186,10 +213,16 @@
     var stepEls = root.querySelectorAll('.pitch-step');
     var bgEls = root.querySelectorAll('.pitch-bg');
     var lineEl = root.querySelector('.pitch-line');
+    var wipeEl = root.querySelector('.pitch-wipe');
     var toggle = root.querySelector('.pitch-toggle');
     var timeEl = root.querySelector('.pitch-time');
 
     var t = 0, playing = false, current = -1, last = 0, raf = 0;
+    var shownBg = -1;                 // the photograph on screen
+    var shownLine = '';               // the state of the line on screen
+    var lastX = null, lastT = 0, tail = 0;   // for the streak behind the dot
+
+    wipeEl.addEventListener('animationend', function () { stage.classList.remove('is-wiping'); });
     // A long pause between frames (a sleeping tab) must not skip the film ahead; a recording keeps real time.
     var frameCap = /[?&]record\b/.test(location.search) ? 1000 : 100;
 
@@ -212,15 +245,39 @@
 
     function show(i, restart) {
       if (i === current && !restart) return;
+      var from = current;
       current = i;
       sceneEls.forEach(function (el, k) {
         var on = k === i;
-        el.classList.remove('is-active');
+        el.classList.remove('is-active', 'is-leaving');
         el.setAttribute('aria-hidden', on ? 'false' : 'true');
         if (on) { void el.offsetWidth; el.classList.add('is-active'); }   // restart its animations
       });
-      stage.setAttribute('data-line', scenes[i].line || 'none');
-      showBg(bgOf[i]);
+      if (from >= 0 && from !== i && !calm) sceneEls[from].classList.add('is-leaving');   // the old text lifts away
+
+      // what the scene does to the whole frame (the red tint of the red-line scene)
+      stage.removeAttribute('data-fig');
+      void stage.offsetWidth;
+      stage.setAttribute('data-fig', sceneEls[i].getAttribute('data-fig') || '');
+      stage.style.setProperty('--hit', sceneEls[i].style.getPropertyValue('--hit') || '1s');
+
+      // a new photograph comes in behind a sweep across the frame
+      var k2 = bgOf[i];
+      if (!calm && shownBg >= 0 && k2 >= 0 && k2 !== shownBg && stage.classList.contains('is-started')) {
+        stage.classList.remove('is-wiping');
+        void wipeEl.offsetWidth;
+        stage.classList.add('is-wiping');
+      }
+      showBg(k2);
+      shownBg = k2;
+    }
+
+    // How the camera moves over each photograph: push in, pull back, drift upwards. Then the same again.
+    function camera(k, p) {
+      var m = k % 3;
+      if (m === 0) return 'scale(' + (1.06 + 0.12 * p).toFixed(4) + ') translate3d(' + (-2.2 * p).toFixed(3) + '%,0,0)';
+      if (m === 1) return 'scale(' + (1.19 - 0.12 * p).toFixed(4) + ') translate3d(' + (-1.5 + 2.4 * p).toFixed(3) + '%,0,0)';
+      return 'scale(' + (1.1 + 0.08 * p).toFixed(4) + ') translate3d(0,' + (1.6 - 3.2 * p).toFixed(3) + '%,0)';
     }
 
     function paint() {
@@ -233,16 +290,26 @@
       });
       timeEl.textContent = clock(t) + ' / ' + clock(total);
 
-      // the dot on the line
+      // the line: its gap opens and closes when the headline says so
+      var state = lineState(i, t - starts[i]);
+      if (state !== shownLine) { shownLine = state; stage.setAttribute('data-line', state); }
+
+      // the dot on the line, with a streak behind it that grows with its speed
       var x = dotX(i, t - starts[i]);
       lineEl.style.setProperty('--x', x.toFixed(4));
       stage.classList.toggle('is-arrived', x > 0.975);
+      var dt = t - lastT;
+      var speed = (lastX != null && dt > 0 && dt < 200) ? Math.max(0, x - lastX) / dt : 0;   // share of the line per ms
+      tail += ((calm ? 0 : Math.min(1, speed * 2600)) - tail) * 0.3;
+      lineEl.style.setProperty('--tail', (tail < 0.01 ? 0 : tail).toFixed(3));
+      lastX = x;
+      lastT = t;
 
-      // slow push-in on the photograph behind this scene
+      // the camera never stands still on the photograph behind this scene
       var bg = bgEls[bgOf[i]];
       if (bg) {
         var p2 = calm ? 0 : clamp01((t - runOf[i][0]) / (runOf[i][1] - runOf[i][0]));
-        bg.style.transform = 'scale(' + (1.04 + 0.1 * p2).toFixed(4) + ') translate3d(' + (-1.4 * p2).toFixed(3) + '%,0,0)';
+        bg.style.transform = camera(bgOf[i], 1 - (1 - p2) * (1 - p2));
       }
     }
 
@@ -278,6 +345,8 @@
       stage.classList.remove('is-ended');
       t = from;
       current = -1;
+      lastX = null;
+      tail = 0;
       paint();
       setPlaying(true);
     }
@@ -317,6 +386,7 @@
 
     // Poster: the first photograph, a title, the play button and the line with its gap
     stage.setAttribute('data-line', 'gap');
+    shownLine = 'gap';
     measure();
     lineEl.style.setProperty('--x', place('edge').toFixed(4));
     window.addEventListener('resize', function () {
@@ -327,7 +397,8 @@
     timeEl.textContent = clock(0) + ' / ' + clock(total);
     if (bgEls.length && bgOf[0] >= 0) {
       showBg(bgOf[0]);
-      bgEls[bgOf[0]].style.transform = 'scale(1.04)';
+      shownBg = bgOf[0];
+      bgEls[bgOf[0]].style.transform = camera(bgOf[0], 0);
       if ('IntersectionObserver' in window) {
         var near = new IntersectionObserver(function (entries) {
           if (!entries[0].isIntersecting) return;

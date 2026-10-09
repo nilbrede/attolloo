@@ -25,11 +25,12 @@
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transform: scale(1.04);
-  transition: opacity 1.5s ease;
+  transform: scale(1.06);
+  transition: opacity 0.9s ease;
   will-change: opacity, transform;
 }
 .pitch-bg.is-on { opacity: 1; }
+.pitch-stage.is-wiping .pitch-bg { transition: opacity 0s linear 0.4s; }   /* swap while the sweep covers the frame */
 .pitch-bg--top { background-position: center top; }
 .pitch-bg--bottom { background-position: center bottom; }
 .pitch-shade {                         /* keeps white text readable on any photograph */
@@ -37,6 +38,34 @@
     linear-gradient(0deg, rgba(0, 20, 44, 0.86) 0%, rgba(0, 20, 44, 0.5) 20%, rgba(0, 20, 44, 0) 42%),
     linear-gradient(98deg, rgba(0, 27, 56, 0.9) 0%, rgba(0, 30, 62, 0.72) 44%, rgba(0, 36, 72, 0.3) 100%);
 }
+.pitch-shade::after {                  /* the red-line scene turns the frame red for a moment, and keeps a trace of it */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 30% 55%, rgba(229, 72, 77, 0.55), rgba(229, 72, 77, 0.2) 60%, rgba(120, 20, 30, 0.35));
+  opacity: 0;
+}
+
+/* ---------- The sweep that brings in a new photograph ---------- */
+
+.pitch-wipe {
+  position: absolute;
+  z-index: 2;
+  top: -2%;
+  bottom: -2%;
+  left: 0;
+  width: 240cqw;
+  background: #001a36;
+  box-shadow: 2.2cqw 0 0 var(--green), -3cqw 0 0 rgba(255, 255, 255, 0.16);
+  transform: translate3d(-262cqw, 0, 0) skewX(-14deg);
+  visibility: hidden;
+  pointer-events: none;
+}
+@keyframes pitch-wipe {
+  from { transform: translate3d(-262cqw, 0, 0) skewX(-14deg); }
+  to { transform: translate3d(122cqw, 0, 0) skewX(-14deg); }
+}
+.pitch-stage.is-wiping .pitch-wipe { visibility: visible; animation: pitch-wipe 0.8s cubic-bezier(0.35, 0, 0.65, 1) both; }
 
 /* ---------- Scenes ---------- */
 
@@ -52,11 +81,15 @@
   transition: opacity 0.45s ease, visibility 0s 0.45s;
 }
 .pitch-scene.is-active { opacity: 1; visibility: visible; transition: opacity 0.45s ease; }
+@keyframes pitch-drift { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(1.3cqw, 0, 0); } }
+@keyframes pitch-out { from { opacity: 1; transform: translate3d(1.3cqw, 0, 0); } to { opacity: 0; transform: translate3d(1.3cqw, -3.5cqw, 0); } }
+.pitch-stage.is-started .pitch-scene.is-active { animation: pitch-drift var(--dur, 7s) linear both; }
+.pitch-stage.is-started .pitch-scene.is-leaving { animation: pitch-out 0.35s cubic-bezier(0.5, 0, 0.9, 0.4) both; }
 
 .pitch-headline {
   margin: 0;
   max-width: 16em;
-  font-size: 5.5cqw;
+  font-size: 6cqw;
   font-weight: 700;
   line-height: 1.07;
   letter-spacing: -0.022em;
@@ -67,7 +100,7 @@
 .pitch-w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.07em 0 0.16em; margin: -0.07em 0 -0.16em; }
 .pitch-w > .pitch-anim { display: inline-block; }
 
-.pitch-scene--list .pitch-headline { max-width: 26em; font-size: 3cqw; font-weight: 600; line-height: 1.18; letter-spacing: -0.012em; color: rgba(255, 255, 255, 0.88); }
+.pitch-scene--list .pitch-headline { max-width: 24em; font-size: 3.6cqw; font-weight: 600; line-height: 1.18; letter-spacing: -0.012em; color: rgba(255, 255, 255, 0.88); }
 
 .pitch-items { margin: 2.6cqw 0 0; padding: 0; list-style: none; }
 .pitch-items li { position: relative; font-size: 3.4cqw; line-height: 1.15; text-shadow: 0 0.04em 0.9em rgba(0, 18, 40, 0.6); }
@@ -82,13 +115,18 @@
 }
 .pitch-scene:not([class*="pitch-fig--"])[data-items="4"] .pitch-items li { font-size: 2.85cqw; }
 
+/* the names in a list rise from behind their own line, like the words of the headline */
+.pitch-fig--grid .pitch-items li,
+.pitch-fig--columns .pitch-items li,
+.pitch-scene:not([class*="pitch-fig--"]) .pitch-items li { overflow: hidden; }
+
 /* "grid" and "columns": each item sits under a hairline that draws in */
 .pitch-fig--grid .pitch-items,
 .pitch-fig--columns .pitch-items { display: grid; gap: 2.6cqw 3.2cqw; }
 .pitch-fig--grid .pitch-items { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 62cqw; }
 .pitch-fig--columns .pitch-items { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
 .pitch-fig--grid .pitch-items li,
-.pitch-fig--columns .pitch-items li { padding-top: 1.25cqw; font-size: 3.3cqw; }
+.pitch-fig--columns .pitch-items li { padding-top: 1.25cqw; font-size: 4.2cqw; }
 .pitch-fig--columns .pitch-items li { font-size: 2.9cqw; }
 .pitch-rule {
   position: absolute; top: 0; left: 0; right: 0;
@@ -100,12 +138,23 @@
 
 /* "tags": outlined labels that land like a stamp */
 .pitch-fig--tags .pitch-items { display: flex; flex-wrap: wrap; gap: 1.5cqw; }
+.pitch-fig--tags .pitch-items li:nth-child(odd) { --r: -6deg; }
+.pitch-fig--tags .pitch-items li:nth-child(even) { --r: 5deg; }
+.pitch-fig--tags .pitch-items li::after {          /* the ring a stamp leaves when it lands */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: max(1.5px, 0.17cqw) solid #fff;
+  border-radius: 0.5cqw;
+  opacity: 0;
+  pointer-events: none;
+}
 .pitch-fig--tags .pitch-item {
   padding: 0.42em 0.8em 0.46em;
   border: max(1.5px, 0.17cqw) solid rgba(255, 255, 255, 0.8);
   border-radius: 0.5cqw;
   background: rgba(0, 27, 56, 0.35);
-  font-size: 3.5cqw;
+  font-size: 4.2cqw;
   letter-spacing: -0.01em;
 }
 
@@ -125,8 +174,9 @@
 .pitch-redline {
   display: block;
   height: max(2px, 0.26cqw);
-  margin: 2.4cqw -7cqw 0;
+  margin: 2.4cqw -10cqw 0;
   background: #e5484d;
+  box-shadow: 0 0 1.6cqw rgba(229, 72, 77, 0.7);
   transform-origin: left center;
 }
 
@@ -146,7 +196,14 @@
 
 @keyframes pitch-in { from { opacity: 0; transform: translateY(0.5em); } to { opacity: 1; transform: none; } }
 @keyframes pitch-word { from { transform: translateY(112%); } to { transform: none; } }
-@keyframes pitch-stamp { from { opacity: 0; transform: scale(1.16); } to { opacity: 1; transform: none; } }
+@keyframes pitch-word-beat { from { transform: translateY(112%); } 60% { transform: translateY(-7%); } to { transform: none; } }
+@keyframes pitch-stamp {
+  0% { opacity: 0; transform: scale(1.9) rotate(var(--r, 0deg)); }
+  55% { opacity: 1; transform: scale(0.95) rotate(0deg); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes pitch-stamp-ring { from { opacity: 0.75; transform: scale(1); } to { opacity: 0; transform: scale(1.32, 1.7); } }
+@keyframes pitch-redflash { 0% { opacity: 0; } 14% { opacity: 1; } 100% { opacity: 0.3; } }
 @keyframes pitch-sweep { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes pitch-stroke { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes pitch-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
@@ -157,19 +214,37 @@
   animation-delay: var(--d, 0s);
 }
 .pitch-stage.is-started .pitch-scene.is-active .pitch-w > .pitch-anim {
-  animation: pitch-word 0.8s cubic-bezier(0.16, 0.8, 0.2, 1) both;
+  animation: pitch-word 0.7s cubic-bezier(0.16, 0.8, 0.2, 1) both;
+  animation-delay: var(--d, 0s);
+}
+.pitch-stage.is-started .pitch-scene.is-active .pitch-w--beat > .pitch-anim {      /* the held-back last word lands harder */
+  animation: pitch-word-beat 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+}
+.pitch-stage.is-started .pitch-scene.is-active.pitch-fig--grid .pitch-item,
+.pitch-stage.is-started .pitch-scene.is-active.pitch-fig--columns .pitch-item,
+.pitch-stage.is-started .pitch-scene.is-active:not([class*="pitch-fig--"]) .pitch-item {
+  animation: pitch-word 0.7s cubic-bezier(0.16, 0.8, 0.2, 1) both;
   animation-delay: var(--d, 0s);
 }
 .pitch-stage.is-started .pitch-scene.is-active.pitch-fig--tags .pitch-item {
-  animation: pitch-stamp 0.5s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+  animation: pitch-stamp 0.42s cubic-bezier(0.3, 0, 0.2, 1) both;
   animation-delay: var(--d, 0s);
+}
+.pitch-stage.is-started .pitch-scene.is-active.pitch-fig--tags .pitch-items li::after {
+  animation: pitch-stamp-ring 0.6s ease-out forwards;
+  animation-delay: calc(var(--d, 0s) + 0.22s);
+}
+.pitch-stage.is-started[data-fig="redline"] .pitch-shade::after {
+  animation: pitch-redflash 1.8s ease-out both;
+  animation-delay: var(--hit, 1s);
 }
 .pitch-stage.is-started .pitch-scene.is-active .pitch-rule,
 .pitch-stage.is-started .pitch-scene.is-active .pitch-redline {
   animation: pitch-sweep 0.8s cubic-bezier(0.6, 0, 0.2, 1) both;
   animation-delay: var(--d, 0s);
 }
-.pitch-stage.is-started .pitch-scene.is-active .pitch-redline { animation-duration: 1s; }
+.pitch-stage.is-started .pitch-scene.is-active .pitch-redline { animation-duration: 0.6s; animation-timing-function: cubic-bezier(0.7, 0, 0.15, 1); }
 .pitch-stage.is-started .pitch-scene.is-active .pitch-draw {
   animation: pitch-stroke 0.9s cubic-bezier(0.5, 0, 0.2, 1) both;
   animation-delay: var(--d, 0s);
@@ -184,7 +259,9 @@
   animation: pitch-fade 0.5s ease both;
   animation-delay: calc(var(--d, 0s) + 0.95s);
 }
-.pitch-stage.is-paused * { animation-play-state: paused !important; }
+.pitch-stage.is-paused *,
+.pitch-stage.is-paused *::before,
+.pitch-stage.is-paused *::after { animation-play-state: paused !important; }
 .pitch-stage.is-paused .pitch-seg i { transition: none; }
 
 /* ---------- The line with a gap in it ---------- */
@@ -195,6 +272,7 @@
   left: 7cqw;
   right: 7cqw;
   bottom: 5.4cqw;
+  z-index: 3;                          /* stays in view while the photographs cut behind the sweep */
   display: grid;
   grid-template-columns: 41fr 18fr 41fr;
   font-size: 1.75cqw;
@@ -208,7 +286,7 @@
   height: 0.3em;
   background: #fff;
   transform: scaleX(0);
-  transition: transform 1s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 1.4s ease;
+  transition: transform 1s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 1.4s ease, background-color 0.9s ease;
 }
 .pitch-seg--left i { transform-origin: left center; }
 .pitch-seg--right i { transform-origin: right center; }
@@ -245,8 +323,31 @@
 .pitch-stage[data-line="gap"] .pitch-seg--gap::before,
 .pitch-stage[data-line="gap"] .pitch-gap-label { opacity: 1; }
 
-.pitch-stage[data-line="bridge"] .pitch-seg--gap i { transform: scaleX(1); box-shadow: 0 0 1.1em rgba(48, 180, 84, 0.75); }
+.pitch-stage[data-line="bridge"] .pitch-seg--gap i { transform: scaleX(1); box-shadow: 0 0 1.1em rgba(48, 180, 84, 0.75); transition-duration: 0.6s, 1.4s, 0.9s; transition-timing-function: cubic-bezier(0.7, 0, 0.2, 1), ease, ease; }
 .pitch-stage[data-line="bridge"] .pitch-bridge-label { opacity: 1; }
+
+/* the gap flashes when it opens */
+@keyframes pitch-gapflash { 0% { opacity: 0; transform: scaleY(3); filter: brightness(2.4); } 100% { opacity: 1; transform: none; filter: none; } }
+.pitch-stage.is-started[data-line="gap"] .pitch-seg--gap::before { transform-origin: center top; animation: pitch-gapflash 0.7s ease-out both; }
+
+/* a glint runs down the line when the gap closes */
+.pitch-line::after {
+  content: "";
+  position: absolute;
+  top: -0.25em;
+  left: 0;
+  width: 12%;
+  height: 0.8em;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+  opacity: 0;
+  pointer-events: none;
+}
+@keyframes pitch-glint { 0% { opacity: 0; transform: translateX(300%); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateX(740%); } }
+.pitch-stage.is-started[data-line="bridge"] .pitch-line::after { animation: pitch-glint 1s cubic-bezier(0.5, 0, 0.3, 1) 0.45s both; }
+
+/* at the end the whole line has turned green */
+.pitch-stage.is-arrived .pitch-seg i { background: var(--green); }
+.pitch-stage.is-arrived .pitch-seg--right b { color: #fff; }
 
 /* the venture: a dot that travels the line, waits at the gap and crosses when it closes */
 .pitch-dot {
@@ -257,9 +358,24 @@
   height: 1.05em;
   margin: -0.525em 0 0 -0.525em;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  color: #fff;
+  transition: opacity 0.4s ease, color 0.8s ease;
 }
 .pitch-stage:not([data-line="none"]) .pitch-dot { opacity: 1; }
+.pitch-stage[data-line="gap"] .pitch-dot { color: var(--amber); }
+.pitch-stage[data-line="bridge"] .pitch-dot { color: var(--green); }
+.pitch-dot::before {                 /* the streak behind the dot: /js/pitch.js sets --tail from its speed */
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: calc(var(--tail, 0) * 13em);
+  height: 0.46em;
+  margin-top: -0.23em;
+  border-radius: 0.3em;
+  background: linear-gradient(90deg, transparent, currentColor);
+  opacity: 0.9;
+}
 .pitch-dot b {
   display: block;
   width: 100%;
@@ -272,12 +388,20 @@
 .pitch-stage[data-line="gap"] .pitch-dot b { box-shadow: 0 0 0 0.22em rgba(233, 180, 76, 0.35), 0 0 1.3em rgba(233, 180, 76, 0.8); }
 .pitch-stage[data-line="bridge"] .pitch-dot b { box-shadow: 0 0 0 0.22em rgba(48, 180, 84, 0.4), 0 0 1.3em rgba(48, 180, 84, 0.85); }
 
-@keyframes pitch-nudge {            /* tries the gap, and steps back */
-  0%, 52%, 100% { transform: translateX(0); }
-  68% { transform: translateX(0.55em); }
-  80% { transform: translateX(-0.1em); }
+@keyframes pitch-nudge {            /* runs at the gap, and is thrown back */
+  0%, 44%, 100% { transform: translateX(0); }
+  58% { transform: translateX(0.95em); }
+  68% { transform: translateX(-0.5em); }
+  82% { transform: translateX(0.12em); }
 }
-.pitch-stage.is-started[data-line="gap"] .pitch-dot b { animation: pitch-nudge 2.8s ease-in-out 0.8s infinite; }
+@keyframes pitch-recoil {           /* the moment the gap opens in front of it */
+  0% { transform: translateX(0); }
+  22% { transform: translateX(-1.7em); }
+  100% { transform: translateX(0); }
+}
+.pitch-stage.is-started[data-line="gap"] .pitch-dot b { animation: pitch-recoil 0.75s cubic-bezier(0.2, 0.8, 0.2, 1), pitch-nudge 2.1s ease-in-out 1.1s infinite; }
+/* before the film starts, the dot already tries the gap */
+.pitch-stage:not(.is-started)[data-line="gap"] .pitch-dot b { animation: pitch-nudge 2.6s ease-in-out 1.2s infinite; }
 
 @keyframes pitch-ring { from { opacity: 0.9; transform: scale(1); } to { opacity: 0; transform: scale(3.4); } }
 .pitch-dot::after { content: ""; position: absolute; inset: 0; border: 0.12em solid var(--green); border-radius: 50%; opacity: 0; }
@@ -404,8 +528,13 @@ body[data-page="pitch"] .pitch-band { border-bottom: 0; }
 body[data-page="pitch"] .pitch-band-inner { max-width: 1240px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .pitch-stage.is-started .pitch-scene.is-active * { animation: none !important; }
-  .pitch-stage .pitch-dot b, .pitch-stage .pitch-dot::after { animation: none !important; }
+  .pitch-stage.is-started .pitch-scene.is-active,
+  .pitch-stage.is-started .pitch-scene.is-leaving,
+  .pitch-stage.is-started .pitch-scene.is-active *,
+  .pitch-stage.is-started .pitch-scene.is-active *::after { animation: none !important; }
+  .pitch-stage .pitch-dot b, .pitch-stage .pitch-dot::after,
+  .pitch-stage .pitch-line::after, .pitch-stage .pitch-seg--gap::before, .pitch-stage .pitch-shade::after { animation: none !important; }
+  .pitch-wipe, .pitch-dot::before { display: none; }
   .pitch-scene, .pitch-bg, .pitch-seg i, .pitch-seg b, .pitch-seg--gap::before { transition: none; }
 }
 
