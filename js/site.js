@@ -172,22 +172,35 @@
       : (Array.isArray(data.services) ? data.services : []);
   }
 
-  // A full-width band (the pitch on the home page) can ask to sit after section n:
+  // A full-width band (the pitch film, the gates figure) can ask to sit after section n:
   // <section data-after-section="3">. With fewer sections it stays where the page has it.
+  // Several bands can ask; the sections are regrouped around them in order.
   function placeBands(container) {
-    document.querySelectorAll('[data-after-section]').forEach(function (band) {
-      var n = parseInt(band.getAttribute('data-after-section'), 10);
-      var wrap = container.querySelector('.wrap');
-      var rows = wrap ? Array.prototype.slice.call(wrap.children) : [];
-      if (n > 0 && rows.length > n) {
-        var rest = document.createElement('div');
-        rest.className = 'wrap';
-        rows.slice(n).forEach(function (row) { rest.appendChild(row); });
-        container.appendChild(band);
-        container.appendChild(rest);
-      }
-      band.classList.add('is-placed');
-    });
+    var bands = Array.prototype.slice.call(document.querySelectorAll('[data-after-section]'));
+    if (!bands.length) return;
+    var wraps = Array.prototype.slice.call(container.querySelectorAll('.wrap'));
+    var rows = [];
+    wraps.forEach(function (w) { Array.prototype.push.apply(rows, Array.prototype.slice.call(w.children)); });
+    function at(band) { return parseInt(band.getAttribute('data-after-section'), 10) || 0; }
+    var among = bands.filter(function (b) { return at(b) > 0 && at(b) < rows.length; })
+      .sort(function (a, b) { return at(a) - at(b); });
+    if (among.length) {
+      var parts = document.createDocumentFragment();
+      var from = 0;
+      var group = function (to) {
+        if (to <= from) return;
+        var w = document.createElement('div');
+        w.className = 'wrap';
+        rows.slice(from, to).forEach(function (row) { w.appendChild(row); });
+        parts.appendChild(w);
+        from = to;
+      };
+      among.forEach(function (band) { group(at(band)); parts.appendChild(band); });
+      group(rows.length);
+      wraps.forEach(function (w) { w.remove(); });
+      container.appendChild(parts);
+    }
+    bands.forEach(function (band) { band.classList.add('is-placed'); });
   }
 
   // Fetch each diagram and place it in the page. Scripts and event attributes are removed first.
@@ -291,6 +304,9 @@
     placeBands(container);
     loadDiagrams(container);
     wireFolds();
+    // other scripts (the figures on the home page) wait for the sections to be in the page
+    window.AttollooSite.sectionsReady = true;
+    document.dispatchEvent(new CustomEvent('attolloo:sections'));
     // Jump to a section if the address has an #anchor
     if (location.hash.length > 1) {
       var target = null;

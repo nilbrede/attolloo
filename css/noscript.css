@@ -55,3 +55,8 @@
     margin: 0 0 0 4px;
   }
 }
+
+/* The bands that a script places among the sections (the gates figure, the pitch) are shown where the page has them */
+[data-after-section] {
+  display: block !important;
+}
