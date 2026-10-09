@@ -243,6 +243,26 @@ collections:
           - { name: success_heading, label: "Overskrift når meldingen er sendt", widget: "string" }
           - { name: success_body, label: "Tekst når meldingen er sendt", widget: "text" }
 
+  # Personvernsiden (privacy.json)
+  - label: "Personvern"
+    name: "privacy"
+    files:
+      - label: "Privacy"
+        name: "privacy"
+        file: "data/privacy.json"
+        fields:
+          - { name: title, label: "Tittel (hero)", widget: "string" }
+          - { name: subtitle, label: "Ingress (hero)", widget: "text", required: false }
+          - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: sections
+            label: "Seksjoner"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { name: heading, label: "Overskrift", widget: "string" }
+              - { name: body, label: "Tekst", widget: "markdown", hint: "Husk å oppdatere datoen nederst når noe endres. Siden skal beskrive det nettstedet faktisk gjør." }
+              - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
+
   # Figurene på forsiden (timeline.json og gates.json)
   - label: "Figurer på forsiden"
     name: "figures"

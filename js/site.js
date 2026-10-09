@@ -20,6 +20,7 @@
     'responsible-ai': '/data/responsible-ai.json',
     research: '/data/research.json',
     contact: '/data/contact.json',
+    privacy: '/data/privacy.json',
     example: '/data/example.json'
   };
 
@@ -262,9 +263,9 @@
     return '<svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">' + wedges + '</svg>';
   }
 
-  // The self-test invitation is for founders; skip it on the self-test itself and on the research page
+  // The self-test invitation is for founders; skip it on the self-test itself, the research page and the privacy page
   function wantsMatchBand(page) {
-    return page !== 'match' && page !== 'research';
+    return page !== 'match' && page !== 'research' && page !== 'privacy';
   }
 
   function matchBandHtml() {

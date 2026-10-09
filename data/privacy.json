@@ -1,0 +1,37 @@
+{
+  "title": "Privacy",
+  "subtitle": "What this site collects about you, what it is used for, and what it leaves alone.",
+  "hero_image": "/images/uploads/site-hero-snow-pines.jpg",
+  "sections": [
+    {
+      "heading": "The Short Version",
+      "body": "This site collects personal data in one place only: the contact form. It sets no cookies, runs no statistics or advertising tools, and loads nothing from other companies' servers.\n\nAttolloo Group AS (org.nr 936 755 569, Oslo) is responsible for the data described on this page. Questions go to nils.johan@attolloogroup.com.\n",
+      "image": ""
+    },
+    {
+      "heading": "When You Send a Message",
+      "body": "The contact form asks for your name and email address, and lets you add your company, your role and a message. If you come from the self-test, your answers are filled into the message, and you can change or remove them before sending.\n\n- What it is used for: to answer you, and to follow up the conversation you started.\n- Legal basis: Attolloo's legitimate interest in answering enquiries (GDPR Article 6(1)(f)). If the conversation leads towards an agreement, the basis is the steps taken before entering into a contract (Article 6(1)(b)).\n- Who receives it: the message is sent to Nils Johan Brede by email. It is also stored by Netlify, the company that hosts this site and runs the form.\n- How long it is kept: until the conversation is finished, and at most twelve months after the last message. Then it is deleted, from the inbox and from Netlify.\n\nIf you write by email instead of using the form, the same applies.\n",
+      "image": ""
+    },
+    {
+      "heading": "The Self-Test",
+      "body": "Your answers stay in your browser. Nothing is stored or sent, unless you choose to send the answers through the contact form.\n",
+      "image": ""
+    },
+    {
+      "heading": "Hosting",
+      "body": "The site is hosted by Netlify, Inc., a US company. To deliver the pages, Netlify handles technical data about each visit, such as the IP address. Attolloo does not use that data to identify visitors.\n\nNetlify is certified under the EU-US Data Privacy Framework.\n",
+      "image": ""
+    },
+    {
+      "heading": "Your Rights",
+      "body": "You can ask to see the data Attolloo holds about you, to have it corrected or deleted, and you can object to its use. Write to nils.johan@attolloogroup.com. You get an answer within a month.\n\nIf you think Attolloo handles your data wrongly, you can complain to the Norwegian Data Protection Authority, [Datatilsynet](https://www.datatilsynet.no).\n",
+      "image": ""
+    },
+    {
+      "heading": "Changes",
+      "body": "If the site starts to collect anything more, for example visitor statistics, this page is updated first.\n\nLast updated: October 2026.\n",
+      "image": ""
+    }
+  ]
+}
