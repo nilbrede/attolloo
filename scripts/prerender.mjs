@@ -10,7 +10,7 @@
 // published page and the page built in the browser are the same. If one page cannot be prepared
 // it is published as the shell it was, and the browser fills it in as before.
 //
-// No dependencies. Usage: node scripts/prerender.mjs [output folder, default _site]
+// It needs nothing installed. Usage: node scripts/prerender.mjs [output folder, default _site]
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.resolve(ROOT, process.argv[2] || '_site');
-const SKIP = new Set(['.git', '.github', 'node_modules', 'scripts', 'netlify.toml', 'README.md', '.gitignore', path.basename(OUT)]);
+const SKIP = new Set(['.git', '.github', 'node_modules', 'scripts', 'netlify', 'netlify.toml', 'package.json', 'package-lock.json', 'README.md', '.gitignore', path.basename(OUT)]);
 
 if (OUT === ROOT || !OUT.startsWith(ROOT + path.sep)) {
   console.error('prerender: the output folder must be a folder inside the site.');

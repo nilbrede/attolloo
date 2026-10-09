@@ -5,7 +5,7 @@
   "sections": [
     {
       "heading": "The Short Version",
-      "body": "This site collects personal data in one place only: the contact form. It sets no cookies, runs no statistics or advertising tools, and loads nothing from other companies' servers.\n\nAttolloo Group AS (org.nr 936 755 569, Oslo) is responsible for the data described on this page. Questions go to nils.johan@attolloogroup.com.\n",
+      "body": "This site collects personal data in one place only: the contact form. It sets no cookies, runs no advertising tools, and loads nothing from other companies' servers. It counts how many times each page is opened, without recording who opened it.\n\nAttolloo Group AS (org.nr 936 755 569, Oslo) is responsible for the data described on this page. Questions go to nils.johan@attolloogroup.com.\n",
       "image": ""
     },
     {
@@ -14,8 +14,13 @@
       "image": ""
     },
     {
+      "heading": "Counting Visits",
+      "body": "The site keeps its own count of visits, to show which pages are read. Each time a page is opened, it stores four things:\n\n- the date\n- the page\n- the action, for example that the pitch film was started or that a message was sent\n- the name of the website you came from, if you followed a link here\n\nThe count does not store your IP address, your browser, your device, or anything else that could tell one visitor from another. It uses no cookies. It is kept by Netlify as part of hosting this site, and is not shared with anyone else.\n\nYou can stay out of the count in two ways:\n\n- If your browser sends a Do Not Track or Global Privacy Control signal, your visits are not counted.\n- Opening [attolloogroup.com/?nocount](/?nocount) switches the count off in the browser you are using. That saves one setting in the browser, which says only that this browser is not to be counted. Opening [attolloogroup.com/?count](/?count) removes it again.\n",
+      "image": ""
+    },
+    {
       "heading": "The Self-Test",
-      "body": "Your answers stay in your browser. Nothing is stored or sent, unless you choose to send the answers through the contact form.\n",
+      "body": "Your answers stay in your browser. They are not stored or sent, unless you choose to send them through the contact form.\n\nThe visit count notes that a test was finished and which of the five results it gave. It does not note the answers, or who took the test.\n",
       "image": ""
     },
     {
@@ -30,7 +35,7 @@
     },
     {
       "heading": "Changes",
-      "body": "If the site starts to collect anything more, for example visitor statistics, this page is updated first.\n\nLast updated: October 2026.\n",
+      "body": "If the site starts to collect anything more, this page is updated first.\n\nLast updated: October 2026.\n",
       "image": ""
     }
   ]
