@@ -14,6 +14,11 @@
       "image": "/images/uploads/diagram-ai-compass.svg"
     },
     {
+      "heading": "Oversight Needs People Who Can Judge the Answer",
+      "body": "Human oversight is only as good as the person doing it. A reviewer who knows the field can tell a good answer from a plausible one. A reviewer who does not, cannot, however good the process around them is.\n\nWhen AI produces something good enough in seconds, it is tempting to skip the demanding work where skill is built. A company that lets that happen ends up with reviewers who can no longer review.\n\nUnder Readiness, AI Compass therefore asks two things: who reviews what the model produces, and what that person knows. The EU AI Act points the same way. It requires human oversight of high-risk systems, and sufficient AI literacy among the people who work with AI.\n\nThis is also why Attolloo looks for [growth before cuts](/responsible-ai.html). The knowledge in people's heads is what makes the oversight real.\n",
+      "image": ""
+    },
+    {
       "heading": "  Data Infrastructure & Automated Compliance",
       "body": "Before deploying AI algorithms, systems must be data-ready. AI Compass audits pipeline architecture and automated governance to ensure models remain performant, auditable, and legally defensible.\n\nIn regulated sectors, this is not optional — it is the difference between a competitive asset and a regulatory liability. The diagnostic output feeds directly into Polaris sprint design and the 6Sense qualification score.\n",
       "image": "/images/uploads/site-slope-sun.jpg"
