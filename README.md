@@ -20,6 +20,16 @@ The website for Attolloo Group, [attolloogroup.com](https://attolloogroup.com).
   repository are not changed, and `_site/` is never committed.
 - Opened straight from the repository, without that step, the pages fill themselves in
   in the browser as before.
+- The same script makes the photographs lighter. Every photograph a page uses is also written as
+  WebP in a few widths (to `_site/images/sized/`), and the page lets the browser pick the one that
+  fits the screen. The original stays as the largest version and as the fallback. This needs the
+  `sharp` package; without it the pictures are published as they are. A photograph uploaded in the
+  CMS is handled the same way the next time the site is published, so nothing has to be resized by hand.
+- It also writes into the sitemap the date each page's text last changed, taken from the history
+  of the repository.
+- What search engines show for a page is in the page's own file: `<title>`, the description and
+  the block of structured data (`application/ld+json`) in its `<head>`. The title and description
+  are repeated in the `og:` lines and in the structured data, and the three should say the same.
 
 If the script cannot prepare a page, that page is published as its shell and still works
 in the browser. The publish log on Netlify says which pages were prepared.

@@ -11,3 +11,10 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+# The lighter versions of the photographs (written by the script above) carry a fingerprint of
+# their content in the file name, so a browser can keep them without asking again.
+[[headers]]
+  for = "/images/sized/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

@@ -443,6 +443,9 @@
       if (!src) return;
       if (n >= 2) { img.style.visibility = 'hidden'; return; }
       img.setAttribute('data-retry', n + 1);
+      // the lighter version may be what failed: go back to the original
+      img.removeAttribute('srcset');
+      img.removeAttribute('sizes');
       setTimeout(function () {
         img.src = src + (src.indexOf('?') < 0 ? '?' : '&') + 'retry=' + (n + 1);
       }, n ? 5000 : 1500);

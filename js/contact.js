@@ -18,7 +18,14 @@
     setText('privacyNote', data.privacy_note);
     setText('successHeading', data.success_heading);
     setText('successBody', data.success_body);
-    if (data.photo) { $('contactPhoto').src = data.photo; }
+    // The published page already holds the photograph, with lighter versions for small screens.
+    // Only a different photograph replaces it.
+    var photo = $('contactPhoto');
+    if (data.photo && photo.getAttribute('src') !== data.photo) {
+      photo.removeAttribute('srcset');
+      photo.removeAttribute('sizes');
+      photo.src = data.photo;
+    }
     if (data.name) { $('contactPhoto').alt = data.name; }
     if (data.email) {
       email = String(data.email).trim();
