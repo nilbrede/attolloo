@@ -135,7 +135,7 @@
 .gates-choice[aria-pressed="true"] { border-color: #fff; background: #fff; color: var(--ink); }
 
 /* the line from product to market, with a gap for every gate */
-.gates-track { margin-top: clamp(44px, 6vw, 76px); }
+.gates-track { margin-top: clamp(44px, 6vw, 76px); scroll-margin-top: 16px; }   /* "Next gate" scrolls back here */
 .gates-rail { position: relative; display: flex; align-items: flex-end; }
 .gates-seg { flex: 1 1 0; min-width: 10px; height: 4px; background: #fff; }
 .gates-gap {
