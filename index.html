@@ -79,7 +79,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/css/site.css?v=6" />
+  <link rel="stylesheet" href="/css/site.css?v=7" />
   <link rel="stylesheet" href="/css/menu.css?v=4" />
   <link rel="stylesheet" href="/css/pitch.css?v=5" />
   <link rel="stylesheet" href="/css/figures.css?v=2" />
@@ -95,6 +95,8 @@
         <a class="btn btn--light" href="/contact.html#screening">Book a Readiness Assessment</a>
         <a class="hero-link" href="#pitch" data-pitch-play><span class="hero-link-icon" aria-hidden="true"></span>Watch the one-minute pitch</a>
       </p>
+      <!-- The path from product to market: drawn by /js/site.js from hero_path in /data/home.json -->
+      <div class="hero-path-slot" data-hero-path></div>
     </div>
   </section>
 
@@ -102,21 +104,20 @@
   <main id="sections" class="story"></main>
 
   <!-- Who has to say yes: built by /js/figures.js from /data/gates.json.
-       /js/site.js moves it in after the first section (data-after-section).
-       The timeline in the first section comes from the same script, and /data/timeline.json. -->
-  <section class="gates-band" id="who-has-to-say-yes" data-after-section="1" aria-labelledby="gatesTitle">
+       /js/site.js moves it in before the first section (data-after-section="0"), right under the three steps. -->
+  <section class="gates-band" id="who-has-to-say-yes" data-after-section="0" aria-labelledby="gatesTitle">
     <div class="wrap gates" data-gates></div>
   </section>
 
   <!-- The one-minute pitch: built by /js/pitch.js from /data/pitch.json.
-       /js/site.js moves it in after the second section (data-after-section). -->
-  <section class="pitch-band" id="pitch" data-after-section="2" aria-label="The pitch in one minute">
+       /js/site.js moves it in after the first section (data-after-section). -->
+  <section class="pitch-band" id="pitch" data-after-section="1" aria-label="The pitch in one minute">
     <div class="pitch-band-inner" data-pitch></div>
   </section>
 
   <div id="footer"></div>
 
-  <script src="/js/site.js?v=8" defer></script>
+  <script src="/js/site.js?v=9" defer></script>
   <script src="/js/figures.js?v=3" defer></script>
   <script src="/js/pitch.js?v=5" defer></script>
   <script src="/js/menu-init.js?v=5" defer></script>

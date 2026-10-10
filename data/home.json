@@ -2,16 +2,40 @@
   "title": "Your AI works. Will the market let you in?",
   "subtitle": "In a regulated market someone has to say yes before you can grow: a buyer's security review, a regulator, a partner, an investor. Attolloo gets early-stage AI companies ready for that scrutiny.",
   "hero_image": "/images/uploads/site-hero-cabin-dusk.jpg",
-  "sections": [
+  "hero_path": {
+    "from": "Your product",
+    "to": "The market",
+    "gates": [
+      "Buyer",
+      "Regulator",
+      "Partner",
+      "Investor"
+    ]
+  },
+  "steps": [
     {
-      "body": "Early-stage AI companies in Fintech, Regtech, and Compliance Automation face a specific, structural problem in the 12-36 months after first product launch. They have technology that works. What they lack is the governance architecture that makes banks, insurers and other institutional buyers willing to buy it, partner with it, and fund it.\n\nThe same holds for companies that set out to compete with the established players rather than sell to them. They become the regulated party themselves, and the regulator, the partner bank and the investor ask the same questions.\n\n+++ Why this is urgent now\n\nThe EU AI Act applies in stages. Prohibited practices have been banned since February 2025, transparency duties apply from August 2026, and the requirements for stand-alone high-risk systems now apply from December 2027. DORA has been applicable since January 2025. Institutional buyers are not waiting for the last date: they already ask for documented AI governance in procurement and due diligence. A founder who cannot document AI governance to a procurement committee loses the contract. A founder who cannot demonstrate regulatory readiness to an institutional investor does not close the round.\n\n[See what applies, and when](/6sense.html#why-regulation-can-work-in-your-favour)\n\n+++\n\nA lawyer can tell you what the regulation says, and a CTO can build the controls. What is usually missing is someone who has run a security company and advised regulated companies through the first years of GDPR and MiFID II, and who knows what the people on the other side of the table will ask for.\n",
-      "heading": "AI companies in regulated markets do not die from lack of technology. They die from lack of governance.",
-      "image": "/images/uploads/site-boardwalk.jpg"
+      "title": "Someone has to say yes",
+      "text": "Before a regulated buyer signs, its security review, its regulator or its investor asks how your AI is governed."
     },
+    {
+      "title": "We find what would stop them",
+      "text": "A Readiness Assessment looks at your company the way they will. It takes about three weeks, at a fixed price."
+    },
+    {
+      "title": "You know what to fix first",
+      "text": "A written report, the two or three issues most likely to stop a deal, and a 90-day plan in priority order."
+    }
+  ],
+  "sections": [
     {
       "heading": "Three Ways to Work Together",
       "body": "Attolloo works with a small number of AI companies, and is led by Nils Johan Brede. Most start with the first of these.\n\nREADINESS ASSESSMENT\nA fixed-price review of how your company looks to the people who have to say yes: a regulated buyer, a regulator, a partner or an investor. You get a written report: the 6Sense screening, an AI Compass baseline, and a 90-day plan in priority order. The report is yours to use whether or not we work together afterwards.\n\nBOARD, ADVISORY AND MENTORING\nA board seat, a standing advisory role or a mentoring agreement, for a fee agreed in advance. For companies that want governance experience in the room when the funding round, the audit or the large contract comes up.\n\nEXECUTIVE PARTNERSHIP\nHands-on executive support in a critical period: a funding round, a licence application, an audit or a first large institutional customer. Offered by agreement, and only after an assessment. Scope, start and terms are agreed case by case.\n\nTerms are agreed in writing before the work starts: what Attolloo contributes, what it costs, and how the engagement ends.\n\n[Book a Readiness Assessment](/contact.html#screening)\n",
       "image": "/images/uploads/site-snow-pines.jpg"
+    },
+    {
+      "body": "Early-stage AI companies in Fintech, Regtech, and Compliance Automation face a specific, structural problem in the 12-36 months after first product launch. They have technology that works. What they lack is the governance architecture that makes banks, insurers and other institutional buyers willing to buy it, partner with it, and fund it.\n\nThe same holds for companies that set out to compete with the established players rather than sell to them. They become the regulated party themselves, and the regulator, the partner bank and the investor ask the same questions.\n\n+++ Why this is urgent now\n\nThe EU AI Act applies in stages. Prohibited practices have been banned since February 2025, transparency duties apply from August 2026, and the requirements for stand-alone high-risk systems now apply from December 2027. DORA has been applicable since January 2025. Institutional buyers are not waiting for the last date: they already ask for documented AI governance in procurement and due diligence. A founder who cannot document AI governance to a procurement committee loses the contract. A founder who cannot demonstrate regulatory readiness to an institutional investor does not close the round.\n\n[See what applies, and when](/6sense.html#why-regulation-can-work-in-your-favour)\n\n+++\n\nA lawyer can tell you what the regulation says, and a CTO can build the controls. What is usually missing is someone who has run a security company and advised regulated companies through the first years of GDPR and MiFID II, and who knows what the people on the other side of the table will ask for.\n",
+      "heading": "AI companies in regulated markets do not die from lack of technology. They die from lack of governance.",
+      "image": "/images/uploads/site-boardwalk.jpg"
     },
     {
       "heading": "Behind the Work",

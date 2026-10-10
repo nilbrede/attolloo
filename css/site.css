@@ -174,6 +174,174 @@ body[data-page="home"] .hero { min-height: clamp(400px, 62vh, 620px); }
   border-color: transparent transparent transparent currentColor;
 }
 
+/* ---------- Home hero: the path from product to market ----------
+   A drawing of the headline: the dot runs to the gap and is stopped by the ones who have to say yes.
+   Written by /js/site.js (heroPathHtml). It arrives once, when the page opens; nothing moves for
+   readers who have asked for reduced motion. Hovering the booking button shows the way through. */
+
+body[data-page="home"] .hero h1 { max-width: 26ch; }
+.hero-line { display: block; }
+
+.hero-path {
+  --from: 34%;                         /* how far along the line the gap begins */
+  --gap: 46%;
+  --post: 38px;
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--from) var(--gap) minmax(0, 1fr);
+  max-width: 880px;
+  margin-top: clamp(30px, 4.6vw, 52px);
+  padding-top: calc(var(--post) + 2.6em);          /* room for the posts and their names above the line */
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.hp-seg { position: relative; display: block; padding-top: 0.95em; color: rgba(255, 255, 255, 0.82); }
+.hp-seg > i { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: #fff; transform-origin: left center; transition: background-color 0.5s ease; }
+.hp-seg > b { display: block; font-weight: 600; }
+.hp-seg--to { text-align: right; }
+
+.hp-gap { position: relative; display: block; height: 3px; }
+.hp-dash {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, var(--amber) 0 9px, transparent 9px 15px);
+  transition: background 0.4s ease;
+}
+/* one post for each of the ones who have to say yes, standing on the line with the name above it */
+.hp-post {
+  position: absolute;
+  left: calc((var(--k) + 0.5) * 100% / var(--n, 4));
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  transform: translateX(-50%);
+}
+.hp-post > b { font-weight: 600; color: #fff; white-space: nowrap; }
+.hp-post > i {
+  display: block;
+  width: 4px;
+  height: var(--post);
+  border-radius: 2px 2px 0 0;
+  background: var(--amber);
+  box-shadow: 0 0 12px rgba(233, 180, 76, 0.65);
+  transform-origin: 50% 100%;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.35s cubic-bezier(0.6, 0, 0.9, 0.4);
+  transition-delay: calc(var(--k) * 90ms);
+}
+
+/* the dot: the company, waiting where the gap begins */
+.hp-dot {
+  position: absolute;
+  top: calc(var(--post) + 2.6em + 1.5px);
+  left: calc(var(--from) - 11px);
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  transition: left 0.95s cubic-bezier(0.6, 0, 0.2, 1) 0.42s;
+}
+.hp-dot > b {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(233, 180, 76, 0.35), 0 0 20px rgba(233, 180, 76, 0.8);
+  transition: box-shadow 0.4s ease;
+}
+
+/* Hovering or focusing the booking button: each one says yes, the posts give way, and the dot goes through */
+.hero:has(.hero-actions .btn:hover) .hp-post > i,
+.hero:has(.hero-actions .btn:focus-visible) .hp-post > i {
+  background: var(--green);
+  box-shadow: 0 0 14px rgba(48, 180, 84, 0.9);
+  transform: scaleY(0.28);
+}
+.hero:has(.hero-actions .btn:hover) .hp-dash,
+.hero:has(.hero-actions .btn:focus-visible) .hp-dash { background: var(--green); }
+.hero:has(.hero-actions .btn:hover) .hp-seg--to > i,
+.hero:has(.hero-actions .btn:focus-visible) .hp-seg--to > i { background: var(--green); }
+.hero:has(.hero-actions .btn:hover) .hp-dot,
+.hero:has(.hero-actions .btn:focus-visible) .hp-dot { left: calc(100% - 8px); }
+.hero:has(.hero-actions .btn:hover) .hp-dot > b,
+.hero:has(.hero-actions .btn:focus-visible) .hp-dot > b { box-shadow: 0 0 0 4px rgba(48, 180, 84, 0.4), 0 0 20px rgba(48, 180, 84, 0.85); }
+
+@media (max-width: 640px) {
+  .hero-path { --from: 24%; --gap: 55%; --post: 30px; font-size: 0.74rem; padding-top: calc(var(--post) + 4.4em); }
+  .hp-dot { top: calc(var(--post) + 4.4em + 1.5px); width: 14px; height: 14px; margin: -7px 0 0 -7px; left: calc(var(--from) - 9px); }
+  /* the names would run into each other in one row: every other post is taller */
+  .hp-post:nth-child(odd) > i { height: calc(var(--post) + 1.7em); }
+}
+
+/* How it arrives: one sequence when the page opens */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes hp-rise { from { opacity: 0; transform: translateY(0.35em); } to { opacity: 1; transform: none; } }
+  @keyframes hp-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes hp-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes hp-run { from { left: 8px; } }
+  @keyframes hp-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  @keyframes hp-try {
+    0%, 62%, 100% { transform: translateX(0); }
+    74% { transform: translateX(9px); }
+    82% { transform: translateX(-5px); }
+    92% { transform: translateX(1px); }
+  }
+  body[data-page="home"] .hero-line { animation: hp-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s backwards; }
+  body[data-page="home"] .hero-line + .hero-line { animation-delay: 1.2s; }
+  .hp-seg--from > i { animation: hp-draw 0.85s cubic-bezier(0.3, 0.6, 0.2, 1) 0.2s backwards; }
+  .hp-seg--from > b { animation: hp-fade 0.5s ease 0.3s backwards; }
+  .hp-dot { animation: hp-run 0.95s cubic-bezier(0.3, 0.6, 0.2, 1) 0.2s backwards, hp-fade 0.3s ease 0.2s backwards; }
+  .hp-dash { animation: hp-fade 0.4s ease 1.25s backwards; }
+  .hp-post > i { animation: hp-grow 0.5s cubic-bezier(0.2, 0.9, 0.25, 1.25) backwards; animation-delay: calc(1.4s + var(--k) * 0.12s); }
+  .hp-post > b { animation: hp-fade 0.4s ease backwards; animation-delay: calc(1.55s + var(--k) * 0.12s); }
+  .hp-seg--to > i, .hp-seg--to > b { animation: hp-fade 0.5s ease 1.75s backwards; }
+  body[data-page="home"] .hero-sub { animation: hp-rise 0.6s ease 1.9s backwards; }
+  body[data-page="home"] .hero-actions { animation: hp-rise 0.6s ease 2.05s backwards; }
+  .hp-dot > b { animation: hp-try 3s ease-in-out 3s infinite; }
+  .hero:has(.hero-actions .btn:hover) .hp-dot > b,
+  .hero:has(.hero-actions .btn:focus-visible) .hp-dot > b { animation: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hp-dot, .hp-post > i, .hp-seg > i, .hp-dash { transition: none; }
+}
+
+/* ---------- Home: how it works, in three steps, right under the hero ---------- */
+
+.steps { border-bottom: 1px solid var(--line); background: var(--frost); }
+.steps-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(22px, 4vw, 56px);
+  max-width: calc(var(--wrap) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: clamp(30px, 4.4vw, 52px) var(--gutter);
+}
+.steps-list li { position: relative; padding-left: 3.2em; }
+.steps-n {
+  position: absolute;
+  left: 0;
+  top: -0.1em;
+  width: 2.2em;
+  height: 2.2em;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 2.2em;
+  text-align: center;
+}
+.steps-title { margin: 0 0 0.3em; font-family: var(--sans); font-size: 1.14rem; font-weight: 700; line-height: 1.25; letter-spacing: -0.008em; color: var(--ink); }
+.steps-list p { margin: 0; font-size: 1.02rem; line-height: 1.5; color: var(--text); }
+@media (max-width: 760px) {
+  .steps-list { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+}
+
 /* ---------- "In short": three lines under the hero on the framework pages ---------- */
 
 .in-short { border-bottom: 1px solid var(--line); background: var(--frost); }
