@@ -1,5 +1,7 @@
 // /js/pitch.js — the one-minute pitch, as a short film built from text, photographs and line drawings.
 // The line at the bottom carries the story: a dot runs up to a gap, is stopped there, and crosses when the gap closes.
+// When the gap opens, the picture itself breaks in two above it, and the ones who have to say yes stand
+// in the opening as posts. When the gap is bridged they give way one by one, and the picture closes.
 // The photographs cut behind a sweep across the frame; the line and the dot stay in view while they do.
 // Scenes, wording and backdrops come from /data/pitch.json (editable in the CMS).
 // No sound, no autoplay: it only runs when the visitor presses play,
@@ -79,9 +81,21 @@
       while (b < scenes.length - 1 && bgOf[b + 1] === bgOf[i]) b++;
       return [starts[a], starts[b] + secs(b) * 1000];
     });
-    var bgsHtml = '<div class="pitch-bgs" aria-hidden="true">' +
-      images.map(function (src, k) { return '<div class="pitch-bg pitch-bg--' + focus[k] + '" data-src="' + esc(src) + '"></div>'; }).join('') +
-      '</div><div class="pitch-shade" aria-hidden="true"></div>';
+    // The picture is laid out twice, as a left and a right half, so that it can part where the gap is.
+    var stack = '<div class="pitch-bgs">' +
+      images.map(function (src, k) { return '<div class="pitch-bg pitch-bg--' + focus[k] + '" data-src="' + esc(src) + '"></div>'; }).join('') + '</div>';
+    // The ones who have to say yes: one post in the opening for each name in the scene that lists them
+    var gateScene = -1;
+    scenes.forEach(function (s, i) { if (gateScene < 0 && s.line === 'gap' && s.figure === 'grid' && (s.items || []).length) gateScene = i; });
+    var gateCount = gateScene >= 0 ? Math.min(6, scenes[gateScene].items.length) : 0;
+    var gateAt = [];                   // when each post rises (ms into its scene); filled in where the scenes are built
+    var posts = '';
+    for (var g = 0; g < gateCount; g++) posts += '<i class="pitch-gate"></i>';
+    var bgsHtml = '<div class="pitch-world" aria-hidden="true">' +
+      '<div class="pitch-half pitch-half--l">' + stack + '</div><div class="pitch-half pitch-half--r">' + stack + '</div></div>' +
+      '<div class="pitch-shade" aria-hidden="true"></div>' +
+      '<div class="pitch-chasm" aria-hidden="true"><span class="pitch-gates">' + posts + '</span></div>' +
+      '<div class="pitch-seam" aria-hidden="true"></div>';
 
     // ----- the dot that travels the line: where it should be at the end of each scene -----
     // 'edge' = stopped at the gap, a number = how far along the stretch after the gap (0 to 1)
@@ -115,7 +129,7 @@
         return from + (to - from) * easeOut(clamp01((local - 350) / Math.max(1200, landAt[i] - 350)));
       }
       var firstBridge = scenes[i].line === 'bridge' && (!i || scenes[i - 1].line !== 'bridge');
-      var delay = firstBridge ? landAt[i] + 450 : 300 + leadOf[i] * 1000;   // wait for the gap to close
+      var delay = firstBridge ? landAt[i] + 620 : 300 + leadOf[i] * 1000;   // wait for the picture to close
       return from + (to - from) * ease(clamp01((local - delay) / (firstBridge ? 1500 : 1400)));
     }
     // The gap opens, and later closes, at the moment the headline that says so has landed
@@ -124,6 +138,36 @@
       var before = i ? (scenes[i - 1].line || 'none') : 'none';
       if (!calm && i && now !== before && (now === 'gap' || now === 'bridge') && local < landAt[i]) return before;
       return now;
+    }
+
+    // How far the picture has parted above the gap: 0 is whole, 1 is as wide as the gap in the line.
+    // It breaks open, a little too far and back, when the headline that names the gap has landed,
+    // and closes when the headline that bridges it has landed and the posts have given way.
+    function splitAt(i, local) {
+      var now = scenes[i].line || 'none';
+      var before = i ? (scenes[i - 1].line || 'none') : 'none';
+      if (now === 'gap') {
+        if (calm || before === 'gap') return 1;
+        var p = clamp01((local - landAt[i]) / 520) - 1;
+        return 1 + 2.70158 * p * p * p + 1.70158 * p * p;
+      }
+      if (now === 'bridge' && before === 'gap' && !calm) {
+        var q = clamp01((local - landAt[i] - 250) / 420);
+        return 1 - q * q * q;
+      }
+      return 0;
+    }
+    // What each post is doing: standing, turned green (a yes), and gone
+    function gateState(k, i, local) {
+      if (gateScene < 0 || i < gateScene) return 0;
+      var now = scenes[i].line || 'none';
+      if (i === gateScene) return (calm || local >= gateAt[k]) ? 1 : 0;
+      if (now === 'gap') return 1;
+      if (now === 'bridge' && scenes[i - 1].line === 'gap' && !calm) {
+        var yes = landAt[i] - 330 + k * 110;
+        return local >= yes + 230 ? 3 : local >= yes ? 2 : 1;
+      }
+      return 0;
     }
 
     // ----- scenes -----
@@ -160,12 +204,13 @@
           : (fig === 'grid' || fig === 'columns') ? '<i class="pitch-rule"></i>' : '';
         return '<li style="--d:' + d + 's">' + lead + '<span class="pitch-item pitch-anim">' + itemHtml(it) + '</span></li>';
       }).join('');
+      if (i === gateScene) gateAt = items.map(function (it, k) { return (t + k * itemStep) * 1000; });
       var after = t + items.length * itemStep + (items.length ? 0.2 : 0.2);
       var detail = s.detail
         ? '<p class="pitch-detail pitch-anim" style="--d:' + after.toFixed(2) + 's">' + esc(s.detail) + '</p>' : '';
       var cta = s.type === 'close' && data.cta_url
         ? '<p class="pitch-cta pitch-anim" style="--d:' + (after + 0.7).toFixed(2) + 's"><a class="btn btn--light" href="' + esc(data.cta_url) + '">' + esc(data.cta_label || 'Are we a match?') + '</a></p>' : '';
-      return '<div class="pitch-scene pitch-scene--' + esc(s.type || 'statement') + (fig ? ' pitch-fig--' + fig : '') + '" data-items="' + items.length +
+      return '<div class="pitch-scene pitch-scene--' + esc(s.type || 'statement') + (fig ? ' pitch-fig--' + fig : '') + (s.line === 'gap' ? ' pitch-scene--gapped' : '') + '" data-items="' + items.length +
         '" data-fig="' + fig + '" style="--dur:' + seconds + 's;--hit:' + hit.toFixed(2) + 's" aria-hidden="true">' +
         '<p class="pitch-headline">' + headline + '</p>' + mark +
         (items.length ? '<ul class="pitch-items">' + itemsHtml + '</ul>' : '') + detail + cta + '</div>';
@@ -211,7 +256,11 @@
     var stage = root.querySelector('.pitch-stage');
     var sceneEls = root.querySelectorAll('.pitch-scene');
     var stepEls = root.querySelectorAll('.pitch-step');
-    var bgEls = root.querySelectorAll('.pitch-bg');
+    var bgEls = root.querySelectorAll('.pitch-bg');          // every photograph twice: left half first, then right half
+    var worldEl = root.querySelector('.pitch-world');
+    var seamEl = root.querySelector('.pitch-seam');
+    var gateEls = root.querySelectorAll('.pitch-gate');
+    function eachBg(k, fn) { for (var h = 0; h < 2; h++) { var el = bgEls[h * images.length + k]; if (el) fn(el); } }
     var lineEl = root.querySelector('.pitch-line');
     var wipeEl = root.querySelector('.pitch-wipe');
     var toggle = root.querySelector('.pitch-toggle');
@@ -221,6 +270,12 @@
     var shownBg = -1;                 // the photograph on screen
     var shownLine = '';               // the state of the line on screen
     var lastX = null, lastT = 0, tail = 0;   // for the streak behind the dot
+    var shownSplit = null;            // how far the picture has parted on screen
+    var shownGates = [];              // what each post is doing on screen
+
+    worldEl.addEventListener('animationend', function () { stage.classList.remove('is-cracking'); });
+    seamEl.addEventListener('animationend', function () { stage.classList.remove('is-sealed'); });
+    function pulse(name) { stage.classList.remove(name); void stage.offsetWidth; stage.classList.add(name); }
 
     wipeEl.addEventListener('animationend', function () { stage.classList.remove('is-wiping'); });
     // A long pause between frames (a sleeping tab) must not skip the film ahead; a recording keeps real time.
@@ -232,15 +287,25 @@
       if (!gap || !w) return;
       gapFrom = gap.offsetLeft / w;
       gapTo = (gap.offsetLeft + gap.offsetWidth) / w;
+      // where the picture parts: straight above the gap in the line
+      var left = lineEl.offsetLeft + gap.offsetLeft;
+      var wide = gap.offsetWidth;
+      stage.style.setProperty('--gapl', left + 'px');
+      stage.style.setProperty('--gapw', wide + 'px');
+      stage.style.setProperty('--cut', (left + wide / 2) + 'px');
+      stage.style.setProperty('--half', (wide / 2) + 'px');
+      stage.style.setProperty('--rail', (stage.offsetHeight - lineEl.offsetTop) + 'px');
+      stage.style.setProperty('--clear', (stage.offsetWidth - left + stage.offsetWidth * 0.035) + 'px');
     }
 
     function loadBg(k) {
-      var el = bgEls[k];
-      if (!el || el.style.backgroundImage) return;
-      el.style.backgroundImage = 'url("' + el.getAttribute('data-src').replace(/["\\\n\r]/g, '') + '")';
+      eachBg(k, function (el) {
+        if (el.style.backgroundImage) return;
+        el.style.backgroundImage = 'url("' + el.getAttribute('data-src').replace(/["\\\n\r]/g, '') + '")';
+      });
     }
     function showBg(k) {
-      bgEls.forEach(function (el, n) { el.classList.toggle('is-on', n === k); });
+      bgEls.forEach(function (el, n) { el.classList.toggle('is-on', n % images.length === k); });
     }
 
     function show(i, restart) {
@@ -305,11 +370,31 @@
       lastX = x;
       lastT = t;
 
+      // the picture parts above the gap, and closes when the gap is bridged
+      var split = splitAt(i, t - starts[i]);
+      if (split !== shownSplit) {
+        stage.style.setProperty('--split', split.toFixed(4));
+        stage.classList.toggle('is-split', split > 0.001);
+        if (shownSplit != null && playing && !calm) {
+          if (shownSplit <= 0.001 && split > 0.001 && scenes[i].line === 'gap') pulse('is-cracking');    // the jolt as it breaks
+          if (shownSplit > 0.001 && split <= 0.001 && scenes[i].line === 'bridge') pulse('is-sealed');   // the light as it closes
+        }
+        shownSplit = split;
+      }
+      for (var g2 = 0; g2 < gateEls.length; g2++) {
+        var gs = gateState(g2, i, t - starts[i]);
+        if (gs === shownGates[g2]) continue;
+        shownGates[g2] = gs;
+        gateEls[g2].classList.toggle('is-on', gs >= 1);
+        gateEls[g2].classList.toggle('is-yes', gs >= 2);
+        gateEls[g2].classList.toggle('is-open', gs >= 3);
+      }
+
       // the camera never stands still on the photograph behind this scene
-      var bg = bgEls[bgOf[i]];
-      if (bg) {
+      if (bgOf[i] >= 0) {
         var p2 = calm ? 0 : clamp01((t - runOf[i][0]) / (runOf[i][1] - runOf[i][0]));
-        bg.style.transform = camera(bgOf[i], 1 - (1 - p2) * (1 - p2));
+        var move = camera(bgOf[i], 1 - (1 - p2) * (1 - p2));
+        eachBg(bgOf[i], function (el) { el.style.transform = move; });
       }
     }
 
@@ -340,13 +425,14 @@
 
     function start(from) {
       measure();
-      for (var k = 0; k < bgEls.length; k++) loadBg(k);
+      for (var k = 0; k < images.length; k++) loadBg(k);
       stage.classList.add('is-started');
-      stage.classList.remove('is-ended');
+      stage.classList.remove('is-ended', 'is-cracking', 'is-sealed');
       t = from;
       current = -1;
       lastX = null;
       tail = 0;
+      shownSplit = null;
       paint();
       setPlaying(true);
     }
@@ -398,7 +484,7 @@
     if (bgEls.length && bgOf[0] >= 0) {
       showBg(bgOf[0]);
       shownBg = bgOf[0];
-      bgEls[bgOf[0]].style.transform = camera(bgOf[0], 0);
+      eachBg(bgOf[0], function (el) { el.style.transform = camera(bgOf[0], 0); });
       if ('IntersectionObserver' in window) {
         var near = new IntersectionObserver(function (entries) {
           if (!entries[0].isIntersecting) return;
