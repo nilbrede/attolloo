@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t d" font-family="Schibsted Grotesk, Segoe UI, Arial, sans-serif">
-  <title id="t">The two steps of the Responsible AI Gate</title>
-  <desc id="d">Step one: red lines, five exclusions checked first. Any hit stops the assessment. Step two, inside the 6Sense Filter: misuse and dual-use risk, seven criteria each scored one to five, where one is high risk and five is low risk.</desc>
-  <text x="16.0" y="24.0" font-size="13" font-weight="600" fill="#4b5d72" text-anchor="start">Every venture, before it is scored</text>
+  <title id="t">The first step of the 6Sense Filter, in two parts</title>
+  <desc id="d">Part one: red lines, five exclusions checked first. Any hit stops the assessment. Part two: misuse and dual-use risk, seven criteria each scored one to five, where one is high risk and five is low risk.</desc>
+  <text x="16.0" y="24.0" font-size="13" font-weight="600" fill="#4b5d72" text-anchor="start">Before the six dimensions are scored</text>
   <line x1="40" y1="32" x2="40" y2="47" stroke="#002448" stroke-width="1.5"/>
   <path d="M35,45 L40,52 L45,45" fill="none" stroke="#002448" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   <rect x="8" y="52" width="262" height="62" rx="6" fill="#ffffff" stroke="#d6dfe8" stroke-width="1.5"/>
@@ -18,7 +18,7 @@
   <path d="M35,135 L40,142 L45,135" fill="none" stroke="#002448" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   <text x="52.0" y="133.0" font-size="11.5" font-weight="600" fill="#4b5d72" text-anchor="start">no hits</text>
   <rect x="8" y="142" width="384" height="150" rx="8" fill="#e6f4ea" stroke="#30b454" stroke-width="1.5"/>
-  <text x="20.0" y="164.0" font-size="12.5" font-weight="700" fill="#1b7a3a" text-anchor="start">Inside the 6Sense Filter</text>
+  <text x="20.0" y="164.0" font-size="12.5" font-weight="700" fill="#1b7a3a" text-anchor="start">Scored with the six dimensions</text>
   <rect x="18" y="174" width="364" height="62" rx="6" fill="#ffffff" stroke="#d6dfe8" stroke-width="1.5"/>
   <circle cx="44" cy="205" r="12" fill="#30b454" stroke="#002448" stroke-width="1.5"/>
   <text x="44.0" y="210.0" font-size="13.5" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
