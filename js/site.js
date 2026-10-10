@@ -21,7 +21,8 @@
     research: '/data/research.json',
     contact: '/data/contact.json',
     privacy: '/data/privacy.json',
-    example: '/data/example.json'
+    example: '/data/example.json',
+    method: '/data/method.json'
   };
 
   function esc(s) {
@@ -166,6 +167,23 @@
         '<div class="prose">' + renderText(s.body || s.text || '') + '</div>' +
         '</div></section>';
     }).join('') + '</div>';
+  }
+
+  // "In short": what a framework is, when it is used and what you get. Three lines between
+  // the hero and the sections, for the pages that have them in their data (in_short).
+  var SHORT = [['what', 'What it is'], ['when', 'When it is used'], ['get', 'What you get']];
+  function summaryHtml(data) {
+    var s = data && data.in_short;
+    if (!s) return '';
+    var items = SHORT.filter(function (k) { return String(s[k[0]] || '').trim(); }).map(function (k) {
+      return '<div class="in-short-item"><dt>' + k[1] + '</dt><dd>' + inlineRest(String(s[k[0]]).trim()) + '</dd></div>';
+    }).join('');
+    return items ? '<aside class="in-short" aria-label="In short"><dl class="in-short-list">' + items + '</dl></aside>' : '';
+  }
+
+  // Everything that goes between the hero and the footer
+  function pageHtml(data) {
+    return summaryHtml(data) + sectionsHtml(sectionsOf(data));
   }
 
   function sectionsOf(data) {
@@ -345,7 +363,7 @@
         var img = heroImage(data);
         if (hero && img) hero.style.setProperty('--hero-img', heroImageCss(img));
 
-        if (container) { container.innerHTML = sectionsHtml(sectionsOf(data)); wireSections(container); }
+        if (container) { container.innerHTML = pageHtml(data); wireSections(container); }
       })
       .catch(function (err) {
         console.error('Could not load ' + url, err);
@@ -363,6 +381,7 @@
     DATA: DATA,
     sectionsHtml: sectionsHtml,
     sectionsOf: sectionsOf,
+    pageHtml: pageHtml,
     heroImage: heroImage,
     heroImageCss: heroImageCss,
     wantsMatchBand: wantsMatchBand,

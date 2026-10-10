@@ -91,6 +91,34 @@ collections:
           - { name: title, label: "Tittel (hero)", widget: "string" }
           - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
           - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: in_short
+            label: "Kort fortalt (tre linjer under hero-bildet)"
+            widget: "object"
+            required: false
+            fields:
+              - { name: what, label: "Hva det er", widget: "text", required: false }
+              - { name: when, label: "Når det brukes", widget: "text", required: false }
+              - { name: get, label: "Hva du får", widget: "text", required: false }
+          - name: sections
+            label: "Seksjoner"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { name: heading, label: "Overskrift", widget: "string" }
+              - { name: body, label: "Tekst", widget: "markdown", hint: "To nivåer: en linje som starter med +++ og en tittel legger teksten under bak den tittelen (leseren klikker for å åpne). En linje med bare +++ avslutter. Ramme: en linje som starter med ::: og en tittel legger teksten under i en ramme. En linje med bare ::: avslutter." }
+              - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
+
+  # Metoden, oversiktssiden (method.json)
+  - label: "Metoden (oversikt)"
+    name: "method"
+    files:
+      - label: "Oversikt over metoden"
+        name: "method"
+        file: "data/method.json"
+        fields:
+          - { name: title, label: "Tittel (hero)", widget: "string" }
+          - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
+          - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
           - name: sections
             label: "Seksjoner"
             widget: "list"
@@ -111,6 +139,14 @@ collections:
           - { name: title, label: "Tittel (hero)", widget: "string" }
           - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
           - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: in_short
+            label: "Kort fortalt (tre linjer under hero-bildet)"
+            widget: "object"
+            required: false
+            fields:
+              - { name: what, label: "Hva det er", widget: "text", required: false }
+              - { name: when, label: "Når det brukes", widget: "text", required: false }
+              - { name: get, label: "Hva du får", widget: "text", required: false }
           - name: sections
             label: "Seksjoner"
             widget: "list"
@@ -131,6 +167,14 @@ collections:
           - { name: title, label: "Tittel (hero)", widget: "string" }
           - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
           - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: in_short
+            label: "Kort fortalt (tre linjer under hero-bildet)"
+            widget: "object"
+            required: false
+            fields:
+              - { name: what, label: "Hva det er", widget: "text", required: false }
+              - { name: when, label: "Når det brukes", widget: "text", required: false }
+              - { name: get, label: "Hva du får", widget: "text", required: false }
           - name: sections
             label: "Seksjoner"
             widget: "list"
@@ -151,6 +195,14 @@ collections:
           - { name: title, label: "Tittel (hero)", widget: "string" }
           - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
           - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: in_short
+            label: "Kort fortalt (tre linjer under hero-bildet)"
+            widget: "object"
+            required: false
+            fields:
+              - { name: what, label: "Hva det er", widget: "text", required: false }
+              - { name: when, label: "Når det brukes", widget: "text", required: false }
+              - { name: get, label: "Hva du får", widget: "text", required: false }
           - name: sections
             label: "Seksjoner"
             widget: "list"
@@ -263,15 +315,23 @@ collections:
               - { name: body, label: "Tekst", widget: "markdown", hint: "Husk å oppdatere datoen nederst når noe endres. Siden skal beskrive det nettstedet faktisk gjør." }
               - { name: image, label: "Bilde", widget: "image", choose_url: true, required: false }
 
-  # Figurene på forsiden (timeline.json og gates.json)
-  - label: "Figurer på forsiden"
+  # Figurene (timeline.json og gates.json)
+  - label: "Figurer"
     name: "figures"
     files:
       - label: "Tidslinje: hva gjelder, og når"
         name: "timeline"
         file: "data/timeline.json"
         fields:
-          - { name: section, label: "Vises i stedet for bildet i seksjon nr.", widget: "number", value_type: "int", min: 1, max: 12, hint: "Seksjonene på forsiden telles ovenfra. 1 er den første." }
+          - name: page
+            label: "Vises på siden"
+            widget: "select"
+            default: "6sense"
+            hint: "Siden må laste /js/figures.js og /css/figures.css. Det gjør forsiden og 6Sense-siden."
+            options:
+              - { label: "6Sense Filter", value: "6sense" }
+              - { label: "Forsiden", value: "home" }
+          - { name: section, label: "Vises i stedet for bildet i seksjon nr.", widget: "number", value_type: "int", min: 1, max: 12, hint: "Seksjonene på siden telles ovenfra. 1 er den første." }
           - { name: title, label: "Overskrift", widget: "string" }
           - { name: today_label, label: "Ordet for «i dag»", widget: "string" }
           - { name: applies_label, label: "Ordet for «gjelder nå»", widget: "string" }
@@ -287,7 +347,7 @@ collections:
               - { name: date, label: "Gjelder fra", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
               - { name: name, label: "Regelverk", widget: "string" }
               - { name: what, label: "Hva som begynner å gjelde", widget: "text", required: false }
-      - label: "Who has to say yes?"
+      - label: "Who has to say yes? (forsiden)"
         name: "gates"
         file: "data/gates.json"
         fields:

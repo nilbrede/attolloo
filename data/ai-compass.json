@@ -2,6 +2,11 @@
   "title": "AI Compass ",
   "subtitle": "A 1-to-5 star diagnostic of AI governance maturity, built around the questions buyers, regulators and investors ask.",
   "hero_image": "/images/uploads/site-hero-twilight-snow.jpg",
+  "in_short": {
+    "what": "A one-to-five-star measure of how well a company governs its AI, built around what buyers, regulators and investors ask.",
+    "when": "As the baseline in a Readiness Assessment, and again at the end of every sprint.",
+    "get": "Where you stand on four dimensions, and what has to be in place to reach the next star."
+  },
   "sections": [
     {
       "heading": "What AI Compass Measures",
@@ -9,7 +14,7 @@
       "image": "/images/uploads/site-plateau-skier.jpg"
     },
     {
-      "heading": "The 5-Tier Maturity Scale",
+      "heading": "The Scale: One to Five Stars",
       "body": "AI Compass benchmarks capabilities on a 1-to-5 star scale. Most early-stage ventures arrive at 1-2 stars. The diagnostic maps the gap and prescribes a sequenced path forward.\n\n+++ What each tier looks like\n\n1 STAR — FRAGMENTED\nNo inventory of the AI systems in use. No named owner. A buyer's security questionnaire cannot be answered without guessing.\n\n2 STARS — STRUCTURED\nThe systems are listed and policies exist on paper. Compliance documentation is not connected to how the product is actually built and run.\n\n3 STARS — INTEGRATED\nEach system is classified under the EU AI Act and has a named owner. Human review is logged. Suppliers and sub-suppliers are mapped. Procurement questions are answered with evidence.\n\n4 STARS — MONITORED\nControls are tested on a schedule. Model changes and incidents are logged and reviewed. Evidence can be produced on request, within days.\n\n5 STARS — ASSURED\nGovernance is verified by an independent party, for example certification against ISO/IEC 42001 and ISO/IEC 27001. Monitoring is continuous, and human oversight is designed into the system.\n",
       "image": "/images/uploads/diagram-ai-compass.svg"
     },
@@ -19,7 +24,7 @@
       "image": ""
     },
     {
-      "heading": "  Data Infrastructure & Automated Compliance",
+      "heading": "The Data Has to Be Ready First",
       "body": "Before deploying AI algorithms, systems must be data-ready. AI Compass audits pipeline architecture and automated governance to ensure models remain performant, auditable, and legally defensible.\n\nIn regulated sectors, this is not optional — it is the difference between a competitive asset and a regulatory liability. The diagnostic output feeds directly into Polaris sprint design and the 6Sense qualification score.\n",
       "image": "/images/uploads/site-slope-sun.jpg"
     },
