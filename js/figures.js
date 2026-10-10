@@ -230,6 +230,13 @@
         choose(path, gate + 1, true);
         var first = panel.querySelector('h3');
         if (first) { first.setAttribute('tabindex', '-1'); first.focus({ preventScroll: true }); }
+        // The button sits under the text. On a phone the next gate would open with its heading
+        // above the screen, so go back up to the line, where the dot moves on and the new gate begins.
+        var track = root.querySelector('.gates-track');
+        var under = parseFloat(window.getComputedStyle(document.documentElement).scrollPaddingTop) || 0;   // the room the menu takes
+        if (track && track.scrollIntoView && track.getBoundingClientRect().top < under) {
+          track.scrollIntoView({ behavior: calm() ? 'auto' : 'smooth', block: 'start' });
+        }
       }
     });
     window.addEventListener('resize', function () { placeDot(false); });
