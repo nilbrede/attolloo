@@ -116,7 +116,7 @@
       "group": "fit",
       "dimension": "Model",
       "question": "Attolloo starts with a Readiness Assessment at a fixed price. Is a paid first step something you are open to?",
-      "help": "The price is quoted before the work starts. Equity only comes up later, and only in an executive partnership.",
+      "help": "The price is quoted before the work starts. Attolloo works for fees agreed in advance, not for equity.",
       "options": [
         {
           "label": "Yes",
