@@ -1,7 +1,9 @@
-// /js/figures.js — the two figures on the home page.
+// /js/figures.js — the two figures.
 //
 // 1. The timeline: which rules apply, and when, with today marked. It takes the place of the
-//    picture in one section. Dates and wording come from /data/timeline.json (editable in the CMS).
+//    picture in one section of one page; which page and section is set in /data/timeline.json,
+//    with the dates and the wording (editable in the CMS).
+//    The page has to load this file and /css/figures.css.
 //    Where "today" sits, and how long is left to the next date, is worked out from the date of the visit.
 // 2. "Who has to say yes?": the visitor picks how the company enters the market and sees the gates
 //    on the way, and what each one asks. The content comes from /data/gates.json (editable in the CMS).
@@ -260,9 +262,9 @@
   }
 
   function start() {
-    if (document.body.dataset.page !== 'home') return;
+    var page = document.body.dataset.page;
     load('/data/timeline.json')
-      .then(function (data) { mountTimeline(data, now()); })
+      .then(function (data) { if ((data.page || 'home') === page) mountTimeline(data, now()); })
       .catch(function (err) { console.error('Could not load the timeline', err); });   // the section keeps its picture
     var gates = document.querySelector('[data-gates]');
     if (gates) {

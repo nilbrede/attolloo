@@ -131,11 +131,13 @@ function preparePage(file) {
     }
 
     let diagrams = 0;
-    let sections = engine.sectionsHtml(engine.sectionsOf(data));
-    // Home: the timeline takes the place of the picture in one section. The browser brings "today" up to date.
-    if (page === 'home' && figures) {
+    let sections = engine.pageHtml ? engine.pageHtml(data) : engine.sectionsHtml(engine.sectionsOf(data));
+    // The timeline takes the place of the picture in one section of one page (set in timeline.json).
+    // The browser brings "today" up to date.
+    if (figures) {
       attempt(file + ' timeline', () => {
         const tl = readJson('data/timeline.json');
+        if ((tl.page || 'home') !== page) return;
         const withIt = figures.withTimeline(sections, tl.section, figures.timelineHtml(tl, new Date()));
         if (withIt !== sections) { sections = withIt; did.push('timeline'); }
       });

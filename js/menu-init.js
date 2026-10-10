@@ -56,33 +56,37 @@
     <nav id="primary-nav" class="nav main-nav" aria-label="Main menu">
       <ul class="nav-root">
 
-        <!-- Method: the four frameworks and the worked example -->
+        <!-- How It Works: what Attolloo offers -->
+        <li><a href="/services.html">How It Works</a></li>
+
+        <!-- Method: how it fits together, the four frameworks and the worked example -->
         <li class="has-mega">
           <button class="nav-parent" aria-expanded="false">Method</button>
           <div class="mega" role="region" aria-label="Method submenu">
             <div class="mega-col">
+              <a href="/method.html">How it fits together</a>
               <h4>The four frameworks</h4>
               <a href="/6sense.html">6Sense Filter</a>
               <a href="/ai-compass.html">AI Compass</a>
               <a href="/polaris.html">Polaris Sprints</a>
               <a href="/kando.html">Kando Framework</a>
-              <h4>Worked Example</h4>
+              <h4>Worked example</h4>
               <a href="/example.html">Method in Practice</a>
             </div>
           </div>
         </li>
 
-        <!-- How It Works: the three ways to work with Attolloo -->
-        <li><a href="/services.html">How It Works</a></li>
-
-        <!-- Responsible AI -->
-        <li><a href="/responsible-ai.html">Responsible AI</a></li>
-
-        <!-- Research -->
-        <li><a href="/research.html">Research</a></li>
-
-        <!-- About -->
-        <li><a href="/about.html">About</a></li>
+        <!-- About: who is behind it, the standard it holds itself to, and the research -->
+        <li class="has-mega">
+          <button class="nav-parent" aria-expanded="false">About</button>
+          <div class="mega" role="region" aria-label="About submenu">
+            <div class="mega-col">
+              <a href="/about.html">Leadership and Background</a>
+              <a href="/responsible-ai.html">Responsible AI</a>
+              <a href="/research.html">Research</a>
+            </div>
+          </div>
+        </li>
 
         <!-- Contact -->
         <li><a href="/contact.html">Contact</a></li>

@@ -1,0 +1,42 @@
+{
+  "title": "The Method",
+  "subtitle": "Four frameworks, used in the same order every time. Each has its own page. This one shows how they fit together.",
+  "hero_image": "/images/uploads/site-hero-frost.jpg",
+  "sections": [
+    {
+      "heading": "Four Frameworks, One Path",
+      "image": "/images/uploads/diagram-frameworks.svg",
+      "body": "Every engagement uses the same four frameworks, in the same order: qualify, diagnose, execute, learn. The first two are the core of a Readiness Assessment. The last two carry the work that follows.\n\nEach framework answers one question. If you only read one page, read the one whose question is yours.\n"
+    },
+    {
+      "heading": "1. Qualify: 6Sense Filter",
+      "image": "",
+      "body": "The question: should we work together at all?\n\nSix-dimensional qualification gate. Screens for genuine market demand, a sustainable business model, operational capability, strategic focus, regulatory risk, and decision-making quality. A longer partnership requires all six.\n\n> The 6Sense Filter opens every engagement, as part of the Readiness Assessment. If your company does not pass all six dimensions, I say so, early and clearly. The filter exists to protect both parties.\n\n[Read about the 6Sense Filter](/6sense.html)\n"
+    },
+    {
+      "heading": "2. Diagnose: AI Compass",
+      "image": "",
+      "body": "The question: where does the company stand today?\n\n1-to-5 star diagnostic of AI governance maturity. Maps where a company actually is, from no inventory of its AI systems and no named owner (1 star) to independently assured governance (5 stars). Prescribes a sequenced path forward.\n\n[Read about AI Compass](/ai-compass.html)\n"
+    },
+    {
+      "heading": "3. Execute: Polaris Sprints",
+      "image": "",
+      "body": "The question: what must be true in 90 days?\n\nExecution architecture and performance governance. Tracks the metrics that drive capital decisions — customer profitability, delivery performance, cash flow efficiency, and operational capacity. Ensures digital product sprints and regulatory compliance milestones move in lockstep.\n\n[Read about Polaris Sprints](/polaris.html)\n"
+    },
+    {
+      "heading": "4. Learn: Kando Framework",
+      "image": "",
+      "body": "The question: what did we learn from what went wrong?\n\nOperational execution and crisis intelligence. Applies Theory of Constraints and Drum-Buffer-Rope logic to executive capacity management. Converts negative events (lost deals, churn, complaints, audit findings) into structured strategic intelligence.\n\n[Read about the Kando Framework](/kando.html)\n"
+    },
+    {
+      "heading": "See It Applied",
+      "image": "",
+      "body": "The clearest way into the method is to watch it used. Method in Practice follows two fictitious companies through the steps, with the numbers: one that sells to the established players, and one that competes with them.\n\n[See the method applied to an example company](/example.html)\n"
+    },
+    {
+      "heading": "What Is Tested and What Is Not",
+      "image": "",
+      "body": "The frameworks were developed in practice and then grounded in established management theory. They have not yet been independently validated; the [Research](/research.html) page sets out what that would take.\n"
+    }
+  ]
+}

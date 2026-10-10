@@ -2,19 +2,24 @@
   "title": "Polaris Sprints",
   "subtitle": "Execution governance and 90-day sprint architecture — answering one question per cycle: what must be true in 90 days to de-risk the next stage, and how do we get there?",
   "hero_image": "/images/uploads/site-hero-cabin-close.jpg",
+  "in_short": {
+    "what": "Work in 90-day sprints. Each one answers a single question: what must be true in 90 days to de-risk the next stage?",
+    "when": "After the assessment, to carry out the plan it produced.",
+    "get": "Evidence at day 90, seven numbers a board can follow, and a decision on what comes next."
+  },
   "sections": [
     {
-      "heading": "Performance Governance That Connects Operations to Capital Decisions",
+      "heading": "What a Sprint Measures",
       "body": "Polaris Sprints translate strategic intent into a measurable, board-level performance dashboard — connecting sales, delivery and governance work directly to capital allocation decisions. Every metric is chosen because it drives a specific governance decision, not because it is easy to collect.\n\n+++ The seven metrics on the dashboard\n\nCUSTOMER PROFITABILITY — Does each customer bring in substantially more over its lifetime than it costs to win? Below the minimum threshold, growth destroys value.\n\nACQUISITION PAYBACK — How long does it take to earn back the cost of winning a customer? With institutional sales cycles of six to eighteen months, this decides how much runway a sale consumes.\n\nGATE PASS RATE — Of the reviews the company has to get through (a buyer's security review, a partner's due diligence, a regulator's questions), how many end in a yes, and where do the others stop?\n\nTIME TO GO-LIVE — How long from signed contract to a customer in production? In regulated markets, a slow or failed onboarding costs trust that is hard to win back.\n\nCASH FLOW SUSTAINABILITY — Is the business generating enough operating cash to sustain itself without constant external capital?\n\nLIQUIDITY AND RUNWAY — Can the business meet its near-term obligations, and for how many months? Below the minimum threshold, this is an immediate 6Sense Risk flag.\n\nGOVERNANCE MATURITY — The AI Compass score, measured again at the end of every sprint.\n",
       "image": "/images/uploads/site-autumn-boardwalk.jpg"
     },
     {
-      "heading": "Hybrid Agile Execution — Not One Size Fits All",
+      "heading": "Product Work and Compliance in Step",
       "body": "Polaris 90-day sprints combine high-velocity Scrum and Kanban cycles for product development with gated milestone patterns for regulatory governance. Teams iterate rapidly while maintaining full auditability — which is non-negotiable in regulated sectors.\n\nEach sprint produces evidence, not features. The output is a validated or falsified hypothesis that changes the capital-commitment decision for the next stage.\n\n> Compliance and product development are synchronised through explicit handover checkpoints — ensuring that regulatory gate-passes and product iterations move together, not in parallel silos that collide at the worst possible moment.\n",
       "image": "/images/uploads/diagram-polaris.svg"
     },
     {
-      "heading": "Capital Velocity and Bottleneck Removal",
+      "heading": "One Bottleneck at a Time",
       "body": "Each 90-day sprint targets the single most limiting constraint in the system — the bottleneck that, if removed, creates the most forward momentum. Lead times shrink. Cash moves faster. The path to market becomes shorter.\n\nSprint design begins with one question: where is the highest-bandwidth feedback environment available to test the critical hypothesis? Validation happens there first — before capital is committed to scale.\n"
     },
     {

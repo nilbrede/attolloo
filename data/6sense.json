@@ -2,9 +2,14 @@
   "title": "6Sense Filter",
   "subtitle": "A six-dimension screening that opens every engagement. It tells a founder where the company stands, and tells both of us whether a longer partnership makes sense.",
   "hero_image": "/images/uploads/site-hero-fell.jpg",
+  "in_short": {
+    "what": "A screening in six dimensions that opens every engagement. It starts with one question about misuse.",
+    "when": "First, as part of the Readiness Assessment, before anything else is agreed.",
+    "get": "For each dimension a pass, a pass on conditions or a no, with the evidence behind it."
+  },
   "sections": [
     {
-      "heading": "The Six-Dimensional Architecture",
+      "heading": "The Six Dimensions",
       "body": "The 6Sense Filter evaluates every venture across six operational dimensions. A company must pass all six — the filter exists to say no early and cheaply, not to manufacture reasons to proceed. Before the six, it asks one question about misuse, described further down.\n\n[See the filter applied to an example company](/example.html)\n\n+++ The six dimensions in detail\n\n① DIRECTION\nIs the problem real, the market sizeable, and the founder thesis credible? Verified by paying customers and signed contracts, not by market-size estimates.\n\n② ENERGY\nDoes the business model generate substantially more value from each customer than it costs to acquire them? Cash flow sustainability and the time it takes to recover acquisition costs are tracked alongside long-term customer value.\n\n③ CAPACITY\nDoes the team have the operational capability to deliver at scale? Dependence on a few key people, how fast customers pay, and what it costs to bring each new customer into production are mapped before growth capital is spent.\n\n④ PRIORITISATION\nIs the roadmap sequenced for capital efficiency, not feature maximalism? Data maturity of at least 2 stars on AI Compass for early-stage ventures, and 3 stars at growth stage. Business model structurally generates the data it needs — designed data gaps are permanent.\n\n⑤ RISK\nDoes the risk model account for regulatory exposure, not just commercial risk? Platform dependency, decision-making blind spots, and worst-case scenarios must all be assessed — not just upside projections.\n\n⑥ DECISION\nDoes the leadership team have the governance capability to make structured decisions under uncertainty? Decision holds absolute veto power. A company that cannot make structured decisions under uncertainty will fail regardless of the other five dimensions.\n",
       "image": "/images/uploads/diagram-6sense.svg"
     },
@@ -13,12 +18,12 @@
       "body": "The 6Sense Filter opens with one question, before any of the six dimensions is scored: what happens if this ends up in the wrong hands?\n\nIt is answered in two parts. First, red lines: mass surveillance, manipulation at scale, weapons-related applications, practices prohibited under the EU AI Act, and owners or funding sources that cannot be identified. Any hit stops the assessment. Then misuse and dual-use risk is scored across seven criteria, and the low scores are carried into the Risk dimension.\n\n[See the red lines and the seven criteria](/responsible-ai.html#the-first-step-of-the-6sense-filter)\n"
     },
     {
-      "heading": "Turning Regulatory Complexity into Competitive Advantage",
+      "heading": "Why Regulation Can Work in Your Favour",
       "body": "Traditional venture qualification frameworks fail in high-barrier industries because they treat compliance as cost. The 6Sense Filter embeds regulatory architecture, cybersecurity posture, and data governance directly into early-stage evaluation — because in regulated markets, these are not overhead. They are the moat.\n\nA company that clears the 6Sense Filter in a regulated domain has already begun building the barriers that keep competitors out. Regulation is not a burden — it is the moat, if you structure for it early.\n\n+++ How adoption realism is built in\n\nThe filter also embeds adoption realism: addressable market claims are discounted by diffusion position. A product that requires late-majority adoption to hit plan fails the Direction dimension regardless of its headline TAM.\n",
       "image": "/images/uploads/site-gorge.jpg"
     },
     {
-      "heading": "Information Asymmetry as the Core Problem",
+      "heading": "Turning Claims Into Evidence",
       "body": "Early-stage markets are lemon markets. Founders make claims; investors cannot easily verify them. The 6Sense process is, economically, an information-asymmetry reduction engine — each dimension converts founder claims into verifiable evidence before either side commits.\n\nThe filter distinguishes between two categories of data: data that the business model structurally generates, and data that improved tooling could collect. Designed data gaps are permanent architectural decisions. They cannot be fixed after the fact. The 6Sense process surfaces this distinction before capital is at risk.\n",
       "image": "/images/uploads/site-sun-over-fog.jpg"
     },
