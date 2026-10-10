@@ -121,7 +121,14 @@ function preparePage(file) {
     const data = readJson(dataUrl.replace(/^\//, ''));
     const esc = engine.esc;
 
-    [html, ok] = swap(html, /(<h1 id="heroTitle">)[\s\S]*?(<\/h1>)/, (m, a, b) => a + esc(String(data.title || '').trim()) + b);
+    [html, ok] = swap(html, /(<h1 id="heroTitle">)[\s\S]*?(<\/h1>)/, (m, a, b) =>
+      a + (page === 'home' && engine.heroTitleHtml ? engine.heroTitleHtml(data.title) : esc(String(data.title || '').trim())) + b);
+    // Home: the drawing of the path from product to market, under the headline
+    if (engine.heroPathHtml) {
+      let drawn;
+      [html, drawn] = swap(html, /(<div class="hero-path-slot" data-hero-path>)(<\/div>)/, (m, a, b) => a + engine.heroPathHtml(data) + b);
+      if (drawn) did.push('hero path');
+    }
     [html] = swap(html, /(<p class="hero-sub" id="heroSubtitle">)[\s\S]*?(<\/p>)/, (m, a, b) => a + esc(String(data.subtitle || '').trim()) + b);
 
     const img = engine.heroImage(data);

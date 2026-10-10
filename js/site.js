@@ -181,9 +181,47 @@
     return items ? '<aside class="in-short" aria-label="In short"><dl class="in-short-list">' + items + '</dl></aside>' : '';
   }
 
+  // The home page: three numbered steps under the hero (data.steps: title and text for each)
+  function stepsHtml(data) {
+    var steps = Array.isArray(data && data.steps) ? data.steps.filter(function (s) { return s && String(s.title || '').trim(); }) : [];
+    if (!steps.length) return '';
+    return '<aside class="steps" aria-label="How it works, in ' + steps.length + ' steps"><ol class="steps-list">' +
+      steps.map(function (s, i) {
+        return '<li><span class="steps-n" aria-hidden="true">' + (i + 1) + '</span>' +
+          '<h2 class="steps-title">' + esc(String(s.title).trim()) + '</h2>' +
+          (s.text ? '<p>' + inlineRest(String(s.text).trim()) + '</p>' : '') + '</li>';
+      }).join('') + '</ol></aside>';
+  }
+
+  // The home page: the headline with each sentence on a line of its own, so they can arrive one at a time
+  function heroTitleHtml(title) {
+    var t = String(title || '').trim();
+    var parts = t.match(/[^.?!]+[.?!]+/g);
+    if (!parts || parts.length < 2 || parts.join('').length !== t.replace(/\s+$/, '').length) return esc(t);
+    return parts.map(function (p) { return '<span class="hero-line">' + esc(p.trim()) + '</span>'; }).join(' ');
+  }
+
+  // The home page: the path from the product to the market, with a post for each one who has to say yes
+  // (data.hero_path: from, to, gates). It is a drawing of the sentence above it.
+  function heroPathHtml(data) {
+    var hp = data && data.hero_path;
+    var gates = hp && Array.isArray(hp.gates) ? hp.gates.map(function (g) { return String(g || '').trim(); }).filter(Boolean).slice(0, 5) : [];
+    if (!hp || !gates.length) return '';
+    var from = String(hp.from || 'Your product').trim();
+    var to = String(hp.to || 'The market').trim();
+    var label = 'From ' + from.toLowerCase() + ' to ' + to.toLowerCase() + '. ' + gates.length + ' have to say yes on the way: ' + gates.join(', ').toLowerCase() + '.';
+    return '<div class="hero-path" role="img" aria-label="' + esc(label) + '" style="--n:' + gates.length + '">' +
+      '<span class="hp-seg hp-seg--from"><i></i><b>' + esc(from) + '</b></span>' +
+      '<span class="hp-gap"><i class="hp-dash"></i>' +
+      gates.map(function (g, k) { return '<span class="hp-post" style="--k:' + k + '"><b>' + esc(g) + '</b><i></i></span>'; }).join('') +
+      '</span>' +
+      '<span class="hp-seg hp-seg--to"><i></i><b>' + esc(to) + '</b></span>' +
+      '<span class="hp-dot"><b></b></span></div>';
+  }
+
   // Everything that goes between the hero and the footer
   function pageHtml(data) {
-    return summaryHtml(data) + sectionsHtml(sectionsOf(data));
+    return stepsHtml(data) + summaryHtml(data) + sectionsHtml(sectionsOf(data));
   }
 
   function sectionsOf(data) {
@@ -192,7 +230,7 @@
   }
 
   // A full-width band (the pitch film, the gates figure) can ask to sit after section n:
-  // <section data-after-section="3">. With fewer sections it stays where the page has it.
+  // <section data-after-section="3">, or before the first one with 0. With fewer sections it stays where the page has it.
   // Several bands can ask; the sections are regrouped around them in order.
   function placeBands(container) {
     var bands = Array.prototype.slice.call(document.querySelectorAll('[data-after-section]'));
@@ -200,8 +238,8 @@
     var wraps = Array.prototype.slice.call(container.querySelectorAll('.wrap'));
     var rows = [];
     wraps.forEach(function (w) { Array.prototype.push.apply(rows, Array.prototype.slice.call(w.children)); });
-    function at(band) { return parseInt(band.getAttribute('data-after-section'), 10) || 0; }
-    var among = bands.filter(function (b) { return at(b) > 0 && at(b) < rows.length; })
+    function at(band) { var n = parseInt(band.getAttribute('data-after-section'), 10); return isNaN(n) ? -1 : n; }
+    var among = bands.filter(function (b) { return at(b) >= 0 && at(b) < rows.length; })
       .sort(function (a, b) { return at(a) - at(b); });
     if (among.length) {
       var parts = document.createDocumentFragment();
@@ -356,8 +394,13 @@
       .then(function (data) {
         var title = document.getElementById('heroTitle');
         var sub = document.getElementById('heroSubtitle');
-        if (title) title.textContent = String(data.title || '').trim();
+        if (title) {
+          if (page === 'home') title.innerHTML = heroTitleHtml(data.title);
+          else title.textContent = String(data.title || '').trim();
+        }
         if (sub) sub.textContent = String(data.subtitle || '').trim();
+        var path = document.querySelector('[data-hero-path]');
+        if (path) path.innerHTML = heroPathHtml(data);
 
         var hero = document.getElementById('hero');
         var img = heroImage(data);
@@ -382,6 +425,8 @@
     sectionsHtml: sectionsHtml,
     sectionsOf: sectionsOf,
     pageHtml: pageHtml,
+    heroTitleHtml: heroTitleHtml,
+    heroPathHtml: heroPathHtml,
     heroImage: heroImage,
     heroImageCss: heroImageCss,
     wantsMatchBand: wantsMatchBand,

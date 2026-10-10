@@ -31,6 +31,25 @@ collections:
           - { name: title, label: "Tittel (hero)", widget: "string" }
           - { name: subtitle, label: "Ingress (hero)", widget: "markdown", required: false }
           - { name: hero_image, label: "Hero-bilde", widget: "image", choose_url: true, allow_multiple: false, required: false }
+          - name: hero_path
+            label: "Tegningen under overskriften: veien fra produkt til marked"
+            widget: "object"
+            required: false
+            collapsed: true
+            fields:
+              - { name: from, label: "Tekst ved starten av linjen", widget: "string" }
+              - { name: to, label: "Tekst ved enden av linjen", widget: "string" }
+              - { name: gates, label: "De som må si ja (én stolpe hver, høyst fem)", widget: "list", field: { name: gate, label: "Navn", widget: "string" } }
+          - name: steps
+            label: "Tre steg under toppbildet"
+            label_singular: "steg"
+            widget: "list"
+            required: false
+            collapsed: true
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Overskrift", widget: "string" }
+              - { name: text, label: "Tekst", widget: "text", required: false }
           - name: sections
             label: "Forside-seksjoner"
             widget: "list"
