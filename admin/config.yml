@@ -381,7 +381,7 @@ collections:
                 default: ""
                 options:
                   - { label: "Vanlig (tekst og punktliste)", value: "" }
-                  - { label: "Rutenett med streker (2 kolonner)", value: "grid" }
+                  - { label: "Rutenett med streker (2 kolonner). I en scene der gapet vises, reiser det seg én stolpe i gapet for hvert punkt", value: "grid" }
                   - { label: "Kolonner med grønn strek", value: "columns" }
                   - { label: "Merkelapper i ramme", value: "tags" }
                   - { label: "De fire rammeverkene med tegninger", value: "frameworks" }
@@ -391,8 +391,8 @@ collections:
                 widget: "select"
                 options:
                   - { label: "Uten gap-merking", value: "base" }
-                  - { label: "Gapet vises", value: "gap" }
-                  - { label: "Gapet er lukket (Attolloo)", value: "bridge" }
+                  - { label: "Gapet vises (bildet deler seg over gapet)", value: "gap" }
+                  - { label: "Gapet er lukket (stolpene gir etter, og bildet lukker seg)", value: "bridge" }
 
   # Selvtest "Are we a match?" (match.json)
   - label: "Selvtest"
