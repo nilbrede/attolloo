@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About – Attolloo Group</title>
-  <meta name="description" content="Attolloo Group is founded and led by Nils Johan Brede: four decades of leadership and advisory work in technology, security and regulated markets in Norway." />
+  <title>About Nils Johan Brede, Founder – Attolloo Group</title>
+  <meta name="description" content="Nils Johan Brede founded and leads Attolloo Group. Four decades of leadership and advisory work in technology, security and regulated markets in Norway." />
   <link rel="canonical" href="https://attolloogroup.com/about.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Attolloo Group" />
-  <meta property="og:title" content="About – Attolloo Group" />
-  <meta property="og:description" content="Attolloo Group is founded and led by Nils Johan Brede: four decades of leadership and advisory work in technology, security and regulated markets in Norway." />
+  <meta property="og:title" content="About Nils Johan Brede, Founder – Attolloo Group" />
+  <meta property="og:description" content="Nils Johan Brede founded and leads Attolloo Group. Four decades of leadership and advisory work in technology, security and regulated markets in Norway." />
   <meta property="og:url" content="https://attolloogroup.com/about.html" />
   <meta property="og:image" content="https://attolloogroup.com/images/share/share-about.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -25,15 +25,33 @@
         "@type": "AboutPage",
         "@id": "https://attolloogroup.com/about.html#webpage",
         "url": "https://attolloogroup.com/about.html",
-        "name": "About – Attolloo Group",
-        "description": "Attolloo Group is founded and led by Nils Johan Brede: four decades of leadership and advisory work in technology, security and regulated markets in Norway.",
+        "name": "About Nils Johan Brede, Founder – Attolloo Group",
+        "description": "Nils Johan Brede founded and leads Attolloo Group. Four decades of leadership and advisory work in technology, security and regulated markets in Norway.",
         "inLanguage": "en",
         "isPartOf": {
           "@id": "https://attolloogroup.com/#website"
         },
         "about": {
           "@id": "https://attolloogroup.com/#organization"
+        },
+        "mainEntity": {
+          "@id": "https://attolloogroup.com/about.html#founder"
         }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://attolloogroup.com/about.html#founder",
+        "name": "Nils Johan Brede",
+        "jobTitle": "Founder",
+        "url": "https://attolloogroup.com/about.html",
+        "sameAs": [
+          "https://www.linkedin.com/in/nilsjohan/"
+        ],
+        "knowsAbout": [
+          "AI governance",
+          "Information security",
+          "Regulated markets"
+        ]
       },
       {
         "@type": "WebSite",
@@ -45,7 +63,10 @@
         "@type": "Organization",
         "@id": "https://attolloogroup.com/#organization",
         "name": "Attolloo Group AS",
-        "url": "https://attolloogroup.com/"
+        "url": "https://attolloogroup.com/",
+        "founder": {
+          "@id": "https://attolloogroup.com/about.html#founder"
+        }
       }
     ]
   }
@@ -73,7 +94,7 @@
 
   <div id="footer"></div>
 
-  <script src="/js/site.js?v=9" defer></script>
+  <script src="/js/site.js?v=10" defer></script>
   <script src="/js/menu-init.js?v=5" defer></script>
   <script src="/js/count.js?v=1" defer></script>
 </body>

@@ -1,9 +1,10 @@
 {
   "name": "attolloo",
   "private": true,
-  "description": "attolloogroup.com. The only dependency is for the visit counter in netlify/functions.",
+  "description": "attolloogroup.com. Two dependencies: one for the visit counter in netlify/functions, and sharp for the lighter pictures made in scripts/prerender.mjs.",
   "type": "module",
   "dependencies": {
-    "@netlify/blobs": "^8.2.0"
+    "@netlify/blobs": "^8.2.0",
+    "sharp": "^0.35.5"
   }
 }
