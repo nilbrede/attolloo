@@ -1,7 +1,9 @@
 {
-  "poster_title": "The Attolloo pitch, in one minute.",
-  "play_label": "Play",
-  "poster_note": "Plays without sound.",
+  "poster_title": "Why AI companies fail in *regulated* markets.",
+  "play_label": "Play the pitch",
+  "poster_note": "One minute. Best with sound on.",
+  "sound": true,
+  "voice_url": "",
   "replay_label": "Play again",
   "transcript_label": "Read the pitch as text",
   "cta_label": "Book a Readiness Assessment",
@@ -16,7 +18,7 @@
     {
       "type": "statement",
       "seconds": 5,
-      "headline": "AI companies in regulated markets do not die from lack of technology.",
+      "headline": "AI companies in regulated markets do not die from lack of *technology.*",
       "items": [],
       "detail": "",
       "image": "/images/uploads/site-plateau-skier.jpg",
@@ -27,7 +29,7 @@
     {
       "type": "statement",
       "seconds": 4,
-      "headline": "They die from lack of governance.",
+      "headline": "They die from lack of *governance.*",
       "items": [],
       "detail": "",
       "image": "/images/uploads/site-plateau-skier.jpg",
@@ -38,7 +40,7 @@
     {
       "type": "list",
       "seconds": 6,
-      "headline": "Someone has to say yes before you can grow.",
+      "headline": "Someone has to say *yes* before you can grow.",
       "items": [
         "Buyers",
         "Regulators",
@@ -54,7 +56,7 @@
     {
       "type": "list",
       "seconds": 6,
-      "headline": "The rules are in force now.",
+      "headline": "The rules are in force *now.*",
       "items": [
         "EU AI Act",
         "DORA",
@@ -69,7 +71,7 @@
     {
       "type": "list",
       "seconds": 7,
-      "headline": "Attolloo gets you ready for that scrutiny.",
+      "headline": "Attolloo gets you *ready* for that scrutiny.",
       "items": [
         "Readiness Assessment",
         "Board, advisory and mentoring",
@@ -84,7 +86,7 @@
     {
       "type": "list",
       "seconds": 8,
-      "headline": "Four frameworks, built from four decades in regulated markets.",
+      "headline": "Four frameworks, built from *four decades* in regulated markets.",
       "items": [
         "6Sense Filter: who qualifies",
         "AI Compass: where you stand",
@@ -100,7 +102,7 @@
     {
       "type": "statement",
       "seconds": 6,
-      "headline": "What happens if this ends up in the wrong hands?",
+      "headline": "What happens if this ends up in the *wrong hands?*",
       "items": [],
       "detail": "Every venture is assessed for misuse. Red lines apply.",
       "image": "/images/uploads/site-lantern-slopes.jpg",
@@ -111,7 +113,7 @@
     {
       "type": "close",
       "seconds": 7,
-      "headline": "Start with a Readiness Assessment.",
+      "headline": "Start with a *Readiness Assessment.*",
       "items": [],
       "detail": "A written report and a 90-day plan. Yours to use either way.",
       "image": "/images/uploads/site-sunset-slope.jpg",

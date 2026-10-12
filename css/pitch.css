@@ -681,3 +681,177 @@ body[data-page="pitch"] .pitch-band-inner { max-width: 1240px; }
 .pitch-static h2 { font-family: var(--sans); font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.2; color: var(--ink); margin: 0 0 0.6em; }
 .pitch-static ol { margin: 0 0 1.4em; padding-left: 1.4em; color: var(--text); }
 .pitch-static li { margin-bottom: 0.5em; }
+
+/* ---------- Light, beat and the cold open (added with the soundtrack) ---------- */
+
+/* the canvas where light drifts through the frame and sparks fly (/js/pitch.js, Fx) */
+.pitch-fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen; }
+
+/* the beat: a breath of light over the whole frame, and the line glows with it */
+.pitch-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(90% 70% at 50% 100%, rgba(255, 236, 200, 0.5), rgba(255, 236, 200, 0) 70%);
+  mix-blend-mode: soft-light;
+  opacity: calc(var(--pulse, 0) * 0.55);
+}
+.pitch-line { filter: drop-shadow(0 0 calc(var(--pulse, 0) * 1.4cqw) rgba(255, 255, 255, 0.65)); }
+
+/* the cold open: the frame comes up out of the dark, from close to far, behind a flare */
+@keyframes pitch-reveal {
+  0% { filter: brightness(0) blur(1.6cqw); transform: scale(1.38); }
+  22% { filter: brightness(0.35) blur(1.1cqw); }
+  100% { filter: none; transform: none; }
+}
+.pitch-stage.is-intro .pitch-world { animation: pitch-reveal 1.7s cubic-bezier(0.2, 0.75, 0.1, 1) both; }
+@keyframes pitch-intro-shade { from { opacity: 1; } to { opacity: 0; } }
+.pitch-stage.is-intro .pitch-shade::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000a16;
+  animation: pitch-intro-shade 1.2s ease-out 0.15s both;
+}
+
+/* a cut to a new scene nudges the camera forward */
+@keyframes pitch-kick { from { transform: scale(1.045); } to { transform: none; } }
+.pitch-stage.is-kick .pitch-bgs { animation: pitch-kick 0.9s cubic-bezier(0.15, 0.7, 0.2, 1) both; }
+
+/* lit words: they rise like the others, then flare once, in the colour of the moment */
+.pitch-w--key > .pitch-anim { position: relative; color: #ffd58a; text-shadow: 0 0 0.5em rgba(255, 196, 92, 0.55), 0 0.04em 0.9em rgba(0, 18, 40, 0.55); }
+.pitch-stage[data-line="bridge"] .pitch-w--key > .pitch-anim { color: #9af2bb; text-shadow: 0 0 0.5em rgba(80, 220, 130, 0.55), 0 0.04em 0.9em rgba(0, 18, 40, 0.55); }
+.pitch-stage[data-fig="redline"] .pitch-w--key > .pitch-anim { color: #ff9a9d; text-shadow: 0 0 0.5em rgba(229, 72, 77, 0.6), 0 0.04em 0.9em rgba(0, 18, 40, 0.55); }
+@keyframes pitch-pop {              /* uses scale, not transform, so it does not undo the rise */
+  0% { scale: 1; filter: none; }
+  35% { scale: 1.14; filter: brightness(1.6); }
+  100% { scale: 1; filter: none; }
+}
+.pitch-stage.is-started .pitch-scene.is-active .pitch-w--key > .pitch-anim {
+  animation: pitch-word 0.7s cubic-bezier(0.16, 0.8, 0.2, 1) both, pitch-pop 0.6s ease-out both;
+  animation-delay: var(--d, 0s), calc(var(--d, 0s) + 0.55s);
+  animation-fill-mode: both, none;
+  transform-origin: 50% 70%;
+}
+.pitch-w--key { padding-left: 0.3em; padding-right: 0.3em; margin-left: -0.3em; margin-right: -0.3em; }   /* room for the glow */
+
+/* ---------- The poster: alive before anyone presses play ---------- */
+
+@keyframes pitch-breathe { from { transform: scale(1); } to { transform: scale(1.09) translate3d(-1.4%, 0.6%, 0); } }
+.pitch-stage:not(.is-started) .pitch-bgs { animation: pitch-breathe 15s ease-in-out infinite alternate; }
+
+/* slow rays of light from the upper right */
+@keyframes pitch-rays { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
+.pitch-poster::before {
+  content: "";
+  position: absolute;
+  top: -60%;
+  right: -30%;
+  width: 120%;
+  height: 180%;
+  pointer-events: none;
+  background: repeating-conic-gradient(from 200deg at 80% 30%, rgba(255, 232, 190, 0.13) 0deg 4deg, rgba(255, 232, 190, 0) 4deg 13deg);
+  -webkit-mask-image: radial-gradient(60% 55% at 78% 32%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(60% 55% at 78% 32%, #000 0%, transparent 72%);
+  mix-blend-mode: screen;
+  transform-origin: 80% 30%;
+  animation: pitch-rays 18s ease-in-out infinite alternate;
+}
+.pitch-poster > * { position: relative; }
+
+.pitch-poster-title { font-size: 6.4cqw; max-width: 13em; }
+.pitch-poster-title .pitch-anim { transform: translateY(112%); }
+.pitch-stage.is-ready:not(.is-started) .pitch-poster-title .pitch-anim {
+  animation: pitch-word 0.95s cubic-bezier(0.16, 0.8, 0.2, 1) both;
+  animation-delay: var(--d, 0s);
+}
+.pitch-stage.is-ready:not(.is-started) .pitch-poster-title .pitch-w--key > .pitch-anim {
+  animation: pitch-word 0.95s cubic-bezier(0.16, 0.8, 0.2, 1) both, pitch-pop 0.7s ease-out both;
+  animation-delay: var(--d, 0s), calc(var(--d, 0s) + 0.8s);
+  animation-fill-mode: both, none;
+}
+@keyframes pitch-rise-in { from { opacity: 0; transform: translateY(1.2em); } to { opacity: 1; transform: none; } }
+.pitch-stage.is-ready:not(.is-started) .pitch-poster-row { animation: pitch-rise-in 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.9s both; }
+
+/* the play button: a bright disc that breathes, with rings going out from it */
+.pitch-start {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.1em;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  font: 700 max(2.2cqw, 1rem) / 1 var(--sans);
+  cursor: pointer;
+}
+.pitch-start-disc {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max(8.4cqw, 3.4rem);
+  height: max(8.4cqw, 3.4rem);
+  border-radius: 50%;
+  background: #fff;
+  color: #001b38;
+  font-size: max(2.6cqw, 1.15rem);
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5), 0 0.8cqw 3cqw rgba(0, 10, 30, 0.45);
+  transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.3), background-color 0.2s ease;
+}
+.pitch-start-disc .pitch-icon { margin-left: 0.18em; }
+@keyframes pitch-ripple { from { opacity: 0.7; transform: scale(1); } to { opacity: 0; transform: scale(1.9); } }
+.pitch-start-disc::before,
+.pitch-start-disc::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: pitch-ripple 2.4s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+.pitch-start-disc::after { animation-delay: 1.2s; }
+.pitch-start:hover .pitch-start-disc,
+.pitch-start:focus-visible .pitch-start-disc { transform: scale(1.08); background: #e9fff1; }
+.pitch-start:focus-visible { outline: none; }
+.pitch-start:focus-visible .pitch-start-disc { outline: 3px solid #fff; outline-offset: 4px; }
+.pitch-start-label { text-shadow: 0 0.04em 0.8em rgba(0, 18, 40, 0.6); }
+
+/* the sound switch beside the time */
+.pitch-sound {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+}
+.pitch-sound:hover { border-color: var(--ink); }
+.pitch-sound svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.pitch-sound-body { fill: currentColor; }
+.pitch-sound-off { display: none; }
+.pitch-sound.is-off .pitch-sound-on { display: none; }
+.pitch-sound.is-off .pitch-sound-off { display: inline; }
+
+@container (max-width: 560px) {
+  .pitch-poster-title { font-size: 9.4cqw; }
+  .pitch-start-disc { width: 15cqw; height: 15cqw; font-size: 4.6cqw; }
+  .pitch-start { font-size: 4.6cqw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pitch-fx, .pitch-stage::after, .pitch-poster::before { display: none; }
+  .pitch-stage .pitch-bgs, .pitch-stage .pitch-start-disc::before, .pitch-stage .pitch-start-disc::after,
+  .pitch-stage .pitch-poster-row, .pitch-stage .pitch-poster-title .pitch-anim { animation: none !important; transform: none; }
+  .pitch-stage.is-intro .pitch-world, .pitch-stage.is-intro .pitch-shade::before { animation: none !important; }
+}
+.pitch-stage.is-paused .pitch-fx { opacity: 0.85; }
+.pitch-record .pitch-sound { display: none; }

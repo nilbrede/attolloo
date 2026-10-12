@@ -187,11 +187,11 @@ function preparePage(file) {
     if (esc && Array.isArray(data.scenes)) {
       const lines = data.scenes.map((s) => {
         const items = (s.items || []).length ? ' ' + s.items.map(esc).join('. ') + '.' : '';
-        return '<li>' + esc(s.headline) + items + (s.detail ? ' ' + esc(s.detail) : '') + '</li>';
+        return '<li>' + esc(String(s.headline || '').replace(/\*/g, '')) + items + (s.detail ? ' ' + esc(s.detail) : '') + '</li>';
       }).join('');
       const cta = data.cta_url ? '<p><a class="btn btn--primary" href="' + esc(data.cta_url) + '">' + esc(data.cta_label || 'Are we a match?') + '</a></p>' : '';
       [html, ok] = swap(html, /(<div class="pitch-band-inner" data-pitch>)(<\/div>)/, (m, a, b) =>
-        a + '<noscript><div class="pitch-static"><h2>' + esc(data.poster_title || 'The pitch in one minute') + '</h2><ol>' + lines + '</ol>' + cta + '</div></noscript>' + b);
+        a + '<noscript><div class="pitch-static"><h2>' + esc(String(data.poster_title || 'The pitch in one minute').replace(/\*/g, '')) + '</h2><ol>' + lines + '</ol>' + cta + '</div></noscript>' + b);
       if (ok) did.push('pitch text');
     }
   }
