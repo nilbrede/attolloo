@@ -70,14 +70,14 @@ The film on the home page and on `/pitch.html` is built in the browser by `js/pi
 
   | Scene | Seconds | Voice |
   | --- | --- | --- |
-  | 1 | 0–5 | AI companies in regulated markets don't die from lack of technology. |
+  | 1 | 1–5 | AI companies in regulated markets don't die from lack of technology. |
   | 2 | 5–9 | They die from lack of governance. |
-  | 3 | 9–15 | Before you can grow, someone has to say yes. Buyers, regulators, partners, investors. |
-  | 4 | 15–21 | The EU AI Act, DORA and GDPR are in force now. A lawyer and a CTO can't solve this alone. |
-  | 5 | 21–28 | Attolloo gets you ready for that scrutiny, starting with a fixed-price assessment. |
+  | 3 | 9–15 | Before you can grow, someone has to say yes. Buyers. Regulators. Partners. Investors. |
+  | 4 | 15–21 | The rules are in force now. A lawyer and a CTO can't solve this alone. |
+  | 5 | 21–28 | Attolloo gets you ready for that scrutiny. It starts with a fixed-price assessment. |
   | 6 | 28–36 | Four frameworks, built from four decades in regulated markets. |
   | 7 | 36–42 | And one question comes first: what happens if this ends up in the wrong hands? |
-  | 8 | 42–49 | Start with a Readiness Assessment. A written report and a ninety-day plan, yours to use either way. |
+  | 8 | 42–49 | Start with a Readiness Assessment. A written report and a ninety-day plan. Yours to use either way. |
 
 - **A video file** of the film, with its sound, for LinkedIn and presentations: `scripts/record-pitch.mjs`
   (instructions at the top of the file). It is not part of publishing.
