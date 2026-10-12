@@ -409,9 +409,11 @@ collections:
         name: "pitch"
         file: "data/pitch.json"
         fields:
-          - { name: poster_title, label: "Tittel før avspilling", widget: "string" }
+          - { name: poster_title, label: "Tittel før avspilling", widget: "string", hint: "*Stjerner* rundt et ord lyser det opp." }
           - { name: play_label, label: "Tekst på startknappen", widget: "string" }
           - { name: poster_note, label: "Liten tekst ved startknappen", widget: "string", required: false }
+          - { name: sound, label: "Lyd (musikk og lydeffekter laget i nettleseren)", widget: "boolean", default: true, required: false, hint: "Seeren kan alltid skru lyden av og på i filmen." }
+          - { name: voice_url, label: "Fortellerstemme (lydfil, valgfri)", widget: "file", required: false, hint: "MP3 eller M4A som starter i det filmen starter. Musikken legges lavere under stemmen. Manuset står i README." }
           - { name: replay_label, label: "Tekst for å spille på nytt", widget: "string" }
           - { name: transcript_label, label: "Tekst for «les som tekst»", widget: "string" }
           - { name: cta_label, label: "Knapp i siste scene", widget: "string" }
@@ -440,7 +442,7 @@ collections:
                   - { label: "Liste (overskrift + punkter)", value: "list" }
                   - { label: "Avslutning (med knapp)", value: "close" }
               - { name: seconds, label: "Varighet i sekunder", widget: "number", value_type: "int", min: 3, max: 20 }
-              - { name: headline, label: "Overskrift", widget: "text" }
+              - { name: headline, label: "Overskrift", widget: "text", hint: "Sett *stjerner* rundt ett eller to ord for å lyse dem opp, for eksempel: They die from lack of *governance*." }
               - { name: items, label: "Punkter («Navn: forklaring» gir navnet i fet skrift)", widget: "list", field: { name: item, label: "Punkt", widget: "string" }, required: false }
               - { name: detail, label: "Tilleggslinje", widget: "text", required: false }
               - { name: image, label: "Bakgrunnsbilde", widget: "image", choose_url: true, required: false, hint: "Bildet tones ned bak teksten. Scener etter hverandre med samme bilde får én sammenhengende, langsom zoom." }

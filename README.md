@@ -51,3 +51,34 @@ one visitor from another.
 
 `package.json` exists only for this: the function needs `@netlify/blobs`. The pages themselves
 need nothing installed.
+
+## The one-minute pitch
+
+The film on the home page and on `/pitch.html` is built in the browser by `js/pitch.js` from
+`data/pitch.json` (edited in the CMS under "Pitch-animasjon").
+
+- **Sound.** `js/pitch-sound.js` makes the music and the sound effects in the browser with the Web Audio API.
+  There are no music files and no licences. The score follows the story: a low pulse while the company
+  runs at the gap, a hit when the picture breaks, a stamp for each rule, a rising sweep and a bright chord
+  when the gap is bridged, a dark drop at the red line, and a full chord at the end. Sound starts when the
+  visitor presses play, never before. The switch beside the time turns it off, and the browser remembers
+  the choice. `"sound": false` in `pitch.json` turns it off for everyone.
+- **Lit words.** A word in a headline written `*like this*` is lit in the colour of the moment. The stars are
+  never shown, also not in the text version.
+- **A voice-over** can be added as an audio file in the CMS (`voice_url`). It starts with the film, and the
+  music is turned down under it. A script that fits the timing of the scenes:
+
+  | Scene | Seconds | Voice |
+  | --- | --- | --- |
+  | 1 | 1–5 | AI companies in regulated markets don't die from lack of technology. |
+  | 2 | 5–9 | They die from lack of governance. |
+  | 3 | 9–15 | Before you can grow, someone has to say yes. Buyers. Regulators. Partners. Investors. |
+  | 4 | 15–21 | The rules are in force now. A lawyer and a CTO can't solve this alone. |
+  | 5 | 21–28 | Attolloo gets you ready for that scrutiny. It starts with a fixed-price assessment. |
+  | 6 | 28–36 | Four frameworks, built from four decades in regulated markets. |
+  | 7 | 36–42 | And one question comes first: what happens if this ends up in the wrong hands? |
+  | 8 | 42–49 | Start with a Readiness Assessment. A written report and a ninety-day plan. Yours to use either way. |
+
+- **A video file** of the film, with its sound, for LinkedIn and presentations: `scripts/record-pitch.mjs`
+  (instructions at the top of the file). It is not part of publishing.
+
