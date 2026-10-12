@@ -3,7 +3,7 @@
   "play_label": "Play the pitch",
   "poster_note": "One minute. Best with sound on.",
   "sound": true,
-  "voice_url": "",
+  "voice_url": "/images/uploads/pitch-voice-en.mp3",
   "replay_label": "Play again",
   "transcript_label": "Read the pitch as text",
   "cta_label": "Book a Readiness Assessment",
