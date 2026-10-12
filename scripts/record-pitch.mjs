@@ -22,7 +22,9 @@ const TAIL = 2500;                       // the last scene is held a little afte
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'pitch-'));
 
 const browser = await chromium.launch();
-const page = await browser.newPage({ viewport: { width: W, height: H } });
+// A tall frame is drawn at half size and twice the pixel density, so it gets the phone layout with larger text.
+const tall = H > W;
+const page = await browser.newPage({ viewport: { width: tall ? W / 2 : W, height: tall ? H / 2 : H }, deviceScaleFactor: tall ? 2 : 1 });
 await page.goto(URL, { waitUntil: 'networkidle' });
 await page.waitForTimeout(2500);         // the photographs
 const wav = await page.evaluate(() => window.pitchRenderAudio());
@@ -39,7 +41,7 @@ await browser.close();
 const secs = frames / FPS;
 const out = `pitch-${W}x${H}.mp4`;
 execFileSync('ffmpeg', ['-y', '-v', 'error', '-framerate', String(FPS), '-i', path.join(dir, 'f%05d.jpg'), '-i', path.join(dir, 'sound.wav'),
-  '-filter_complex', `[0:v]fade=t=out:st=${(secs - 0.5).toFixed(2)}:d=0.5,format=yuv420p[v];[1:a]atrim=0:${secs.toFixed(2)},loudnorm=I=-14:TP=-1.5:LRA=11,afade=t=out:st=${(secs - 1.5).toFixed(2)}:d=1.5[a]`,
+  '-filter_complex', `[0:v]scale=${W}:${H},fade=t=out:st=${(secs - 0.5).toFixed(2)}:d=0.5,format=yuv420p[v];[1:a]atrim=0:${secs.toFixed(2)},loudnorm=I=-14:TP=-1.5:LRA=11,afade=t=out:st=${(secs - 1.5).toFixed(2)}:d=1.5[a]`,
   '-map', '[v]', '-map', '[a]', '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart', '-shortest', out], { stdio: 'inherit' });
 fs.rmSync(dir, { recursive: true, force: true });
 console.log('Wrote', out);
